@@ -33,27 +33,47 @@ export default async function LevelPage({ params }: LevelPageProps) {
       <section>
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Fase 1</p>
+            <p className="eyebrow">Fase 2</p>
             <h2>4 módulos de prueba</h2>
           </div>
-          <p>El Módulo 1 será el punto de entrada a la isla experimental en la Fase 2.</p>
+          <p>Solo el Módulo 1 está abierto. Los otros tres permanecen reservados para fases posteriores.</p>
         </div>
 
         <div className="module-grid">
-          {level.modules.map((module) => (
-            <article className="card module-card" key={module.id}>
-              <div className="module-number">{module.id}</div>
-              <div>
-                <div className="module-title-row">
-                  <h3>{module.title}</h3>
-                  <span className={`status ${module.status}`}>
-                    {module.status === "experimental" ? "Siguiente fase" : "Planificado"}
-                  </span>
+          {level.modules.map((module) => {
+            const content = (
+              <>
+                <div className="module-number">{module.id}</div>
+                <div>
+                  <div className="module-title-row">
+                    <h3>{module.title}</h3>
+                    <span className={`status ${module.status}`}>
+                      {module.status === "experimental" ? "Abrir módulo" : "Planificado"}
+                    </span>
+                  </div>
+                  <p>{module.description}</p>
                 </div>
-                <p>{module.description}</p>
-              </div>
-            </article>
-          ))}
+              </>
+            );
+
+            if (module.status === "experimental") {
+              return (
+                <Link
+                  className="card module-card module-card-link"
+                  href={`/niveles/${level.slug}/modulos/${module.id}`}
+                  key={module.id}
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <article className="card module-card module-card-planned" key={module.id}>
+                {content}
+              </article>
+            );
+          })}
         </div>
       </section>
     </main>
