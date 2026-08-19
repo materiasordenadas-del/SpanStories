@@ -1,3 +1,29 @@
+.progress {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.progress div {
+  display: grid;
+  gap: 3px;
+  border: 1px solid #e1e7f0;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 14px 16px;
+}
+
+.progress strong {
+  font-size: 1.15rem;
+}
+
+.progress span {
+  color: #667085;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .storyReader {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 330px);
@@ -113,6 +139,7 @@
 .definition,
 .stateBlock,
 .contextBlock,
+.historyBlock,
 .parts {
   margin-top: 18px;
   border-top: 1px solid #e4e9f2;
@@ -192,6 +219,16 @@
   line-height: 1.45;
 }
 
+.storageError {
+  margin: 10px 0 0;
+  border-radius: 8px;
+  background: #fff1f3;
+  padding: 9px 10px;
+  color: #c01048;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .contextList {
   display: grid;
   gap: 7px;
@@ -219,6 +256,38 @@
   background: #eef2ff;
   outline: 2px solid #c7d2fe;
   outline-offset: 1px;
+}
+
+.historyList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.historyList li {
+  display: grid;
+  gap: 2px;
+  border-left: 3px solid #dfe5ef;
+  padding-left: 10px;
+}
+
+.historyList span {
+  color: #344054;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.historyList time {
+  color: #667085;
+  font-size: 0.72rem;
+}
+
+.historyEmpty {
+  margin: 0;
+  color: #667085;
+  font-size: 0.8rem;
 }
 
 .partList {
@@ -254,7 +323,17 @@
   }
 }
 
+@media (max-width: 720px) {
+  .progress {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 520px) {
+  .progress {
+    grid-template-columns: 1fr;
+  }
+
   .storyText {
     padding: 16px;
     font-size: 1rem;
