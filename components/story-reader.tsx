@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { A1_STORY_1 } from "@/content/a1/module-1/island-1/story-1";
 import {
   createStateDeclaredEvent,
   createWordOpenedEvent,
   getEventsForLexeme,
+  LEARNER_EVENT_STORAGE_KEY,
   loadLearnerEvents,
   projectLearnerLexemeStates,
   projectStoryProgress,
@@ -25,6 +26,58 @@ const senseById = new Map(story.senses.map((sense) => [sense.id, sense]));
 const sentenceById = new Map(
   story.sentences.map((sentence) => [sentence.id, sentence]),
 );
+
+const EMPTY_EVENTS: readonly LearnerEvent[] = [];
+const learnerEventListeners = new Set<() => void>();
+let cachedStorageValue: string | null | undefined;
+let cachedEvents: readonly LearnerEvent[] = EMPTY_EVENTS;
+
+function getLearnerEventSnapshot(): readonly LearnerEvent[] {
+  if (typeof window === "undefined") {
+    return EMPTY_EVENTS;
+  }
+
+  const storageValue = window.localStorage.getItem(LEARNER_EVENT_STORAGE_KEY);
+
+  if (storageValue === cachedStorageValue) {
+    return cachedEvents;
+  }
+
+  cachedStorageValue = storageValue;
+  cachedEvents = loadLearnerEvents(window.localStorage);
+  return cachedEvents;
+}
+
+function subscribeToLearnerEvents(listener: () => void): () => void {
+  if (typeof window === "undefined") {
+    return () => undefined;
+  }
+
+  const handleStorageChange = (storageEvent: StorageEvent) => {
+    if (storageEvent.storageArea !== window.localStorage) {
+      return;
+    }
+
+    cachedStorageValue = undefined;
+    listener();
+  };
+
+  learnerEventListeners.add(listener);
+  window.addEventListener("storage", handleStorageChange);
+
+  return () => {
+    learnerEventListeners.delete(listener);
+    window.removeEventListener("storage", handleStorageChange);
+  };
+}
+
+function notifyLearnerEventListeners(): void {
+  cachedStorageValue = undefined;
+
+  for (const listener of learnerEventListeners) {
+    listener();
+  }
+}
 
 const STATE_OPTIONS: readonly {
   value: LearnerDeclaredState;
@@ -65,40 +118,12 @@ export function StoryReader() {
   const [selectedOccurrenceId, setSelectedOccurrenceId] = useState<string | null>(
     null,
   );
-  const [events, setEvents] = useState<LearnerEvent[]>([]);
-  const [storageReady, setStorageReady] = useState(false);
   const [storageError, setStorageError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setEvents(loadLearnerEvents(window.localStorage));
-    setStorageReady(true);
-
-    function handleStorageChange(storageEvent: StorageEvent) {
-      if (storageEvent.storageArea !== window.localStorage) {
-        return;
-      }
-
-      setEvents(loadLearnerEvents(window.localStorage));
-    }
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
-  useEffect(() => {
-    if (!storageReady) {
-      return;
-    }
-
-    try {
-      saveLearnerEvents(window.localStorage, events);
-      setStorageError(null);
-    } catch {
-      setStorageError(
-        "No se pudo guardar el historial en este navegador. Los cambios siguen activos durante esta sesión.",
-      );
-    }
-  }, [events, storageReady]);
+  const events = useSyncExternalStore(
+    subscribeToLearnerEvents,
+    getLearnerEventSnapshot,
+    () => EMPTY_EVENTS,
+  );
 
   const learnerProjection = useMemo(
     () => projectLearnerLexemeStates(events),
@@ -112,8 +137,9 @@ export function StoryReader() {
   const selectedOccurrence = selectedOccurrenceId
     ? occurrenceById.get(selectedOccurrenceId)
     : undefined;
-  const selectedLexeme = selectedOccurrence
-    ? lexemeById.get(selectedOccurrence.lexemeId)
+  const selectedLexemeId = selectedOccurrence?.lexemeId;
+  const selectedLexeme = selectedLexemeId
+    ? lexemeById.get(selectedLexemeId)
     : undefined;
   const selectedSense = selectedOccurrence
     ? senseById.get(selectedOccurrence.senseId)
@@ -125,21 +151,28 @@ export function StoryReader() {
       )
     : [];
 
-  const selectedLexemeEvents = useMemo(
-    () =>
-      selectedLexeme
-        ? getEventsForLexeme(events, selectedLexeme.id)
-        : ([] as LearnerEvent[]),
-    [events, selectedLexeme],
-  );
-  const recentSelectedLexemeEvents = useMemo(
-    () => [...selectedLexemeEvents].reverse().slice(0, 5),
-    [selectedLexemeEvents],
-  );
+  const selectedLexemeEvents = selectedLexemeId
+    ? getEventsForLexeme(events, selectedLexemeId)
+    : [];
+  const recentSelectedLexemeEvents = [...selectedLexemeEvents]
+    .reverse()
+    .slice(0, 5);
 
   const currentLearnerState = selectedLexeme
     ? learnerProjection.states[selectedLexeme.id]
     : undefined;
+
+  function appendLearnerEvent(event: LearnerEvent) {
+    try {
+      saveLearnerEvents(window.localStorage, [...events, event]);
+      notifyLearnerEventListeners();
+      setStorageError(null);
+    } catch {
+      setStorageError(
+        "No se pudo guardar el historial en este navegador. Los cambios siguen activos durante esta sesión.",
+      );
+    }
+  }
 
   function selectOccurrence(occurrenceId: string) {
     const occurrence = occurrenceById.get(occurrenceId);
@@ -149,15 +182,14 @@ export function StoryReader() {
     }
 
     if (selectedOccurrenceId !== occurrenceId) {
-      setEvents((current) => [
-        ...current,
+      appendLearnerEvent(
         createWordOpenedEvent({
           storyId: occurrence.storyId,
           occurrenceId: occurrence.id,
           recordedLexemeId: occurrence.lexemeId,
           recordedSenseId: occurrence.senseId,
         }),
-      ]);
+      );
     }
 
     setSelectedOccurrenceId(occurrenceId);
@@ -172,8 +204,7 @@ export function StoryReader() {
       return;
     }
 
-    setEvents((current) => [
-      ...current,
+    appendLearnerEvent(
       createStateDeclaredEvent(
         {
           storyId: selectedOccurrence.storyId,
@@ -183,7 +214,7 @@ export function StoryReader() {
         },
         state,
       ),
-    ]);
+    );
   }
 
   return (
@@ -294,9 +325,7 @@ export function StoryReader() {
                 </div>
                 <p className={styles.stateCaption}>
                   Estado actual: {currentLearnerState ?? "Sin declarar"}. {" "}
-                  {storageReady
-                    ? "El historial se conserva localmente en este navegador."
-                    : "Cargando historial local…"}
+                  El historial se conserva localmente en este navegador.
                 </p>
                 {storageError ? (
                   <p className={styles.storageError} role="status">
