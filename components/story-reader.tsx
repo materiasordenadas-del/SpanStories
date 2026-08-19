@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { A1_STORY_1 } from "@/content/a1/module-1/island-1/story-1";
 import type { LearnerDeclaredState } from "@/lib/lexical-prototype";
+import styles from "./story-reader.module.css";
 
 const story = A1_STORY_1;
 
@@ -69,18 +70,18 @@ export function StoryReader() {
   }
 
   return (
-    <div className="story-reader">
-      <section className="story-reading-column" aria-labelledby="story-title">
-        <div className="story-reader-heading">
+    <div className={styles.storyReader}>
+      <section className={styles.readingColumn} aria-labelledby="story-title">
+        <div className={styles.heading}>
           <p className="eyebrow">Story 1 · A1</p>
           <h3 id="story-title">{story.title}</h3>
           <p>{story.summary}</p>
-          <p className="story-instruction">
+          <p className={styles.instruction}>
             Selecciona las palabras subrayadas o la expresión “se dio cuenta”.
           </p>
         </div>
 
-        <div className="story-text" lang="es">
+        <div className={styles.storyText} lang="es">
           {story.sentences.map((sentence) => (
             <p key={sentence.id}>
               {sentence.segments.map((segment, index) => {
@@ -99,7 +100,7 @@ export function StoryReader() {
                 return (
                   <button
                     aria-pressed={isSelected}
-                    className={`lexical-occurrence${isSelected ? " selected" : ""}`}
+                    className={`${styles.occurrence}${isSelected ? ` ${styles.selected}` : ""}`}
                     key={occurrence.id}
                     onClick={() => setSelectedOccurrenceId(occurrence.id)}
                     type="button"
@@ -113,32 +114,37 @@ export function StoryReader() {
         </div>
       </section>
 
-      <aside className="card lexical-panel" aria-live="polite">
+      <aside className={`card ${styles.panel}`} aria-live="polite">
         {selectedOccurrence && selectedLexeme && selectedSense ? (
           <>
-            <div className="lexical-panel-header">
+            <div className={styles.panelHeader}>
               <div>
                 <p className="eyebrow">Unidad léxica</p>
                 <h3>{selectedLexeme.canonicalForm}</h3>
-                <p className="lexical-meta">
+                <p className={styles.meta}>
                   {selectedLexeme.partOfSpeech} · {selectedLexeme.lexicalType}
                 </p>
               </div>
-              <span className="surface-badge">{selectedOccurrence.surface}</span>
+              <span className={styles.surfaceBadge}>
+                {selectedOccurrence.surface}
+              </span>
             </div>
 
-            <div className="lexical-definition">
+            <div className={styles.definition}>
               <strong>{selectedSense.glossEn}</strong>
               <p>{selectedSense.definitionEs}</p>
             </div>
 
-            <div className="learner-state-block">
-              <p className="panel-label">¿Qué tan bien conoces esta unidad?</p>
-              <div className="learner-state-options">
+            <div className={styles.stateBlock}>
+              <p className={styles.panelLabel}>
+                ¿Qué tan bien conoces esta unidad?
+              </p>
+              <div className={styles.stateOptions}>
                 {STATE_OPTIONS.map((option) => (
                   <button
                     aria-pressed={currentLearnerState === option.value}
-                    className={`learner-state-button state-${option.value.toLowerCase()}`}
+                    className={styles.stateButton}
+                    data-state={option.value}
                     key={option.value}
                     onClick={() => declareState(option.value)}
                     type="button"
@@ -147,26 +153,27 @@ export function StoryReader() {
                   </button>
                 ))}
               </div>
-              <p className="state-caption">
+              <p className={styles.stateCaption}>
                 Estado actual: {currentLearnerState ?? "Sin declarar"}. En Fase 3
                 se conserva solo durante esta sesión.
               </p>
             </div>
 
-            <div className="context-block">
-              <p className="panel-label">En este encuentro</p>
+            <div className={styles.contextBlock}>
+              <p className={styles.panelLabel}>En este encuentro</p>
               <p>{getSentenceText(selectedOccurrence.sentenceId)}</p>
             </div>
 
-            <div className="context-block">
-              <p className="panel-label">
-                Encuentros de “{selectedLexeme.canonicalForm}” en esta historia · {relatedOccurrences.length}
+            <div className={styles.contextBlock}>
+              <p className={styles.panelLabel}>
+                Encuentros de “{selectedLexeme.canonicalForm}” en esta historia ·{" "}
+                {relatedOccurrences.length}
               </p>
-              <ul className="context-list">
+              <ul className={styles.contextList}>
                 {relatedOccurrences.map((occurrence) => (
                   <li key={occurrence.id}>
                     <button
-                      className="context-link"
+                      className={styles.contextLink}
                       onClick={() => setSelectedOccurrenceId(occurrence.id)}
                       type="button"
                     >
@@ -178,11 +185,11 @@ export function StoryReader() {
             </div>
 
             {selectedLexeme.lexicalType === "MULTIWORD" ? (
-              <div className="occurrence-parts">
-                <p className="panel-label">Partes de la occurrence</p>
-                <div className="part-list">
+              <div className={styles.parts}>
+                <p className={styles.panelLabel}>Partes de la occurrence</p>
+                <div className={styles.partList}>
                   {selectedOccurrence.parts.map((part) => (
-                    <span className="part-chip" key={part.id}>
+                    <span className={styles.partChip} key={part.id}>
                       {part.text} · {part.role}
                     </span>
                   ))}
@@ -191,12 +198,12 @@ export function StoryReader() {
             ) : null}
           </>
         ) : (
-          <div className="lexical-empty-state">
+          <div className={styles.emptyState}>
             <p className="eyebrow">Panel léxico</p>
             <h3>Selecciona una unidad</h3>
             <p>
-              La forma visible abrirá su occurrence contextual, que después se
-              resuelve hacia un Lexeme y un Sense.
+              La forma visible abre su occurrence contextual, que se resuelve
+              hacia un Lexeme y un Sense.
             </p>
           </div>
         )}
