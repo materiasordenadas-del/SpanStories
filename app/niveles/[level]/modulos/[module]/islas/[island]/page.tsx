@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { StoryReader } from "@/components/story-reader";
 import {
   LEVELS,
   getIslandBySlug,
@@ -48,6 +49,9 @@ export default async function IslandPage({ params }: IslandPageProps) {
     notFound();
   }
 
+  const hasPhase3Story =
+    level.code === "A1" && moduleSummary.id === 1 && island.id === 1;
+
   return (
     <main className="page-shell">
       <Link
@@ -58,7 +62,9 @@ export default async function IslandPage({ params }: IslandPageProps) {
       </Link>
 
       <section className="hero compact-hero">
-        <p className="eyebrow">{level.code} · {moduleSummary.title} · Isla {island.id}</p>
+        <p className="eyebrow">
+          {level.code} · {moduleSummary.title} · Isla {island.id}
+        </p>
         <h1>{island.title}</h1>
         <p className="lead">{island.description}</p>
       </section>
@@ -67,7 +73,11 @@ export default async function IslandPage({ params }: IslandPageProps) {
         <nav className="card activity-nav" aria-label="Etapas de la isla">
           <p className="eyebrow">Recorrido</p>
           {island.activities.map((activity, index) => (
-            <a className="activity-nav-link" href={`#${activity.id}`} key={activity.id}>
+            <a
+              className="activity-nav-link"
+              href={`#${activity.id}`}
+              key={activity.id}
+            >
               <span>{index + 1}</span>
               {activity.title}
             </a>
@@ -75,19 +85,37 @@ export default async function IslandPage({ params }: IslandPageProps) {
         </nav>
 
         <div className="activity-list">
-          {island.activities.map((activity, index) => (
-            <article className="card activity-card" id={activity.id} key={activity.id}>
-              <div className="activity-index">{index + 1}</div>
-              <div>
-                <p className="eyebrow">Etapa {index + 1} de {island.activities.length}</p>
-                <h2>{activity.title}</h2>
-                <p>{activity.description}</p>
-                <p className="activity-note">
-                  Contenido provisional: esta etapa existe para validar la estructura de la isla. Su funcionalidad específica llegará en las siguientes fases.
-                </p>
-              </div>
-            </article>
-          ))}
+          {island.activities.map((activity, index) => {
+            const isInteractiveStory =
+              hasPhase3Story && activity.id === "story";
+
+            return (
+              <article
+                className={`card activity-card${isInteractiveStory ? " story-activity-card" : ""}`}
+                id={activity.id}
+                key={activity.id}
+              >
+                <div className="activity-index">{index + 1}</div>
+                <div className="activity-content">
+                  <p className="eyebrow">
+                    Etapa {index + 1} de {island.activities.length}
+                  </p>
+                  <h2>{activity.title}</h2>
+                  <p>{activity.description}</p>
+
+                  {isInteractiveStory ? (
+                    <StoryReader />
+                  ) : (
+                    <p className="activity-note">
+                      Contenido provisional: esta etapa existe para validar la
+                      estructura de la isla. Su funcionalidad específica llegará
+                      en las siguientes fases.
+                    </p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
     </main>
