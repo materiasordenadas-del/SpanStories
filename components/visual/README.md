@@ -1,6 +1,28 @@
-# Capa visual — reglas para diseño
+# Capa visual — autoridad de diseño
 
 Esta carpeta es la autoridad de **apariencia y composición visual** de SpanStories.
+
+## Baseline visual canónico
+
+La referencia visual actual es:
+
+`components/visual/baseline-v1/`
+
+Los HTML de esa carpeta proceden directamente del proyecto aprobado de Claude Design. **No son una reinterpretación del UI anterior de Codex.**
+
+Pantallas canónicas actuales:
+
+- `SpanStories Web.dc.html` — landing y demostración del lector;
+- `Niveles.dc.html` — selector de niveles;
+- `Islas.dc.html` — vista de islas;
+- `Progreso.dc.html` — progreso;
+- `_ds/.../styles.css` — sistema visual Modernist usado por esas pantallas.
+
+### Regla de conservación
+
+Lo que no se pida cambiar debe permanecer visualmente igual al baseline.
+
+No se debe usar como referencia visual el CSS legacy de la aplicación (`app/globals.css` ni `components/story-reader.module.css`). Ese CSS existe temporalmente para mantener operativo el prototipo técnico mientras las pantallas se migran al nuevo baseline.
 
 ## Puedes modificar
 
@@ -15,6 +37,8 @@ Esta carpeta es la autoridad de **apariencia y composición visual** de SpanStor
 - estados visuales (`hover`, `selected`, `disabled`, `locked`, etc.);
 - componentes puramente presentacionales.
 
+Haz cambios únicamente cuando se soliciten. No modernices, simplifiques ni adaptes otras zonas por iniciativa propia.
+
 ## No debes modificar
 
 - `lib/`;
@@ -26,34 +50,33 @@ Esta carpeta es la autoridad de **apariencia y composición visual** de SpanStor
 - persistencia/base de datos;
 - contratos de datos;
 - reglas pedagógicas;
-- routing o lógica de negocio salvo lo mínimo necesario para previsualizar una pantalla.
+- lógica de negocio.
 
-## Regla principal
+## Integración técnica
 
 Un diseño aprobado debe poder conectarse al motor **sin rediseñarlo**.
 
-Trabaja con datos mock y props simples. Ejemplo:
+El flujo correcto es:
 
-```tsx
-<IslandCard
-  title="Hola"
-  progress={32}
-  locked={false}
-/>
+```text
+baseline-v1 / pantalla aprobada
+        ↓
+componente visual fiel
+        ↓ props / callbacks
+lib/adapters/
+        ↓
+features/ + lib/
 ```
 
-La integración técnica sustituirá los mocks por datos reales sin cambiar el aspecto aprobado.
+La integración técnica sustituye mocks por datos y acciones reales. Puede modificar el markup cuando sea necesario para implementar fielmente la pantalla, pero no debe conservar el layout legacy si entra en conflicto con el baseline aprobado.
 
-## Si necesitas un dato que no existe
+## Estructura de trabajo
 
-No inventes lógica técnica dentro del componente. Define el dato visual que necesitas y deja que la capa técnica/adaptador lo proporcione.
+- `baseline-v1/` — fuente visual canónica actual;
+- `primitives/` — futuros controles presentacionales extraídos del baseline;
+- `layouts/` — futuros shells/composición reutilizable;
+- `patterns/` — futuros patrones visuales de producto;
+- `screens/` — futuras implementaciones React aprobadas.
 
-## Estructura
-
-- `primitives/` — botones, badges, iconos, controles visuales.
-- `layouts/` — shells y composición de página.
-- `patterns/` — componentes visuales reutilizables de producto.
-- `screens/` — composiciones completas aprobadas para integración.
-
-**Visual authority:** esta carpeta decide cómo se ve.
+**Visual authority:** esta carpeta y el baseline aprobado deciden cómo se ve.
 **Technical authority:** `features/` y `lib/` deciden cómo funciona.
