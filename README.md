@@ -44,7 +44,13 @@ content / persistence / engines
 
 `components/visual/` controla cómo se ve el producto: layout, tipografía, colores, spacing, responsive, motion y componentes presentacionales.
 
-Lee obligatoriamente `components/visual/README.md` antes de trabajar en diseño.
+La referencia visual canónica actual está en:
+
+`components/visual/baseline-v1/`
+
+Ese baseline procede directamente del diseño aprobado de Claude Design. El CSS histórico de `app/globals.css` y `components/story-reader.module.css` se considera **legacy visual** y no debe usarse como referencia para nuevas pantallas.
+
+Lee obligatoriamente `components/visual/README.md` antes de trabajar en diseño o integrar una pantalla.
 
 ### Autoridad técnica
 
@@ -56,11 +62,14 @@ Lee obligatoriamente `components/visual/README.md` antes de trabajar en diseño.
 
 Un diseño aprobado debe conectarse a datos reales sin ser reinterpretado visualmente. La integración técnica sustituye mocks por datos/acciones reales; no rediseña silenciosamente componentes aprobados.
 
+Lo que no se haya pedido cambiar debe permanecer visualmente igual al baseline aprobado.
+
 ## Estructura de trabajo
 
 ```text
 components/
 └── visual/
+    ├── baseline-v1/
     ├── primitives/
     ├── layouts/
     ├── patterns/
