@@ -1,0 +1,62 @@
+{
+  "executableBaselineUntilClaudeMigration": "A1-CURRICULUM-v1.44",
+  "expectedCounts": {
+    "a1Senses": 602,
+    "a2BoundarySenses": 6,
+    "deleTaskStructures": 13,
+    "firstIntroductions": 985,
+    "firstReturnEdges": 985,
+    "focus": 448,
+    "forms": 666,
+    "grammarUnits": 169,
+    "islands": 11,
+    "lexemes": 599,
+    "modules": 8,
+    "mwu": 214,
+    "recycleEdges": 2867,
+    "secondReturnEdges": 950,
+    "senses": 608,
+    "storyBlueprints": 32,
+    "supported": 537,
+    "thirdReturnEdges": 932
+  },
+  "releaseId": "A1-CURRICULUM-v1.51",
+  "runtimeActivation": "NOT_YET_ACTIVATED",
+  "schemaVersion": "2.0.0-rc1",
+  "sourceFiles": [
+    {
+      "path": "content/a1/vocabulary/spanishstories_a1_ws_normalization_master_v1.37.csv",
+      "sha256": "18e522742d59a00221512514ded72d23e0c005ff96ddd8ca419496ba1f5dfe4b"
+    },
+    {
+      "path": "content/a1/vocabulary/spanishstories_a1_ws_source_assertions_modes_v1.40.csv",
+      "sha256": "24a19adf242f1c6f0fdc7d16347529addacc62c160a32d2df9650709b85cd33b"
+    },
+    {
+      "path": "content/a1/vocabulary/spanishstories_a1_ws_coverage_final_v1.40.csv",
+      "sha256": "263d67bb0a95a4ca9d766cf139e466d22b9227c8d2ef961f94fe34f9fd26babc"
+    },
+    {
+      "path": "spanishstories_a1_ws_sequencing_architecture_v1.51.csv",
+      "sha256": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd"
+    },
+    {
+      "path": "spanishstories_a1_ws_sequencing_allocation_v1.51.csv",
+      "sha256": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d"
+    },
+    {
+      "path": "spanishstories_a1_ws_story_blueprints_v1.51.csv",
+      "sha256": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd"
+    },
+    {
+      "path": "spanishstories_a1_ws_recycling_edges_v1.51.csv",
+      "sha256": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065"
+    },
+    {
+      "path": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv",
+      "sha256": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63"
+    }
+  ],
+  "status": "RELEASE_CANDIDATE_RC1",
+  "validationResult": "PASS"
+}

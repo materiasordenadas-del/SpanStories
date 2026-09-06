@@ -1,0 +1,40 @@
+audit_id,record_type,category,control,expected,observed,status,blocking,evidence,correction,notes,mapped_story_ids
+H-001,AUDIT_CONTROL,INVENTORY,Exact allocation count,985,985,PASS,NO,v1.51 allocation,,,
+H-002,AUDIT_CONTROL,INVENTORY,A1 Sense allocation,602,602,PASS,NO,,,,
+H-003,AUDIT_CONTROL,INVENTORY,Grammar allocation,169,169,PASS,NO,,,,
+H-004,AUDIT_CONTROL,INVENTORY,MWU allocation,214,214,PASS,NO,,,,
+H-005,AUDIT_CONTROL,TOPOLOGY,Module count,8,8,PASS,NO,,,,
+H-006,AUDIT_CONTROL,TOPOLOGY,Island count,11,11,PASS,NO,,,,
+H-007,AUDIT_CONTROL,TOPOLOGY,Story blueprint count,32,32,PASS,NO,,,,
+H-008,AUDIT_CONTROL,LOAD,First-introduction objects,985,985,PASS,NO,,,,
+H-009,AUDIT_CONTROL,LOAD,Maximum FOCUS first introductions/story,<=20,20,PASS,NO,,,,
+H-010,AUDIT_CONTROL,CAPSTONE,Capstone first introductions,0,0,PASS,NO,,,,
+H-011,AUDIT_CONTROL,TRANSFER,Dedicated final-transfer Stories,1,1,PASS,NO,,,,
+H-012,AUDIT_CONTROL,TRANSFER,Island checkpoints,11,11,PASS,NO,,,,
+H-013,AUDIT_CONTROL,TRANSFER,Module checkpoints,8,8,PASS,NO,,,,
+H-014,AUDIT_CONTROL,GRAPH,Recycle edges,2867,2867,PASS,NO,,,,
+H-015,AUDIT_CONTROL,GRAPH,FIRST_RETURN edges,985,985,PASS,NO,,,,
+H-016,AUDIT_CONTROL,GRAPH,SECOND_RETURN edges,950,950,PASS,NO,,,,
+H-017,AUDIT_CONTROL,GRAPH,THIRD_RETURN edges,932,932,PASS,NO,,,,
+H-018,AUDIT_CONTROL,GRAPH,Backward edges,0,0,PASS,NO,,,,
+H-019,AUDIT_CONTROL,GRAPH,Route-order/duplicate-destination violations,0,0,PASS,NO,,,,
+H-020,AUDIT_CONTROL,MASTERY,Recycle edges claiming mastery,0,0,PASS,NO,,,,
+H-021,AUDIT_CONTROL,IDENTITY,New Story IDs,32,32,PASS,NO,,,,
+H-022,AUDIT_CONTROL,IDENTITY,Historical Story IDs reused,0,0,PASS,NO,,,,
+H-023,AUDIT_CONTROL,IDENTITY,New Island IDs,11,11,PASS,NO,,,,
+H-024,AUDIT_CONTROL,SCHEMA,Version-specific v1_* column names,0,0,PASS,NO,,,,
+H-025,AUDIT_CONTROL,DELE,DELE task structures,13,13,PASS,NO,ETAPA G remap,,,
+H-026,AUDIT_CONTROL,READINESS,Release candidate blockers,0,0,PASS,NO,,,,
+H-DELE-01,DELE_TASK_CROSSWALK,DELE,DELE-A1-R1 — Correspondencia breve personal,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=READING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I05-S3;A1-M07-I05-S3
+H-DELE-02,DELE_TASK_CROSSWALK,DELE,DELE-A1-R2 — Textos funcionales mínimos,>=1 compatible blueprint,3 compatible blueprint(s),PASS,NO,Task modality=READING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M03-I05-S3;A1-M04-I05-S4;A1-M03-I06-S1
+H-DELE-03,DELE_TASK_CROSSWALK,DELE,DELE-A1-R3 — Material informativo/promocional,>=1 compatible blueprint,3 compatible blueprint(s),PASS,NO,Task modality=READING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M07-I05-S2;A1-M06-I05-S2;A1-M08-I06-S2
+H-DELE-04,DELE_TASK_CROSSWALK,DELE,DELE-A1-R4 — Información pública concreta,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=READING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M04-I05-S4;A1-M04-I05-S3
+H-DELE-05,DELE_TASK_CROSSWALK,DELE,DELE-A1-L1 — Diálogos muy breves,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I05-S1;A1-M05-I05-S2
+H-DELE-06,DELE_TASK_CROSSWALK,DELE,DELE-A1-L2 — Mensajes/avisos públicos,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M04-I05-S3;A1-M04-I05-S4
+H-DELE-07,DELE_TASK_CROSSWALK,DELE,DELE-A1-L3 — Monólogo segmentado,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M02-I05-S3;A1-M08-I06-S2
+H-DELE-08,DELE_TASK_CROSSWALK,DELE,DELE-A1-L4 — Conversación cotidiana,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I05-S3;A1-M05-I05-S2
+H-DELE-09,DELE_TASK_CROSSWALK,DELE,DELE-A1-W1 — Formulario,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=WRITING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I05-S3
+H-DELE-10,DELE_TASK_CROSSWALK,DELE,DELE-A1-W2 — Correspondencia breve,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=WRITING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I05-S3;A1-M07-I05-S3
+H-DELE-11,DELE_TASK_CROSSWALK,DELE,DELE-A1-O1 — Presentación personal preparada,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I05-S2
+H-DELE-12,DELE_TASK_CROSSWALK,DELE,DELE-A1-O2 — Tema personal próximo preparado,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I05-S1
+H-DELE-13,DELE_TASK_CROSSWALK,DELE,DELE-A1-O3 — Conversación guiada,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; ETAPA G compatibility contract,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M08-I06-S3

@@ -1,0 +1,23 @@
+{
+  "allocation_rows": 985,
+  "dele_tasks": 13,
+  "historical_story_ids_reused": 0,
+  "islands": 11,
+  "recycle_edges": 2867,
+  "salience_counts": {
+    "FOCUS": 448,
+    "SUPPORTED": 537
+  },
+  "stage_counts": {
+    "FIRST_RETURN": 985,
+    "SECOND_RETURN": 950,
+    "THIRD_RETURN": 932
+  },
+  "status": "PASS",
+  "stories": 32,
+  "target_type_counts": {
+    "GRAMMAR_UNIT": 169,
+    "MWU_SOURCE_UNIT": 214,
+    "SENSE": 602
+  }
+}
