@@ -11,7 +11,8 @@ ETAPA C = COMPLETE
 ETAPA D = COMPLETE
 ETAPA E = COMPLETE / CORRECTED
 ETAPA F = COMPLETE
-ETAPA G = NEXT
+ETAPA G = COMPLETE
+ETAPA H = NEXT
 FASE 3 = BLOCKED
 CLAUDE CODE MIGRATION = BLOCKED
 ```
@@ -25,17 +26,19 @@ CLAUDE CODE MIGRATION = BLOCKED
 - ETAPA E allocation: 448 FOCUS / 537 SUPPORTED
 - Story ID policy: all 32 new Stories receive new canonical IDs in ETAPA H; no v1.44 StoryBlueprint ID is reused
 - ETAPA F recycling graph: 2867 deterministic target-level edges on expansion
+- ETAPA G DELE coverage: 13/13 task structures, with 24 compatibility mappings across 16 B32 Stories
 
 ## Documents
 
-- `governing-plan-v1.2.md` — migration scope, authority and gates; current content hardened through ETAPA F
-- `current-state-v1.49.md` — current human curricular state
+- `governing-plan-v1.3.md` — active migration scope, authority and gates through ETAPA G
+- `current-state-v1.50.md` — current human curricular state
 - `etapa-a-audit-v1.1.md` — frozen v1.44 baseline
 - `etapa-b-topology-v1.1.md` — approved 8/11/32 architecture
 - `etapa-c-migration-ledger-v1.1.md` — 103→32 reconciliation summary
 - `etapa-d-load-transfer-capstone-recycling-v1.1.md` — load/final-transfer/capstone/recycling policy
 - `etapa-e-target-allocation-v1.2.md` — corrected 985-target allocation and closed Story-ID policy
 - `etapa-f-recycling-graph-v1.0.md` — approved recycling graph and invariants
+- `etapa-g-dele-remap-v1.0.md` — formal DELE 13/13 remap
 - `spanstories_a1_review_etapas_a_e_v1.0.md` — cross-stage review and hardening findings
 
 ## Machine-readable migration data
@@ -46,6 +49,8 @@ CLAUDE CODE MIGRATION = BLOCKED
 - `spanstories_a1_story_load_summary_etapa_e_v1.0.csv` — load/FOCUS/SUPPORTED summary for all 32 B32 Stories
 - `etapa-f-recycling-route-matrix-v1.0.csv` — 30 deterministic recycling routes for the Stories that introduce targets
 - `etapa-f-recycling-destination-load-v1.0.csv` — inbound recycling load and checkpoint audit for all 32 Stories
+- `etapa-g-dele-remap-13-of-13-v1.0.csv` — task-level DELE old→new crosswalk
+- `etapa-g-dele-story-support-contract-v1.0.csv` — required modality/task-support contracts for 16 B32 Stories
 
 Story accounting remains complete:
 
@@ -55,13 +60,23 @@ Story accounting remains complete:
 =103 / 103 old StoryBlueprints accounted for
 ```
 
-Recycling accounting is now:
+Recycling accounting:
 
 ```text
 FIRST_RETURN  = 985
 SECOND_RETURN = 950
 THIRD_RETURN  = 932
 TOTAL         = 2867
+```
+
+DELE accounting:
+
+```text
+READING   = 4 / 4
+LISTENING = 4 / 4
+WRITING   = 2 / 2
+SPEAKING  = 3 / 3
+TOTAL     = 13 / 13
 ```
 
 ## Authority rule
@@ -79,4 +94,4 @@ HUMAN MIGRATION AUTHORITY
 
 The restructuring documents are not runtime inputs and do not authorize Fase 3.
 
-A separate giant copy of the historical curriculum master is not treated as a second active authority during migration; `current-state-v1.49.md` records the approved delta/state until the new release candidate is materialized in ETAPA H.
+A separate giant copy of the historical curriculum master is not treated as a second active authority during migration; `current-state-v1.50.md` records the approved delta/state until the new release candidate is materialized in ETAPA H.
