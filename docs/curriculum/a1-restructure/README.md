@@ -108,7 +108,7 @@ This is the authoritative technical scope for the next Claude Code task. Claude 
 - `etapa-f-recycling-destination-load-v1.0.csv`
 - `etapa-g-dele-remap-v1.0.md`
 - `etapa-g-dele-remap-13-of-13-v1.0.csv`
-- `etapa-g-dele-story-support_contract-v1.0.csv`
+- `etapa-g-dele-story-support-contract-v1.0.csv`
 
 ## Authority rule
 
