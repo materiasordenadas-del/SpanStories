@@ -67,10 +67,16 @@ import {
 /**
  * The lexicon release phase 2 ships.
  *
- * `v1.0` of the lexical interpretation, drawn over curriculum release
- * `A1-CURRICULUM-v1.44`. It is aligned with that release, not derived from it:
- * a later lexical interpretation of the same curriculum gets a new id here and
- * leaves the curriculum release untouched.
+ * `v1.0` of the lexical interpretation. It is *aligned with* whichever
+ * curriculum release the registry carries — recorded per build as
+ * `LexiconRelease.curriculumReleaseId` — and never *derived from* it.
+ *
+ * The two ids move independently, and deliberately so. Resequencing the
+ * narrative (the 103 -> 32 restructure that took the curriculum from
+ * `A1-CURRICULUM-v1.44` to `A1-CURRICULUM-v1.51`) changed which story
+ * introduces a target and when it returns; it changed no lexeme, form, sense,
+ * MWU identity or homograph group. A lexical interpretation only earns a new
+ * id here when the lexical inventory or its reading actually changes.
  */
 export const CURRENT_LEXICON_RELEASE_ID = asLexicalId(
   "LexiconReleaseId",

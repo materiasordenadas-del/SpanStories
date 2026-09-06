@@ -44,8 +44,8 @@ describe("determinism", () => {
       second.data.lexemes.map((v) => v.id),
     );
     assert.deepEqual(
-      first.data.recycleEdges.map((v) => `${v.id}:${v.fromStoryId}>${v.toStoryId}`),
-      second.data.recycleEdges.map((v) => `${v.id}:${v.fromStoryId}>${v.toStoryId}`),
+      first.data.recycleEdges.map((v) => `${v.id}:${v.introductionStoryId}>${v.returnStoryId}`),
+      second.data.recycleEdges.map((v) => `${v.id}:${v.introductionStoryId}>${v.returnStoryId}`),
     );
     assert.deepEqual(first.release.actualCounts, second.release.actualCounts);
   });

@@ -19,7 +19,7 @@ const engine = new LexicalEngine(curriculum);
 
 describe("lexical engine / identity", () => {
   test("the engine is built over the published curriculum release", () => {
-    assert.equal(engine.release.curriculumReleaseId, "A1-CURRICULUM-v1.44");
+    assert.equal(engine.release.curriculumReleaseId, "A1-CURRICULUM-v1.51");
     assert.equal(engine.release.schemaVersion, LEXICON_SCHEMA_VERSION);
     assert.equal(engine.release.lexemeCount, 599);
   });

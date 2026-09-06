@@ -3,176 +3,91 @@
     "id": "M01",
     "order": 1,
     "name": "Contacto y supervivencia comunicativa",
-    "communicativeGoal": "Abrir, mantener y cerrar intercambios muy básicos; identificarse, presentar y manejar información personal inmediata.",
-    "specificDomainFocus": "Identidad personal; Relaciones personales; Educación",
-    "designRole": "FOUNDATION",
-    "hardPrerequisite": "NONE",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 127,
-    "declaredStoryBlueprintCount": 13,
+    "checkpointStoryId": "A1-M01-I05-S4",
+    "declaredStoryCount": 4,
     "islandIds": [
-      "A1-M01-I01",
-      "A1-M01-I02",
-      "A1-M01-I03",
-      "A1-M01-I04"
+      "A1-M01-I05"
     ]
   },
   {
     "id": "M02",
     "order": 2,
     "name": "Personas y entorno cercano",
-    "communicativeGoal": "Hablar de personas cercanas, describir rasgos básicos y localizar/identificar elementos del entorno doméstico.",
-    "specificDomainFocus": "Individuo físico; Individuo perceptivo/anímico; Relaciones personales; Vivienda",
-    "designRole": "FOUNDATION_EXPANSION",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 166,
-    "declaredStoryBlueprintCount": 15,
+    "checkpointStoryId": "A1-M02-I06-S2",
+    "declaredStoryCount": 5,
     "islandIds": [
-      "A1-M02-I01",
-      "A1-M02-I02",
-      "A1-M02-I03",
-      "A1-M02-I04"
+      "A1-M02-I05",
+      "A1-M02-I06"
     ]
   },
   {
     "id": "M03",
     "order": 3,
     "name": "Tiempo, rutina, estudio y trabajo",
-    "communicativeGoal": "Gestionar tiempo y rutinas, desenvolverse en contextos de estudio/trabajo y expresar conocimiento/habilidad elemental.",
-    "specificDomainFocus": "Educación; Trabajo; Información y medios; Ciencia y tecnología; Salud e higiene",
-    "designRole": "DAILY_LIFE_CORE",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 139,
-    "declaredStoryBlueprintCount": 14,
+    "checkpointStoryId": "A1-M03-I06-S2",
+    "declaredStoryCount": 5,
     "islandIds": [
-      "A1-M03-I01",
-      "A1-M03-I02",
-      "A1-M03-I03",
-      "A1-M03-I04"
+      "A1-M03-I05",
+      "A1-M03-I06"
     ]
   },
   {
     "id": "M04",
     "order": 4,
     "name": "Ciudad, servicios y desplazamientos",
-    "communicativeGoal": "Localizar lugares, seguir/expresar rutas simples y resolver necesidades básicas de movilidad y servicios.",
-    "specificDomainFocus": "Servicios; Viajes/transporte; Geografía y naturaleza; Información y medios",
-    "designRole": "TRANSFER_AND_APPLICATION",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 122,
-    "declaredStoryBlueprintCount": 12,
+    "checkpointStoryId": "A1-M04-I05-S4",
+    "declaredStoryCount": 4,
     "islandIds": [
-      "A1-M04-I01",
-      "A1-M04-I02",
-      "A1-M04-I03",
-      "A1-M04-I04"
+      "A1-M04-I05"
     ]
   },
   {
     "id": "M05",
     "order": 5,
     "name": "Comer, comprar y pedir",
-    "communicativeGoal": "Manejar comida, bebida, establecimientos, precios, cantidades, elección y peticiones simples.",
-    "specificDomainFocus": "Alimentación; Compras/tiendas/establecimientos; Servicios; Economía e industria",
-    "designRole": "TRANSACTIONAL_CORE",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 118,
-    "declaredStoryBlueprintCount": 12,
+    "checkpointStoryId": "A1-M05-I05-S3",
+    "declaredStoryCount": 3,
     "islandIds": [
-      "A1-M05-I01",
-      "A1-M05-I02",
-      "A1-M05-I03",
-      "A1-M05-I04"
+      "A1-M05-I05"
     ]
   },
   {
     "id": "M06",
     "order": 6,
     "name": "Ocio, gustos y vida social",
-    "communicativeGoal": "Expresar gustos y preferencias, hablar de ocio/medios/arte y gestionar invitaciones y eventos sociales básicos.",
-    "specificDomainFocus": "Ocio; Información y medios; Actividades artísticas; Relaciones personales",
-    "designRole": "PREFERENCE_AND_SOCIAL_EXPANSION",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 92,
-    "declaredStoryBlueprintCount": 12,
+    "checkpointStoryId": "A1-M06-I05-S3",
+    "declaredStoryCount": 3,
     "islandIds": [
-      "A1-M06-I01",
-      "A1-M06-I02",
-      "A1-M06-I03",
-      "A1-M06-I04"
+      "A1-M06-I05"
     ]
   },
   {
     "id": "M07",
     "order": 7,
     "name": "Viajes, alojamiento, clima y planes",
-    "communicativeGoal": "Organizar desplazamientos y alojamiento, comprender clima básico y comunicar planes próximos.",
-    "specificDomainFocus": "Viajes/alojamiento/transporte; Vivienda; Geografía y naturaleza; Servicios",
-    "designRole": "PLANNING_AND_MOBILITY",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 93,
-    "declaredStoryBlueprintCount": 12,
+    "checkpointStoryId": "A1-M07-I05-S3",
+    "declaredStoryCount": 3,
     "islandIds": [
-      "A1-M07-I01",
-      "A1-M07-I02",
-      "A1-M07-I03",
-      "A1-M07-I04"
+      "A1-M07-I05"
     ]
   },
   {
     "id": "M08",
     "order": 8,
     "name": "Opinión, información e integración A1",
-    "communicativeGoal": "Integrar opiniones, acuerdo/desacuerdo, certeza/posibilidad y repertorios culturales/públicos en tareas A1 mixtas.",
-    "specificDomainFocus": "Gobierno/política/sociedad; Religión/filosofía; Actividades artísticas; Ciencia/tecnología; Información/medios",
-    "designRole": "INTEGRATION_AND_CAPSTONE",
-    "hardPrerequisite": "previous module foundation",
-    "recyclingPolicy": "local reuse + near transfer + later-module return; no fixed magic exposure count",
     "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
-    "storyMin": 8,
-    "storyPlanningTarget": 12,
-    "storyMax": 16,
-    "plannedFirstIntroObjectsV142": 128,
-    "declaredStoryBlueprintCount": 13,
+    "checkpointStoryId": "A1-M08-I06-S3",
+    "declaredStoryCount": 5,
     "islandIds": [
-      "A1-M08-I01",
-      "A1-M08-I02",
-      "A1-M08-I03",
-      "A1-M08-I04"
+      "A1-M08-I05",
+      "A1-M08-I06"
     ]
   }
 ]

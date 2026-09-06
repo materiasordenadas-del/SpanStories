@@ -8,6 +8,10 @@
  * import, because a new column can silently change what a row means.
  *
  * These lists were generated from the published headers, not transcribed.
+ *
+ * The sequencing artefacts are the `A1-CURRICULUM-v1.51` release candidate; the
+ * inventory artefacts (normalization master, source assertions, coverage audit)
+ * are unchanged and shared with the archived v1.44 release.
  */
 
 import type { ReadCsvOptions } from "./csv.ts";
@@ -188,14 +192,21 @@ export const SOURCE_ASSERTIONS: CanonicalSource = {
   ],
 };
 
+/**
+ * v1.51 publishes eleven `ISLAND` rows and no `MODULE` row: the eight modules
+ * are reconstructed by grouping islands on `module_id`. The module-level
+ * columns below are therefore repeated on every island of a module, and the
+ * importer requires them to agree rather than taking the first one it reads.
+ */
 export const SEQUENCING_ARCHITECTURE: CanonicalSource = {
   key: "sequencingArchitecture",
-  file: "spanishstories_a1_ws_sequencing_architecture_v1.44.csv",
+  file: "spanishstories_a1_ws_sequencing_architecture_v1.51.csv",
   purpose: "Module and island topology of the A1 sequence.",
   versionColumn: null,
-  filenameVersion: "1.44",
+  filenameVersion: "1.51",
   requiredColumns: [
     "record_type",
+    "sequence_id",
     "module_id",
     "module_order",
     "module_name",
@@ -204,54 +215,24 @@ export const SEQUENCING_ARCHITECTURE: CanonicalSource = {
     "global_island_order",
     "island_name",
     "communicative_goal",
-    "specific_domain_focus",
     "design_role",
-    "sense_intro_budget",
-    "grammar_intro_budget",
-    "mwu_intro_budget",
-    "regional_receptive_intro_budget",
-    "grammar_focus",
-    "genre_focus",
-    "story_min",
-    "story_planning_target",
-    "story_max",
-    "input_modes",
+    "story_count",
+    "island_checkpoint_story_id",
+    "module_checkpoint_story_id",
     "hard_prerequisite",
     "recycling_policy",
     "module_gate",
-    "v1_42_total_first_intro_objects",
-    "v1_44_story_blueprint_count",
-  ],
-  knownUnusedColumns: [
-    "sequence_id",
-    "function_new_ids",
-    "function_crossref_reuse_ids",
-    "function_recycle_examples",
-    "story_architecture",
     "allocation_status",
-    "notes",
-    "v1_41_sense_planning_budget",
-    "v1_41_grammar_planning_budget",
-    "v1_41_mwu_planning_budget",
-    "v1_42_sense_first_intro_count",
-    "v1_42_grammar_first_intro_count",
-    "v1_42_mwu_first_intro_count",
-    "quota_revision_status",
-    "quota_revision_reason",
-    "v1_43_story_blueprint_count",
-    "v1_43_recycling_edge_count",
-    "v1_43_capstone_policy",
-    "v1_44_final_transfer_story",
-    "v1_44_sequence_audit_status",
   ],
+  knownUnusedColumns: ["notes"],
 };
 
 export const SEQUENCING_ALLOCATION: CanonicalSource = {
   key: "sequencingAllocation",
-  file: "spanishstories_a1_ws_sequencing_allocation_v1.44.csv",
+  file: "spanishstories_a1_ws_sequencing_allocation_v1.51.csv",
   purpose: "First-introduction ledger: one row per scheduled curriculum target.",
   versionColumn: null,
-  filenameVersion: "1.44",
+  filenameVersion: "1.51",
   requiredColumns: [
     "allocation_id",
     "target_type",
@@ -267,15 +248,16 @@ export const SEQUENCING_ALLOCATION: CanonicalSource = {
     "grammar_pcic_section",
     "grammar_category",
     "grammar_kind",
-    "first_introduction_island",
     "module_id",
+    "island_id",
+    "story_id",
+    "intro_salience",
     "allocation_authority",
     "allocation_basis",
     "allocation_reason",
     "source_assertion_ids",
     "regional_policy",
-    "recycle_route_class",
-    "first_introduction_story",
+    "story_blueprint_status",
   ],
   knownUnusedColumns: [
     "source_record_id",
@@ -283,29 +265,16 @@ export const SEQUENCING_ALLOCATION: CanonicalSource = {
     "mwu_subtype",
     "module_name",
     "island_name",
-    "global_island_order",
-    "v1_41_planning_budget",
-    "v1_42_actual_count_for_target_type",
-    "story_blueprint_status",
     "notes",
-    "v1_42_first_introduction_island",
-    "local_reuse_story",
-    "near_transfer_story",
-    "distant_or_terminal_story",
-    "v1_43_first_introduction_story",
-    "v1_43_local_reuse_story",
-    "v1_43_near_transfer_story",
-    "v1_43_distant_or_terminal_story",
-    "v1_44_sequence_audit_status",
   ],
 };
 
 export const STORY_BLUEPRINTS: CanonicalSource = {
   key: "storyBlueprints",
-  file: "spanishstories_a1_ws_story_blueprints_v1.44.csv",
+  file: "spanishstories_a1_ws_story_blueprints_v1.51.csv",
   purpose: "Story blueprint ledger.",
   versionColumn: null,
-  filenameVersion: "1.44",
+  filenameVersion: "1.51",
   requiredColumns: [
     "story_id",
     "module_id",
@@ -318,60 +287,56 @@ export const STORY_BLUEPRINTS: CanonicalSource = {
     "communicative_goal",
     "genre_focus",
     "planned_input_mode",
-    "new_target_count",
-    "task_demand",
-    "status",
-    "scheduled_relation_count",
-    "is_final_transfer_story",
-  ],
-  knownUnusedColumns: [
-    "module_name",
-    "island_name",
-    "local_reuse_in_count",
-    "near_transfer_in_count",
-    "distant_return_in_count",
-    "regional_later_recognition_in_count",
-    "terminal_capstone_return_in_count",
+    "first_intro_target_count",
+    "focus_first_intro_count",
+    "supported_first_intro_count",
+    "first_return_in_count",
+    "second_return_in_count",
+    "third_return_in_count",
+    "regional_receptive_return_in_count",
     "new_target_policy",
+    "task_demand",
     "known_token_coverage_policy",
     "mastery_policy",
-    "notes",
-    "new_target_guardrail",
-    "v1_44_revision_reason",
+    "status",
+    "scheduled_relation_count",
+    "focus_guardrail",
+    "is_island_checkpoint",
+    "is_module_checkpoint",
+    "is_final_transfer_story",
+    "authoring_policy",
+    "dele_task_ids",
+    "required_modalities",
+    "revision_reason",
   ],
+  knownUnusedColumns: ["module_name", "island_name", "notes"],
 };
 
+/**
+ * v1.51 edges carry no `allocation_id`: they address the target directly and
+ * name the story that introduced it, so the importer joins on the pair
+ * (`target_id`, `introduction_story`) and checks it against the allocation.
+ */
 export const RECYCLING_EDGES: CanonicalSource = {
   key: "recyclingEdges",
-  file: "spanishstories_a1_ws_recycling_edges_v1.44.csv",
-  purpose: "Scheduled recycling graph over story blueprints.",
-  versionColumn: "curriculum_version",
-  filenameVersion: "1.44",
+  file: "spanishstories_a1_ws_recycling_edges_v1.51.csv",
+  purpose: "Scheduled return graph over story blueprints.",
+  versionColumn: null,
+  filenameVersion: "1.51",
   requiredColumns: [
     "edge_id",
-    "allocation_id",
     "target_type",
     "target_id",
-    "item",
-    "lexeme_id",
-    "sense_id",
-    "edge_type",
-    "from_story_id",
-    "to_story_id",
-    "from_island_id",
-    "to_island_id",
-    "route_class",
-    "required_evidence_class",
-    "productive_demand_rule",
-    "regional_policy",
+    "introduction_story",
+    "return_stage",
+    "return_story",
+    "relation_scope",
+    "evidence_demand",
+    "expected_receptive",
+    "expected_productive",
     "mastery_claim",
-    "curriculum_version",
-    "status",
   ],
-  knownUnusedColumns: [
-    "source_record_id",
-    "notes",
-  ],
+  knownUnusedColumns: ["notes"],
 };
 
 export const COVERAGE_AUDIT: CanonicalSource = {
@@ -407,10 +372,10 @@ export const COVERAGE_AUDIT: CanonicalSource = {
 
 export const SEQUENCING_AUDIT: CanonicalSource = {
   key: "sequencingAudit",
-  file: "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv",
+  file: "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv",
   purpose: "Cross-validator: final sequencing audit controls and expected counts.",
   versionColumn: null,
-  filenameVersion: "1.44",
+  filenameVersion: "1.51",
   requiredColumns: [
     "audit_id",
     "record_type",
@@ -439,3 +404,20 @@ export const CANONICAL_SOURCES: readonly CanonicalSource[] = [
   COVERAGE_AUDIT,
   SEQUENCING_AUDIT,
 ];
+
+/**
+ * Sequencing artefacts that belong to the active curriculum release.
+ *
+ * Used by the schema guard that enforces the release-neutral column contract:
+ * a v1.51 sequencing file must not reintroduce a version-stamped column name.
+ */
+export const SEQUENCING_SOURCE_KEYS: readonly CanonicalSourceKey[] = [
+  "sequencingArchitecture",
+  "sequencingAllocation",
+  "storyBlueprints",
+  "recyclingEdges",
+  "sequencingAudit",
+];
+
+/** Column names stamped with a curriculum version, e.g. `v1_44_story_count`. */
+export const VERSION_STAMPED_COLUMN = /^v\d+_\d+_/;

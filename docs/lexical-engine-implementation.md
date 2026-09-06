@@ -1,8 +1,18 @@
 # Lexical Engine — implementation notes (engine phase 2)
 
-Canonical lexical identity over the phase-1 curriculum registry. Built on
-`prueba` from `e8f482c`, curriculum release `A1-CURRICULUM-v1.44`, lexicon
-release `A1-LEXICON-v1.0`.
+Canonical lexical identity over the phase-1 curriculum registry.
+
+```text
+Lexical interpretation release   A1-LEXICON-v1.0
+Validated curriculum registry    A1-CURRICULUM-v1.51   (active baseline)
+```
+
+Originally built on `prueba` from `e8f482c` over curriculum release
+`A1-CURRICULUM-v1.44`, and revalidated unchanged against `A1-CURRICULUM-v1.51`
+after the 103 → 32 restructure. The lexicon release id did **not** change:
+resequencing the narrative altered no lexeme, form, sense, MWU identity or
+homograph group. `A1-CURRICULUM-v1.44` is historical and is not the active
+curriculum baseline.
 
 ---
 
@@ -171,10 +181,20 @@ CurriculumRelease  what is taught, in what order, on whose authority
 LexiconRelease     how lexical identity is drawn
 ```
 
-`A1-LEXICON-v1.0` records `curriculumReleaseId: "A1-CURRICULUM-v1.44"` as a
+`A1-LEXICON-v1.0` records `curriculumReleaseId: "A1-CURRICULUM-v1.51"` as a
 back-reference for auditing, not as a dependency. Splitting a lexeme changes
 the lexicon without changing a curricular decision; resequencing an island does
 the reverse. A test asserts the two ids are not equal.
+
+The 103 → 32 restructure is the worked example. It moved the back-reference
+from `A1-CURRICULUM-v1.44` to `A1-CURRICULUM-v1.51` and changed nothing else:
+the lexicon kept `A1-LEXICON-v1.0`, all 599 lexemes, 666 forms, 608 senses, 20
+homograph groups and the 44 / 170 MWU identity split. Minting an
+`A1-LEXICON-v1.1` for a curricular resequencing would have made a narrative
+decision indistinguishable from a lexical one.
+`features/lexical-engine/__tests__/curriculum-revalidation.test.ts` is the
+standing evidence, including a case that rebuilds the engine over a registry
+with its story topology emptied and gets an identical lexical release.
 
 ### 3.3 Lineage
 

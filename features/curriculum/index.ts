@@ -38,6 +38,7 @@ export type {
   CurriculumModule,
   CurriculumTarget,
   GrammarUnit,
+  IntroSalience,
   Island,
   Lexeme,
   LexemeForm,
@@ -45,15 +46,22 @@ export type {
   LevelCode,
   MwuUnit,
   RecycleEdge,
-  RecycleEdgeType,
-  RecycleStage,
+  RelationScope,
+  ReturnStage,
   Sense,
   SenseStatus,
   SourceAssertion,
   StoryBlueprint,
+  StoryRole,
   TargetType,
 } from "./domain/model.ts";
-export { LEVEL_CODE, RECYCLE_STAGE_BY_EDGE_TYPE } from "./domain/model.ts";
+export {
+  INTRO_SALIENCES,
+  LEVEL_CODE,
+  RELATION_SCOPES,
+  RETURN_STAGES,
+  STORY_ROLES,
+} from "./domain/model.ts";
 
 export type {
   CountCheck,
@@ -70,7 +78,10 @@ export {
   importCurriculum,
   importCurriculumOrThrow,
 } from "./import/importer.ts";
-export { ARCHITECTURE_EXPECTED_COUNTS } from "./import/expectations.ts";
+export {
+  ARCHITECTURE_EXPECTED_COUNTS,
+  MAX_FOCUS_FIRST_INTRODUCTIONS_PER_STORY,
+} from "./import/expectations.ts";
 export { CANONICAL_SOURCES } from "./import/sources.ts";
 
 export { COLLECTION_FILES, REGISTRY_DIR, RELEASE_FILE } from "./registry/files.ts";

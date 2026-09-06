@@ -13,6 +13,23 @@ import { loadLexicalEngine } from "@/features/lexical-engine";
 `features/lexical-engine/index.ts` es el único contrato. La estructura de
 archivos por debajo no lo es.
 
+## Identidad de release
+
+```text
+Lexical interpretation release   A1-LEXICON-v1.0
+Validated curriculum registry    A1-CURRICULUM-v1.51
+```
+
+Son espacios de identidad distintos. `LexiconRelease.curriculumReleaseId`
+guarda el registry contra el que se validó esta construcción: es una
+back-reference de auditoría, no una dependencia ni una fusión de identidades.
+
+La reestructuración 103 → 32 movió esa back-reference de
+`A1-CURRICULUM-v1.44` a `A1-CURRICULUM-v1.51` **sin** cambiar el
+`LexiconRelease`: resecuenciar la narrativa no creó, fusionó, dividió ni
+eliminó ninguna identidad léxica. Un `A1-LEXICON-v1.1` solo se emite cuando
+cambia el inventario léxico o su interpretación.
+
 ## Qué hace y qué no
 
 Consume el Curriculum Registry de la fase 1 y resuelve identidad léxica sobre

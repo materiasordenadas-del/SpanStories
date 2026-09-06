@@ -13,6 +13,10 @@
  * Absent values are modelled as `null`, never as an omitted key: the sources
  * distinguish "column exists and is empty" from "column does not apply", and a
  * stable key set keeps the generated registry byte-reproducible.
+ *
+ * The shapes here are release-neutral. Nothing carries a version-stamped field
+ * name: a figure the curriculum publishes about itself is named for what it
+ * means, and the release it came from is recorded once, in `CurriculumRelease`.
  */
 
 import type {
@@ -50,38 +54,46 @@ export const TARGET_TYPES = [
 ] as const;
 export type TargetType = (typeof TARGET_TYPES)[number];
 
-export const RECYCLE_EDGE_TYPES = [
-  "LOCAL_REUSE",
-  "LOCAL_RECEPTIVE_REUSE",
-  "NEAR_TRANSFER",
-  "REGIONAL_NEAR_RECOGNITION",
-  "DISTANT_RETURN",
-  "REGIONAL_LATER_RECOGNITION",
-  "TERMINAL_CAPSTONE_RETURN",
-] as const;
-export type RecycleEdgeType = (typeof RECYCLE_EDGE_TYPES)[number];
+/**
+ * Role a story plays in the sequence.
+ *
+ * Release-neutral by design: these are the three published roles, not the
+ * analytical labels used while the restructure was being decided.
+ */
+export const STORY_ROLES = ["NARRATIVE", "INTEGRATION", "CAPSTONE"] as const;
+export type StoryRole = (typeof STORY_ROLES)[number];
 
 /**
- * Ordinal position of an edge on the recycling route of a target.
+ * Weight of a first introduction inside its story.
  *
- * The published routes always run introduction -> local -> near -> third leg;
- * the third leg is a distant return, a terminal capstone return or a regional
- * later recognition depending on the mode policy of the target.
+ * FOCUS and SUPPORTED both denote *the* single first introduction of a target.
+ * SUPPORTED is not a second introduction and not a lesser kind of scheduling:
+ * it is the same event carrying less attentional load in that story.
  */
-export const RECYCLE_STAGES = ["LOCAL", "NEAR", "THIRD"] as const;
-export type RecycleStage = (typeof RECYCLE_STAGES)[number];
+export const INTRO_SALIENCES = ["FOCUS", "SUPPORTED"] as const;
+export type IntroSalience = (typeof INTRO_SALIENCES)[number];
 
-export const RECYCLE_STAGE_BY_EDGE_TYPE: Readonly<
-  Record<RecycleEdgeType, RecycleStage>
-> = {
-  LOCAL_REUSE: "LOCAL",
-  LOCAL_RECEPTIVE_REUSE: "LOCAL",
-  NEAR_TRANSFER: "NEAR",
-  REGIONAL_NEAR_RECOGNITION: "NEAR",
-  DISTANT_RETURN: "THIRD",
-  REGIONAL_LATER_RECOGNITION: "THIRD",
-  TERMINAL_CAPSTONE_RETURN: "THIRD",
-};
+/**
+ * Ordinal position of a scheduled return on the recycling route of a target.
+ *
+ * A target has between one and three returns. The stages are a closed, ordered
+ * vocabulary: where a later stage exists the earlier ones exist too, and each
+ * return lands strictly after the previous one in the canonical story sequence.
+ */
+export const RETURN_STAGES = [
+  "FIRST_RETURN",
+  "SECOND_RETURN",
+  "THIRD_RETURN",
+] as const;
+export type ReturnStage = (typeof RETURN_STAGES)[number];
+
+/** How far a scheduled return travels from the story that introduced it. */
+export const RELATION_SCOPES = [
+  "SAME_ISLAND",
+  "SAME_MODULE_CROSS_ISLAND",
+  "CROSS_MODULE",
+] as const;
+export type RelationScope = (typeof RELATION_SCOPES)[number];
 
 export type Lexeme = {
   readonly id: LexemeId;
@@ -191,28 +203,24 @@ export type SourceAssertion = {
   readonly publicationStatus: string;
 };
 
+/**
+ * A module of the A1 sequence.
+ *
+ * The published architecture ledger carries one row per island, not per module:
+ * modules are reconstructed by grouping islands on `module_id`. Only attributes
+ * the island rows repeat identically across a module are lifted here, and the
+ * importer fails if such an attribute disagrees between two islands of the same
+ * module rather than silently picking one.
+ */
 export type CurriculumModule = {
   readonly id: ModuleId;
   readonly order: number;
   readonly name: string;
-  readonly communicativeGoal: string;
-  readonly specificDomainFocus: string;
-  readonly designRole: string;
-  readonly hardPrerequisite: string;
-  readonly recyclingPolicy: string;
   readonly moduleGate: string;
-  readonly storyMin: number;
-  readonly storyPlanningTarget: number;
-  readonly storyMax: number;
-  /**
-   * v1.42 planning figure, kept for traceability and **superseded** as a
-   * distribution: phases 16C/16D moved introductions between islands, so this
-   * no longer matches the v1.44 allocation ledger per module. Its global sum
-   * is still 985. The authority for what a module introduces is the ledger.
-   */
-  readonly plannedFirstIntroObjectsV142: number;
-  /** v1.44 figure; validated against the story blueprints. */
-  readonly declaredStoryBlueprintCount: number;
+  /** The single story that closes the module. */
+  readonly checkpointStoryId: StoryBlueprintId | null;
+  /** Sum of the story counts the islands of this module declare. */
+  readonly declaredStoryCount: number;
   readonly islandIds: readonly IslandId[];
 };
 
@@ -223,24 +231,17 @@ export type Island = {
   readonly globalIslandOrder: number;
   readonly name: string;
   readonly communicativeGoal: string;
-  readonly specificDomainFocus: string;
   readonly designRole: string;
-  readonly grammarFocus: string;
-  readonly genreFocus: string;
-  readonly inputModes: string;
-  readonly hardPrerequisite: string;
+  /** Story blueprints the architecture declares for this island. */
+  readonly declaredStoryCount: number;
+  /** The story that closes the island. Always inside this island. */
+  readonly checkpointStoryId: StoryBlueprintId;
+  /** Set only on the island that closes its module. */
+  readonly moduleCheckpointStoryId: StoryBlueprintId | null;
+  /** Preceding island, or null where the published value is `NONE`. */
+  readonly hardPrerequisiteIslandId: IslandId | null;
   readonly recyclingPolicy: string;
-  readonly senseIntroBudget: number;
-  readonly grammarIntroBudget: number;
-  readonly mwuIntroBudget: number;
-  readonly regionalReceptiveIntroBudget: number;
-  /**
-   * v1.42 planning figure. Superseded per island by the v1.44 allocation
-   * ledger; see `CurriculumModule.plannedFirstIntroObjectsV142`.
-   */
-  readonly plannedFirstIntroObjectsV142: number;
-  /** v1.44 figure; validated against the story blueprints. */
-  readonly declaredStoryBlueprintCount: number;
+  readonly allocationStatus: string;
   readonly storyIds: readonly StoryBlueprintId[];
 };
 
@@ -253,22 +254,42 @@ export type StoryBlueprint = {
   /** Position in the single canonical A1 story sequence, 1-based. */
   readonly sequenceIndex: number;
   readonly title: string;
-  readonly role: string;
+  readonly role: StoryRole;
   readonly scenarioBrief: string;
   readonly communicativeGoal: string;
   readonly genreFocus: string;
   readonly plannedInputMode: string;
   readonly taskDemand: string;
-  readonly isFinalTransferStory: boolean;
-  /** Counts declared by the blueprint ledger, cross-checked at import. */
-  readonly declaredNewTargetCount: number;
-  readonly declaredScheduledRelationCount: number;
+  readonly newTargetPolicy: string;
+  readonly knownTokenCoveragePolicy: string;
+  readonly masteryPolicy: string;
+  readonly authoringPolicy: string;
+  readonly focusGuardrail: string;
+  readonly revisionReason: string;
   readonly status: string;
+  readonly isIslandCheckpoint: boolean;
+  readonly isModuleCheckpoint: boolean;
+  readonly isFinalTransferStory: boolean;
+  /** Published DELE task structures this blueprint can carry. */
+  readonly deleTaskIds: readonly string[];
+  /** Modalities the blueprint must exercise; empty where none is required. */
+  readonly requiredModalities: readonly string[];
+  /** Counts declared by the blueprint ledger, cross-checked at import. */
+  readonly declaredFirstIntroTargetCount: number;
+  readonly declaredFocusFirstIntroCount: number;
+  readonly declaredSupportedFirstIntroCount: number;
+  readonly declaredFirstReturnInCount: number;
+  readonly declaredSecondReturnInCount: number;
+  readonly declaredThirdReturnInCount: number;
+  readonly declaredRegionalReceptiveReturnInCount: number;
+  readonly declaredScheduledRelationCount: number;
 };
 
 /**
- * The first (and only) introduction of a curriculum target, plus the recycling
- * route scheduled for it. One per published allocation row.
+ * The first — and only — introduction of a curriculum target.
+ *
+ * `introSalience` records how the story weights that introduction. It does not
+ * multiply the event: one published allocation row is one first introduction.
  */
 export type CurriculumTarget = {
   readonly allocationId: AllocationId;
@@ -283,7 +304,7 @@ export type CurriculumTarget = {
   readonly expectedProductive: string;
   readonly formulaicExpectation: string;
   readonly regionalPolicy: string | null;
-  readonly routeClass: string;
+  readonly introSalience: IntroSalience;
   readonly allocationAuthority: string;
   readonly allocationBasis: string;
   readonly allocationReason: string;
@@ -298,30 +319,30 @@ export type CurriculumTarget = {
   readonly firstIntroductionModuleId: ModuleId;
   readonly firstIntroductionIslandId: IslandId;
   readonly firstIntroductionStoryId: StoryBlueprintId;
+  readonly storyBlueprintStatus: string;
   readonly recycleEdgeIds: readonly RecycleEdgeId[];
 };
 
+/**
+ * One scheduled return of a target to a later story.
+ *
+ * The edge addresses its target directly: the published ledger links by
+ * `target_id` plus the `introduction_story` of that target's allocation, and
+ * the importer checks that pair against the allocation rather than trusting
+ * one side of it.
+ */
 export type RecycleEdge = {
   readonly id: RecycleEdgeId;
-  readonly allocationId: AllocationId;
   readonly targetType: TargetType;
   readonly targetId: string;
-  readonly item: string;
-  readonly lexemeId: LexemeId | null;
-  readonly senseId: SenseId | null;
-  readonly edgeType: RecycleEdgeType;
-  readonly stage: RecycleStage;
-  readonly fromStoryId: StoryBlueprintId;
-  readonly toStoryId: StoryBlueprintId;
-  readonly fromIslandId: IslandId;
-  readonly toIslandId: IslandId;
-  readonly routeClass: string;
-  readonly requiredEvidenceClass: string;
-  readonly productiveDemandRule: string;
-  readonly regionalPolicy: string | null;
+  readonly introductionStoryId: StoryBlueprintId;
+  readonly returnStage: ReturnStage;
+  readonly returnStoryId: StoryBlueprintId;
+  readonly relationScope: RelationScope;
+  readonly evidenceDemand: string;
+  readonly expectedReceptive: string;
+  readonly expectedProductive: string;
   readonly masteryClaim: string;
-  readonly curriculumVersion: string;
-  readonly status: string;
 };
 
 /** The canonical, fully cross-linked A1 curriculum. */

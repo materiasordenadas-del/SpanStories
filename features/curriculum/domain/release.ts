@@ -13,8 +13,19 @@
 
 import type { CurriculumIssue } from "./errors.ts";
 
-/** Schema version of the generated registry, owned by this importer. */
-export const REGISTRY_SCHEMA_VERSION = "curriculum-registry/1.0.0";
+/**
+ * Schema version of the generated registry, owned by this importer.
+ *
+ * Bumped to 2.0.0 for the `A1-CURRICULUM-v1.51` cutover: the canonical shape of
+ * `StoryBlueprint` and `RecycleEdge` changed (FOCUS/SUPPORTED salience,
+ * FIRST/SECOND/THIRD return stages, checkpoint flags), so a 1.0.0 registry
+ * cannot be read as a 2.0.0 one.
+ *
+ * This namespace is the importer's own contract and is deliberately distinct
+ * from the editorial schema version the curriculum manifest declares
+ * (`2.0.0-rc1`): the two version different things and must not be conflated.
+ */
+export const REGISTRY_SCHEMA_VERSION = "curriculum-registry/2.0.0";
 
 export type SourceFileManifest = {
   /** Basename as published; the importer never renames sources. */

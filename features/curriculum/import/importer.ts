@@ -29,12 +29,13 @@ import {
   type StoryBlueprintId,
 } from "../domain/ids.ts";
 import {
+  INTRO_SALIENCES,
   LEVEL_CODE,
   LEXEME_TYPES,
-  RECYCLE_EDGE_TYPES,
-  RECYCLE_STAGE_BY_EDGE_TYPE,
-  RECYCLE_STAGES,
+  RELATION_SCOPES,
+  RETURN_STAGES,
   SENSE_STATUSES,
+  STORY_ROLES,
   TARGET_TYPES,
   type CurriculumData,
   type CurriculumModule,
@@ -70,8 +71,10 @@ import {
   SEQUENCING_ALLOCATION,
   SEQUENCING_ARCHITECTURE,
   SEQUENCING_AUDIT,
+  SEQUENCING_SOURCE_KEYS,
   SOURCE_ASSERTIONS,
   STORY_BLUEPRINTS,
+  VERSION_STAMPED_COLUMN,
   type CanonicalSource,
   type CanonicalSourceKey,
 } from "./sources.ts";
@@ -113,12 +116,12 @@ const NORM_ROW_TYPES = [
   "REGIONAL_PATTERN_CANDIDATE",
 ] as const;
 
-const ARCH_RECORD_TYPES = [
-  "MODULE",
-  "ISLAND",
-  "SEQUENCING_RULE",
-  "RECYCLING_RULE",
-] as const;
+/**
+ * v1.51 publishes island rows only. `MODULE`, `SEQUENCING_RULE` and
+ * `RECYCLING_RULE` belonged to the archived v1.44 layout; encountering one now
+ * is schema drift, not a row to skip.
+ */
+const ARCH_RECORD_TYPES = ["ISLAND"] as const;
 
 const SA_RECORD_TYPES = ["SOURCE_ASSERTION", "ASSERTION_ENVELOPE"] as const;
 
@@ -131,6 +134,9 @@ const SA_TARGET_TYPES = [
 /** Marks a published assertion as final rather than superseded staging. */
 const PUBLISHED_ASSERTION_STATUS = "PUBLISHED_V1.40";
 
+/** Published value meaning "this island opens the sequence". */
+const NO_PREREQUISITE = "NONE";
+
 function compareBy<T>(key: (value: T) => string): (a: T, b: T) => number {
   return (a, b) => {
     const left = key(a);
@@ -141,6 +147,14 @@ function compareBy<T>(key: (value: T) => string): (a: T, b: T) => number {
 
 function padOrder(value: number): string {
   return Number.isFinite(value) ? String(value).padStart(6, "0") : "999999";
+}
+
+/** Split a published `;`-separated list. Empty stays empty, never `[""]`. */
+function splitList(value: string): string[] {
+  return value
+    .split(";")
+    .map((entry) => entry.trim())
+    .filter((entry) => entry !== "");
 }
 
 /**
@@ -193,6 +207,30 @@ export function importCurriculum(
     }
     return value;
   };
+
+  /*
+   * Release-neutral column contract (published audit control H-024).
+   *
+   * The restructure retired the version-stamped sequencing columns
+   * (`v1_42_*`, `v1_43_*`, `v1_44_*`). Reintroducing one would smuggle a
+   * superseded release's semantics back into the active schema, so the guard
+   * is enforced here rather than trusted from the ledger.
+   */
+  let versionStampedColumns = 0;
+  for (const key of SEQUENCING_SOURCE_KEYS) {
+    const file = get(key);
+    for (const column of file.header) {
+      if (!VERSION_STAMPED_COLUMN.test(column)) continue;
+      versionStampedColumns += 1;
+      issues.push(
+        issue(
+          "CURRICULUM_IMPORT_INVALID",
+          `column ${JSON.stringify(column)} is stamped with a curriculum version; the active sequencing schema is release-neutral`,
+          { sourceFile: file.file, field: column },
+        ),
+      );
+    }
+  }
 
   // ---------------------------------------------------------------- entities
   const norm = get("normalizationMaster");
@@ -339,72 +377,141 @@ export function importCurriculum(
   }
 
   // ------------------------------------------------------ modules and islands
+  /*
+   * v1.51 publishes eleven ISLAND rows and no MODULE row. The eight modules are
+   * therefore reconstructed by grouping islands on `module_id`. Attributes a
+   * module owns (`module_order`, `module_name`, `module_gate`) are repeated on
+   * each of its island rows; disagreement between two rows of the same module
+   * is reported rather than resolved by taking the first value read.
+   */
   const archFile = get("sequencingArchitecture");
-  const moduleRows: {
+  type ModuleDraft = {
     id: ModuleId;
     order: number;
     name: string;
-    communicativeGoal: string;
-    specificDomainFocus: string;
-    designRole: string;
-    hardPrerequisite: string;
-    recyclingPolicy: string;
     moduleGate: string;
-    storyMin: number;
-    storyPlanningTarget: number;
-    storyMax: number;
-    plannedFirstIntroObjectsV142: number;
-    declaredStoryBlueprintCount: number;
-  }[] = [];
+    checkpointStoryIds: Set<string>;
+    declaredStoryCount: number;
+  };
+  const moduleDrafts = new Map<string, ModuleDraft>();
   const islands: Island[] = [];
 
   for (const record of archFile.records) {
     const read = new RowReader(archFile.file, record, issues);
-    const recordType = read.enum("record_type", ARCH_RECORD_TYPES);
-    if (recordType === "MODULE") {
-      const id = read.id("ModuleId", "module_id");
-      read.identify(id);
-      moduleRows.push({
-        id,
-        order: read.integer("module_order"),
-        name: read.required("module_name"),
-        communicativeGoal: read.required("communicative_goal"),
-        specificDomainFocus: read.required("specific_domain_focus"),
-        designRole: read.required("design_role"),
-        hardPrerequisite: read.required("hard_prerequisite"),
-        recyclingPolicy: read.required("recycling_policy"),
-        moduleGate: read.required("module_gate"),
-        storyMin: read.integer("story_min"),
-        storyPlanningTarget: read.integer("story_planning_target"),
-        storyMax: read.integer("story_max"),
-        plannedFirstIntroObjectsV142: read.integer("v1_42_total_first_intro_objects"),
-        declaredStoryBlueprintCount: read.integer("v1_44_story_blueprint_count"),
-      });
-      continue;
-    }
-    if (recordType !== "ISLAND") continue;
+    read.enum("record_type", ARCH_RECORD_TYPES);
     const id = read.id("IslandId", "island_id");
     read.identify(id);
+
+    // The published `sequence_id` restates the island id; a divergence means
+    // the row was assembled from two different islands.
+    const sequenceId = read.required("sequence_id");
+    if (sequenceId !== "" && sequenceId !== id) {
+      issues.push(
+        issue(
+          "CURRICULUM_SEQUENCE_INVALID",
+          "sequence_id does not restate the island id of its own row",
+          {
+            sourceFile: archFile.file,
+            row: record.row,
+            line: record.line,
+            recordId: id,
+            field: "sequence_id",
+            expected: id,
+            actual: sequenceId,
+          },
+        ),
+      );
+    }
+
+    const moduleId = read.id("ModuleId", "module_id");
+    const moduleOrder = read.integer("module_order");
+    const moduleName = read.required("module_name");
+    const moduleGate = read.required("module_gate");
+    const declaredStoryCount = read.integer("story_count");
+    const moduleCheckpoint = read.optionalId(
+      "StoryBlueprintId",
+      "module_checkpoint_story_id",
+    );
+
+    const draft = moduleDrafts.get(moduleId);
+    if (draft === undefined) {
+      moduleDrafts.set(moduleId, {
+        id: moduleId,
+        order: moduleOrder,
+        name: moduleName,
+        moduleGate,
+        checkpointStoryIds: new Set(
+          moduleCheckpoint === null ? [] : [moduleCheckpoint],
+        ),
+        declaredStoryCount,
+      });
+    } else {
+      const disagreements: [string, string | number, string | number][] = [];
+      if (draft.order !== moduleOrder) {
+        disagreements.push(["module_order", draft.order, moduleOrder]);
+      }
+      if (draft.name !== moduleName) {
+        disagreements.push(["module_name", draft.name, moduleName]);
+      }
+      if (draft.moduleGate !== moduleGate) {
+        disagreements.push(["module_gate", draft.moduleGate, moduleGate]);
+      }
+      for (const [field, expected, actual] of disagreements) {
+        issues.push(
+          issue(
+            "CURRICULUM_SEQUENCE_INVALID",
+            `islands of module ${moduleId} disagree about ${field}`,
+            {
+              sourceFile: archFile.file,
+              row: record.row,
+              line: record.line,
+              recordId: id,
+              field,
+              expected,
+              actual,
+            },
+          ),
+        );
+      }
+      if (moduleCheckpoint !== null) draft.checkpointStoryIds.add(moduleCheckpoint);
+      draft.declaredStoryCount += declaredStoryCount;
+    }
+
+    const prerequisite = read.required("hard_prerequisite");
+    let hardPrerequisiteIslandId: IslandId | null = null;
+    if (prerequisite !== NO_PREREQUISITE && prerequisite !== "") {
+      if (!matchesIdPattern("IslandId", prerequisite)) {
+        issues.push(
+          issue(
+            "CURRICULUM_ID_PATTERN_INVALID",
+            `hard_prerequisite ${JSON.stringify(prerequisite)} is neither ${NO_PREREQUISITE} nor a published IslandId`,
+            {
+              sourceFile: archFile.file,
+              row: record.row,
+              line: record.line,
+              recordId: id,
+              field: "hard_prerequisite",
+            },
+          ),
+        );
+      }
+      hardPrerequisiteIslandId = asId("IslandId", prerequisite);
+    }
+
     islands.push({
       id,
-      moduleId: read.id("ModuleId", "module_id"),
+      moduleId,
       islandOrder: read.integer("island_order"),
       globalIslandOrder: read.integer("global_island_order"),
       name: read.required("island_name"),
       communicativeGoal: read.required("communicative_goal"),
-      specificDomainFocus: read.required("specific_domain_focus"),
       designRole: read.required("design_role"),
-      grammarFocus: read.required("grammar_focus"),
-      genreFocus: read.required("genre_focus"),
-      inputModes: read.required("input_modes"),
-      hardPrerequisite: read.required("hard_prerequisite"),
+      declaredStoryCount,
+      checkpointStoryId: read.id("StoryBlueprintId", "island_checkpoint_story_id"),
+      moduleCheckpointStoryId: moduleCheckpoint,
+      hardPrerequisiteIslandId,
       recyclingPolicy: read.required("recycling_policy"),
-      senseIntroBudget: read.integer("sense_intro_budget"),
-      grammarIntroBudget: read.integer("grammar_intro_budget"),
-      mwuIntroBudget: read.integer("mwu_intro_budget"),
-      regionalReceptiveIntroBudget: read.integer("regional_receptive_intro_budget"),
-      plannedFirstIntroObjectsV142: read.integer("v1_42_total_first_intro_objects"),
-      declaredStoryBlueprintCount: read.integer("v1_44_story_blueprint_count"),
+      allocationStatus: read.required("allocation_status"),
       storyIds: [],
     });
   }
@@ -425,16 +532,34 @@ export function importCurriculum(
       globalIslandOrder: read.integer("global_island_order"),
       storyOrder: read.integer("story_order"),
       title: read.required("story_title"),
-      role: read.required("story_role"),
+      role: read.enum("story_role", STORY_ROLES),
       scenarioBrief: read.required("scenario_brief"),
       communicativeGoal: read.required("communicative_goal"),
       genreFocus: read.required("genre_focus"),
       plannedInputMode: read.required("planned_input_mode"),
       taskDemand: read.required("task_demand"),
-      isFinalTransferStory: read.yesNo("is_final_transfer_story"),
-      declaredNewTargetCount: read.integer("new_target_count"),
-      declaredScheduledRelationCount: read.integer("scheduled_relation_count"),
+      newTargetPolicy: read.required("new_target_policy"),
+      knownTokenCoveragePolicy: read.required("known_token_coverage_policy"),
+      masteryPolicy: read.required("mastery_policy"),
+      authoringPolicy: read.required("authoring_policy"),
+      focusGuardrail: read.required("focus_guardrail"),
+      revisionReason: read.required("revision_reason"),
       status: read.required("status"),
+      isIslandCheckpoint: read.yesNo("is_island_checkpoint"),
+      isModuleCheckpoint: read.yesNo("is_module_checkpoint"),
+      isFinalTransferStory: read.yesNo("is_final_transfer_story"),
+      deleTaskIds: splitList(read.raw("dele_task_ids")),
+      requiredModalities: splitList(read.raw("required_modalities")),
+      declaredFirstIntroTargetCount: read.integer("first_intro_target_count"),
+      declaredFocusFirstIntroCount: read.integer("focus_first_intro_count"),
+      declaredSupportedFirstIntroCount: read.integer("supported_first_intro_count"),
+      declaredFirstReturnInCount: read.integer("first_return_in_count"),
+      declaredSecondReturnInCount: read.integer("second_return_in_count"),
+      declaredThirdReturnInCount: read.integer("third_return_in_count"),
+      declaredRegionalReceptiveReturnInCount: read.integer(
+        "regional_receptive_return_in_count",
+      ),
+      declaredScheduledRelationCount: read.integer("scheduled_relation_count"),
     });
   }
 
@@ -515,10 +640,7 @@ export function importCurriculum(
 
     const assertionRefs: SourceAssertionId[] = [];
     const catalogueRefs: string[] = [];
-    for (const ref of (read.raw("source_assertion_ids") || "")
-      .split(";")
-      .map((value) => value.trim())
-      .filter((value) => value !== "")) {
+    for (const ref of splitList(read.raw("source_assertion_ids"))) {
       if (matchesIdPattern("SourceAssertionId", ref)) {
         assertionRefs.push(asId("SourceAssertionId", ref));
       } else {
@@ -539,15 +661,16 @@ export function importCurriculum(
       expectedProductive: read.required("expected_productive"),
       formulaicExpectation: read.optional("formulaic_expectation") ?? "",
       regionalPolicy: read.optional("regional_policy"),
-      routeClass: read.required("recycle_route_class"),
+      introSalience: read.enum("intro_salience", INTRO_SALIENCES),
       allocationAuthority: read.required("allocation_authority"),
       allocationBasis: read.required("allocation_basis"),
       allocationReason: read.required("allocation_reason"),
       sourceAssertionIds: assertionRefs,
       sourceCatalogueRefs: catalogueRefs,
       firstIntroductionModuleId: read.id("ModuleId", "module_id"),
-      firstIntroductionIslandId: read.id("IslandId", "first_introduction_island"),
-      firstIntroductionStoryId: read.id("StoryBlueprintId", "first_introduction_story"),
+      firstIntroductionIslandId: read.id("IslandId", "island_id"),
+      firstIntroductionStoryId: read.id("StoryBlueprintId", "story_id"),
+      storyBlueprintStatus: read.required("story_blueprint_status"),
     });
   }
 
@@ -560,51 +683,39 @@ export function importCurriculum(
     const read = new RowReader(recFile.file, record, issues);
     const id = read.id("RecycleEdgeId", "edge_id");
     read.identify(id);
-    const edgeType = read.enum("edge_type", RECYCLE_EDGE_TYPES);
     recycleEdges.push({
       id,
-      allocationId: read.id("AllocationId", "allocation_id"),
       targetType: read.enum("target_type", TARGET_TYPES),
       targetId: read.required("target_id"),
-      item: read.required("item"),
-      lexemeId: read.optionalId("LexemeId", "lexeme_id"),
-      senseId: read.optionalId("SenseId", "sense_id"),
-      edgeType,
-      stage: RECYCLE_STAGE_BY_EDGE_TYPE[edgeType] ?? "THIRD",
-      fromStoryId: read.id("StoryBlueprintId", "from_story_id"),
-      toStoryId: read.id("StoryBlueprintId", "to_story_id"),
-      fromIslandId: read.id("IslandId", "from_island_id"),
-      toIslandId: read.id("IslandId", "to_island_id"),
-      routeClass: read.required("route_class"),
-      requiredEvidenceClass: read.required("required_evidence_class"),
-      productiveDemandRule: read.required("productive_demand_rule"),
-      regionalPolicy: read.optional("regional_policy"),
+      introductionStoryId: read.id("StoryBlueprintId", "introduction_story"),
+      returnStage: read.enum("return_stage", RETURN_STAGES),
+      returnStoryId: read.id("StoryBlueprintId", "return_story"),
+      relationScope: read.enum("relation_scope", RELATION_SCOPES),
+      evidenceDemand: read.required("evidence_demand"),
+      expectedReceptive: read.required("expected_receptive"),
+      expectedProductive: read.required("expected_productive"),
       masteryClaim: read.required("mastery_claim"),
-      curriculumVersion: read.required("curriculum_version"),
-      status: read.required("status"),
     });
   }
   recycleEdges.sort(compareBy((value) => value.id));
 
   // ------------------------------------------------------------- cross-links
-  const stageRank = new Map(RECYCLE_STAGES.map((stage, index) => [stage, index]));
-  const edgesByAllocation = new Map<string, RecycleEdge[]>();
+  const stageRank = new Map(RETURN_STAGES.map((stage, index) => [stage, index]));
+  const edgesByTarget = new Map<string, RecycleEdge[]>();
   for (const edge of recycleEdges) {
-    const bucket = edgesByAllocation.get(edge.allocationId);
-    if (bucket === undefined) edgesByAllocation.set(edge.allocationId, [edge]);
+    const bucket = edgesByTarget.get(edge.targetId);
+    if (bucket === undefined) edgesByTarget.set(edge.targetId, [edge]);
     else bucket.push(edge);
   }
-  for (const bucket of edgesByAllocation.values()) {
+  for (const bucket of edgesByTarget.values()) {
     bucket.sort(
-      compareBy(
-        (edge) => `${stageRank.get(edge.stage) ?? 9}#${edge.id}`,
-      ),
+      compareBy((edge) => `${stageRank.get(edge.returnStage) ?? 9}#${edge.id}`),
     );
   }
 
   const targets: CurriculumTarget[] = allocations.map((draft) => ({
     ...draft,
-    recycleEdgeIds: (edgesByAllocation.get(draft.allocationId) ?? []).map(
+    recycleEdgeIds: (edgesByTarget.get(draft.targetId) ?? []).map(
       (edge) => edge.id as RecycleEdgeId,
     ),
   }));
@@ -626,10 +737,38 @@ export function importCurriculum(
     if (bucket === undefined) islandIdsByModule.set(island.moduleId, [island.id]);
     else bucket.push(island.id);
   }
-  const modules: CurriculumModule[] = moduleRows
-    .slice()
+
+  const modules: CurriculumModule[] = [...moduleDrafts.values()]
     .sort(compareBy((value) => padOrder(value.order)))
-    .map((value) => ({ ...value, islandIds: islandIdsByModule.get(value.id) ?? [] }));
+    .map((draft) => {
+      const checkpoints = [...draft.checkpointStoryIds].sort();
+      if (checkpoints.length > 1) {
+        issues.push(
+          issue(
+            "CURRICULUM_SEQUENCE_INVALID",
+            `module ${draft.id} declares more than one module checkpoint story`,
+            {
+              sourceFile: SEQUENCING_ARCHITECTURE.file,
+              recordId: draft.id,
+              field: "module_checkpoint_story_id",
+              actual: checkpoints.join(", "),
+            },
+          ),
+        );
+      }
+      return {
+        id: draft.id,
+        order: draft.order,
+        name: draft.name,
+        moduleGate: draft.moduleGate,
+        checkpointStoryId:
+          checkpoints.length === 1
+            ? asId("StoryBlueprintId", checkpoints[0])
+            : null,
+        declaredStoryCount: draft.declaredStoryCount,
+        islandIds: islandIdsByModule.get(draft.id) ?? [],
+      };
+    });
 
   const grammarUnits: GrammarUnit[] = [...grammarUnitsById.values()].sort(
     compareBy((value) => value.id),
@@ -664,7 +803,10 @@ export function importCurriculum(
   issues.push(...validation.issues);
 
   // ----------------------------------------------------------------- counts
-  const actualCounts = countCurriculum(data, validation.observed);
+  const actualCounts = countCurriculum(data, {
+    ...validation.observed,
+    versionStampedColumns,
+  });
   const publishedExpectations = readPublishedExpectations(
     get("sequencingAudit").records,
   );
@@ -806,6 +948,30 @@ function countCurriculum(
   data: CurriculumData,
   observed: Readonly<Record<string, number>>,
 ): Record<CountKey, number> {
+  const storyById = new Map(data.storyBlueprints.map((value) => [value.id, value]));
+
+  const focusByStory = new Map<string, number>();
+  let capstoneFirstIntroductions = 0;
+  for (const target of data.targets) {
+    if (target.introSalience === "FOCUS") {
+      focusByStory.set(
+        target.firstIntroductionStoryId,
+        (focusByStory.get(target.firstIntroductionStoryId) ?? 0) + 1,
+      );
+    }
+    if (storyById.get(target.firstIntroductionStoryId)?.role === "CAPSTONE") {
+      capstoneFirstIntroductions += 1;
+    }
+  }
+
+  const deleTaskIds = new Set<string>();
+  for (const story of data.storyBlueprints) {
+    for (const taskId of story.deleTaskIds) deleTaskIds.add(taskId);
+  }
+
+  const stageCount = (stage: string): number =>
+    data.recycleEdges.filter((value) => value.returnStage === stage).length;
+
   return {
     lexemes: data.lexemes.length,
     lexemeForms: data.lexemeForms.length,
@@ -818,16 +984,36 @@ function countCurriculum(
     islands: data.islands.length,
     storyBlueprints: data.storyBlueprints.length,
     firstIntroductions: data.targets.length,
+    focusFirstIntroductions: data.targets.filter(
+      (value) => value.introSalience === "FOCUS",
+    ).length,
+    supportedFirstIntroductions: data.targets.filter(
+      (value) => value.introSalience === "SUPPORTED",
+    ).length,
+    maxFocusPerStory:
+      focusByStory.size === 0 ? 0 : Math.max(...focusByStory.values()),
+    islandCheckpoints: data.storyBlueprints.filter((v) => v.isIslandCheckpoint).length,
+    moduleCheckpoints: data.storyBlueprints.filter((v) => v.isModuleCheckpoint).length,
+    dedicatedFinalTransferStories: data.storyBlueprints.filter(
+      (v) => v.isFinalTransferStory,
+    ).length,
+    capstoneFirstIntroductions,
+    deleTaskStructures: deleTaskIds.size,
     recycleEdges: data.recycleEdges.length,
+    firstReturnEdges: stageCount("FIRST_RETURN"),
+    secondReturnEdges: stageCount("SECOND_RETURN"),
+    thirdReturnEdges: stageCount("THIRD_RETURN"),
     orphanSenses: observed["orphanSenses"] ?? 0,
     orphanForms: observed["orphanForms"] ?? 0,
     a2BoundaryScheduledAsA1: observed["a2BoundaryScheduledAsA1"] ?? 0,
     backwardRecycleEdges: observed["backwardRecycleEdges"] ?? 0,
+    routeOrderViolations: observed["routeOrderViolations"] ?? 0,
     duplicatePublishedIds: observed["duplicatePublishedIds"] ?? 0,
-    regionalReceptiveTargets: observed["regionalReceptiveTargets"] ?? 0,
     regionalTargetsWithUniversalProductiveDemand:
       observed["regionalTargetsWithUniversalProductiveDemand"] ?? 0,
     recycleEdgesClaimingMastery: observed["recycleEdgesClaimingMastery"] ?? 0,
+    versionStampedColumns: observed["versionStampedColumns"] ?? 0,
+    regionalReceptiveTargets: observed["regionalReceptiveTargets"] ?? 0,
   };
 }
 

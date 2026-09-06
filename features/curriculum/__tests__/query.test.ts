@@ -96,28 +96,30 @@ describe("curriculum registry / query API", () => {
       ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"],
     );
     const islands = registry.getIslandsInOrder();
-    assert.equal(islands.length, 32);
-    assert.equal(islands[0].id, "A1-M01-I01");
-    assert.equal(islands[31].globalIslandOrder, 32);
+    assert.equal(islands.length, 11);
+    assert.equal(islands[0].id, "A1-M01-I05");
+    assert.equal(islands[10].globalIslandOrder, 11);
 
     const ofModule = registry.getIslandsOfModule("M01");
-    assert.ok(ofModule.status === "FOUND" && ofModule.value.length === 4);
+    assert.ok(ofModule.status === "FOUND" && ofModule.value.length === 1);
+    const ofM02 = registry.getIslandsOfModule("M02");
+    assert.ok(ofM02.status === "FOUND" && ofM02.value.length === 2);
     assert.equal(registry.getIslandsOfModule("M99").status, "NOT_FOUND");
   });
 
   test("stories come back in the single canonical sequence", () => {
     const stories = registry.getStoriesInSequence();
-    assert.equal(stories.length, 103);
-    assert.equal(stories[0].id, "A1-M01-I01-S1");
+    assert.equal(stories.length, 32);
+    assert.equal(stories[0].id, "A1-M01-I05-S1");
     stories.forEach((story, index) => assert.equal(story.sequenceIndex, index + 1));
 
-    const byId = registry.getStoryBlueprintById("A1-M01-I01-S1");
+    const byId = registry.getStoryBlueprintById("A1-M01-I05-S1");
     assert.ok(byId);
     assert.equal(byId.moduleId, "M01");
     assert.equal(registry.getStoryBlueprintById("A1-M09-I09-S9"), null);
 
-    const ofIsland = registry.getStoriesOfIsland("A1-M01-I01");
-    assert.ok(ofIsland.status === "FOUND" && ofIsland.value.length >= 3);
+    const ofIsland = registry.getStoriesOfIsland("A1-M01-I05");
+    assert.ok(ofIsland.status === "FOUND" && ofIsland.value.length === 4);
   });
 
   test("a CurriculumTarget resolves to its registry object", () => {
@@ -170,6 +172,37 @@ describe("curriculum registry / query API", () => {
     }
   });
 
+  test("the registry exposes the v1.51 release identity", () => {
+    assert.equal(registry.release.releaseId, "A1-CURRICULUM-v1.51");
+    assert.equal(registry.release.schemaVersion, "curriculum-registry/2.0.0");
+    assert.equal(registry.release.validationResult.status, "PASS");
+  });
+
+  test("checkpoints are reachable from the topology", () => {
+    for (const island of registry.getIslandsInOrder()) {
+      const checkpoint = registry.getStoryBlueprintById(island.checkpointStoryId);
+      assert.ok(checkpoint, `${island.id} checkpoint must resolve`);
+      assert.equal(checkpoint.islandId, island.id);
+      assert.equal(checkpoint.isIslandCheckpoint, true);
+    }
+    for (const curriculumModule of registry.getModulesInOrder()) {
+      const checkpointId = curriculumModule.checkpointStoryId;
+      assert.ok(checkpointId, `${curriculumModule.id} needs a module checkpoint`);
+      const checkpoint = registry.getStoryBlueprintById(checkpointId);
+      assert.ok(checkpoint);
+      assert.equal(checkpoint.moduleId, curriculumModule.id);
+      assert.equal(checkpoint.isModuleCheckpoint, true);
+    }
+  });
+
+  test("targets carry their FOCUS or SUPPORTED salience through the query API", () => {
+    const resolved = registry.resolveTarget("SENSE-A1-000015");
+    assert.ok(resolved);
+    assert.equal(resolved.allocation.introSalience, "SUPPORTED");
+    const salience = new Set(registry.data.targets.map((value) => value.introSalience));
+    assert.deepEqual([...salience].sort(), ["FOCUS", "SUPPORTED"]);
+  });
+
   test("recycle edges and recycle path of a target", () => {
     const edges = registry.getRecycleEdgesForTarget("SENSE-A1-000015");
     assert.ok(edges.status === "FOUND" && edges.value.length === 3);
@@ -178,8 +211,8 @@ describe("curriculum registry / query API", () => {
     assert.equal(path.status, "FOUND");
     if (path.status !== "FOUND") return;
     assert.deepEqual(
-      path.value.steps.map((step) => step.stage),
-      ["LOCAL", "NEAR", "THIRD"],
+      path.value.steps.map((step) => step.returnStage),
+      ["FIRST_RETURN", "SECOND_RETURN", "THIRD_RETURN"],
     );
     let previous = path.value.introduction.sequenceIndex;
     for (const step of path.value.steps) {
@@ -197,7 +230,7 @@ describe("curriculum registry / query API", () => {
       const result = registry.getTargetsIntroducedIn(story.id);
       assert.equal(result.status, "FOUND");
       if (result.status !== "FOUND") continue;
-      assert.equal(result.value.length, story.declaredNewTargetCount, story.id);
+      assert.equal(result.value.length, story.declaredFirstIntroTargetCount, story.id);
     }
     assert.equal(registry.getTargetsIntroducedIn("A1-M09-I09-S9").status, "NOT_FOUND");
   });

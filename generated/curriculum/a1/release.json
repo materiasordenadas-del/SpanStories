@@ -1,11 +1,10 @@
 {
-  "releaseId": "A1-CURRICULUM-v1.44",
-  "schemaVersion": "curriculum-registry/1.0.0",
+  "releaseId": "A1-CURRICULUM-v1.51",
+  "schemaVersion": "curriculum-registry/2.0.0",
   "level": "A1",
   "curriculumVersions": {
     "normalizationMaster": "1.37",
-    "sourceAssertions": "1.40",
-    "recyclingEdges": "1.44"
+    "sourceAssertions": "1.40"
   },
   "sourceFiles": [
     {
@@ -23,32 +22,32 @@
       "declaredCurriculumVersion": "1.40"
     },
     {
-      "file": "spanishstories_a1_ws_sequencing_architecture_v1.44.csv",
-      "sha256": "592bd727a0a2d08e2bb0d9ae555636445eed9760cf13c962f89636ff30471aaa",
-      "byteLength": 52689,
-      "recordCount": 58,
+      "file": "spanishstories_a1_ws_sequencing_architecture_v1.51.csv",
+      "sha256": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd",
+      "byteLength": 5434,
+      "recordCount": 11,
       "declaredCurriculumVersion": null
     },
     {
-      "file": "spanishstories_a1_ws_sequencing_allocation_v1.44.csv",
-      "sha256": "177dcd8a5bc09a08fe7524b1be03808f8d97f26b3c4c2657b109dc241aeb0b25",
-      "byteLength": 792289,
+      "file": "spanishstories_a1_ws_sequencing_allocation_v1.51.csv",
+      "sha256": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d",
+      "byteLength": 549463,
       "recordCount": 985,
       "declaredCurriculumVersion": null
     },
     {
-      "file": "spanishstories_a1_ws_story_blueprints_v1.44.csv",
-      "sha256": "72f9a1c1bf50b890b115bba048bec75c3f3b1a7d60d6499401880ddc4e595090",
-      "byteLength": 72653,
-      "recordCount": 103,
+      "file": "spanishstories_a1_ws_story_blueprints_v1.51.csv",
+      "sha256": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd",
+      "byteLength": 21029,
+      "recordCount": 32,
       "declaredCurriculumVersion": null
     },
     {
-      "file": "spanishstories_a1_ws_recycling_edges_v1.44.csv",
-      "sha256": "43f80b9855d113a1084b368095a76e8716497947f7f60feee1fdb57fda777039",
-      "byteLength": 996290,
-      "recordCount": 2955,
-      "declaredCurriculumVersion": "1.44"
+      "file": "spanishstories_a1_ws_recycling_edges_v1.51.csv",
+      "sha256": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065",
+      "byteLength": 632248,
+      "recordCount": 2867,
+      "declaredCurriculumVersion": null
     },
     {
       "file": "spanishstories_a1_ws_coverage_final_v1.40.csv",
@@ -58,25 +57,25 @@
       "declaredCurriculumVersion": null
     },
     {
-      "file": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv",
-      "sha256": "60e4a13f04dff9b78ffba71e32f8910f4821230d0d41e9149ce26d83a35c8d8b",
-      "byteLength": 6918,
-      "recordCount": 38,
+      "file": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv",
+      "sha256": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63",
+      "byteLength": 6037,
+      "recordCount": 39,
       "declaredCurriculumVersion": null
     }
   ],
   "sourceHashes": {
     "spanishstories_a1_ws_normalization_master_v1.37.csv": "564b749f6913e34fb018a209e3447a96c6f745ea502e783dc05675fd93900836",
     "spanishstories_a1_ws_source_assertions_modes_v1.40.csv": "14fca848ae73a01762212f65aa81bc1099f8f2b54a520b4bff66c1958a172dc8",
-    "spanishstories_a1_ws_sequencing_architecture_v1.44.csv": "592bd727a0a2d08e2bb0d9ae555636445eed9760cf13c962f89636ff30471aaa",
-    "spanishstories_a1_ws_sequencing_allocation_v1.44.csv": "177dcd8a5bc09a08fe7524b1be03808f8d97f26b3c4c2657b109dc241aeb0b25",
-    "spanishstories_a1_ws_story_blueprints_v1.44.csv": "72f9a1c1bf50b890b115bba048bec75c3f3b1a7d60d6499401880ddc4e595090",
-    "spanishstories_a1_ws_recycling_edges_v1.44.csv": "43f80b9855d113a1084b368095a76e8716497947f7f60feee1fdb57fda777039",
+    "spanishstories_a1_ws_sequencing_architecture_v1.51.csv": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd",
+    "spanishstories_a1_ws_sequencing_allocation_v1.51.csv": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d",
+    "spanishstories_a1_ws_story_blueprints_v1.51.csv": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd",
+    "spanishstories_a1_ws_recycling_edges_v1.51.csv": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065",
     "spanishstories_a1_ws_coverage_final_v1.40.csv": "75f5a3c882475fba36743ed705859e913294834f0aba66d1411e71d470cc2f5b",
-    "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv": "60e4a13f04dff9b78ffba71e32f8910f4821230d0d41e9149ce26d83a35c8d8b"
+    "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63"
   },
-  "generatedAt": "2026-09-06T03:50:56.218Z",
-  "contentHash": "19233b6bfd8606a2fed46e529d35d1b2e275e67f2d2ec01c5950252a9c6a7f23",
+  "generatedAt": "2026-09-06T22:53:27.137Z",
+  "contentHash": "4d598dc1bffebb2b20be3ebabfa618a803bedeb5c45403934135ed9bb86eefad",
   "expectedCounts": {
     "lexemes": 599,
     "lexemeForms": 666,
@@ -86,18 +85,31 @@
     "mwuUnits": 214,
     "grammarUnits": 169,
     "modules": 8,
-    "islands": 32,
-    "storyBlueprints": 103,
+    "islands": 11,
+    "storyBlueprints": 32,
     "firstIntroductions": 985,
-    "recycleEdges": 2955,
+    "focusFirstIntroductions": 448,
+    "supportedFirstIntroductions": 537,
+    "maxFocusPerStory": 20,
+    "islandCheckpoints": 11,
+    "moduleCheckpoints": 8,
+    "dedicatedFinalTransferStories": 1,
+    "capstoneFirstIntroductions": 0,
+    "deleTaskStructures": 13,
+    "recycleEdges": 2867,
+    "firstReturnEdges": 985,
+    "secondReturnEdges": 950,
+    "thirdReturnEdges": 932,
     "orphanSenses": 0,
     "orphanForms": 0,
     "a2BoundaryScheduledAsA1": 0,
     "backwardRecycleEdges": 0,
+    "routeOrderViolations": 0,
     "duplicatePublishedIds": 0,
-    "regionalReceptiveTargets": 16,
     "regionalTargetsWithUniversalProductiveDemand": 0,
-    "recycleEdgesClaimingMastery": 0
+    "recycleEdgesClaimingMastery": 0,
+    "versionStampedColumns": 0,
+    "regionalReceptiveTargets": 16
   },
   "actualCounts": {
     "lexemes": 599,
@@ -108,18 +120,31 @@
     "mwuUnits": 214,
     "grammarUnits": 169,
     "modules": 8,
-    "islands": 32,
-    "storyBlueprints": 103,
+    "islands": 11,
+    "storyBlueprints": 32,
     "firstIntroductions": 985,
-    "recycleEdges": 2955,
+    "focusFirstIntroductions": 448,
+    "supportedFirstIntroductions": 537,
+    "maxFocusPerStory": 20,
+    "islandCheckpoints": 11,
+    "moduleCheckpoints": 8,
+    "dedicatedFinalTransferStories": 1,
+    "capstoneFirstIntroductions": 0,
+    "deleTaskStructures": 13,
+    "recycleEdges": 2867,
+    "firstReturnEdges": 985,
+    "secondReturnEdges": 950,
+    "thirdReturnEdges": 932,
     "orphanSenses": 0,
     "orphanForms": 0,
     "a2BoundaryScheduledAsA1": 0,
     "backwardRecycleEdges": 0,
+    "routeOrderViolations": 0,
     "duplicatePublishedIds": 0,
-    "regionalReceptiveTargets": 16,
     "regionalTargetsWithUniversalProductiveDemand": 0,
-    "recycleEdgesClaimingMastery": 0
+    "recycleEdgesClaimingMastery": 0,
+    "versionStampedColumns": 0,
+    "regionalReceptiveTargets": 16
   },
   "countChecks": [
     {
@@ -180,15 +205,15 @@
     },
     {
       "key": "islands",
-      "expected": 32,
-      "actual": 32,
+      "expected": 11,
+      "actual": 11,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
     {
       "key": "storyBlueprints",
-      "expected": 103,
-      "actual": 103,
+      "expected": 32,
+      "actual": 32,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
@@ -200,9 +225,86 @@
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
     {
+      "key": "focusFirstIntroductions",
+      "expected": 448,
+      "actual": 448,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "supportedFirstIntroductions",
+      "expected": 537,
+      "actual": 537,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "maxFocusPerStory",
+      "expected": 20,
+      "actual": 20,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "islandCheckpoints",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "moduleCheckpoints",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "dedicatedFinalTransferStories",
+      "expected": 1,
+      "actual": 1,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "capstoneFirstIntroductions",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "deleTaskStructures",
+      "expected": 13,
+      "actual": 13,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
       "key": "recycleEdges",
-      "expected": 2955,
-      "actual": 2955,
+      "expected": 2867,
+      "actual": 2867,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "firstReturnEdges",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "secondReturnEdges",
+      "expected": 950,
+      "actual": 950,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "thirdReturnEdges",
+      "expected": 932,
+      "actual": 932,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
@@ -235,16 +337,16 @@
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
     {
-      "key": "duplicatePublishedIds",
+      "key": "routeOrderViolations",
       "expected": 0,
       "actual": 0,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
     {
-      "key": "regionalReceptiveTargets",
-      "expected": 16,
-      "actual": 16,
+      "key": "duplicatePublishedIds",
+      "expected": 0,
+      "actual": 0,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
@@ -259,6 +361,20 @@
       "key": "recycleEdgesClaimingMastery",
       "expected": 0,
       "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "versionStampedColumns",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "regionalReceptiveTargets",
+      "expected": 16,
+      "actual": 16,
       "matches": true,
       "expectationSource": "engine architecture, phase 1 acceptance criteria"
     },
@@ -267,91 +383,161 @@
       "expected": 985,
       "actual": 985,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-001 (Exact allocation count)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-001 (Exact allocation count)"
     },
     {
       "key": "a1Senses",
       "expected": 602,
       "actual": 602,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-002 (A1 Sense allocation)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-002 (A1 Sense allocation)"
     },
     {
       "key": "grammarUnits",
       "expected": 169,
       "actual": 169,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-003 (Grammar allocation)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-003 (Grammar allocation)"
     },
     {
       "key": "mwuUnits",
       "expected": 214,
       "actual": 214,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-004 (MWU allocation)"
-    },
-    {
-      "key": "a2BoundaryScheduledAsA1",
-      "expected": 0,
-      "actual": 0,
-      "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-005 (A2 boundary first introductions)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-004 (MWU allocation)"
     },
     {
       "key": "modules",
       "expected": 8,
       "actual": 8,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-006 (Module count)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-005 (Module count)"
     },
     {
       "key": "islands",
-      "expected": 32,
-      "actual": 32,
+      "expected": 11,
+      "actual": 11,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-007 (Island count)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-006 (Island count)"
     },
     {
       "key": "storyBlueprints",
-      "expected": 103,
-      "actual": 103,
+      "expected": 32,
+      "actual": 32,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-008 (Story blueprint count after load correction)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-007 (Story blueprint count)"
+    },
+    {
+      "key": "firstIntroductions",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-008 (First-introduction objects)"
+    },
+    {
+      "key": "capstoneFirstIntroductions",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-010 (Capstone first introductions)"
+    },
+    {
+      "key": "dedicatedFinalTransferStories",
+      "expected": 1,
+      "actual": 1,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-011 (Dedicated final-transfer Stories)"
+    },
+    {
+      "key": "islandCheckpoints",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-012 (Island checkpoints)"
+    },
+    {
+      "key": "moduleCheckpoints",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-013 (Module checkpoints)"
     },
     {
       "key": "recycleEdges",
-      "expected": 2955,
-      "actual": 2955,
+      "expected": 2867,
+      "actual": 2867,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-015 (Recycle edges)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-014 (Recycle edges)"
+    },
+    {
+      "key": "firstReturnEdges",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-015 (FIRST_RETURN edges)"
+    },
+    {
+      "key": "secondReturnEdges",
+      "expected": 950,
+      "actual": 950,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-016 (SECOND_RETURN edges)"
+    },
+    {
+      "key": "thirdReturnEdges",
+      "expected": 932,
+      "actual": 932,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-017 (THIRD_RETURN edges)"
     },
     {
       "key": "backwardRecycleEdges",
       "expected": 0,
       "actual": 0,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-017 (Backward/cyclic story edges)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-018 (Backward edges)"
     },
     {
-      "key": "regionalReceptiveTargets",
-      "expected": 16,
-      "actual": 16,
-      "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-019 (Regional receptive targets)"
-    },
-    {
-      "key": "regionalTargetsWithUniversalProductiveDemand",
+      "key": "routeOrderViolations",
       "expected": 0,
       "actual": 0,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-020 (Regional edges with universal productive demand)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-019 (Route-order/duplicate-destination violations)"
     },
     {
       "key": "recycleEdgesClaimingMastery",
       "expected": 0,
       "actual": 0,
       "matches": true,
-      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv SEQ16D-021 (Recycle edges claiming mastery)"
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-020 (Recycle edges claiming mastery)"
+    },
+    {
+      "key": "storyBlueprints",
+      "expected": 32,
+      "actual": 32,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-021 (New Story IDs)"
+    },
+    {
+      "key": "islands",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-023 (New Island IDs)"
+    },
+    {
+      "key": "versionStampedColumns",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-024 (Version-specific v1_* column names)"
+    },
+    {
+      "key": "deleTaskStructures",
+      "expected": 13,
+      "actual": 13,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-025 (DELE task structures)"
     }
   ],
   "validationResult": {
@@ -390,6 +576,21 @@
         "observed": 0
       },
       {
+        "name": "island ordering errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "island prerequisite errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "checkpoint errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
         "name": "duplicate first introductions",
         "status": "PASS",
         "observed": 0
@@ -410,12 +611,22 @@
         "observed": 0
       },
       {
+        "name": "regional targets with universal productive demand",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
         "name": "allocation reference errors",
         "status": "PASS",
         "observed": 0
       },
       {
         "name": "unresolved source assertion references",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "capstone first introductions",
         "status": "PASS",
         "observed": 0
       },
@@ -440,7 +651,17 @@
         "observed": 0
       },
       {
-        "name": "recycling route order violations",
+        "name": "recycle edges altering target mode policy",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "recycle edge relation-scope mismatches",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "return route violations",
         "status": "PASS",
         "observed": 0
       },
@@ -450,14 +671,14 @@
         "observed": 0
       },
       {
-        "name": "island load mismatches",
+        "name": "FOCUS guardrail breaches",
         "status": "PASS",
         "observed": 0
       },
       {
-        "name": "v1.42 planning total reconciles with the v1.44 ledger",
+        "name": "island and module load mismatches",
         "status": "PASS",
-        "observed": 985
+        "observed": 0
       }
     ]
   }

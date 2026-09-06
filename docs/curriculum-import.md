@@ -16,12 +16,12 @@ comma-delimited, RFC 4180 quoted, CRLF.
 | --- | --- |
 | `spanishstories_a1_ws_normalization_master_v1.37.csv` | Lexeme / LexemeForm / Sense / MWU identity registries |
 | `spanishstories_a1_ws_source_assertions_modes_v1.40.csv` | Published SourceAssertions and receptive/productive mode policy |
-| `spanishstories_a1_ws_sequencing_architecture_v1.44.csv` | Modules and islands |
-| `spanishstories_a1_ws_sequencing_allocation_v1.44.csv` | First-introduction ledger; also the only source of grammar units |
-| `spanishstories_a1_ws_story_blueprints_v1.44.csv` | Story blueprints |
-| `spanishstories_a1_ws_recycling_edges_v1.44.csv` | Recycling graph over stories |
+| `spanishstories_a1_ws_sequencing_architecture_v1.51.csv` | Islands; the eight modules are grouped from them |
+| `spanishstories_a1_ws_sequencing_allocation_v1.51.csv` | First-introduction ledger; also the only source of grammar units |
+| `spanishstories_a1_ws_story_blueprints_v1.51.csv` | Story blueprints |
+| `spanishstories_a1_ws_recycling_edges_v1.51.csv` | Return graph over stories |
 | `spanishstories_a1_ws_coverage_final_v1.40.csv` | Cross-validator (hashed, schema-checked) |
-| `spanishstories_a1_ws_sequencing_final_audit_v1.44.csv` | Cross-validator; supplies published expected counts |
+| `spanishstories_a1_ws_sequencing_final_audit_v1.51.csv` | Cross-validator; supplies published expected counts |
 
 The importer reads them, never writes them. Every published column is either
 consumed or explicitly listed as knowingly unused in
@@ -30,10 +30,29 @@ column fails the import as a schema change.
 
 ## Release identity
 
-- `releaseId`: `A1-CURRICULUM-v1.44`
-- `schemaVersion`: `curriculum-registry/1.0.0` (owned by this importer)
+- `releaseId`: `A1-CURRICULUM-v1.51` — **the active baseline**
+- `schemaVersion`: `curriculum-registry/2.0.0` (owned by this importer)
 - Per-workstream curriculum versions are read from the files themselves
-  (`1.37`, `1.40`, `1.44`) and cross-checked against the published filenames.
+  (`1.37`, `1.40`) and cross-checked against the published filenames. The v1.51
+  sequencing artefacts declare no in-file version column; the release version
+  comes from the allocation filename.
+
+The importer's `schemaVersion` is its own contract and is deliberately distinct
+from the editorial schema version the curriculum manifest declares
+(`2.0.0-rc1`). They version different things.
+
+### Release history
+
+| Release | Topology | Status |
+| --- | --- | --- |
+| `A1-CURRICULUM-v1.51` | 8 modules / 11 islands / 32 StoryBlueprints | **active baseline** |
+| `A1-CURRICULUM-v1.44` | 8 modules / 32 islands / 103 StoryBlueprints | historical; superseded |
+
+v1.44 is **not** the active release and its figures (103 stories, 32 islands,
+2955 recycle edges) are historical. Its sequencing artefacts are archived
+verbatim under `content/a1/vocabulary/respaldo/a1-curriculum-v1.44/`, with a
+manifest recording the byte length and SHA-256 of each. Nothing in the active
+code path reads them.
 
 ## Commands
 
@@ -50,7 +69,7 @@ run against copies. Exit code is 0 on IMPORT OK and 1 on IMPORT FAIL.
 
 ## Generated registry
 
-`generated/curriculum/a1/` (~5.2 MB), one canonical output tree:
+`generated/curriculum/a1/` (~4.3 MB), one canonical output tree:
 
 ```text
 release.json           modules.json        islands.json      story-blueprints.json
@@ -80,9 +99,16 @@ audit ledger, which agree):
 
 ```text
 lexemes 599    forms 666    senses 608 (602 A1 + 6 A2 boundary)
-MWU 214        grammar 169  modules 8    islands 32    stories 103
-first introductions 985      recycle edges 2955
+MWU 214        grammar 169  modules 8    islands 11    stories 32
+first introductions 985 = 448 FOCUS + 537 SUPPORTED   max 20 FOCUS per story
+return edges 2867 = 985 FIRST + 950 SECOND + 932 THIRD
+island checkpoints 11   module checkpoints 8   final-transfer stories 1
+capstone first introductions 0    DELE task structures 13
+regional receptive targets 16
 ```
+
+The inventory half (lexemes, forms, senses, MWUs, grammar units) is unchanged
+from v1.44: the restructure resequenced the narrative, not the lexicon.
 
 Structural invariants, all observed at zero:
 
@@ -91,11 +117,21 @@ Structural invariants, all observed at zero:
 - unresolved references between any two artefacts
 - A2 boundary senses scheduled as A1
 - targets with more or fewer than one first introduction
-- backward or self-referential recycle edges in the story sequence
-- recycling routes out of order (introduction < local < near < third leg)
+- island ordering gaps (`global_island_order` must be a gapless 1..11)
+- island prerequisites that do not precede their island
+- checkpoints outside their own island or module, or flags that disagree with
+  the architecture ledger
+- first introductions landing on the capstone
+- backward or self-referential return edges in the story sequence
+- return routes out of order, with a repeated destination, or with a gap
+  (`SECOND_RETURN` without `FIRST_RETURN`)
+- return edges whose `relation_scope` misdescribes the topology they span
+- return edges that alter the productive expectation of their target
 - regional receptive targets carrying universal productive demand
-- recycle edges claiming mastery
-- story and island declared load disagreeing with the ledger
+- return edges claiming mastery
+- stories breaching the published FOCUS guardrail
+- story, island and module declared load disagreeing with the ledger
+- version-stamped column names in the active sequencing schema
 
 ## Behaviour on error
 
@@ -125,29 +161,24 @@ imports twice under two different pinned clocks and compares.
 
 ## Findings in the published data
 
-Two columns look authoritative but are superseded snapshots. Both were resolved
-against the data, not by preference:
+The v1.51 schema is release-neutral: the version-stamped columns that made v1.44
+awkward to read (`v1_42_*`, `v1_43_*`, `v1_44_*`) are gone, and audit control
+H-024 asserts they stay gone. The importer enforces that rather than trusting
+it, scanning the published headers of all five sequencing artefacts.
 
-1. **`v1_43_*` story columns in the allocation ledger.** The unprefixed columns
-   (`first_introduction_story`, `local_reuse_story`, `near_transfer_story`,
-   `distant_or_terminal_story`) agree with the v1.44 recycling edges on
-   2837/2837 destinations and 985/985 introductions; the `v1_43_*` columns agree
-   on only 1225/2837 and 738/985. The unprefixed columns are the v1.44
-   authority; the importer reads those and ignores the `v1_43_*` snapshot.
+Structural facts worth knowing:
 
-2. **`v1_42_total_first_intro_objects` in the architecture file.** Its *total*
-   is still 985, but its *distribution* was changed by phase 16C (capstone
-   integration correction) and 16D (load balancing): nine islands and four
-   modules now differ. The decisive case is the capstone island `A1-M08-I04`,
-   credited with 20 introductions while all three of its v1.44 story blueprints
-   declare `new_target_count = 0` and published audit control SEQ16D-011 records
-   "Capstone first introductions: expected 0, observed 0, PASS". The importer
-   keeps the figure as `plannedFirstIntroObjectsV142`, validates that it still
-   totals 985, and does not treat its per-island layout as a v1.44 expectation.
-   The v1.44-era column in the same file (`v1_44_story_blueprint_count`) does
-   match the data and *is* validated per island.
+1. **The architecture ledger publishes islands, not modules.** v1.51 carries
+   eleven `ISLAND` rows and no `MODULE` row. The eight modules are reconstructed
+   by grouping on `module_id`; `module_order`, `module_name` and `module_gate`
+   are repeated on every island of a module, and the importer **fails** if two
+   islands of one module disagree rather than taking the first value it read.
+   A `MODULE` row would now be schema drift, not a row to skip.
 
-Two further structural facts worth knowing before phase 2:
+2. **Return edges carry no `allocation_id`.** They address the target directly
+   and name the story that introduced it, so the importer joins on the pair
+   (`target_id`, `introduction_story`) and checks that pair against the
+   allocation. An edge naming the wrong introduction story fails the import.
 
 3. **Grammar units exist only in the allocation ledger.** There is no grammar
    registry file and no SourceAssertion addresses a `GRAM-A1-*` id. The importer
@@ -160,6 +191,27 @@ Two further structural facts worth knowing before phase 2:
    target id instead. The importer splits these into `sourceAssertionIds` and
    `sourceCatalogueRefs` rather than reporting 169 false FK errors or silently
    discarding the provenance.
+
+5. **The v1.51 manifest's hashes for carried-over sources assume LF.**
+   `docs/curriculum/a1-restructure/curriculum-release-v1.51-rc1.json` records
+   SHA-256 for the three shared inventory files (`v1.37`, `v1.40`) computed over
+   **LF-normalised** bytes, because the generator ran on a checkout without
+   CRLF conversion. On a Windows checkout (`core.autocrlf=true`, no
+   `.gitattributes`) the files on disk are CRLF and hash differently. The five
+   v1.51 sequencing files match the manifest exactly on both, because the
+   generator wrote them with CRLF line terminators itself. The content is
+   identical either way — the three shared files are byte-for-byte what v1.44
+   read — but a hash comparison against that manifest must normalise line
+   endings first. `release.json` always records the bytes actually read.
+
+6. **`oldStoryIdsReused = 0` (audit control H-022) is attested, not
+   recomputed.** Proving it mechanically would require the importer to read the
+   retired v1.44 id space, which is not a canonical source of the active
+   release. The claim rests on the ETAPA H crosswalk
+   (`docs/curriculum/a1-restructure/etapa-h-id-crosswalk-v1.51-rc1.csv`) and on
+   the new ids occupying a disjoint island range (`I05`/`I06` against v1.44's
+   `I01`–`I04`). The importer checks the two controls it *can* recompute —
+   H-021 (32 new story ids) and H-023 (11 new island ids) — against the data.
 
 ## Not in scope for this phase
 

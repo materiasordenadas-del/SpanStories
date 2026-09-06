@@ -22,7 +22,7 @@ import type {
   LexemeForm,
   MwuUnit,
   RecycleEdge,
-  RecycleStage,
+  ReturnStage,
   Sense,
   SourceAssertion,
   StoryBlueprint,
@@ -61,7 +61,7 @@ export type FirstIntroduction = {
 };
 
 export type RecycleStep = {
-  readonly stage: RecycleStage;
+  readonly returnStage: ReturnStage;
   readonly edge: RecycleEdge;
   readonly story: StoryBlueprint;
 };
@@ -301,13 +301,13 @@ export class CurriculumRegistry {
     if (edges.status === "NOT_FOUND") return notFound(targetId);
     const steps: RecycleStep[] = [];
     for (const edge of edges.value) {
-      const story = this.stories.get(edge.toStoryId);
+      const story = this.stories.get(edge.returnStoryId);
       if (story === undefined) {
         throw new Error(
-          `CURRICULUM_REFERENCE_NOT_FOUND: recycle edge ${edge.id} points at missing story ${edge.toStoryId}`,
+          `CURRICULUM_REFERENCE_NOT_FOUND: recycle edge ${edge.id} points at missing story ${edge.returnStoryId}`,
         );
       }
-      steps.push({ stage: edge.stage, edge, story });
+      steps.push({ returnStage: edge.returnStage, edge, story });
     }
     return found({ targetId, introduction: introduction.value.story, steps });
   }
