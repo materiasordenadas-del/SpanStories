@@ -12,7 +12,8 @@ PHASE_3_READY       = YES
 Branch `prueba`. `main` untouched, no merge, no push.
 
 - Initial HEAD for this migration: `4c550674761eb9220a6d8157fbf7ba0e3d9edde7`
-- Final HEAD: recorded in the follow-up commit on this branch.
+- Migration commit: `6944663b053b6e52289c2a27c5c973766b7984bb`
+- Final HEAD: this commit, which records the SHA above.
 - Phase 1 original implementation: `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19`
 - Phase 2 original implementation: `2bc6851ebf12085be5eccbff9af5ef0826ebe0b4`
 
