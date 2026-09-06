@@ -1,106 +1,170 @@
-# Handoff — phase 1 to phase 2 (Lexical Engine)
+# Handoff — phase 2 to phase 3 (Story Engine)
 
-## 1. Phase 1 commit
+## 1. Phase commits
 
-Branch `prueba`. Commit SHA `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19` (`cb63cb2`).
+Branch `prueba`.
+
+- Phase 1 (Curriculum Registry): `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19`
+- Phase 2 (Lexical Engine): recorded in the follow-up commit on this branch.
+
+Phase 2 started from `e8f482c` and changed nothing under
+`features/curriculum/`, `content/`, `generated/` or `scripts/`.
 
 ## 2. Entrypoints
 
 ```text
-features/curriculum/index.ts                  public contract — import from here
-features/curriculum/domain/                   ids, errors, model, release manifest
-features/curriculum/import/                   csv, sources, fields, importer, validators, expectations
-features/curriculum/registry/                 files, serialize, query
-scripts/curriculum/import-a1.ts               CLI
-features/curriculum/__tests__/                importer, query, corruption, determinism
-docs/curriculum-import.md                     full documentation
+features/curriculum/index.ts          phase 1 public contract
+features/lexical-engine/index.ts      phase 2 public contract — import from here
+features/lexical-engine/domain/       result, errors, ids, identity, homograph,
+                                      relations, lineage, release
+features/lexical-engine/engine/       annotations, lineage-graph, lexicon
+features/lexical-engine/__tests__/    identity, homograph, lineage, corruption
+docs/curriculum-import.md             phase 1 documentation
+docs/lexical-engine-implementation.md phase 2 documentation + audit findings
 ```
 
-## 3. Regenerate the registry
+## 3. Using the lexical engine
 
-```bash
-npm run curriculum:import        # writes generated/curriculum/a1/
-npm run curriculum:check         # validate only
+```ts
+import { loadLexicalEngine } from "@/features/lexical-engine";
+
+const engine = loadLexicalEngine(); // Node-side; build once at module scope
+```
+
+Or, when a registry is already loaded:
+
+```ts
+import { createLexicalEngine } from "@/features/lexical-engine";
+import { loadCurriculumRegistry } from "@/features/curriculum";
+
+const engine = createLexicalEngine(loadCurriculumRegistry());
 ```
 
 ## 4. Tests
 
 ```bash
-npm test          # 47 tests: node:test, no test dependency added
+npm run curriculum:check   # registry invariants
+npm test                   # 117 tests (47 phase 1 + 70 phase 2)
 npm run typecheck
-npm run lint
+npm run lint               # 0 errors, 1 pre-existing warning (see §9)
 npm run build
 ```
 
-## 5. Public contracts available to phase 2
+## 5. Public contracts available to phase 3
 
-- Types: `Lexeme`, `LexemeForm`, `Sense`, `MwuUnit`, `GrammarUnit`,
-  `SourceAssertion`, `CurriculumModule`, `Island`, `StoryBlueprint`,
-  `CurriculumTarget`, `RecycleEdge`, `CurriculumData`, `CurriculumRelease`.
-- Branded ids + `ID_PATTERNS`, `matchesIdPattern`, `classifyTargetId`.
-- `importCurriculum` / `importCurriculumOrThrow`, `computeContentHash`.
-- `loadCurriculumRegistry`, `createRegistry`, `CurriculumRegistry`,
-  `readRegistry` / `writeRegistry`.
-- Query API: `getLexemeById`, `getFormById`, `getSenseById`, `getMwuUnitById`,
-  `getGrammarUnitById`, `getLexemeOfSense`, `getLexemeOfForm`,
-  `getFormsOfLexeme`, `getSensesOfLexeme`, `getSourceAssertionsForSense`,
-  `getSourceAssertionsForTarget`, `getModulesInOrder`, `getIslandsInOrder`,
-  `getIslandsOfModule`, `getStoriesInSequence`, `getStoriesOfIsland`,
-  `getStoryBlueprintById`, `resolveTarget`, `getFirstIntroduction`,
-  `getRecycleEdgesForTarget`, `getRecyclePath`, `getTargetsIntroducedIn`.
-- Errors: `CurriculumImportError`, `CurriculumIssue`, `formatIssue`, and the
-  eleven `CURRICULUM_*` codes.
+From `features/lexical-engine`:
 
-## 6. Generated registry location
+- Results: `LexicalResult`, `MwuIdentityResult`, `found`, `notFound`,
+  `isFound`, `expectFound`.
+- Errors: `LexicalEngineError`, `LexicalIssue`, `formatLexicalIssue`,
+  `lexicalIssue`, and nine `LEXICAL_*` codes.
+- Ids: `LexiconReleaseId`, `HomographGroupId`, `LexicalRelationId`,
+  `LineageEventId`, `LEXICAL_ID_PATTERNS`, `asLexicalId`,
+  `matchesLexicalIdPattern`.
+- Identity: `LexemeLifecycleStatus`, `Pronominality`, `AnnotationAuthority`,
+  `LexicalIdentity`, `publishedIdentity`, `isUnauthorizedClassification`.
+- Homographs: `HomographGroup`, `HomographMember`, `isSamePosGroup`.
+- Relations: `LexicalRelation`, `LexicalRelationType`, `isSymmetric`.
+- Lineage: `LexemeLineageEvent`, `LineageEventKind`, `LineageSemantics`,
+  `TransferPolicy`, `LINEAGE_CARDINALITY`, `ALLOWED_TRANSFER_POLICIES`,
+  `lifecycleAfterEvent`, `LineageGraph`, `validateLineage`,
+  `LineageResolution`.
+- Release: `LexiconRelease`, `LEXICON_SCHEMA_VERSION`,
+  `CURRENT_LEXICON_RELEASE_ID`.
+- Engine: `LexicalEngine`, `createLexicalEngine`, `loadLexicalEngine`,
+  `LexicalEngineOptions`.
 
-`generated/curriculum/a1/` — committed, ~5.2 MB, 12 JSON files with
-`release.json` as manifest. Release `A1-CURRICULUM-v1.44`, schema
-`curriculum-registry/1.0.0`.
+Engine methods: `resolveLexeme`, `resolveForm`, `resolveSense`, `resolveMwu`,
+`getLexemeForForm`, `getLexemeForSense`, `getForms`, `getSenses`,
+`getCurricularAssertionsForSense`, `getMwuLexicalIdentity`, `getIdentity`,
+`getHomographGroups`, `getHomographGroupOf`, `getLexemesByCanonicalForm`,
+`getRelations`, `resolveLineage`, `getSuccessors`, `getPredecessors`.
 
-## 7. Open contradictions
+## 6. Constraints phase 3 must respect
 
-None blocking. Two superseded columns were identified and resolved from the
-data (`v1_43_*` story columns; `v1_42_total_first_intro_objects` per
-island/module) — full reasoning in `docs/curriculum-import.md`, "Findings in the
-published data". Nothing was edited in the canonical CSVs.
+Everything phase 2 inherited still holds — immutable published ids, no CEFR
+recomputation, no MWU promotion, no CSV parsing at request time, A2 boundary
+senses out of A1 scheduling, 16 regional receptive targets without universal
+productive demand, recycle edges as scheduling not mastery. In addition:
 
-## 8. Technical debt deliberately deferred
+- **Resolve through published ids, never surfaces.** A surface string does not
+  identify a lexeme: 20 A1 lemmas carry two lexemes each. When phase 3 anchors
+  a token in a story it must record which `LexemeId`/`SenseId` it means, and it
+  cannot recover that by matching text. `getLexemesByCanonicalForm` returns
+  *candidates*, never an answer.
+- **Do not mint lexemes for MWUs.** `NO_LEXICAL_IDENTITY` is the correct answer
+  for 170 of 214 units. A story occurrence over one of them anchors to the MWU
+  id, not to a lexeme.
+- **Do not classify pronominality.** All 599 lexemes are `UNSPECIFIED` with
+  authority `NOT_CLASSIFIED`, deliberately; see §2.3 of
+  `docs/lexical-engine-implementation.md`. An occurrence of surface "se" is not
+  evidence about lexeme identity.
+- **Do not consume a split id as if it had one successor.** `resolveLineage`
+  returns `SUPERSEDED_AMBIGUOUS` with candidates and no elected child.
+- **`LexiconRelease` is not `CurriculumRelease`.** A story must record both if
+  it needs to be reproducible.
 
-- The coverage ledger (`..._coverage_final_v1.40.csv`) is hashed and
-  schema-checked but its non-numeric expectations (`"599 Lexemes"`,
-  `"20/20 domains"`) are not parsed into count checks; the numeric sequencing
-  audit covers 13 controls instead.
-- Modules/islands keep a few descriptive planning fields as raw strings
-  (`story_architecture`, `function_*` id lists) rather than parsed structures;
-  nothing in phase 1 needed them typed.
-- `readRegistry` verifies identity and counts, not every invariant, on load.
-- No incremental/partial import: an import is always whole-release.
-- The 170 MWU source units without lexeme identity stay unlinked by design.
+## 7. Technical debt deliberately deferred
 
-## 9. Constraints phase 2 must respect
+- **Pronominality is entirely unpopulated.** The contract, the override path
+  and the authority check exist; no lexeme carries a classification, because no
+  authority has published one. Unblocking this needs an editorial decision, not
+  code.
+- **Relations other than `HOMOGRAPH_OF` are empty.**
+  `PRONOMINAL_COUNTERPART_OF`, `VARIANT_OF` and `DERIVED_FROM` are typed and
+  queryable but unevidenced in A1.
+- **Lineage has no persistence.** Events are passed to the constructor. There
+  is no lineage file, no importer and no id allocator; A1 has no lineage
+  history, so none was needed.
+- **`LexicalIdentity.lifecycle` is uniform.** All published lexemes are
+  `ACTIVE` unless a lineage event says otherwise. `PROVISIONAL` is declarable
+  and unused.
+- **Homograph groups are recomputed on construction**, not serialised. Group
+  ids are positional within a stable ordering, so they are reproducible for a
+  given registry but would shift if the lexeme inventory changed. Serialise
+  them before treating `HG-A1-*` as durable.
+- **`getLexemesByCanonicalForm` is a linear scan** over 599 lexemes. Fine at
+  this size; index it if phase 3 calls it per token.
 
-- **Do not regenerate ids.** `LEX-A1-*`, `FORM-A1-*`, `SENSE-A1-*`, `GRAM-A1-*`,
-  `SA-A1-*`, MWU `NNBn-MWU-NNNN` are published and immutable. Never derive an id
-  from a surface string.
-- **Do not recompute CEFR level** from frequency, cognates or NLP. Level comes
-  from SourceAssertions only.
-- **Do not promote all MWUs to Lexemes.** Only 44 of 214 have lexeme identity;
-  that is a curricular decision, not missing data.
-- **Do not parse CSV at request time** or in React components. Consume the
-  generated registry.
-- Six A2 boundary senses exist in the registry and must stay out of A1
-  scheduling. Sixteen regional receptive targets must never acquire universal
-  productive demand.
-- Recycle edges are scheduling requirements, never mastery assertions.
-- Prototypes (`lib/curriculum.ts`, `lib/lexical-prototype.ts`,
-  `lib/learner-event-prototype.ts`, `components/story-reader.tsx`) are untouched
-  fixtures; phase 2 may replace `lib/lexical-prototype.ts` when the real engine
-  lands, but phase 1 did not.
-- If a source file changes, rerun `npm run curriculum:import`; `query.test.ts`
-  fails when the committed registry drifts from the sources.
+## 8. Not started, by design
 
-## 10. Push confirmation
+`StoryVersion`, `TextAnchor`, canonical `OccurrencePart`,
+`LearnerEventAttribution`, `UserLexemeState`, `PostgresLexiconRepository`, NLP
+or spaCy, auth, mastery, spaced repetition, recommender. No migration, ORM or
+Python service exists. No file under `app/`, `components/visual/`,
+`features/story-engine/` or `features/learner-progress/` was touched.
 
-Pushed to `origin/prueba`: `e3cdea8..cb63cb2`. Verified — local `HEAD` and
-`origin/prueba` both at `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19`. This handoff
-note itself lands in the follow-up commit on the same branch.
+## 9. Known warning
+
+`npm run lint` reports one warning, pre-existing and out of scope:
+
+```text
+components/visual/baseline-v1/_ds/modernist-.../_ds_bundle.js
+  7:7  warning  '__ds_scope' is assigned a value but never used
+```
+
+Present on `e8f482c` before any phase-2 file existed. Phase 2 added none.
+
+## 10. The prototype
+
+`lib/lexical-prototype.ts` is kept and carries a header explaining its status.
+Its `Pronominality` and `LexicalType` are superseded by
+`features/lexical-engine`; its story-shaped types are not, because
+`StoryOccurrence` and `TextAnchor` are phase 3 work.
+
+**This is phase 3's to retire.** When the Story Engine publishes canonical
+occurrences, `components/story-reader.tsx` and
+`content/a1/module-1/island-1/story-1.ts` can move off it. Note that the story
+fixture uses invented ids (`lex-ir`, `sense-ir-move`) that are not curriculum
+ids; mapping the fixture story onto `LEX-A1-*` requires an editorial decision
+that no published artefact currently supplies.
+
+## 11. Open contradictions
+
+None blocking. Two were found and resolved from evidence, both recorded in
+`docs/lexical-engine-implementation.md` §2: the prototype/canonical
+`LexicalType` naming difference (`CONTRADICTION_RESOLVED`, published name wins),
+and the absence of `docs/lexical-engine.md` (an absent authority, not a
+conflict — the conceptual model came from §6 of the phase-2 brief). No
+`BLOCKER_CONTRADICTION` was raised. Nothing in the canonical CSVs or the
+generated registry was modified to make sources agree.
