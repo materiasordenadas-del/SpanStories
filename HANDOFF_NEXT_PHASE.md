@@ -2,7 +2,7 @@
 
 ## 1. Phase 1 commit
 
-Branch `prueba`. Commit SHA: see section 10 (filled in at commit time).
+Branch `prueba`. Commit SHA `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19` (`cb63cb2`).
 
 ## 2. Entrypoints
 
@@ -101,4 +101,6 @@ published data". Nothing was edited in the canonical CSVs.
 
 ## 10. Push confirmation
 
-Pushed to `origin/prueba`. Commit SHA recorded in the phase 1 report.
+Pushed to `origin/prueba`: `e3cdea8..cb63cb2`. Verified — local `HEAD` and
+`origin/prueba` both at `cb63cb2bfe1c77535e505bd4ba8f8246a7113e19`. This handoff
+note itself lands in the follow-up commit on the same branch.
