@@ -14,9 +14,10 @@ ETAPA F = COMPLETE
 ETAPA G = COMPLETE
 ETAPA H = COMPLETE
 D-A11 / BACKUP MANIFEST = COMPLETE
-IMPLEMENTATION MANIFEST = COMPLETE
+IMPLEMENTATION MANIFEST = COMPLETE / ATOMIC v1.1
 CLAUDE CODE MIGRATION = AUTHORIZED ON prueba
-FASE 3 = BLOCKED
+EXECUTION SCOPE = FASE 1 + FASE 2 IN SAME TASK
+FASE 3 IMPLEMENTATION = BLOCKED
 ```
 
 ## Current releases
@@ -25,6 +26,7 @@ FASE 3 = BLOCKED
 EXECUTABLE BASELINE = A1-CURRICULUM-v1.44
 APPROVED CANDIDATE  = A1-CURRICULUM-v1.51 RC1
 SCHEMA               = 2.0.0-rc1
+LEXICON RELEASE      = A1-LEXICON-v1.0
 ```
 
 The v1.51 CSVs are present in `content/a1/vocabulary/`, but the current importer/registry has **not** been switched to them yet.
@@ -88,9 +90,32 @@ The five v1.44 sequencing CSVs still present at `content/a1/vocabulary/` are tem
 
 ### Claude Code implementation contract
 
-- `spanstories_a1_implementation_manifest_v1.51.md`
+Claude must read these together:
 
-This is the authoritative technical scope for the next Claude Code task. Claude may migrate Fase 1 on `prueba`; it may not make curricular decisions, modify v1.51 CSVs to satisfy tests, touch the visual baseline, start Fase 3, or touch `main`.
+- `spanstories_plan_claude_code_migracion_a1_32_storyblueprints_v1.1.md`
+- `spanstories_a1_implementation_manifest_v1.51.md`
+- `spanstories_a1_implementation_manifest_phase1_phase2_atomic_v1.1.md`
+
+The atomic v1.1 manifest overrides any older instruction that would let Claude stop after Fase 1.
+
+Claude must:
+
+```text
+migrate Fase 1 to A1-CURRICULUM-v1.51
+→ regenerate/validate registry
+→ immediately revalidate/update Fase 2 against that registry
+→ run full regression
+→ only then declare PHASE_3_READY
+```
+
+Expected lexical result if lexical sources/interpretation are unchanged:
+
+```text
+LexiconRelease = A1-LEXICON-v1.0
+LexiconRelease.curriculumReleaseId = A1-CURRICULUM-v1.51
+```
+
+Claude may not make curricular decisions, modify v1.51 CSVs to satisfy tests, touch the visual baseline, implement Fase 3, or touch `main`.
 
 ## Earlier stage artifacts
 
@@ -129,12 +154,24 @@ Do not treat the mere presence of v1.51 files as runtime activation.
 ## Next step
 
 ```text
-CLAUDE CODE:
-activate A1-CURRICULUM-v1.51 in Fase 1
-→ regenerate registry
-→ run corruption + determinism + query regressions
-→ remove root v1.44 compatibility pins only after green cutover
-→ stop
-```
+CLAUDE CODE — ONE ATOMIC TASK:
 
-After that, ChatGPT reviews Fase 1 and Fase 2 compatibility and only then prepares the new Fase 3 specification.
+FASE 1
+activate A1-CURRICULUM-v1.51
+→ regenerate registry
+→ corruption + determinism + query regressions
+
+THEN WITHOUT STOPPING:
+
+FASE 2
+load lexical engine against v1.51 registry
+→ preserve A1-LEXICON-v1.0 unless real lexical evidence changed
+→ verify 599/666/608, 44/170 MWU split, 20 homograph groups, pronominality, lineage
+→ update lexical docs/back-reference
+
+THEN:
+full regression
+→ remove root v1.44 compatibility pins only after green cutover
+→ handoff with PHASE_1_MIGRATED=PASS and PHASE_2_REVALIDATED=PASS
+→ FASE 3 NOT IMPLEMENTED
+```
