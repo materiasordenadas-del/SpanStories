@@ -61,18 +61,29 @@ UNMAPPED_OLD_ISLANDS   = 0
 MULTI_MAPPED_ISLANDS   = 0
 ```
 
-## Identity warning
+## Identity semantics
 
-`RETAINED` means strong editorial continuity only. It does not authorize published-ID reuse.
+`RETAINED` means strong editorial continuity only. It never means same technical identity.
 
-ETAPA E later shows that several retained ancestors absorb additional target bindings, so:
+ETAPA E v1.2 closes the previously open ID question:
 
 ```text
-RETAINED != AUTOMATIC_ID_REUSE
+D-A09 = RESOLVED_NEW_IDS_FOR_ALL_32
 ```
 
-`D-A09` remains open until release-candidate bindings are compared.
+Therefore:
+
+```text
+ALL 32 B32 Stories
+→ receive new canonical published IDs in ETAPA H
+
+ALL 103 v1.44 StoryBlueprint IDs
+→ remain historical
+→ are not reused in the new release
+```
+
+ETAPA C dispositions remain valid as ancestry/migration semantics; they are not identity-preservation flags.
 
 ## Gate
 
-No canonical runtime ID is published by ETAPA C. `B32-*` keys remain provisional. Fase 3 and Claude migration remain blocked.
+No canonical runtime ID is published by ETAPA C. `B32-*` keys remain provisional until ETAPA H. Fase 3 and Claude migration remain blocked.
