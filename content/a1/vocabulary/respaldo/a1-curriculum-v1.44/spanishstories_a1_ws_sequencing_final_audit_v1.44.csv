@@ -1,0 +1,39 @@
+﻿audit_id,record_type,category,control,expected,observed,status,blocking,evidence,correction,notes,mapped_story_ids
+SEQ16D-001,AUDIT_CONTROL,INVENTORY,Exact allocation count,985,985,PASS,NO,v1.44 allocation ledger,,,
+SEQ16D-002,AUDIT_CONTROL,INVENTORY,A1 Sense allocation,602,602,PASS,NO,,,,
+SEQ16D-003,AUDIT_CONTROL,INVENTORY,Grammar allocation,169,169,PASS,NO,,,,
+SEQ16D-004,AUDIT_CONTROL,INVENTORY,MWU allocation,214,214,PASS,NO,,,,
+SEQ16D-005,AUDIT_CONTROL,INVENTORY,A2 boundary first introductions,0,0,PASS,NO,,,,
+SEQ16D-006,AUDIT_CONTROL,TOPOLOGY,Module count,8,8,PASS,NO,,,,
+SEQ16D-007,AUDIT_CONTROL,TOPOLOGY,Island count,32,32,PASS,NO,,,,
+SEQ16D-008,AUDIT_CONTROL,TOPOLOGY,Story blueprint count after load correction,103,103,PASS,NO,,7 high-load islands expanded from 3 to 4 stories,,
+SEQ16D-009,AUDIT_CONTROL,LOAD,Maximum new targets per story internal guardrail,<=20,20,PASS,NO,,Rebalanced first introductions; 7 islands receive S4 final transfer story,"Internal engineering guardrail, not a scientific mastery threshold.",
+SEQ16D-010,AUDIT_CONTROL,LOAD,Final transfer stories with new targets,0/32,0/32,PASS,NO,,,,
+SEQ16D-011,AUDIT_CONTROL,CAPSTONE,Capstone first introductions,0,0,PASS,NO,,,,
+SEQ16D-012,AUDIT_CONTROL,PREREQUISITES,Hard-prerequisite chain violations,0,0,PASS,NO,,,,
+SEQ16D-013,AUDIT_CONTROL,PREREQUISITES,Premature function reuse violations,0,0,PASS,NO,,Removed premature reuse references FUNC-A1-030 from M04-I03 and FUNC-A1-006 from M06-I01,,
+SEQ16D-014,AUDIT_CONTROL,FUNCTIONS,Function positions covered,55/55,55/55,PASS,NO,,,53 unique first introductions + 2 documented cross-reference positions.,
+SEQ16D-015,AUDIT_CONTROL,GRAPH,Recycle edges,2955,2955,PASS,NO,,,,
+SEQ16D-016,AUDIT_CONTROL,GRAPH,Targets with exactly 3 recycle edges,985/985,985/985,PASS,NO,,,,
+SEQ16D-017,AUDIT_CONTROL,GRAPH,Backward/cyclic story edges,0,0,PASS,NO,,,,
+SEQ16D-018,AUDIT_CONTROL,GRAPH,Route-order violations intro<local<near<third,0,0,PASS,NO,,,,
+SEQ16D-019,AUDIT_CONTROL,MODE,Regional receptive targets,16,16,PASS,NO,,,,
+SEQ16D-020,AUDIT_CONTROL,MODE,Regional edges with universal productive demand,0,0,PASS,NO,,,,
+SEQ16D-021,AUDIT_CONTROL,MASTERY,Recycle edges claiming mastery,0,0,PASS,NO,,,,
+SEQ16D-022,AUDIT_CONTROL,LOAD,Maximum scheduled object-relations in one blueprint,informational,73,PASS,NO,,,Not a direct lexical-token burden: one occurrence can satisfy multiple Sense/Grammar/MWU relations.,
+SEQ16D-023,AUDIT_CONTROL,LOAD,Median scheduled object-relations per blueprint,informational,36,PASS,NO,,,Informational only; no universal threshold imposed.,
+SEQ16D-024,AUDIT_CONTROL,READINESS,Sequence blockers,0,0,PASS,NO,,,,
+SEQ16D-025,AUDIT_CONTROL,READINESS,FINAL_SEQUENCE_READY,YES,YES,PASS,NO,,,,
+SEQ16D-DELE-01,DELE_TASK_CROSSWALK,DELE,DELE-A1-R1 — Correspondencia breve personal,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=READING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I04-S3;A1-M07-I04-S3
+SEQ16D-DELE-02,DELE_TASK_CROSSWALK,DELE,DELE-A1-R2 — Textos funcionales mínimos,>=1 compatible blueprint,3 compatible blueprint(s),PASS,NO,Task modality=READING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M03-I01-S4;A1-M04-I04-S3;A1-M03-I03-S4
+SEQ16D-DELE-03,DELE_TASK_CROSSWALK,DELE,DELE-A1-R3 — Material informativo/promocional,>=1 compatible blueprint,3 compatible blueprint(s),PASS,NO,Task modality=READING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M07-I02-S3;A1-M06-I02-S3;A1-M08-I03-S4
+SEQ16D-DELE-04,DELE_TASK_CROSSWALK,DELE,DELE-A1-R4 — Información pública concreta,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=READING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M04-I04-S3;A1-M04-I03-S3
+SEQ16D-DELE-05,DELE_TASK_CROSSWALK,DELE,DELE-A1-L1 — Diálogos muy breves,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I01-S3;A1-M05-I02-S3
+SEQ16D-DELE-06,DELE_TASK_CROSSWALK,DELE,DELE-A1-L2 — Mensajes/avisos públicos,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M04-I03-S3;A1-M04-I04-S3
+SEQ16D-DELE-07,DELE_TASK_CROSSWALK,DELE,DELE-A1-L3 — Monólogo segmentado,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M02-I02-S4;A1-M08-I03-S4
+SEQ16D-DELE-08,DELE_TASK_CROSSWALK,DELE,DELE-A1-L4 — Conversación cotidiana,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=LISTENING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I03-S3;A1-M05-I02-S3
+SEQ16D-DELE-09,DELE_TASK_CROSSWALK,DELE,DELE-A1-W1 — Formulario,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=WRITING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I03-S4
+SEQ16D-DELE-10,DELE_TASK_CROSSWALK,DELE,DELE-A1-W2 — Correspondencia breve,>=1 compatible blueprint,2 compatible blueprint(s),PASS,NO,Task modality=WRITING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I04-S3;A1-M07-I04-S3
+SEQ16D-DELE-11,DELE_TASK_CROSSWALK,DELE,DELE-A1-O1 — Presentación personal preparada,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M01-I02-S3
+SEQ16D-DELE-12,DELE_TASK_CROSSWALK,DELE,DELE-A1-O2 — Tema personal próximo preparado,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M06-I01-S3
+SEQ16D-DELE-13,DELE_TASK_CROSSWALK,DELE,DELE-A1-O3 — Conversación guiada,>=1 compatible blueprint,1 compatible blueprint(s),PASS,NO,Task modality=SPEAKING; SpanishStories blueprint mapping,,Task-structure coverage only; not DELE content reuse and not a lexical/grammar level assertion.,A1-M08-I04-S3

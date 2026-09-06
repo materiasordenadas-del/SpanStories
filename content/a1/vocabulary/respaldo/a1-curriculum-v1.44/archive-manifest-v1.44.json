@@ -1,0 +1,59 @@
+{
+  "manifest_version": "1.0",
+  "historical_release": "A1-CURRICULUM-v1.44",
+  "successor_release_candidate": "A1-CURRICULUM-v1.51",
+  "audited_origin_head": "2bc6851ebf12085be5eccbff9af5ef0826ebe0b4",
+  "archive_mode": "STAGED_COPY_UNTIL_V151_RUNTIME_ACTIVATION",
+  "root_v144_removal_gate": "ONLY_AFTER_V151_IMPORTER_REGISTRY_AND_TESTS_PASS",
+  "files": [
+    {
+      "file": "spanishstories_a1_ws_sequencing_architecture_v1.44.csv",
+      "source_path": "content/a1/vocabulary/spanishstories_a1_ws_sequencing_architecture_v1.44.csv",
+      "archive_path": "content/a1/vocabulary/respaldo/a1-curriculum-v1.44/spanishstories_a1_ws_sequencing_architecture_v1.44.csv",
+      "bytes": 52630,
+      "sha256": "9676bbc6adfa729de5914133ff29d4c6701358d94d2018f91c6f597e2743a4d4",
+      "git_blob_sha_at_audit": "3290d72cf9a7ab676e217cb1e1fec75ea9b1d327",
+      "byte_identical_to_source_at_archive_time": true
+    },
+    {
+      "file": "spanishstories_a1_ws_sequencing_allocation_v1.44.csv",
+      "source_path": "content/a1/vocabulary/spanishstories_a1_ws_sequencing_allocation_v1.44.csv",
+      "archive_path": "content/a1/vocabulary/respaldo/a1-curriculum-v1.44/spanishstories_a1_ws_sequencing_allocation_v1.44.csv",
+      "bytes": 791303,
+      "sha256": "da7338c0a51b87e72fe65dc40eabe40a1b47e1ab14a1e07d1aebb987dd7692dd",
+      "git_blob_sha_at_audit": "8fc1e2f2ecf813029772ddd3549fae3d8466ff39",
+      "byte_identical_to_source_at_archive_time": true
+    },
+    {
+      "file": "spanishstories_a1_ws_story_blueprints_v1.44.csv",
+      "source_path": "content/a1/vocabulary/spanishstories_a1_ws_story_blueprints_v1.44.csv",
+      "archive_path": "content/a1/vocabulary/respaldo/a1-curriculum-v1.44/spanishstories_a1_ws_story_blueprints_v1.44.csv",
+      "bytes": 72549,
+      "sha256": "ea8819909a30461fb30f0d133c98a4f9f165b06e0af42f96f0d41cbea445f739",
+      "git_blob_sha_at_audit": "c53561a55440f0569c6699bd399d79b528a109a2",
+      "byte_identical_to_source_at_archive_time": true
+    },
+    {
+      "file": "spanishstories_a1_ws_recycling_edges_v1.44.csv",
+      "source_path": "content/a1/vocabulary/spanishstories_a1_ws_recycling_edges_v1.44.csv",
+      "archive_path": "content/a1/vocabulary/respaldo/a1-curriculum-v1.44/spanishstories_a1_ws_recycling_edges_v1.44.csv",
+      "bytes": 993334,
+      "sha256": "2dfd31263500ace0b063a8f0efd1a49edf077d065fd1c56cbeea27848be0b232",
+      "git_blob_sha_at_audit": "3f46344ac494c51519cdd1558dca33ef20448661",
+      "byte_identical_to_source_at_archive_time": true
+    },
+    {
+      "file": "spanishstories_a1_ws_sequencing_final_audit_v1.44.csv",
+      "source_path": "content/a1/vocabulary/spanishstories_a1_ws_sequencing_final_audit_v1.44.csv",
+      "archive_path": "content/a1/vocabulary/respaldo/a1-curriculum-v1.44/spanishstories_a1_ws_sequencing_final_audit_v1.44.csv",
+      "bytes": 6879,
+      "sha256": "bf647cb9393a5472db4c03a8b0c8b998280f5bf0ba63427f4221b7907e87c4eb",
+      "git_blob_sha_at_audit": "cbf204fc0f6cc7c93aafa8053c5aece60406981a",
+      "byte_identical_to_source_at_archive_time": true
+    }
+  ],
+  "shared_sources_not_archived": [
+    "spanishstories_a1_ws_coverage_final_v1.40.csv",
+    "lexical normalization/source assertion inventories that remain canonical"
+  ]
+}
