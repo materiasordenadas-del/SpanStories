@@ -5,16 +5,10 @@ on:
     branches: [prueba]
     paths:
       - '.github/workflows/a1-v151-release-candidate.yml'
-      - 'docs/curriculum/a1-restructure/tools/generate_v151_release_candidate.py'
-      - 'docs/curriculum/a1-restructure/spanstories_a1_target_allocation_rules_etapa_e_v1.0.csv'
-      - 'docs/curriculum/a1-restructure/etapa-f-recycling-route-matrix-v1.0.csv'
-      - 'docs/curriculum/a1-restructure/etapa-g-dele-remap-13-of-13-v1.0.csv'
-      - 'docs/curriculum/a1-restructure/etapa-g-dele-story-support-contract-v1.0.csv'
-      - 'content/a1/vocabulary/spanishstories_a1_ws_sequencing_allocation_v1.44.csv'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   generate:
@@ -28,6 +22,24 @@ jobs:
         run: python docs/curriculum/a1-restructure/tools/generate_v151_release_candidate.py "$RUNNER_TEMP/a1-v151-rc1"
       - name: Show generated counts
         run: cat "$RUNNER_TEMP/a1-v151-rc1/generation-summary-v1.51-rc1.json"
+      - name: Publish validated candidate sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$RUNNER_TEMP/a1-v151-rc1/spanishstories_a1_ws_sequencing_architecture_v1.51.csv" content/a1/vocabulary/
+          cp "$RUNNER_TEMP/a1-v151-rc1/spanishstories_a1_ws_sequencing_allocation_v1.51.csv" content/a1/vocabulary/
+          cp "$RUNNER_TEMP/a1-v151-rc1/spanishstories_a1_ws_story_blueprints_v1.51.csv" content/a1/vocabulary/
+          cp "$RUNNER_TEMP/a1-v151-rc1/spanishstories_a1_ws_recycling_edges_v1.51.csv" content/a1/vocabulary/
+          cp "$RUNNER_TEMP/a1-v151-rc1/spanishstories_a1_ws_sequencing_final_audit_v1.51.csv" content/a1/vocabulary/
+          cp "$RUNNER_TEMP/a1-v151-rc1/curriculum-release-v1.51-rc1.json" docs/curriculum/a1-restructure/
+          cp "$RUNNER_TEMP/a1-v151-rc1/etapa-h-id-crosswalk-v1.51-rc1.csv" docs/curriculum/a1-restructure/
+          cp "$RUNNER_TEMP/a1-v151-rc1/generation-summary-v1.51-rc1.json" docs/curriculum/a1-restructure/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/a1/vocabulary/spanishstories_a1_ws_*_v1.51.csv docs/curriculum/a1-restructure/curriculum-release-v1.51-rc1.json docs/curriculum/a1-restructure/etapa-h-id-crosswalk-v1.51-rc1.csv docs/curriculum/a1-restructure/generation-summary-v1.51-rc1.json
+          git diff --cached --quiet && exit 0
+          git commit -m "data(a1): publish v1.51 curriculum release candidate"
+          git push origin HEAD:prueba
       - uses: actions/upload-artifact@v4
         with:
           name: a1-v151-release-candidate-rc1
