@@ -1,0 +1,187 @@
+name: A1 v1.44 stage archive
+
+on:
+  push:
+    branches: [prueba]
+    paths:
+      - '.github/workflows/a1-v144-stage-archive.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: prueba
+          fetch-depth: 0
+
+      - name: Stage exact v1.44 curricular sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC='content/a1/vocabulary'
+          DST="$SRC/respaldo/a1-curriculum-v1.44"
+          mkdir -p "$DST"
+
+          files=(
+            spanishstories_a1_ws_sequencing_architecture_v1.44.csv
+            spanishstories_a1_ws_sequencing_allocation_v1.44.csv
+            spanishstories_a1_ws_story_blueprints_v1.44.csv
+            spanishstories_a1_ws_recycling_edges_v1.44.csv
+            spanishstories_a1_ws_sequencing_final_audit_v1.44.csv
+          )
+
+          for f in "${files[@]}"; do
+            test -f "$SRC/$f"
+            cp --preserve=mode,timestamps "$SRC/$f" "$DST/$f"
+            cmp -s "$SRC/$f" "$DST/$f"
+          done
+
+          cat > "$SRC/respaldo/README.md" <<'EOF'
+          # Respaldo curricular A1
+
+          Esta carpeta conserva releases curriculares sustituidos sin convertirlos en fuentes activas del runtime.
+
+          Reglas:
+
+          - un release archivado conserva sus bytes y su trazabilidad;
+          - los archivos compartidos que siguen siendo autoridad léxica/curricular no se duplican aquí solo por pertenecer cronológicamente al release anterior;
+          - el runtime no debe leer desde `respaldo/`;
+          - durante una migración puede existir temporalmente una copia de compatibilidad en la raíz mientras el importer todavía dependa del release anterior;
+          - la eliminación de esa copia activa solo ocurre de forma atómica con la activación del release sucesor y después de pasar regresión.
+
+          Releases archivados:
+
+          - `a1-curriculum-v1.44/` — release anterior a la reestructuración 103 → 32 StoryBlueprints.
+          EOF
+
+          cat > "$DST/README.md" <<'EOF'
+          # A1 Curriculum v1.44 — respaldo histórico
+
+          **Estado:** `ARCHIVED_COPY_STAGED`  
+          **Release histórico:** `A1-CURRICULUM-v1.44`  
+          **Sucesor curricular:** `A1-CURRICULUM-v1.51` RC1  
+          **Audited origin HEAD:** `2bc6851ebf12085be5eccbff9af5ef0826ebe0b4`
+
+          ## Motivo
+
+          v1.44 representa la topología anterior:
+
+          ```text
+          8 modules
+          32 islands
+          103 StoryBlueprints
+          985 first introductions
+          2955 recycle edges
+          ```
+
+          La reestructuración aprobada produce v1.51 RC1:
+
+          ```text
+          8 modules
+          11 islands
+          32 StoryBlueprints
+          985 first introductions
+          2867 recycle edges
+          ```
+
+          ## Archivos históricos copiados byte-for-byte
+
+          - `spanishstories_a1_ws_sequencing_architecture_v1.44.csv`
+          - `spanishstories_a1_ws_sequencing_allocation_v1.44.csv`
+          - `spanishstories_a1_ws_story_blueprints_v1.44.csv`
+          - `spanishstories_a1_ws_recycling_edges_v1.44.csv`
+          - `spanishstories_a1_ws_sequencing_final_audit_v1.44.csv`
+
+          ## Archivos que NO se archivan aquí
+
+          `spanishstories_a1_ws_coverage_final_v1.40.csv` permanece como fuente compartida porque audita cobertura de inventarios y no codifica la topología 32-islas/103-stories sustituida.
+
+          Asimismo permanecen activas las fuentes léxicas compartidas —por ejemplo normalización y source assertions— cuando no fueron sustituidas por la reestructuración.
+
+          ## Compatibilidad temporal
+
+          En el momento de crear este respaldo el importer de Fase 1 todavía ejecuta v1.44. Por eso las cinco fuentes continúan temporalmente también en `content/a1/vocabulary/`.
+
+          **No son dos releases activos.** La copia dentro de `respaldo/` es histórica; la copia de raíz es un pin de compatibilidad hasta que Claude Code active v1.51. El implementation manifest exige eliminar las copias v1.44 de raíz solo después de que v1.51 pase importer, hashes, registry, query API, corrupción y determinismo.
+          EOF
+
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          src = Path('content/a1/vocabulary')
+          dst = src / 'respaldo' / 'a1-curriculum-v1.44'
+          names = [
+              'spanishstories_a1_ws_sequencing_architecture_v1.44.csv',
+              'spanishstories_a1_ws_sequencing_allocation_v1.44.csv',
+              'spanishstories_a1_ws_story_blueprints_v1.44.csv',
+              'spanishstories_a1_ws_recycling_edges_v1.44.csv',
+              'spanishstories_a1_ws_sequencing_final_audit_v1.44.csv',
+          ]
+          git_blob_sha = {
+              'spanishstories_a1_ws_sequencing_architecture_v1.44.csv': '3290d72cf9a7ab676e217cb1e1fec75ea9b1d327',
+              'spanishstories_a1_ws_sequencing_allocation_v1.44.csv': '8fc1e2f2ecf813029772ddd3549fae3d8466ff39',
+              'spanishstories_a1_ws_story_blueprints_v1.44.csv': 'c53561a55440f0569c6699bd399d79b528a109a2',
+              'spanishstories_a1_ws_recycling_edges_v1.44.csv': '3f46344ac494c51519cdd1558dca33ef20448661',
+              'spanishstories_a1_ws_sequencing_final_audit_v1.44.csv': 'cbf204fc0f6cc7c93aafa8053c5aece60406981a',
+          }
+          rows = []
+          for name in names:
+              source = src / name
+              archived = dst / name
+              sb = source.read_bytes()
+              ab = archived.read_bytes()
+              assert sb == ab
+              rows.append({
+                  'file': name,
+                  'source_path': str(source),
+                  'archive_path': str(archived),
+                  'bytes': len(ab),
+                  'sha256': hashlib.sha256(ab).hexdigest(),
+                  'git_blob_sha_at_audit': git_blob_sha[name],
+                  'byte_identical_to_source_at_archive_time': True,
+              })
+          manifest = {
+              'manifest_version': '1.0',
+              'historical_release': 'A1-CURRICULUM-v1.44',
+              'successor_release_candidate': 'A1-CURRICULUM-v1.51',
+              'audited_origin_head': '2bc6851ebf12085be5eccbff9af5ef0826ebe0b4',
+              'archive_mode': 'STAGED_COPY_UNTIL_V151_RUNTIME_ACTIVATION',
+              'root_v144_removal_gate': 'ONLY_AFTER_V151_IMPORTER_REGISTRY_AND_TESTS_PASS',
+              'files': rows,
+              'shared_sources_not_archived': [
+                  'spanishstories_a1_ws_coverage_final_v1.40.csv',
+                  'lexical normalization/source assertion inventories that remain canonical'
+              ]
+          }
+          (dst / 'archive-manifest-v1.44.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+
+      - name: Verify archive and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('content/a1/vocabulary/respaldo/a1-curriculum-v1.44/archive-manifest-v1.44.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          assert len(data['files']) == 5
+          assert all(x['byte_identical_to_source_at_archive_time'] for x in data['files'])
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/a1/vocabulary/respaldo
+          if git diff --cached --quiet; then
+            echo 'Archive already staged; nothing to commit.'
+          else
+            git commit -m 'archive(a1): stage v1.44 curricular backup'
+            git push origin HEAD:prueba
+          fi
