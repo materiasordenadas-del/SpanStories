@@ -1,8 +1,10 @@
 # SpanStories — Governing plan A1 restructure 103 → 32
 
 **Version:** 1.3  
-**Status:** `ACTIVE`  
+**Status:** `SUPERSEDED_BY_v1.4`  
 **Branch:** `prueba`
+
+> Historical plan snapshot through ETAPA G. The active plan is `governing-plan-v1.4.md`.
 
 ## Closed objective
 
@@ -43,7 +45,7 @@ MIGRATION AUTHORITY
 
 The migration docs do not become runtime inputs.
 
-## Completed stages
+## Completed stages at this snapshot
 
 ```text
 ETAPA A — canonical audit                         COMPLETE
@@ -55,7 +57,7 @@ ETAPA F — recycling graph                        COMPLETE
 ETAPA G — formal DELE remap 13/13                COMPLETE
 ```
 
-## Remaining stage
+## Remaining stage at this snapshot
 
 ```text
 ETAPA H — release-neutral schema + CSV release candidate + audit
@@ -99,7 +101,7 @@ Do not:
 - alter source data to make counts pass;
 - duplicate an active generated registry as a second authority.
 
-## Current invariants after ETAPA G
+## Current invariants at this snapshot
 
 ```text
 MODULES                         = 8
