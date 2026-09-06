@@ -9,7 +9,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"features/**/*.test.ts\"",
+    "curriculum:import": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts",
+    "curriculum:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts --check"
   },
   "dependencies": {
     "next": "16.2.11",
