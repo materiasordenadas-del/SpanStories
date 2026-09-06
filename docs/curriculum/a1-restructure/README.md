@@ -1,6 +1,6 @@
 # A1 curriculum restructure — 103 → 32 StoryBlueprints
 
-This directory is the human-authority workspace for the A1 narrative restructuring while the executable registry still remains on audited v1.44.
+This directory is the human-authority workspace for the A1 narrative restructuring while the executable registry still remains on audited v1.44 until Claude Code completes the technical cutover.
 
 ## Current status
 
@@ -13,8 +13,10 @@ ETAPA E = COMPLETE / CORRECTED
 ETAPA F = COMPLETE
 ETAPA G = COMPLETE
 ETAPA H = COMPLETE
+D-A11 / BACKUP MANIFEST = COMPLETE
+IMPLEMENTATION MANIFEST = COMPLETE
+CLAUDE CODE MIGRATION = AUTHORIZED ON prueba
 FASE 3 = BLOCKED
-CLAUDE CODE MIGRATION = BLOCKED UNTIL MANIFESTS ARE COMPLETE
 ```
 
 ## Current releases
@@ -25,7 +27,7 @@ APPROVED CANDIDATE  = A1-CURRICULUM-v1.51 RC1
 SCHEMA               = 2.0.0-rc1
 ```
 
-The v1.51 CSVs are present in `content/a1/vocabulary/`, but the current importer/registry has **not** been switched to them.
+The v1.51 CSVs are present in `content/a1/vocabulary/`, but the current importer/registry has **not** been switched to them yet.
 
 ## Candidate invariants
 
@@ -37,6 +39,7 @@ FIRST_INTRO        = 985
 FOCUS              = 448
 SUPPORTED          = 537
 RECYCLE_EDGES      = 2867
+RETURNS            = 985 / 950 / 932
 DELE               = 13 / 13
 A2_AS_A1           = 0
 REGIONAL_RECEPTIVE = 16
@@ -52,6 +55,12 @@ DETERMINISM        = PASS
 - `content/a1/vocabulary/spanishstories_a1_ws_recycling_edges_v1.51.csv`
 - `content/a1/vocabulary/spanishstories_a1_ws_sequencing_final_audit_v1.51.csv`
 
+Shared unchanged sources remain:
+
+- `content/a1/vocabulary/spanishstories_a1_ws_normalization_master_v1.37.csv`
+- `content/a1/vocabulary/spanishstories_a1_ws_source_assertions_modes_v1.40.csv`
+- `content/a1/vocabulary/spanishstories_a1_ws_coverage_final_v1.40.csv`
+
 ## ETAPA H authority
 
 - `current-state-v1.51.md`
@@ -64,6 +73,24 @@ DETERMINISM        = PASS
 - `tools/generate_v151_release_candidate.py`
 
 The generator was executed twice from the same commit; all eight internal generated files were byte-identical.
+
+## Post-H authority
+
+### Historical backup
+
+- `etapa-post-h-respaldo-manifest-v1.0.md`
+- `content/a1/vocabulary/respaldo/README.md`
+- `content/a1/vocabulary/respaldo/a1-curriculum-v1.44/README.md`
+- `content/a1/vocabulary/respaldo/a1-curriculum-v1.44/archive-manifest-v1.44.json`
+- five byte-identical v1.44 sequencing CSV copies under the same archive folder
+
+The five v1.44 sequencing CSVs still present at `content/a1/vocabulary/` are temporary compatibility pins because Fase 1 currently executes v1.44. They are removed only as part of a successful v1.51 cutover after all tests pass.
+
+### Claude Code implementation contract
+
+- `spanstories_a1_implementation_manifest_v1.51.md`
+
+This is the authoritative technical scope for the next Claude Code task. Claude may migrate Fase 1 on `prueba`; it may not make curricular decisions, modify v1.51 CSVs to satisfy tests, touch the visual baseline, start Fase 3, or touch `main`.
 
 ## Earlier stage artifacts
 
@@ -81,7 +108,7 @@ The generator was executed twice from the same commit; all eight internal genera
 - `etapa-f-recycling-destination-load-v1.0.csv`
 - `etapa-g-dele-remap-v1.0.md`
 - `etapa-g-dele-remap-13-of-13-v1.0.csv`
-- `etapa-g-dele-story-support-contract-v1.0.csv`
+- `etapa-g-dele-story-support_contract-v1.0.csv`
 
 ## Authority rule
 
@@ -99,11 +126,15 @@ APPROVED MIGRATION / RELEASE-CANDIDATE AUTHORITY
 
 Do not treat the mere presence of v1.51 files as runtime activation.
 
-## Remaining pre-Claude work
+## Next step
 
 ```text
-[ ] D-A11 / Manifest de respaldo
-[ ] Implementation manifest
+CLAUDE CODE:
+activate A1-CURRICULUM-v1.51 in Fase 1
+→ regenerate registry
+→ run corruption + determinism + query regressions
+→ remove root v1.44 compatibility pins only after green cutover
+→ stop
 ```
 
-Only after both manifests are closed may Claude Code migrate Fase 1 to v1.51. Fase 3 remains blocked until Fase 1 is regenerated/verified and Fase 2 is revalidated.
+After that, ChatGPT reviews Fase 1 and Fase 2 compatibility and only then prepares the new Fase 3 specification.
