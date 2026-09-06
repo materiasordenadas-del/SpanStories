@@ -1,0 +1,56 @@
+# SpanStories A1 — Current restructuring state v1.51
+
+**Status:** `CURRICULUM_RELEASE_CANDIDATE_READY`  
+**Executable curriculum:** `A1-CURRICULUM-v1.44`  
+**Approved candidate:** `A1-CURRICULUM-v1.51` RC1
+
+```text
+ETAPA A = COMPLETE
+ETAPA B = COMPLETE / HARDENED
+ETAPA C = COMPLETE
+ETAPA D = COMPLETE
+ETAPA E = COMPLETE / CORRECTED
+ETAPA F = COMPLETE
+ETAPA G = COMPLETE
+ETAPA H = COMPLETE
+```
+
+Candidate invariants:
+
+```text
+MODULES = 8
+ISLANDS = 11
+STORIES = 32
+FIRST_INTRO = 985
+FOCUS = 448
+SUPPORTED = 537
+RECYCLE_EDGES = 2867
+DELE = 13/13
+A2_AS_A1 = 0
+REGIONAL_RECEPTIVE = 16
+OLD_STORY_IDS_REUSED = 0
+DETERMINISM = PASS
+```
+
+Resolved decisions:
+
+```text
+D-A08 = RESOLVED — release-neutral schema 2.0.0-rc1
+D-A09 = RESOLVED — new IDs for all 32 Stories
+D-A10 = RESOLVED — DELE 13/13
+```
+
+Still pending before Claude Code:
+
+```text
+D-A11 = respaldo manifest
+IMPLEMENTATION_MANIFEST = PENDING
+```
+
+Blocks remain:
+
+```text
+FASE_3 = BLOCKED
+CLAUDE_CODE_MIGRATION = BLOCKED UNTIL BOTH MANIFESTS ARE COMPLETE
+MAIN = DO NOT TOUCH
+```
