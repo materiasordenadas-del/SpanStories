@@ -1,17 +1,20 @@
-# Handoff — phases 1-3 to phase 4 (Learner Event / Progress Engine)
+# Handoff — phases 1-4 to phase 5 (PostgreSQL / Persistence)
 
 ```text
-PHASE_1_MIGRATED     = PASS
-PHASE_2_REVALIDATED  = PASS
-PHASE_3_STORY_ENGINE = PASS
-PHASE_4_IMPLEMENTED  = NO
-PHASE_4_READY        = YES
+PHASE_1_MIGRATED             = PASS
+PHASE_2_REVALIDATED          = PASS
+PHASE_3_STORY_ENGINE         = PASS
+PHASE_4_LEARNER_EVENT_ENGINE = PASS
+PHASE_5_IMPLEMENTED          = NO
+PHASE_5_READY                = YES
 ```
 
 Phase 3 (Story Engine) is documented in full in
-`docs/story-engine-implementation.md`; §14 below is the short summary. Sections
-1-13 are the phase 1/2 handoff, unchanged and still authoritative for their
-scope.
+`docs/story-engine-implementation.md` (§14 below is the short summary). Phase 4
+(Learner Event / Progress Engine) is documented in full in
+`docs/learner-progress-implementation.md` (§15 below is the short summary).
+Sections 1-13 are the phase 1/2 handoff, unchanged and still authoritative for
+their scope.
 
 ## 1. Commits
 
@@ -67,12 +70,14 @@ figures as current.
 features/curriculum/index.ts                    phase 1 public contract
 features/lexical-engine/index.ts                phase 2 public contract
 features/story-engine/index.ts                  phase 3 public contract
+features/learner-progress/index.ts              phase 4 public contract
 generated/curriculum/a1/                        the executable registry
 content/a1/vocabulary/*.csv                      authoring authority (v1.51 + v1.37/v1.40)
 content/a1/vocabulary/respaldo/a1-curriculum-v1.44/   archived v1.44, read by nothing
 docs/curriculum-import.md                       phase 1 documentation
 docs/lexical-engine-implementation.md           phase 2 documentation
 docs/story-engine-implementation.md             phase 3 documentation
+docs/learner-progress-implementation.md         phase 4 documentation
 docs/curriculum/a1-restructure/                 the approved A–H curricular package
 docs/architecture/                              engine architecture and phase specs
 docs/lexical-engine.md                          lexical identity domain model
@@ -258,10 +263,10 @@ construction (the phase-3 id prefix scheme), not by accident. See
 
 ## 12. Not started, by design
 
-No Learner Event Engine, mastery or progress engine (phase 4), no PostgreSQL,
-ORM or persistence layer (phase 5), no auth, NLP or Python/spaCy (phase 6). No
-file under `app/`, `components/visual/` or `features/learner-progress/` was
-touched. `features/story-engine/` is phase 3's own scope — see §14.
+No PostgreSQL, ORM or persistence layer (phase 5), no auth, NLP or
+Python/spaCy (phase 6). No file under `app/` or `components/visual/` was
+touched. `features/story-engine/` and `features/learner-progress/` are
+phases 3 and 4's own scope — see §14 and §15.
 
 ## 13. Open contradictions
 
@@ -331,7 +336,61 @@ npm run lint               # PASS, 0 errors, 1 pre-existing warning
 npm run build              # PASS
 ```
 
-Phase 4 (Learner Event / Progress Engine) may proceed: it consumes
+Phase 4 (Learner Event / Progress Engine) consumed
 `features/story-engine/index.ts`'s `StoryOccurrenceId`/`StoryVersionId` in its
-event shapes, but does not need to wait on real Story content (§8's debt) or
-on PostgreSQL (phase 5).
+event shapes without waiting on real Story content (§8's debt) or on
+PostgreSQL (phase 5) — see §15.
+
+## 15. Phase 4 (Learner Event / Progress Engine) summary
+
+```text
+PHASE_4_LEARNER_EVENT_ENGINE = PASS
+```
+
+Full design rationale, decisions and audit are in
+`docs/learner-progress-implementation.md`. Short version:
+
+- **Entities implemented**: `LearnerEvent` (`OCCURRENCE_OPENED` |
+  `STATE_DECLARED`, frozen/immutable), `LearnerEventRepository`/
+  `InMemoryLearnerEventRepository`/`LocalStorageLearnerEventRepository`,
+  `DeclaredStateProjection`, `ContextHistoryProjection`, `ProgressProjection`,
+  `LearnerEventAttribution`, `ProjectionMetadata`.
+- **`event != current state`**: every projection is a pure fold over the
+  event log, rebuilt on demand; nothing is a mutable "current state" record.
+- **Append-only by interface, not convention**: `LearnerEventRepository` has
+  no `update`/`delete` method at all, mirroring
+  `features/story-engine/repository/story-repository.ts`'s treatment of
+  published `StoryVersion` content.
+- **`LocalStorageLearnerEventRepository` never imports `window`**: it depends
+  on a minimal `StorageLike` port, so the same contract-test suite runs
+  against it and `InMemoryLearnerEventRepository` with no DOM in Node.
+- **Attribution is lineage-aware and evidence-safe**: resolution order is
+  occurrence reannotation -> Sense lineage -> lineage graph ->
+  `AMBIGUOUS_LEGACY`/`UNATTRIBUTED`; proven against real published ids
+  (`LEX-A1-000260` split, disambiguated via `SENSE-A1-000265`). A split never
+  attributes to more than one candidate; a merge never copies events —
+  attribution is a pure read.
+- **`NEW`/`LEARNING`/`KNOWN` stay `USER_DECLARED_STATE`**: exposure
+  (`OCCURRENCE_OPENED`) never creates or changes a declared state, and
+  `computedMastery` is a real, always-`null` field — no formula invented.
+- **Rebuildability proven**: two independent computations of all three
+  projections from the same event log are equal once `calculatedAt` is
+  excluded (`withoutCalculatedAt`).
+- **Known, deliberate debt**: `ProgressProjection`'s evidence check only
+  works for `SENSE`-type targets with a `lexemeId` — the same
+  `MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` limitation
+  `docs/story-engine-implementation.md` §8 already records. No administrative
+  privacy-erasure path exists yet (documented as future work, not built).
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 263/263 (217 phases 1-3 + 46 phase 4)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning
+npm run build              # PASS
+```
+
+Phase 5 (PostgreSQL / Persistence) may proceed: it implements
+`StoryRepository` and `LearnerEventRepository` against PostgreSQL, using the
+same interfaces `InMemoryStoryRepository`/`InMemoryLearnerEventRepository`
+already satisfy, so contract tests can run unchanged against both.

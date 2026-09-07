@@ -29,8 +29,9 @@ audit recorded its absence from the repo as an unresolved gap; this closes it.
 | `docs/curriculum-import.md` | Phase 1 **implementation** notes — how the importer actually works, its invariants and findings |
 | `docs/lexical-engine-implementation.md` | Phase 2 **implementation** notes and audit findings |
 | `docs/story-engine-implementation.md` | Phase 3 **implementation** notes, design decisions and audit findings |
+| `docs/learner-progress-implementation.md` | Phase 4 **implementation** notes, design decisions and audit findings |
 | `docs/curriculum/a1-restructure/` | The approved A–H curricular package for `A1-CURRICULUM-v1.51` |
-| `HANDOFF_NEXT_PHASE.md` | Current phase status and the handoff to phase 4 |
+| `HANDOFF_NEXT_PHASE.md` | Current phase status and the handoff to phase 5 |
 
 The specification documents above state what must be built and why. The
 implementation notes state what was built and what the data turned out to be.
@@ -54,7 +55,8 @@ LexiconRelease.curriculumReleaseId = A1-CURRICULUM-v1.51
 Fase 1 = MIGRATED / PASS
 Fase 2 = REVALIDATED / PASS
 Fase 3 = STORY ENGINE / PASS
-Fase 4 = READY — implementation NOT STARTED
+Fase 4 = LEARNER EVENT ENGINE / PASS
+Fase 5 = READY — implementation NOT STARTED
 ```
 
 Where these documents still mention `A1-CURRICULUM-v1.44`, 32 islands, 103
