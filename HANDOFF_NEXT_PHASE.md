@@ -10,8 +10,7 @@ DEUDA_A_TARGET_EVIDENCE      = PASS  (see §17 — 985/985 targets representable
 POSTGRES_SERVER_ADAPTER      = IMPLEMENTED  (see §19)
 POSTGRES_SERVER_PARITY_HARNESS = READY
 POSTGRES_SERVER_PARITY_TEST  = NOT_RUN_ENV_UNAVAILABLE  (no docker/psql/pg_ctl in this environment)
-PHASE_6_NLP                  = NOT_STARTED
-PHASE_6_READY                = YES
+PHASE_6_NLP                  = PASS  (see §21 — spaCy es_core_news_sm, real adapter exercised)
 ```
 
 Phase 3 (Story Engine) is documented in full in
@@ -555,11 +554,84 @@ npm run lint               # PASS, 0 errors, 1 pre-existing warning
 npm run build              # PASS
 ```
 
-## 20. Not yet started
+## 21. Phase 6 (NLP / Annotation Assistant) closure
 
-Phase 6 (NLP / Annotation Assistant) had not started as of this section. See
-the top-of-file status block, which this handoff keeps current as each
-closes.
+```text
+PHASE_6_NLP               = PASS
+NLP_IS_AUTHORITY          = NO
+AUTO_PUBLISHING           = NO
+NLP_ADAPTER               = spaCy
+NLP_MODEL                 = es_core_news_sm
+NLP_VERSION               = spaCy 3.8.16 / model 3.8.0
+REAL_NLP_INTEGRATION_TEST = PASS  (__tests__/spacy-integration.test.ts, __tests__/offsets.test.ts)
+UNICODE_OFFSET_PARITY     = PASS  (code points, ñ/á/¿/¡/astral emoji, Python<->JS)
+CURRICULUM_MUTATED_BY_NLP = NO
+LEXEMES_CREATED_BY_NLP    = 0
+SENSES_CREATED_BY_NLP     = 0
+FORMS_CREATED_BY_NLP      = 0
+```
 
-Phase 6 (NLP) may proceed now; nothing in phases 1-5's or deuda A/B's public
-contracts should need to change for that to happen.
+`features/nlp/` (`domain/`, `engine/`, `adapters/`, `review/`, `runtime/`,
+public boundary `index.ts`) implements the full chain:
+`StoryVersion -> NLP analysis -> AnnotationCandidate[] -> canonical registry
+validation -> editorial review / deterministic acceptance ->
+StoryOccurrence/OccurrenceAnnotationRevision -> Publication Validator`.
+Full design rationale, the Node<->Python contract, and every governed
+construction rule: `docs/nlp-annotation-assistant.md`.
+
+- **Analyzer**: spaCy `es_core_news_sm` (CPU, ~13 MB, no paid API, no GPU),
+  bridged from Node via a versioned JSON stdin/stdout contract
+  (`features/nlp/adapters/spacy/analyzer.py` /
+  `features/nlp/adapters/spacy/spacy-analyzer.ts`) — argv-based
+  `child_process.spawn`, no shell, a hard timeout, exit-code and stderr
+  checked, stdout size-capped.
+- **Offsets are Unicode code points**, proven end-to-end against the real
+  subprocess (`__tests__/offsets.test.ts`): ñ, á, ¿, ¡ and an astral emoji
+  each round-trip through `resolveAnchorText`
+  (`features/story-engine/domain/anchors.ts`), and the emoji is confirmed
+  exactly one code point wide even though it is two UTF-16 units in
+  JavaScript.
+- **`AnnotationCandidate`** (`features/nlp/domain/candidate.ts`) is the one
+  reviewable shape; a real published homograph (`HG-A1-0001`, "alemán")
+  resolves to a candidate *set*, never one picked answer; a `Sense` is never
+  auto-assigned even when a `Lexeme` publishes exactly one.
+- **Three governed construction tables**
+  (`features/nlp/engine/construction-rules.ts`), not opaque inference: fused
+  clitic split (`"vete"` -> HEAD `"ve"` + CLITIC `"te"`), discontinuous
+  lexical MWU (`"se dio [finalmente] cuenta"`, a real gap on
+  `"finalmente"`), and `llevar + DURATION + GERUND_PREDICATE`
+  (`"Lleva tres años estudiando español"`). An MWU without lexical identity
+  correctly produces a `CONSTRUCTION` candidate (`ANCHOR`+`SLOT`s), never a
+  fabricated `Lexeme`.
+- **`acceptAnnotationCandidate`** (`features/nlp/review/acceptance-service.ts`)
+  is the only path to real content: staleness (`curriculumReleaseId`/
+  `lexiconReleaseId`/`storyVersionId`), referential integrity, anchor
+  re-resolution against current (immutable) sentence text, then builds a
+  real `StoryOccurrence`/`TextAnchor[]` (returned, since `StoryRepository`
+  has no "append to an existing version" method by design) or persists an
+  `OccurrenceAnnotationRevision`. Never calls `saveNewVersion` with
+  different text, `markPublished`, or `publishStoryVersion`.
+- **Publication safety re-proven, not re-implemented**: an A2-boundary
+  sense (`SENSE-A1-000075`) and a regional-receptive target
+  (`SENSE-A1-000418`) — both real published ids — still fail the
+  *unmodified* `validateStoryPublication` even after being accepted into an
+  NLP-produced occurrence/binding.
+- **No pronominality inference**: the clitic-split table is a surface-level
+  proposal mechanism; no code path in this feature reads or writes
+  `LexicalIdentity.pronominality`, proven by comparing
+  `LexicalEngine.getIdentity` before/after candidate generation for a
+  `-se`-suffixed real lexeme.
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 363/364 (1 explicit skip: deuda B's server-parity suite, unrelated)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning
+npm run build               # PASS
+```
+
+## 22. Not yet started
+
+No phase beyond 6 was in scope for this handoff. Nothing in phases 1-5's,
+deuda A/B's, or phase 6's public contracts should need to change for a
+future phase to build on top of them.
