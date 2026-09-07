@@ -6,12 +6,20 @@
  * Two independent resolution paths, matching
  * `docs/architecture/plan-implementacion-motor-v1.0.md` §"TargetEvidence":
  *
- *   SENSE              -> lexeme attribution (unchanged pre-existing path:
- *                         `OCCURRENCE_OPENED.recordedLexemeId` matched
- *                         against every `SENSE` target sharing that lexeme —
- *                         same lineage-aware behaviour
- *                         `../engine/attribution-engine.ts` already provides
- *                         via `ContextHistoryProjection`)
+ *   SENSE              -> Sense-exact attribution. `Lexeme exposure != Sense
+ *                         evidence`: an `OCCURRENCE_OPENED` credits *one*
+ *                         `SENSE` target — the one naming the event's
+ *                         effective Sense — never every `SENSE` target that
+ *                         happens to share the same Lexeme. The effective
+ *                         Sense is resolved through the same contracts
+ *                         `../engine/attribution-engine.ts` already exposes
+ *                         (occurrence reannotation, then lineage), never a
+ *                         second parallel lineage engine. The one exception:
+ *                         a Lexeme published with exactly one curriculum
+ *                         `SENSE` target is unambiguous even when the event
+ *                         recorded no `senseId` — there is no sibling Sense
+ *                         to over-credit. A Lexeme with >= 2 `SENSE` targets
+ *                         and no resolved Sense credits nothing.
  *   MWU_SOURCE_UNIT /
  *   GRAMMAR_UNIT       -> `StoryTargetBinding` naming the target directly,
  *                         resolved from the event's `occurrenceId` — works
@@ -21,16 +29,78 @@
  * This is a pure fold, like every other projection in this feature
  * (`../engine/context-history-projection.ts`, `../engine/declared-state-projection.ts`):
  * delete it, rebuild from the same `events`/`targetBindingsByOccurrence`, get
- * the same result.
+ * the same result (given the same `TargetEvidenceAttributionContext`).
  */
 
-import type { CurriculumRegistry } from "../../curriculum/index.ts";
-import type { StoryTargetBinding } from "../../story-engine/index.ts";
+import type { CurriculumRegistry, LexemeId, SenseId } from "../../curriculum/index.ts";
+import type { LexicalEngine } from "../../lexical-engine/index.ts";
+import { effectiveAnnotationOf, type LexicalOccurrence, type OccurrenceAnnotationRevision, type StoryOccurrenceId, type StoryTargetBinding } from "../../story-engine/index.ts";
+import { resolveAttribution } from "./attribution-engine.ts";
 import type { LearnerEvent, OccurrenceOpenedEvent } from "../domain/events.ts";
 import type { LearnerId } from "../domain/ids.ts";
 import type { ProjectionMetadata } from "../domain/projection-metadata.ts";
 import type { TargetEvidence } from "../domain/target-evidence.ts";
 import { sortedByOccurrence } from "./ordering.ts";
+
+/**
+ * Everything the SENSE path needs to resolve an event's *current* Sense
+ * attribution instead of trusting its historical `recordedSenseId`/
+ * `recordedLexemeId` blindly. Every field is optional so a caller that has
+ * no reannotation/lineage data at hand (most tests, and any projection run
+ * before the Story Engine or Lexical Engine ports are wired in) still gets
+ * correct, if degraded-to-`EXACT`, behaviour — never a second lineage engine.
+ */
+export type TargetEvidenceAttributionContext = {
+  readonly lexicalEngine?: LexicalEngine;
+  readonly occurrenceById?: ReadonlyMap<StoryOccurrenceId, LexicalOccurrence>;
+  readonly revisionsByOccurrence?: ReadonlyMap<StoryOccurrenceId, readonly OccurrenceAnnotationRevision[]>;
+};
+
+/**
+ * The Lexeme/Sense an `OCCURRENCE_OPENED` event should be read as evidencing
+ * *right now* — reusing `../engine/attribution-engine.ts`'s resolution order
+ * (occurrence reannotation, then lineage) rather than re-deriving it.
+ *
+ * Returns `{ lexemeId: null, senseId: null }` whenever the event's Lexeme
+ * attribution is `UNATTRIBUTED` or `AMBIGUOUS_LEGACY` (a split with no
+ * disambiguating evidence): neither state licenses SENSE evidence for any
+ * target, on this Lexeme or a successor.
+ */
+function resolveEffectiveSenseAttribution(
+  event: OccurrenceOpenedEvent,
+  ctx: TargetEvidenceAttributionContext,
+): { readonly lexemeId: LexemeId | null; readonly senseId: SenseId | null } {
+  if (event.recordedLexemeId === null) return { lexemeId: null, senseId: null };
+
+  const occurrence = ctx.occurrenceById?.get(event.occurrenceId);
+  const revisions = ctx.revisionsByOccurrence?.get(event.occurrenceId) ?? [];
+
+  // Occurrence reannotation always wins over both the historical event and
+  // Lexeme lineage: an editor's corrected interpretation of *this* occurrence
+  // is more specific than what a lineage graph can say about the Lexeme.
+  if (occurrence !== undefined && occurrence.kind === "LEXICAL" && revisions.length > 0) {
+    return effectiveAnnotationOf(occurrence, revisions);
+  }
+
+  if (ctx.lexicalEngine !== undefined) {
+    const attribution = resolveAttribution(event, {
+      lexicalEngine: ctx.lexicalEngine,
+      occurrence,
+      occurrenceRevisions: revisions.length > 0 ? revisions : undefined,
+    });
+    if (attribution.status === "UNATTRIBUTED" || attribution.status === "AMBIGUOUS_LEGACY") {
+      return { lexemeId: null, senseId: null };
+    }
+    // EXACT / BY_EQUIVALENT_MERGE / BY_SENSE / BY_OCCURRENCE: the recorded
+    // Sense (already the disambiguator for BY_SENSE) still names the right
+    // Sense under whichever Lexeme attribution resolved to.
+    return { lexemeId: attribution.effectiveLexemeId, senseId: event.recordedSenseId };
+  }
+
+  // No Lexical Engine supplied: no lineage to check, degrade to the event's
+  // own historical record (reannotation, checked above, still applies).
+  return { lexemeId: event.recordedLexemeId, senseId: event.recordedSenseId };
+}
 
 export type TargetEvidenceProjection = {
   readonly learnerId: LearnerId;
@@ -123,12 +193,49 @@ function senseTargetIdsByLexeme(registry: CurriculumRegistry): ReadonlyMap<strin
   return map;
 }
 
+/** `SenseId -> targetId` for every published `SENSE` target — the Sense-exact lookup. */
+function senseTargetIdBySenseId(registry: CurriculumRegistry): ReadonlyMap<string, string> {
+  const map = new Map<string, string>();
+  for (const target of registry.data.targets) {
+    if (target.targetType !== "SENSE" || target.senseId === null) continue;
+    map.set(target.senseId, target.targetId);
+  }
+  return map;
+}
+
+/**
+ * The `SENSE` target(s) an event's effective Lexeme/Sense attribution
+ * licenses evidence for — never more than one.
+ *
+ *   - a resolved Sense credits exactly the target naming that Sense (and
+ *     only if that target really belongs to the effective Lexeme — a
+ *     mismatch here means corrupt input, not a target to credit);
+ *   - no resolved Sense credits the Lexeme's one SENSE target when it has
+ *     only one (unambiguous by construction), otherwise nothing — crediting
+ *     every sibling Sense would be exactly the over-crediting this function
+ *     exists to prevent.
+ */
+function senseTargetIdsToCredit(
+  effectiveLexemeId: LexemeId,
+  effectiveSenseId: SenseId | null,
+  senseTargetsByLexeme: ReadonlyMap<string, readonly string[]>,
+  senseTargetsBySense: ReadonlyMap<string, string>,
+): readonly string[] {
+  const candidates = senseTargetsByLexeme.get(effectiveLexemeId) ?? [];
+  if (effectiveSenseId !== null) {
+    const exact = senseTargetsBySense.get(effectiveSenseId);
+    return exact !== undefined && candidates.includes(exact) ? [exact] : [];
+  }
+  return candidates.length === 1 ? candidates : [];
+}
+
 export function buildTargetEvidenceProjection(
   learnerId: LearnerId,
   registry: CurriculumRegistry,
   events: readonly LearnerEvent[],
   targetBindingsByOccurrence: ReadonlyMap<string, readonly StoryTargetBinding[]>,
   metadata: ProjectionMetadata,
+  attributionContext: TargetEvidenceAttributionContext = {},
 ): TargetEvidenceProjection {
   const cutoff = metadata.eventCutoff;
   const relevant = sortedByOccurrence(
@@ -136,6 +243,7 @@ export function buildTargetEvidenceProjection(
   ) as readonly OccurrenceOpenedEvent[];
 
   const senseTargetsByLexeme = senseTargetIdsByLexeme(registry);
+  const senseTargetsBySense = senseTargetIdBySenseId(registry);
   const evidenceByTarget = new Map<string, TargetEvidence[]>();
   const push = (targetId: string, evidence: TargetEvidence): void => {
     const bucket = evidenceByTarget.get(targetId);
@@ -144,26 +252,32 @@ export function buildTargetEvidenceProjection(
   };
 
   for (const event of relevant) {
-    // SENSE: unchanged lexeme-based path. Every SENSE target sharing this
-    // lexeme counts as evidenced — the same lexeme-level (not sense-exact)
-    // granularity `../engine/progress-projection.ts` has always had.
+    // SENSE: Sense-exact attribution — see module doc and
+    // `resolveEffectiveSenseAttribution`/`senseTargetIdsToCredit` above.
+    // A recorded Lexeme with no resolvable effective Sense credits nothing
+    // beyond its one unambiguous SENSE target, if it has exactly one; a
+    // Lexeme exposure alone is never Sense evidence for a multi-Sense Lexeme.
     if (event.recordedLexemeId !== null) {
-      for (const targetId of senseTargetsByLexeme.get(event.recordedLexemeId) ?? []) {
-        push(targetId, {
-          learnerId,
-          targetId,
-          targetType: "SENSE",
-          evidenceKind: "LEXEME_ATTRIBUTION",
-          lexemeId: event.recordedLexemeId,
-          senseId: event.recordedSenseId,
-          storyId: event.storyId,
-          storyVersionId: event.storyVersionId,
-          occurrenceId: event.occurrenceId,
-          eventId: event.eventId,
-          occurredAt: event.occurredAt,
-          curriculumReleaseId: event.curriculumReleaseId,
-          lexiconReleaseId: event.lexiconReleaseId,
-        });
+      const { lexemeId: effectiveLexemeId, senseId: effectiveSenseId } = resolveEffectiveSenseAttribution(event, attributionContext);
+      if (effectiveLexemeId !== null) {
+        const creditedTargetIds = senseTargetIdsToCredit(effectiveLexemeId, effectiveSenseId, senseTargetsByLexeme, senseTargetsBySense);
+        for (const targetId of creditedTargetIds) {
+          push(targetId, {
+            learnerId,
+            targetId,
+            targetType: "SENSE",
+            evidenceKind: "LEXEME_ATTRIBUTION",
+            lexemeId: effectiveLexemeId,
+            senseId: effectiveSenseId,
+            storyId: event.storyId,
+            storyVersionId: event.storyVersionId,
+            occurrenceId: event.occurrenceId,
+            eventId: event.eventId,
+            occurredAt: event.occurredAt,
+            curriculumReleaseId: event.curriculumReleaseId,
+            lexiconReleaseId: event.lexiconReleaseId,
+          });
+        }
       }
     }
 

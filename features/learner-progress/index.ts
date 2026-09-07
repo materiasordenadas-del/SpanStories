@@ -63,7 +63,7 @@ export { resolveAttribution } from "./engine/attribution-engine.ts";
 export type { DeclaredStateEntry, DeclaredStateProjection } from "./engine/declared-state-projection.ts";
 export { buildDeclaredStateProjection } from "./engine/declared-state-projection.ts";
 export { buildContextHistoryProjection } from "./engine/context-history-projection.ts";
-export type { TargetEvidenceProjection } from "./engine/target-evidence-projection.ts";
+export type { TargetEvidenceProjection, TargetEvidenceAttributionContext } from "./engine/target-evidence-projection.ts";
 export {
   buildTargetEvidenceProjection,
   createStoryTargetBindingEvidence,

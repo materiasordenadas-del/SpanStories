@@ -26,7 +26,10 @@ import { withoutCalculatedAt } from "../domain/projection-metadata.ts";
 import { CURRENT_LEXICON_RELEASE_ID } from "../../lexical-engine/index.ts";
 import { FixedClock, registry } from "./fixtures.ts";
 import { asId as asStoryId, createStoryTargetBinding } from "../../story-engine/index.ts";
-import type { LexemeId } from "../../curriculum/index.ts";
+import type { LexemeId, SenseId } from "../../curriculum/index.ts";
+import { reviseOccurrenceAnnotation, type LexicalOccurrence, type OccurrenceAnnotationRevision } from "../../story-engine/index.ts";
+import { LexicalEngine } from "../../lexical-engine/engine/lexicon.ts";
+import { lineageEvent } from "../../lexical-engine/__tests__/fixtures.ts";
 import type { LearnerEvent } from "../domain/events.ts";
 import type { StoryTargetBinding } from "../../story-engine/index.ts";
 import type { ProjectionMetadata } from "../domain/projection-metadata.ts";
@@ -65,6 +68,7 @@ function fixtureFor(
   targetType: "SENSE" | "MWU_SOURCE_UNIT" | "GRAMMAR_UNIT",
   targetId: string,
   recordedLexemeId: LexemeId | null,
+  recordedSenseId: SenseId | null = null,
 ): Fixture {
   const storyId = asStoryId("StoryId", `story-te-${tag}`);
   const storyVersionId = asStoryId("StoryVersionId", `storyver-te-${tag}`);
@@ -91,7 +95,7 @@ function fixtureFor(
       lexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
       occurrenceId,
       recordedLexemeId,
-      recordedSenseId: null,
+      recordedSenseId,
       recordedFormId: null,
     },
     new FixedClock(),
@@ -270,6 +274,149 @@ describe("learner-progress / TargetEvidence", () => {
     assert.equal(records.length, 3);
     const declaredState = buildDeclaredStateProjection(learnerId, fixtures.map((f) => f.event), metadata());
     const progression = buildProgressProjection(learnerId, registry, evidence, declaredState, metadata());
+    assert.equal(progression.computedMastery, null);
+  });
+});
+
+/**
+ * Corrección A — Sense-exact evidence (see `../engine/target-evidence-projection.ts`).
+ *
+ * `LEX-A1-000379` is a real published multi-Sense Lexeme (no fixture): it
+ * carries exactly `SENSE-A1-000385` and `SENSE-A1-000386`, found once via a
+ * throwaway inspection script, not invented. `LEX-A1-000260` is real and
+ * carries the split fixture `lexical-engine/__tests__/lineage.test.ts` uses.
+ */
+describe("learner-progress / TargetEvidence — Corrección A (Sense-exact)", () => {
+  const MULTI_SENSE_LEXEME = "LEX-A1-000379" as LexemeId;
+  const SENSE_A = "SENSE-A1-000385" as SenseId;
+  const SENSE_B = "SENSE-A1-000386" as SenseId;
+
+  test("A1. recordedSenseId=A credits only Sense A, never sibling Sense B", () => {
+    const { event, binding } = fixtureFor("a1", "SENSE", SENSE_A, MULTI_SENSE_LEXEME, SENSE_A);
+    const evidence = buildEvidence([{ event, binding }]);
+    assert.ok(evidence.evidenceByTarget.has(SENSE_A));
+    assert.equal(evidence.evidenceByTarget.has(SENSE_B), false);
+  });
+
+  test("A2. recordedLexemeId with recordedSenseId=null on a multi-Sense Lexeme credits neither Sense", () => {
+    const { event, binding } = fixtureFor("a2", "SENSE", SENSE_A, MULTI_SENSE_LEXEME, null);
+    const evidence = buildEvidence([{ event, binding }]);
+    assert.equal(evidence.evidenceByTarget.has(SENSE_A), false);
+    assert.equal(evidence.evidenceByTarget.has(SENSE_B), false);
+  });
+
+  test("A3. reannotation (Sense A -> Sense B) moves evidence without touching the historical event", () => {
+    const occurrenceId = asStoryId("StoryOccurrenceId", "occ-te-a3");
+    const occurrence: LexicalOccurrence = {
+      kind: "LEXICAL",
+      id: occurrenceId,
+      storyVersionId: asStoryId("StoryVersionId", "storyver-te-a3"),
+      sentenceId: asStoryId("SentenceId", "sent-te-a3"),
+      surface: "fixture",
+      lexemeId: MULTI_SENSE_LEXEME,
+      senseId: SENSE_A,
+      lexemeFormId: null,
+      senseResolutionStatus: "RESOLVED",
+      parts: [],
+    };
+    const revision: OccurrenceAnnotationRevision = reviseOccurrenceAnnotation(
+      asStoryId("OccurrenceAnnotationRevisionId", "rev-te-a3"),
+      occurrence,
+      {
+        newLexemeId: MULTI_SENSE_LEXEME,
+        newSenseId: SENSE_B,
+        reason: "fixture: corrected Sense",
+        lexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
+      },
+      new FixedClock(),
+    );
+
+    const event = recordOccurrenceOpened(
+      {
+        eventId: asId("LearnerEventId", "levt-te-a3"),
+        learnerId,
+        storyId: asStoryId("StoryId", "story-te-a3"),
+        storyVersionId: occurrence.storyVersionId,
+        curriculumReleaseId: registry.release.releaseId,
+        lexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
+        occurrenceId,
+        recordedLexemeId: MULTI_SENSE_LEXEME,
+        recordedSenseId: SENSE_A, // historical: what the learner actually saw at the time.
+        recordedFormId: null,
+      },
+      new FixedClock(),
+    );
+
+    const evidence = buildTargetEvidenceProjection(
+      learnerId,
+      registry,
+      [event],
+      indexTargetBindingsByOccurrence([]),
+      metadata(),
+      {
+        occurrenceById: new Map([[occurrenceId, occurrence]]),
+        revisionsByOccurrence: new Map([[occurrenceId, [revision]]]),
+      },
+    );
+
+    assert.equal(evidence.evidenceByTarget.has(SENSE_A), false);
+    assert.ok(evidence.evidenceByTarget.has(SENSE_B));
+    // The historical event itself is never mutated.
+    assert.equal(event.recordedSenseId, SENSE_A);
+  });
+
+  test("A4. an ambiguous split (no disambiguating Sense) credits no SENSE target for either successor", () => {
+    const SPLIT_SOURCE = "LEX-A1-000260" as LexemeId;
+    const split = lineageEvent("SPLIT", ["LEX-A1-000260"], ["LEX-A1-000261", "LEX-A1-000584"], {
+      reason: "fixture: ambiguous split for target-evidence A4",
+    });
+    const lexicalEngine = new LexicalEngine(registry, { lineageEvents: [split] });
+
+    const { event, binding } = fixtureFor("a4", "SENSE", "SENSE-A1-000015", SPLIT_SOURCE, null);
+    const evidence = buildTargetEvidenceProjection(
+      learnerId,
+      registry,
+      [event],
+      indexTargetBindingsByOccurrence(binding !== null ? [binding] : []),
+      metadata(),
+      { lexicalEngine },
+    );
+    // Neither the source's own (superseded) target nor a successor's target gets credited.
+    for (const [, records] of evidence.evidenceByTarget) {
+      for (const r of records) {
+        assert.notEqual((r as { lexemeId?: string }).lexemeId, "LEX-A1-000261");
+        assert.notEqual((r as { lexemeId?: string }).lexemeId, "LEX-A1-000584");
+      }
+    }
+    assert.equal(evidence.evidenceByTarget.has(SPLIT_SOURCE as unknown as string), false);
+  });
+
+  test("A5. MWU_SOURCE_UNIT and GRAMMAR_UNIT evidence is unaffected by the Sense-exact change", () => {
+    const { event: mwuEvent, binding: mwuBinding } = fixtureFor("a5-mwu", "MWU_SOURCE_UNIT", MWU_WITH_LEXEME_TARGET, MWU_WITH_LEXEME_LEXEME);
+    const { event: gramEvent, binding: gramBinding } = fixtureFor("a5-gram", "GRAMMAR_UNIT", GRAMMAR_TARGET, null);
+    const evidence = buildEvidence([
+      { event: mwuEvent, binding: mwuBinding },
+      { event: gramEvent, binding: gramBinding },
+    ]);
+    assert.equal(evidence.evidenceByTarget.get(MWU_WITH_LEXEME_TARGET)?.length, 1);
+    assert.equal(evidence.evidenceByTarget.get(GRAMMAR_TARGET)?.length, 1);
+  });
+
+  test("A6. curriculum target model coverage stays 985/985 regardless of evidence presence", () => {
+    const declaredState = buildDeclaredStateProjection(learnerId, [], metadata());
+    const targetEvidence = buildTargetEvidenceProjection(learnerId, registry, [], indexTargetBindingsByOccurrence([]), metadata());
+    const progression = buildProgressProjection(learnerId, registry, targetEvidence, declaredState, metadata());
+    assert.equal(progression.breakdown.SENSE.total, 602);
+    assert.equal(progression.breakdown.MWU_SOURCE_UNIT.total, 214);
+    assert.equal(progression.breakdown.GRAMMAR_UNIT.total, 169);
+    assert.equal(progression.totalTargets, 985);
+  });
+
+  test("A7. computedMastery stays null with Sense-exact evidence present", () => {
+    const { event, binding } = fixtureFor("a7", "SENSE", SENSE_A, MULTI_SENSE_LEXEME, SENSE_A);
+    const declaredState = buildDeclaredStateProjection(learnerId, [event], metadata());
+    const targetEvidence = buildEvidence([{ event, binding }]);
+    const progression = buildProgressProjection(learnerId, registry, targetEvidence, declaredState, metadata());
     assert.equal(progression.computedMastery, null);
   });
 });
