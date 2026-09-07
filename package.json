@@ -14,16 +14,19 @@
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"features/**/*.test.ts\"",
     "curriculum:import": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts",
     "curriculum:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts --check",
-    "db:setup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db/migrate-and-seed.ts"
+    "db:setup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db/migrate-and-seed.ts",
+    "db:test:server": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/persistence/__tests__/server-parity.test.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
     "next": "16.2.11",
+    "pg": "^8.23.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@types/node": "latest",
+    "@types/pg": "^8.23.1",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",

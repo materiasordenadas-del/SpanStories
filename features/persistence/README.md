@@ -33,10 +33,12 @@ PostgresStoryRepository / PostgresLearnerEventRepository
   is the exact published string as its own `TEXT PRIMARY KEY`; there is no
   surrogate integer/UUID key anywhere. See `docs/data-model.md` §1.
 - **`SqlClient`/`SqlDatabase`** (`db/sql-client.ts`) is the only interface a
-  repository, migration or seed function depends on.
-  `db/pglite-database.ts` is the only file that imports
-  `@electric-sql/pglite` — a future real-server adapter implements the same
-  two interfaces with no change anywhere else.
+  repository, migration or seed function depends on. `db/pglite-database.ts`
+  and `db/pg-server-database.ts` are the only two files that import a driver
+  (`@electric-sql/pglite` and `pg` respectively) — every repository,
+  migration and seed file is backend-agnostic by construction. See
+  `docs/persistence.md` §9 and `testing/server-parity.ts` for the
+  `TEST_DATABASE_URL`-gated harness (`npm run db:test:server`).
 - **Lineage acyclicity is re-validated in a transaction**
   (`repository/lineage-repository.ts`), not expressed as a `CHECK`
   constraint — a cycle spans the whole table, not one row.
@@ -50,9 +52,11 @@ PostgresStoryRepository / PostgresLearnerEventRepository
 
 ## What phase 5 does not do
 
-Networked-server concerns (SSL, real connection pooling, concurrent-process
-load, deployment/backup/replication — see `docs/persistence.md` §1), an
-ORM, auth, or any UI change.
+An ORM, auth, or any UI change. `POSTGRES_SERVER_PARITY_TEST` itself
+(running against a real networked server, as opposed to the adapter and
+harness that make running it trivial) stays `NOT_RUN_ENV_UNAVAILABLE` — no
+PostgreSQL server or Docker is available in this environment; see
+`docs/persistence.md` §9.
 
 ## Tests
 
@@ -60,3 +64,9 @@ ORM, auth, or any UI change.
 shared assertion suite against both the in-memory adapters (from
 `features/story-engine`/`features/learner-progress`) and the PostgreSQL ones
 here — the literal "same interface, same observable behaviour" check.
+`database-contract-pglite.test.ts` and `server-parity.test.ts` run a second,
+lower-level shared suite (`testing/database-contract-suite.ts`) against
+PGlite and — when `TEST_DATABASE_URL` is set — a real server, via the exact
+same function (`registerDatabaseContractSuite`); without it,
+`server-parity.test.ts` is an explicit, visible `skipped` test, never a
+false `pass`. Run it explicitly with `npm run db:test:server`.

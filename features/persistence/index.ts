@@ -16,6 +16,7 @@
 
 export type { SqlClient, SqlDatabase, SqlResult } from "./db/sql-client.ts";
 export { openPGliteDatabase, type PGliteDatabaseOptions } from "./db/pglite-database.ts";
+export { openPgServerDatabase, type PgServerDatabaseOptions } from "./db/pg-server-database.ts";
 export { migrate, listMigrationFiles, type MigrationResult } from "./db/migrate.ts";
 
 export { seedCurriculum, type SeedResult } from "./seed/seed-curriculum.ts";

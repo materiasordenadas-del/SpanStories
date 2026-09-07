@@ -5,6 +5,12 @@ schema become a second authority. See `docs/persistence.md` for the
 database-access decision, the PGlite environment, and how to run it; this
 document is the schema itself.
 
+This schema is backend-neutral by construction: the DDL in `db/migrations/`
+is plain PostgreSQL, run unmodified against either `@electric-sql/pglite` or
+a real networked server via `PgServerDatabase` — see `docs/persistence.md`
+§9 for the server-parity harness. Nothing below changed to make that true;
+the schema was already backend-agnostic before that adapter existed.
+
 ---
 
 ## 1. Identity rule

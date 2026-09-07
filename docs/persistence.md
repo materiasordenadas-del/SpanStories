@@ -86,26 +86,26 @@ over exactly this shape with no ORM dialect to fight, and — because that
 seam is the *only* PGlite-specific surface — swapping the adapter for a real
 `pg.Pool`-backed one later touches one file, not the repositories.
 
-## 3. Swapping PGlite for a real server later
+## 3. Swapping PGlite for a real server
 
 ```text
-features/persistence/db/pglite-database.ts   (implements SqlDatabase)
-                    |
-                    v
-        features/persistence/db/sql-client.ts   <-- the only seam
-                    ^
-                    |
-future: features/persistence/db/pg-server-database.ts  (wraps pg.Pool)
+features/persistence/db/pglite-database.ts      (implements SqlDatabase)
+features/persistence/db/pg-server-database.ts   (implements SqlDatabase, wraps pg.Pool)
+                    |                    |
+                    v                    v
+              features/persistence/db/sql-client.ts   <-- the only seam
 ```
 
-A `PgServerDatabase` implementing `SqlDatabase` against `pg.Pool` needs:
-`query(sql, params)` → `pool.query(sql, params)`; `exec(sql)` →
-`pool.query(sql)` (no params — `pg` runs multi-statement SQL the same way
+Implemented (§9): `PgServerDatabase` in `db/pg-server-database.ts`, exactly as
+predicted here — `query(sql, params)` → `pool.query(sql, params)`; `exec(sql)`
+→ `pool.query(sql)` (no params — `pg` runs multi-statement SQL the same way
 PGlite's `exec` does, via the simple-query protocol); `transaction(fn)` →
 checkout a client, `BEGIN`/`COMMIT`/`ROLLBACK` around `fn`. No repository,
-migration or seed file changes: they all depend on `SqlClient`/`SqlDatabase`
-only, never on `@electric-sql/pglite` (`pglite-database.ts` is the only file
-in this feature that imports it).
+migration or seed file changed to make this work: they all depend on
+`SqlClient`/`SqlDatabase` only. `pglite-database.ts` and `pg-server-database.ts`
+are the only two files in this feature that import a driver
+(`@electric-sql/pglite` and `pg` respectively) — every other file, including
+every repository, is backend-agnostic by construction.
 
 ## 4. `BLOCKER_PGLITE_PORTABILITY` — none encountered
 
@@ -165,6 +165,9 @@ npm run lint               PASS  0 errors, 1 pre-existing warning
 npm run build              PASS
 ```
 
+(§9 below records the addendum's own regression status — the numbers above
+are phase 5's original snapshot, kept as written at the time.)
+
 The single lint warning is pre-existing and out of scope (same
 `_ds_bundle.js` warning phases 1-4 already recorded). No new warnings were
 introduced.
@@ -181,3 +184,98 @@ an opaque column, no backup/replication/deployment tooling, no auth. React
 never imports this feature or a database driver directly — nothing under
 `app/`, `components/` or `lib/` was touched. `SurfaceToken` persistence is
 the same deliberate gap `docs/data-model.md` §6 records.
+
+---
+
+## 9. Addendum (deuda B): the PostgreSQL server parity harness
+
+```text
+POSTGRES_SERVER_ADAPTER         = IMPLEMENTED
+POSTGRES_SERVER_PARITY_HARNESS  = READY
+POSTGRES_SERVER_PARITY_TEST     = NOT_RUN_ENV_UNAVAILABLE
+```
+
+`POSTGRES_SERVER_PARITY_TEST` stays `PENDING_BEFORE_PRODUCTION` (§1) in
+spirit, but is now backed by real, runnable infrastructure rather than an
+open question. This environment still has no `docker`/`psql`/`pg_ctl` on
+`PATH` (re-checked, same result as §1) — the addendum does not install
+either unilaterally, per its own brief. What changed is that the moment a
+real server *is* available, running the parity test is one command, not a
+design exercise.
+
+### 9.1 `PgServerDatabase` — the adapter §3 predicted
+
+`features/persistence/db/pg-server-database.ts` implements `SqlDatabase`
+over `pg.Pool`. No repository, migration or seed file was touched to add it
+— `PostgresStoryRepository`/`PostgresLearnerEventRepository`, `db/migrate.ts`
+and `seed/seed-curriculum.ts` still only import `./sql-client.ts`'s
+interfaces (verified by grep: `pglite-database.ts` and `pg-server-database.ts`
+are the only two files in this feature importing a driver package at all).
+`openPgServerDatabase({ connectionString, schema? })` accepts an optional
+`schema`, applied via `-c search_path=<schema>` on every pooled connection —
+the mechanism the isolation strategy in §9.2 depends on.
+
+### 9.2 One reusable contract suite, not two test files
+
+`features/persistence/testing/database-contract-suite.ts` exports
+`registerDatabaseContractSuite(describeName, openDb)` — migrations (clean +
+idempotent + every expected table, via `to_regclass`, which resolves through
+whatever schema `search_path` names, so the same check works unmodified
+against PGlite's `public` schema and a server's isolated one),
+`seedCurriculum`'s exact published counts, the `StoryRepository` and
+`LearnerEventRepository` contracts (round-trip, referential integrity, no
+partial write on corruption, append-only by trigger), and two direct
+`SqlDatabase.transaction` tests (rollback on throw, visible on commit). One
+function, registered twice:
+
+- `__tests__/database-contract-pglite.test.ts` — always runs, against
+  `openPGliteDatabase()` (a fresh in-memory instance per test, same as every
+  other PGlite test in this feature).
+- `__tests__/server-parity.test.ts` — the same function, against
+  `openIsolatedTestDatabase(url)` from `testing/server-parity.ts`, when
+  `TEST_DATABASE_URL` is set.
+
+Nothing was copied: the exact same test bodies run against both backends,
+via the same `openDb: () => Promise<SqlDatabase>` seam the repositories
+themselves depend on.
+
+### 9.3 Isolation and safety
+
+`testing/server-parity.ts`:
+
+- `resolveTestDatabaseUrl()` reads `TEST_DATABASE_URL`; `null` (not `""`)
+  when unset or blank.
+- `assertSafeTestDatabaseUrl(url)` refuses to run — throwing, not warning —
+  when the hostname or database name contains "prod"/"production", or when
+  the database name contains no "test" marker at all. Both checks are
+  bypassed only by the explicit `SPANSTORIES_ALLOW_UNSAFE_TEST_DB=1`
+  escape hatch, never inferred automatically. Tested directly in
+  `__tests__/server-parity-safety.test.ts` — these are pure functions, so
+  the refusal behaviour itself is proven without needing a real server.
+- `openIsolatedTestDatabase(url)` returns an `openDb` factory: every call
+  creates a brand-new, randomly-named PostgreSQL schema, opens a
+  `PgServerDatabase` scoped to it via `search_path`, and its `close()` drops
+  that schema (`DROP SCHEMA ... CASCADE`) before returning. A parity run
+  therefore never reads or writes the target server's `public` schema, and
+  concurrent runs against the same `TEST_DATABASE_URL` never collide.
+
+### 9.4 Running it
+
+```bash
+TEST_DATABASE_URL=postgres://user:pass@host:5432/spanstories_test npm run db:test:server
+```
+
+Without `TEST_DATABASE_URL`, `server-parity.test.ts` registers one visibly
+**skipped** test (node's test runner reports it as `skipped`, not `pass`) —
+`npm test` therefore never reports a false `PASS` for server parity; the
+skip is explicit and named, per the brief's "no un falso PASS."
+
+### 9.5 Regression status
+
+```text
+npm run curriculum:check   PASS  (all invariants, unchanged)
+npm test                   PASS  327 passing, 1 skipped (328 total; server-parity itself is the explicit SKIP — TEST_DATABASE_URL unavailable)
+npm run typecheck          PASS
+npm run lint               PASS  0 errors, 1 pre-existing warning
+npm run build              PASS
+```

@@ -7,6 +7,9 @@ PHASE_3_STORY_ENGINE         = PASS
 PHASE_4_LEARNER_EVENT_ENGINE = PASS
 PHASE_5_POSTGRES             = PASS  (PostgreSQL via @electric-sql/pglite)
 DEUDA_A_TARGET_EVIDENCE      = PASS  (see §17 — 985/985 targets representable)
+POSTGRES_SERVER_ADAPTER      = IMPLEMENTED  (see §19)
+POSTGRES_SERVER_PARITY_HARNESS = READY
+POSTGRES_SERVER_PARITY_TEST  = NOT_RUN_ENV_UNAVAILABLE  (no docker/psql/pg_ctl in this environment)
 PHASE_6_NLP                  = NOT_STARTED
 PHASE_6_READY                = YES
 ```
@@ -511,12 +514,52 @@ npm run lint                # PASS, 0 errors, 1 pre-existing warning
 npm run build               # PASS
 ```
 
-## 18. Not yet started
+## 19. Deuda B closure: PostgreSQL server parity harness
 
-Deuda B (PostgreSQL server parity harness) and phase 6 (NLP / Annotation
-Assistant) had not started as of this section. See the top-of-file status
-block, which this handoff keeps current as each closes.
+```text
+POSTGRES_SERVER_ADAPTER         = IMPLEMENTED
+POSTGRES_SERVER_PARITY_HARNESS  = READY
+POSTGRES_SERVER_PARITY_TEST     = NOT_RUN_ENV_UNAVAILABLE
+```
 
-Phase 6 (NLP) may proceed once a real environment decision is made about
-`POSTGRES_SERVER_PARITY_TEST`; nothing in phases 1-5's public contracts
-should need to change for that to happen.
+`features/persistence/db/pg-server-database.ts` implements `SqlDatabase`
+over `pg.Pool` — the adapter `docs/persistence.md` §3 predicted, with no
+change to any repository, migration or seed file (`SqlClient`/`SqlDatabase`
+remains the only seam; `pglite-database.ts` and `pg-server-database.ts` are
+the only two files importing a driver). `features/persistence/testing/
+database-contract-suite.ts` is one reusable contract suite
+(`registerDatabaseContractSuite`), registered against `openPGliteDatabase`
+(`__tests__/database-contract-pglite.test.ts`, always runs) and — when
+`TEST_DATABASE_URL` is set — against `openIsolatedTestDatabase`
+(`__tests__/server-parity.test.ts`), which scopes every test to a fresh,
+dropped-on-close PostgreSQL schema. `testing/server-parity.ts`'s
+`assertSafeTestDatabaseUrl` refuses a URL that looks like production or
+lacks a "test" marker, bypassable only by an explicit env override. Run
+explicitly with:
+
+```bash
+TEST_DATABASE_URL=postgres://user:pass@host:5432/spanstories_test npm run db:test:server
+```
+
+This environment still has no `docker`/`psql`/`pg_ctl` (re-checked, same as
+phase 5's original finding) — `POSTGRES_SERVER_PARITY_TEST` therefore stays
+`NOT_RUN_ENV_UNAVAILABLE`, not a false `PASS`. Without `TEST_DATABASE_URL`,
+`server-parity.test.ts` registers one explicitly `skipped` test, visible in
+`npm test`'s own output. Full rationale: `docs/persistence.md` §9.
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 327/327, 1 skipped (328 total)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning
+npm run build              # PASS
+```
+
+## 20. Not yet started
+
+Phase 6 (NLP / Annotation Assistant) had not started as of this section. See
+the top-of-file status block, which this handoff keeps current as each
+closes.
+
+Phase 6 (NLP) may proceed now; nothing in phases 1-5's or deuda A/B's public
+contracts should need to change for that to happen.
