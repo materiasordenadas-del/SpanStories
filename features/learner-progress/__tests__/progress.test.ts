@@ -8,7 +8,7 @@ import { buildTargetEvidenceProjection, indexTargetBindingsByOccurrence } from "
 import { withoutCalculatedAt } from "../domain/projection-metadata.ts";
 import { CURRENT_LEXICON_RELEASE_ID } from "../../lexical-engine/index.ts";
 import { FixedClock, buildStoryFixture, registry } from "./fixtures.ts";
-import type { LexemeId } from "../../curriculum/index.ts";
+import type { LexemeId, SenseId } from "../../curriculum/index.ts";
 import type { StoryTargetBinding } from "../../story-engine/index.ts";
 import type { ProjectionMetadata } from "../domain/projection-metadata.ts";
 
@@ -64,7 +64,7 @@ describe("learner-progress / progress projection", () => {
         lexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
         occurrenceId: fixture.occurrenceId,
         recordedLexemeId: ADIOS_LEXEME_ID,
-        recordedSenseId: null,
+        recordedSenseId: "SENSE-A1-000015" as SenseId,
         recordedFormId: null,
       },
       new FixedClock(),

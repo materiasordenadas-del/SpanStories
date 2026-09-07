@@ -112,7 +112,7 @@ function buildEvidence(fixtures: readonly Fixture[]) {
 
 describe("learner-progress / TargetEvidence", () => {
   test("1. SENSE evidence funciona", () => {
-    const { event, binding } = fixtureFor("sense", "SENSE", SENSE_TARGET, SENSE_LEXEME);
+    const { event, binding } = fixtureFor("sense", "SENSE", SENSE_TARGET, SENSE_LEXEME, SENSE_TARGET as unknown as SenseId);
     const evidence = buildEvidence([{ event, binding }]);
     const records = evidence.evidenceByTarget.get(SENSE_TARGET);
     assert.ok(records && records.length >= 1);
@@ -202,7 +202,7 @@ describe("learner-progress / TargetEvidence", () => {
   });
 
   test("11. lineage Sense sigue funcionando (unchanged lexeme-attribution path)", () => {
-    const { event, binding } = fixtureFor("lineage", "SENSE", SENSE_TARGET, SENSE_LEXEME);
+    const { event, binding } = fixtureFor("lineage", "SENSE", SENSE_TARGET, SENSE_LEXEME, SENSE_TARGET as unknown as SenseId);
     const evidence = buildEvidence([{ event, binding }]);
     const record = evidence.evidenceByTarget.get(SENSE_TARGET)![0];
     assert.equal(record.evidenceKind, "LEXEME_ATTRIBUTION");
@@ -303,6 +303,12 @@ describe("learner-progress / TargetEvidence — Corrección A (Sense-exact)", ()
     const evidence = buildEvidence([{ event, binding }]);
     assert.equal(evidence.evidenceByTarget.has(SENSE_A), false);
     assert.equal(evidence.evidenceByTarget.has(SENSE_B), false);
+  });
+
+  test("A2b. effectiveSenseId=null credits nothing even when the Lexeme has exactly one published SENSE target (LEXEME_EXPOSURE != SENSE_EVIDENCE)", () => {
+    const { event, binding } = fixtureFor("a2b", "SENSE", SENSE_TARGET, SENSE_LEXEME, null);
+    const evidence = buildEvidence([{ event, binding }]);
+    assert.equal(evidence.evidenceByTarget.has(SENSE_TARGET), false);
   });
 
   test("A3. reannotation (Sense A -> Sense B) moves evidence without touching the historical event", () => {

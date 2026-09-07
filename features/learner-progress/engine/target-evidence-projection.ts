@@ -6,20 +6,20 @@
  * Two independent resolution paths, matching
  * `docs/architecture/plan-implementacion-motor-v1.0.md` §"TargetEvidence":
  *
- *   SENSE              -> Sense-exact attribution. `Lexeme exposure != Sense
- *                         evidence`: an `OCCURRENCE_OPENED` credits *one*
- *                         `SENSE` target — the one naming the event's
- *                         effective Sense — never every `SENSE` target that
- *                         happens to share the same Lexeme. The effective
- *                         Sense is resolved through the same contracts
- *                         `../engine/attribution-engine.ts` already exposes
- *                         (occurrence reannotation, then lineage), never a
- *                         second parallel lineage engine. The one exception:
- *                         a Lexeme published with exactly one curriculum
- *                         `SENSE` target is unambiguous even when the event
- *                         recorded no `senseId` — there is no sibling Sense
- *                         to over-credit. A Lexeme with >= 2 `SENSE` targets
- *                         and no resolved Sense credits nothing.
+ *   SENSE              -> Strictly Sense-exact attribution. `Lexeme exposure
+ *                         != Sense evidence`: an `OCCURRENCE_OPENED` credits
+ *                         *one* `SENSE` target — the one naming the event's
+ *                         resolved `effectiveSenseId` — never every `SENSE`
+ *                         target that happens to share the same Lexeme. The
+ *                         effective Sense is resolved through the same
+ *                         contracts `../engine/attribution-engine.ts` already
+ *                         exposes (occurrence reannotation, then lineage),
+ *                         never a second parallel lineage engine. No
+ *                         exceptions: `effectiveSenseId == null` credits
+ *                         nothing, even for a Lexeme with exactly one
+ *                         published `SENSE` target — the absence of ambiguity
+ *                         does not turn a lexical exposure into an explicit
+ *                         observation of Sense.
  *   MWU_SOURCE_UNIT /
  *   GRAMMAR_UNIT       -> `StoryTargetBinding` naming the target directly,
  *                         resolved from the event's `occurrenceId` — works
@@ -207,13 +207,13 @@ function senseTargetIdBySenseId(registry: CurriculumRegistry): ReadonlyMap<strin
  * The `SENSE` target(s) an event's effective Lexeme/Sense attribution
  * licenses evidence for — never more than one.
  *
- *   - a resolved Sense credits exactly the target naming that Sense (and
- *     only if that target really belongs to the effective Lexeme — a
- *     mismatch here means corrupt input, not a target to credit);
- *   - no resolved Sense credits the Lexeme's one SENSE target when it has
- *     only one (unambiguous by construction), otherwise nothing — crediting
- *     every sibling Sense would be exactly the over-crediting this function
- *     exists to prevent.
+ * Strictly Sense-exact: a resolved `effectiveSenseId` credits exactly the
+ * target naming that Sense (and only if that target really belongs to the
+ * effective Lexeme — a mismatch here means corrupt input, not a target to
+ * credit). No resolved Sense credits nothing, full stop — not even when the
+ * Lexeme has exactly one `SENSE` target. `LEXEME_EXPOSURE != SENSE_EVIDENCE`:
+ * the absence of ambiguity does not turn a lexical exposure into an explicit
+ * observation of Sense.
  */
 function senseTargetIdsToCredit(
   effectiveLexemeId: LexemeId,
@@ -221,12 +221,10 @@ function senseTargetIdsToCredit(
   senseTargetsByLexeme: ReadonlyMap<string, readonly string[]>,
   senseTargetsBySense: ReadonlyMap<string, string>,
 ): readonly string[] {
+  if (effectiveSenseId === null) return [];
   const candidates = senseTargetsByLexeme.get(effectiveLexemeId) ?? [];
-  if (effectiveSenseId !== null) {
-    const exact = senseTargetsBySense.get(effectiveSenseId);
-    return exact !== undefined && candidates.includes(exact) ? [exact] : [];
-  }
-  return candidates.length === 1 ? candidates : [];
+  const exact = senseTargetsBySense.get(effectiveSenseId);
+  return exact !== undefined && candidates.includes(exact) ? [exact] : [];
 }
 
 export function buildTargetEvidenceProjection(

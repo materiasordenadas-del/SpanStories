@@ -1,0 +1,21 @@
+-- NLP Annotation Assistant, post-Fase 6 corrective pass (Corrección 2):
+-- `annotation_candidate_decisions.resulting_occurrence_id` records the
+-- *accepted materialization identity* for a NEW_OCCURRENCE decision, not a
+-- reference to an already-persisted `StoryOccurrence` row.
+--
+-- `features/nlp/review/acceptance-service.ts` never inserts into
+-- `story_occurrences` for the NEW_OCCURRENCE path: it constructs the
+-- occurrence/anchors (and optional target binding) and returns them for the
+-- caller's *next* `saveNewVersion` call, which is the only place a
+-- `StoryVersion`'s content is ever written (`docs/story-engine-implementation.md`).
+-- So at the moment `recordAccepted` inserts the decision row, no
+-- `story_occurrences(id = resulting_occurrence_id)` row exists yet — a
+-- `REFERENCES story_occurrences(id)` on that column is enforcing a timing
+-- assumption the domain never makes, not real referential integrity.
+--
+-- `resulting_revision_id` keeps its `REFERENCES occurrence_annotation_revisions(id)`
+-- unchanged: the REVISION path commits the revision and its decision
+-- atomically in the same transaction via `PostgresAnnotationAcceptanceUnitOfWork`,
+-- so that row genuinely exists by the time the decision references it.
+ALTER TABLE annotation_candidate_decisions
+  DROP CONSTRAINT annotation_candidate_decisions_resulting_occurrence_id_fkey;
