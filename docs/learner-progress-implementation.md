@@ -347,3 +347,45 @@ npm run typecheck                PASS
 npm run lint                     PASS  0 errors, 1 pre-existing warning
 npm run build                    PASS
 ```
+
+## 10. Addendum (Corrección post-Fase 6, Corrección A): SENSE evidence is now Sense-exact
+
+§9.2 above documented the pre-existing `SENSE` path as deliberately
+lexeme-level, "not sense-exact" — crediting *every* `SENSE` target sharing a
+recorded Lexeme. In practice this over-credits progress: a Lexeme with two
+published Senses (e.g. `LEX-A1-000379` -> `SENSE-A1-000385`/`386`) would
+show evidence for both the instant a learner encountered either one. This
+addendum replaces that with the Sense-exact rule the original design
+intentionally deferred.
+
+**The rule** (`engine/target-evidence-projection.ts`):
+
+- Resolve the event's *effective* Sense/Lexeme attribution — reusing
+  `engine/attribution-engine.ts`'s existing contracts (occurrence
+  reannotation via `TargetEvidenceAttributionContext.occurrenceById`/
+  `revisionsByOccurrence`, then Lexeme lineage via an optional
+  `lexicalEngine`) rather than a second, parallel lineage engine. The
+  historical `LearnerEvent` itself is never rewritten; only what this
+  projection concludes from it changes on rebuild — same invariant §5
+  documents for every other projection.
+- `effectiveSenseId != null` credits exactly the one `SENSE` target naming
+  that Sense — never a sibling.
+- `effectiveSenseId == null` credits the Lexeme's own `SENSE` target only if
+  it has exactly one (unambiguous by construction — there is no sibling
+  Sense to over-credit). A Lexeme with two or more `SENSE` targets and no
+  resolved Sense credits nothing.
+- An `AMBIGUOUS_LEGACY`/`UNATTRIBUTED` Lexeme attribution (an unresolved
+  lineage split, or a retired Lexeme with no successor) credits nothing for
+  either the source or any successor.
+
+**Unaffected:** `MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` evidence (§9.2's other
+path, untouched), `CURRICULAR_TARGET_MODEL_COVERAGE = 985/985` (a coverage
+count of representable targets, not of targets with evidence),
+`computedMastery` (stays `null` everywhere), and `KNOWN` (stays a declared
+state, never derived from evidence).
+
+```text
+SENSE_EXACT_EVIDENCE              PASS
+CURRICULAR_TARGET_MODEL_COVERAGE  985/985  (unchanged)
+npm test                          PASS (25/25 in __tests__/target-evidence.test.ts, including 7 new Corrección A cases)
+```

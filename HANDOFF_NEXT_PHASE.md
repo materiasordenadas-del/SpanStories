@@ -630,8 +630,96 @@ npm run lint               # PASS, 0 errors, 1 pre-existing warning
 npm run build               # PASS
 ```
 
-## 22. Not yet started
+## 22. Not yet started (as of phase 6; superseded by §23 below for the corrective pass)
 
 No phase beyond 6 was in scope for this handoff. Nothing in phases 1-5's,
 deuda A/B's, or phase 6's public contracts should need to change for a
 future phase to build on top of them.
+
+## 23. Corrección post-Fase 6 (A-E) — five fixes, no new phase
+
+A corrective pass over phase 6 fixed five concrete problems found after it
+shipped. This was explicitly **not** phase 7: no new product surface, no UI,
+no mastery model. Full rationale for each: `docs/learner-progress-implementation.md`
+§10 (A), `docs/nlp-annotation-assistant.md` §11 (B/C/D/E), `docs/persistence.md`
+§10 (the new tables).
+
+- **A — SENSE evidence is Sense-exact.** `TargetEvidence` for `SENSE`
+  targets previously credited every `SENSE` target sharing a Lexeme;
+  now it credits exactly the one target naming the event's effective Sense
+  (resolved via the existing reannotation/lineage contracts), or a Lexeme's
+  own single `SENSE` target when unambiguous. `CURRICULAR_TARGET_MODEL_COVERAGE`
+  stays 985/985 (602 SENSE + 214 MWU_SOURCE_UNIT + 169 GRAMMAR_UNIT) —
+  unaffected, since it counts representable targets, not targets with
+  evidence.
+- **B — annotation acceptance is exactly-once and crash-safe.**
+  `AnnotationDecisionRepository` (new) is the single persisted authority
+  over accept/reject, enforced atomically (`UNIQUE(candidate_id)` +
+  `INSERT ... ON CONFLICT` on Postgres; an in-process mutex in-memory).
+  `AnnotationAcceptanceUnitOfWork` (new) commits a reannotation's
+  `OccurrenceAnnotationRevision` and its decision inside one transaction on
+  the Postgres-backed wiring.
+- **C — a `StoryVersion` existing is not "current."** `CurrentStoryVersionResolver`
+  (new) is an explicit, editorial-workflow-owned authority; acceptance no
+  longer treats mere existence of a (possibly superseded) `StoryVersion` as
+  proof it is still being authored against.
+- **D — reannotation respects `StoryOccurrence.kind`.** A `CONSTRUCTION`
+  occurrence can no longer be silently coerced into a `LexicalOccurrence`
+  reannotation via a type assertion — `CANDIDATE_REANNOTATION_KIND_MISMATCH`
+  is thrown instead, with real type narrowing.
+- **E — spaCy/model version is governed and checked.** `features/nlp/domain/
+  analyzer-config.ts` is the single source for `EXPECTED_SPACY_VERSION`
+  (`3.8.16`), `EXPECTED_MODEL_NAME` (`es_core_news_sm`), and
+  `EXPECTED_MODEL_VERSION` (`3.8.0`) — both the Node adapter and the Python
+  bridge check the real runtime against it (`ANALYZER_VERSION_MISMATCH` on
+  drift), and the model is now pinned in `requirements.txt` to the official
+  `spacy-models` GitHub Releases wheel rather than the floating
+  `spacy download`. This environment's actual install already matched the
+  governed pin exactly; verified, not reinstalled.
+
+New migration: `db/migrations/0005_nlp_annotation_decisions.sql`
+(`annotation_candidate_decisions`, `story_authoring_state`).
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 393/394 (1 explicit skip: PostgreSQL server-parity suite, TEST_DATABASE_URL unavailable)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning (components/visual/baseline-v1, unrelated)
+npm run build              # PASS
+```
+
+`SENSE_EXACT_EVIDENCE = PASS`. `CANDIDATE_EXACTLY_ONCE = PASS`.
+`CONCURRENT_ACCEPTANCE_PROTECTION = PASS`. `CRASH_SAFE_REVISION_ACCEPTANCE =
+PASS` (transactional on the Postgres-backed unit of work). `STALE_STORY_VERSION_PROTECTION
+= PASS`. `REANNOTATION_KIND_GUARD = PASS`. `SPACY_MODEL_REPRODUCIBILITY =
+PASS`. `POSTGRES_SERVER_PARITY_TEST = NOT_RUN_ENV_UNAVAILABLE` (unchanged —
+no PostgreSQL server or Docker available in this environment; not a blocker
+for this corrective pass). `MAIN_TOUCHED = NO`. `NLP_IS_AUTHORITY = NO`.
+`AUTO_PUBLISHING = NO`.
+
+### Known technical debt this pass does not close
+
+- The no-`unitOfWork` fallback ordering for the `REVISION` acceptance path
+  (decision-first, then append the revision) is documented as safe only for
+  a decision repository with no foreign key to the revision table
+  (`InMemoryAnnotationDecisionRepository`). A Postgres-backed
+  `decisionRepository` used without its matching `unitOfWork` is not a
+  supported combination — always wire both together for a persisted
+  backend. See `docs/nlp-annotation-assistant.md` §11.1.
+- `POSTGRES_SERVER_PARITY_TEST` remains `NOT_RUN_ENV_UNAVAILABLE` — the new
+  `AnnotationDecisionRepository`/`AnnotationAcceptanceUnitOfWork` contract
+  coverage runs against PGlite (real PostgreSQL semantics, WASM-embedded)
+  in every `npm test`, and would run against a real networked server
+  automatically the moment `TEST_DATABASE_URL` is set, via the same
+  `registerDatabaseContractSuite` — no new work needed there, just an
+  environment that was not available for this pass.
+- No repair/reconciliation job exists for the rare crash window inside the
+  no-`unitOfWork` fallback (decision recorded, revision append not yet
+  applied) — recovery would replay the stored `resultingRevisionId`, never
+  mint a new one, but nothing automates that replay today.
+
+## 24. Not yet started
+
+No phase beyond 6 was in scope for this corrective pass either. Nothing in
+phases 1-5's, deuda A/B's, phase 6's, or this corrective pass's public
+contracts should need to change for a future phase to build on top of them.

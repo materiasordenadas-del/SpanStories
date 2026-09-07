@@ -279,3 +279,44 @@ npm run typecheck          PASS
 npm run lint               PASS  0 errors, 1 pre-existing warning
 npm run build              PASS
 ```
+
+## 10. Addendum (Corrección post-Fase 6, Corrección B/C): the NLP annotation-decision tables
+
+Migration `0005_nlp_annotation_decisions.sql` adds two tables backing
+`features/nlp`'s own new ports (`docs/nlp-annotation-assistant.md` §11):
+
+- **`annotation_candidate_decisions`** — the single persisted, append-only
+  authority over whether an `AnnotationCandidate` was accepted or rejected.
+  `candidate_id` is the table's real primary key, not an app-level
+  convention: `INSERT ... ON CONFLICT (candidate_id) DO NOTHING RETURNING *`
+  (`features/persistence/repository/postgres-annotation-decision-repository.ts`)
+  is the entire exactly-once mechanism — no separate existence check that
+  could race precedes the write. A `CHECK` constraint ties `decision`/
+  `result_kind`/`resulting_occurrence_id`/`resulting_revision_id`/
+  `materialization` together so a row can never claim `ACCEPTED` with
+  `NONE` or `REJECTED` with a materialization attached.
+- **`story_authoring_state`** — one row per story naming its
+  `current_editable_version_id`. Never populated by a derivation ("highest
+  version number") anywhere in this migration or its repository
+  (`postgres-current-story-version-resolver.ts`) — only the editorial
+  workflow's own explicit write path sets it; a story with no row means "no
+  current version designated," and NLP acceptance fails closed on that,
+  never open.
+
+`PostgresAnnotationAcceptanceUnitOfWork`
+(`features/persistence/repository/postgres-annotation-acceptance-unit-of-work.ts`)
+commits an `occurrence_annotation_revisions` insert and its matching
+`annotation_candidate_decisions` insert inside one `SqlDatabase.transaction`
+— insert order (revision, then decision) matters even though the
+transaction is atomic, because the decision row's `resulting_revision_id`
+foreign key requires the revision to already exist within the same
+transaction. This is the concrete crash-safety mechanism behind
+`CRASH_SAFE_REVISION_ACCEPTANCE = PASS`: either both rows commit, or
+neither does, so a retried `accept()` call after a crash never finds a
+half-applied decision.
+
+Both tables are exercised by `testing/database-contract-suite.ts`'s
+`AnnotationDecisionRepository` contract test — run against PGlite in every
+`npm test`, and against a real server whenever `TEST_DATABASE_URL` is set —
+including a real `Promise.allSettled` concurrent double-accept proving
+exactly one of two racing writers wins.

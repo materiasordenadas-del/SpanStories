@@ -55,6 +55,14 @@ LearnerEventAttribution
   (`SenseTargetEvidence` / `MwuTargetEvidence` / `GrammarTargetEvidence`); the
   MWU/grammar variants carry no `lexemeId` field at all — see
   `docs/learner-progress-implementation.md` §9.
+- **SENSE evidence is Sense-exact, not Lexeme-exact.** A `Lexeme` exposure
+  credits exactly the `SENSE` target naming the event's *effective* Sense —
+  resolved through `engine/attribution-engine.ts`'s reannotation/lineage
+  contracts, never a second parallel lineage engine — or, when no Sense was
+  resolved, the Lexeme's own single `SENSE` target if and only if it has
+  exactly one. A Lexeme with two or more `SENSE` targets and no resolved
+  Sense credits nothing: `Lexeme exposure != Sense evidence`. See
+  `engine/target-evidence-projection.ts` and its `TargetEvidenceAttributionContext`.
 
 ## What phase 4 does not do
 

@@ -27,6 +27,13 @@ features/persistence/seed/seed-curriculum.ts
 PostgresStoryRepository / PostgresLearnerEventRepository
         (implement features/story-engine's / features/learner-progress's
          own repository interfaces — no new contract invented here)
+        |
+        v (Corrección post-Fase 6, Corrección B/C)
+PostgresAnnotationDecisionRepository / PostgresAnnotationAcceptanceUnitOfWork
+        / PostgresCurrentStoryVersionResolver
+        (implement features/nlp's own new ports — exactly-once acceptance
+         decisions, atomic revision+decision commit, editorial-owned
+         "current version" — db/migrations/0005_nlp_annotation_decisions.sql)
 ```
 
 - **Database identity != published curriculum identity.** Every id column
@@ -49,6 +56,12 @@ PostgresStoryRepository / PostgresLearnerEventRepository
 - **A published `StoryVersion`'s text is protected twice over** the same
   way: no code path issues that `UPDATE`, and a trigger in
   `db/migrations/0003_story_engine.sql` rejects one regardless.
+- **`annotation_candidate_decisions.candidate_id` is a real primary key, not
+  an app-level convention** — `INSERT ... ON CONFLICT (candidate_id) DO
+  NOTHING RETURNING *` (`repository/postgres-annotation-decision-repository.ts`)
+  is what makes two concurrent editorial decisions on the same candidate
+  produce exactly one row, atomically, with no separate existence check that
+  could race. See `docs/nlp-annotation-assistant.md` §11.1.
 
 ## What phase 5 does not do
 

@@ -370,7 +370,7 @@ does today because none is ever written to it in the first place.
 
 ---
 
-## 10. Regression status
+## 10. Regression status (superseded by §11's numbers below)
 
 ```text
 npm run curriculum:check   PASS  (all invariants, unchanged)
@@ -382,3 +382,158 @@ npm run build               PASS
 
 `PHASE_6_NLP = PASS` — the real spaCy adapter was exercised, not only fakes;
 see `__tests__/spacy-integration.test.ts` and `__tests__/offsets.test.ts`.
+
+---
+
+## 11. Addendum (Corrección post-Fase 6): acceptance hardening (B/C/D) and analyzer reproducibility (E)
+
+§6 above described acceptance as refusing an already-`ACCEPTED`/`REJECTED`
+candidate "per §36" and staleness as checking release ids plus
+`storyVersionId` existence. Both turned out to be necessary but not
+sufficient. This addendum closes three gaps found after phase 6 shipped and
+fixes analyzer version drift, without starting a phase 7.
+
+### 11.1 Corrección B — exactly-once acceptance
+
+Nothing previously persisted whether a candidate had been decided:
+`AnnotationCandidate.status` was the *caller's own* responsibility to track,
+so calling `acceptAnnotationCandidate` twice on the same logical candidate
+(the same object, or a fresh copy still reporting `status: "CANDIDATE"`) was
+not just possible but, per §6's own item 1, explicitly "fine."
+
+`../domain/decision-repository.ts`'s `AnnotationDecisionRepository` is now
+the single persisted, append-only authority: `getByCandidateId` /
+`recordAccepted` / `recordRejected`, keyed `UNIQUE(candidateId)`. A second
+decision for a candidate — accept after accept, reject after accept, accept
+after reject, or two decisions racing concurrently — always fails
+`CANDIDATE_ALREADY_DECIDED`, enforced atomically:
+`InMemoryAnnotationDecisionRepository` serializes with an in-process mutex
+per `candidateId`; `PostgresAnnotationDecisionRepository`
+(`features/persistence`) uses `INSERT ... ON CONFLICT (candidate_id) DO
+NOTHING RETURNING *` — a real database-level guarantee, not a
+check-then-write race.
+
+For the `REVISION` path (reannotation), the decision and the
+`OccurrenceAnnotationRevision` must land together: `../domain/
+acceptance-unit-of-work.ts`'s `AnnotationAcceptanceUnitOfWork` commits both
+inside one SQL transaction on a Postgres-backed wiring
+(`PostgresAnnotationAcceptanceUnitOfWork`) — a crash mid-transaction leaves
+nothing for a retry to find, so retrying the same `accept()` call is safe.
+Without a unit of work supplied, `acceptAnnotationCandidate` records the
+decision first and only then appends the revision — safe for
+`InMemoryAnnotationDecisionRepository` (no foreign key to violate), but not
+a supported combination with a Postgres-backed decision repository used
+*without* its matching unit of work (the revision-id foreign key would
+reject a decision row inserted before its revision exists — by design, a
+loud failure rather than a silent ordering bug).
+
+A `NEW_OCCURRENCE` acceptance's materialization (`occurrenceId`, every
+`TextAnchor` id, the `StoryTargetBinding` id if any) is stored on the
+decision itself, so a caller recovering from `CANDIDATE_ALREADY_DECIDED` can
+retrieve exactly what the original acceptance produced instead of
+regenerating a second set of ids.
+
+Tests: `__tests__/acceptance-hardening.test.ts` (B1-B8, including a real
+`Promise.all` concurrent double-accept and a concurrent double-reannotate),
+`features/persistence/testing/database-contract-suite.ts`'s
+`AnnotationDecisionRepository` contract (run against real PostgreSQL via
+PGlite).
+
+### 11.2 Corrección C — a `StoryVersion` existing is not the same as it being current
+
+`StoryVersion`s are historical and immutable
+(`docs/story-engine-implementation.md`): an old version goes on existing,
+fully readable, forever after a newer one supersedes it as the one being
+authored against. §6's original staleness check —
+`storyRepository.getStoryVersion(candidate.storyVersionId) !== null` —
+therefore proved nothing about whether that version was still the one an
+editor was actually working on; a candidate generated against a superseded
+draft could be accepted as if it were current.
+
+`../domain/current-version.ts`'s `CurrentStoryVersionResolver` is a new,
+explicit port: "which `StoryVersion` is the editorial workflow currently
+authoring against, per story." It is never derived from "highest
+`versionNumber`" or "most recently created" — guessing is exactly the bug
+this fixes — and NLP only ever reads it; only the editorial workflow
+(`InMemoryCurrentStoryVersionResolver.setCurrentEditableVersion` /
+`PostgresCurrentStoryVersionResolver.setCurrentEditableVersion`, backed by
+the new `story_authoring_state` table) writes it. No entry for a story means
+"nothing designated yet," and `acceptAnnotationCandidate` fails closed
+(`STALE_CANDIDATE`), not open.
+
+A legitimate exception exists: correcting a historical version's annotation
+without touching its text. This is never enabled implicitly — only via
+`AcceptanceContext.historicalReannotationAuthorized: true` *and* a non-empty
+`editorialReference`, both explicit per call.
+
+Tests: `__tests__/acceptance-hardening.test.ts`'s "Corrección C" describe
+block, including a version that still exists in the repository (never
+deleted) but is provably no longer current.
+
+### 11.3 Corrección D — reannotation respects `StoryOccurrence.kind`
+
+`reviseOccurrenceAnnotation` takes a `LexicalOccurrence`, but the acceptance
+service previously reached it via `existing as LexicalOccurrence` — a type
+assertion that silently accepted a `CONSTRUCTION` occurrence too. Reannotation
+now checks `existing.kind === "LEXICAL"` first and fails
+`CANDIDATE_REANNOTATION_KIND_MISMATCH` (new `NlpErrorCode`) for anything
+else, with TypeScript's own control-flow narrowing replacing the assertion —
+no cast anywhere in this path. No new `Construction` revision model was
+introduced; a `CONSTRUCTION` occurrence's reannotation stays out of this
+feature's scope until an actual need for it exists.
+
+Tests: `__tests__/acceptance-hardening.test.ts`'s "Corrección D" describe
+block (D1-D3).
+
+### 11.4 Corrección E — governed, reproducible spaCy/model version
+
+§2 pinned `spacy==3.8.16` but never fixed `es_core_news_sm`'s own version as
+a reproducible dependency — recording `modelVersion` in provenance after the
+fact does not stop the runtime from silently analyzing under a different
+model build. `../domain/analyzer-config.ts` is now the single governed
+source (`EXPECTED_SPACY_VERSION = "3.8.16"`, `EXPECTED_MODEL_NAME =
+"es_core_news_sm"`, `EXPECTED_MODEL_VERSION = "3.8.0"`) both sides of the
+bridge check against — `../adapters/spacy/spacy-analyzer.ts` sends the
+expected values to `analyzer.py` over the same stdin payload every other
+input crosses, rather than Python keeping an independently drifting copy.
+Both sides fail loudly (`ANALYZER_VERSION_MISMATCH`, new `NlpErrorCode`) on
+a mismatch rather than running silently under an unreviewed configuration.
+`computeAnalyzerFingerprint`/`analyzerFingerprintString` reduce a
+candidate's existing `AnalyzerProvenance` fields plus the bridge contract
+version and candidate-builder algorithm version to one comparable string —
+no new field was added to the persisted candidate shape; the fingerprint is
+a derived view.
+
+`../adapters/spacy/requirements.txt` pins the model to the official
+`explosion/spacy-models` GitHub Releases wheel (spaCy's own documented
+reproducible-install mechanism), not `python -m spacy download` (which
+floats to whatever the current release channel considers compatible).
+`../adapters/spacy/verify-analyzer-env.py` is a standalone, side-effect-free
+check script for CI/local verification. This environment's actual install —
+spaCy 3.8.16, `es_core_news_sm` 3.8.0 — was verified to match the governed
+pin exactly; no reinstall was needed.
+
+Tests: `__tests__/analyzer-version.test.ts` (E1-E5, including simulated
+mismatches that do not require a different real install), and
+`__tests__/spacy-integration.test.ts`, which now asserts the real installed
+environment's reported versions equal the governed constants exactly, not
+merely that they are non-empty.
+
+### 11.5 Regression status after Corrección A-E
+
+```text
+npm run curriculum:check   PASS  (all invariants, unchanged)
+npm test                   PASS  393 passing, 1 skipped (394 total; the skip is the PostgreSQL server-parity suite — TEST_DATABASE_URL unavailable)
+npm run typecheck          PASS
+npm run lint               PASS  0 errors, 1 pre-existing warning (components/visual/baseline-v1, unrelated)
+npm run build              PASS
+```
+
+`PHASE_6_NLP = PASS`. `CANDIDATE_EXACTLY_ONCE = PASS`.
+`CONCURRENT_ACCEPTANCE_PROTECTION = PASS`. `CRASH_SAFE_REVISION_ACCEPTANCE =
+PASS` (real, transactional, on the Postgres-backed unit of work — the
+in-memory fallback is decision-first-safe but not transaction-atomic, since
+nothing crashes mid-`Map`-write in-process). `STALE_STORY_VERSION_PROTECTION
+= PASS`. `REANNOTATION_KIND_GUARD = PASS`. `SPACY_MODEL_REPRODUCIBILITY =
+PASS`. `NLP_IS_AUTHORITY = NO`, `AUTO_PUBLISHING = NO` — unchanged; nothing
+in this addendum touches §1's one rule.

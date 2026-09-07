@@ -34,6 +34,10 @@ AnnotationCandidate[]   (status: CANDIDATE | REVIEW_REQUIRED | ACCEPTED | REJECT
       +--> acceptAnnotationCandidate  --> StoryOccurrence + TextAnchor[] (+ StoryTargetBinding)
       |                                   or OccurrenceAnnotationRevision (persisted)
       +--> rejectAnnotationCandidate  --> a record; never touches the Story Engine
+
+Every accept/reject also records exactly one AnnotationCandidateDecision
+(AnnotationDecisionRepository) — the single persisted authority over a
+candidate's outcome, never the caller's own bookkeeping of `.status`.
 ```
 
 - **`NLP != autoridad`.** Nothing here mints a `Lexeme`, `Sense` or
@@ -54,6 +58,18 @@ AnnotationCandidate[]   (status: CANDIDATE | REVIEW_REQUIRED | ACCEPTED | REJECT
   `"se dio [finalmente] cuenta"`, `"Lleva tres años estudiando español"`).
 - **`confidence` never decides `status`.** No auto-publication threshold
   exists anywhere in this feature.
+- **Accept/reject is exactly-once.** `AnnotationDecisionRepository` enforces
+  `UNIQUE(candidateId)` atomically — a second decision for the same
+  candidate, sequential or concurrent, always fails
+  `CANDIDATE_ALREADY_DECIDED`. See `docs/nlp-annotation-assistant.md` §11.1.
+- **A `StoryVersion` existing does not make it current.** Acceptance checks
+  `CurrentStoryVersionResolver`, an explicit editorial-workflow-owned
+  authority — never "highest version number" guessed internally. §11.2.
+- **Reannotation checks `StoryOccurrence.kind`** before treating an
+  occurrence as `LexicalOccurrence` — no type assertion. §11.3.
+- **The spaCy/model version is governed and checked on every real
+  analysis** (`domain/analyzer-config.ts`), on both sides of the Node<->Python
+  bridge. §11.4.
 
 ## What phase 6 does not do
 
