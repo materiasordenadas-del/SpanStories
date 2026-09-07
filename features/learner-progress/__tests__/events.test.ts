@@ -10,8 +10,8 @@ import type { LexemeId } from "../../curriculum/index.ts";
 const learnerId = asId("LearnerId", "learner-1");
 
 describe("learner-progress / events", () => {
-  test("OCCURRENCE_OPENED conserves its StoryVersion and every release id", () => {
-    const fixture = buildStoryFixture();
+  test("OCCURRENCE_OPENED conserves its StoryVersion and every release id", async () => {
+    const fixture = await buildStoryFixture();
     const clock = new FixedClock();
     const event = recordOccurrenceOpened(
       {
@@ -34,8 +34,8 @@ describe("learner-progress / events", () => {
     assert.equal(event.occurredAt, clock.now().toISOString());
   });
 
-  test("STATE_DECLARED conserves its releases", () => {
-    const fixture = buildStoryFixture();
+  test("STATE_DECLARED conserves its releases", async () => {
+    const fixture = await buildStoryFixture();
     const clock = new FixedClock();
     const event = recordStateDeclared(
       {
@@ -57,8 +57,8 @@ describe("learner-progress / events", () => {
     assert.equal(event.declaredState, "KNOWN");
   });
 
-  test("a recorded event is frozen: mutating it throws", () => {
-    const fixture = buildStoryFixture();
+  test("a recorded event is frozen: mutating it throws", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordStateDeclared(
       {
         eventId: asId("LearnerEventId", "levt-3"),
@@ -80,8 +80,8 @@ describe("learner-progress / events", () => {
     }, TypeError);
   });
 
-  test("two events sharing a timestamp still sort in a fixed, deterministic order", () => {
-    const fixture = buildStoryFixture();
+  test("two events sharing a timestamp still sort in a fixed, deterministic order", async () => {
+    const fixture = await buildStoryFixture();
     const clock = new FixedClock(); // same instant for both
     const a = recordStateDeclared(
       {

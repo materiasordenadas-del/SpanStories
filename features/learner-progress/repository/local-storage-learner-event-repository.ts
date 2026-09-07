@@ -51,7 +51,7 @@ export class LocalStorageLearnerEventRepository implements LearnerEventRepositor
     this.storage.setItem(this.key, JSON.stringify(log));
   }
 
-  append(event: LearnerEvent): void {
+  async append(event: LearnerEvent): Promise<void> {
     const events = this.readLog();
     if (events.some((e) => e.eventId === event.eventId)) {
       throw new Error(`DUPLICATE_LEARNER_EVENT_ID: ${event.eventId} was already appended`);
@@ -60,19 +60,19 @@ export class LocalStorageLearnerEventRepository implements LearnerEventRepositor
     this.writeLog(events);
   }
 
-  getById(eventId: LearnerEventId): LearnerEvent | null {
+  async getById(eventId: LearnerEventId): Promise<LearnerEvent | null> {
     return this.readLog().find((e) => e.eventId === eventId) ?? null;
   }
 
-  listForLearner(learnerId: LearnerId): readonly LearnerEvent[] {
+  async listForLearner(learnerId: LearnerId): Promise<readonly LearnerEvent[]> {
     return this.readLog().filter((e) => e.learnerId === learnerId);
   }
 
-  listForLearnerAndLexeme(learnerId: LearnerId, lexemeId: LexemeId): readonly LearnerEvent[] {
+  async listForLearnerAndLexeme(learnerId: LearnerId, lexemeId: LexemeId): Promise<readonly LearnerEvent[]> {
     return this.readLog().filter((e) => e.learnerId === learnerId && e.recordedLexemeId === lexemeId);
   }
 
-  listForStoryVersion(storyVersionId: StoryVersionId): readonly LearnerEvent[] {
+  async listForStoryVersion(storyVersionId: StoryVersionId): Promise<readonly LearnerEvent[]> {
     return this.readLog().filter((e) => e.storyVersionId === storyVersionId);
   }
 }

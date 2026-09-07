@@ -42,8 +42,8 @@ function findStory(progression: ReturnType<typeof buildProjection>, storyBluepri
 }
 
 describe("learner-progress / progress projection", () => {
-  test("an OCCURRENCE_OPENED event registers as evidence for its target's story", () => {
-    const fixture = buildStoryFixture();
+  test("an OCCURRENCE_OPENED event registers as evidence for its target's story", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -66,8 +66,8 @@ describe("learner-progress / progress projection", () => {
     assert.ok(story!.targetsWithEvidence >= 1);
   });
 
-  test("exposure alone (no STATE_DECLARED) never counts as declared-known", () => {
-    const fixture = buildStoryFixture();
+  test("exposure alone (no STATE_DECLARED) never counts as declared-known", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -89,7 +89,7 @@ describe("learner-progress / progress projection", () => {
     assert.equal(story!.targetsDeclaredKnown, 0);
   });
 
-  test("computedMastery is null at every level, regardless of evidence", () => {
+  test("computedMastery is null at every level, regardless of evidence", async () => {
     const progression = buildProjection([]);
     for (const learnerModule of progression.modules) {
       assert.equal(learnerModule.computedMastery, null);
@@ -102,13 +102,13 @@ describe("learner-progress / progress projection", () => {
     }
   });
 
-  test("Story/Island/Module progress reconstructs deterministically from the same events", () => {
+  test("Story/Island/Module progress reconstructs deterministically from the same events", async () => {
     const a = buildProjection([]);
     const b = buildProjection([]);
     assert.deepEqual(withoutCalculatedAt(a), withoutCalculatedAt(b));
   });
 
-  test("module/island totals are the sum of their stories'/islands'", () => {
+  test("module/island totals are the sum of their stories'/islands'", async () => {
     const progression = buildProjection([]);
     for (const learnerModule of progression.modules) {
       const expected = learnerModule.islands.reduce((sum, i) => sum + i.totalTargets, 0);

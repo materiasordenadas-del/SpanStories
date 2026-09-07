@@ -12,8 +12,8 @@ import type { LexemeId } from "../../curriculum/index.ts";
 const learnerId = asId("LearnerId", "learner-1");
 
 describe("learner-progress / corruption must fail loudly", () => {
-  test("an event naming an unknown StoryVersion is rejected", () => {
-    const fixture = buildStoryFixture();
+  test("an event naming an unknown StoryVersion is rejected", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -29,13 +29,13 @@ describe("learner-progress / corruption must fail loudly", () => {
       },
       new FixedClock(),
     );
-    const result = validateLearnerEvent(event, fixture.repo);
+    const result = await validateLearnerEvent(event, fixture.repo);
     assert.equal(result.status, "INVALID");
     assert.ok(result.status === "INVALID" && result.issues.some((i) => i.code === "UNKNOWN_STORY_VERSION"));
   });
 
-  test("an event naming an unknown Occurrence is rejected", () => {
-    const fixture = buildStoryFixture();
+  test("an event naming an unknown Occurrence is rejected", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -51,13 +51,13 @@ describe("learner-progress / corruption must fail loudly", () => {
       },
       new FixedClock(),
     );
-    const result = validateLearnerEvent(event, fixture.repo);
+    const result = await validateLearnerEvent(event, fixture.repo);
     assert.equal(result.status, "INVALID");
     assert.ok(result.status === "INVALID" && result.issues.some((i) => i.code === "UNKNOWN_OCCURRENCE"));
   });
 
-  test("appendValidatedEvent throws rather than storing a corrupt event", () => {
-    const fixture = buildStoryFixture();
+  test("appendValidatedEvent throws rather than storing a corrupt event", async () => {
+    const fixture = await buildStoryFixture();
     const eventLog = new InMemoryLearnerEventRepository();
     const event = recordOccurrenceOpened(
       {
@@ -74,12 +74,12 @@ describe("learner-progress / corruption must fail loudly", () => {
       },
       new FixedClock(),
     );
-    assert.throws(() => appendValidatedEvent(event, eventLog, fixture.repo), /EVENT_REFERENCE_INVALID/);
-    assert.equal(eventLog.getById(event.eventId), null);
+    await assert.rejects(() => appendValidatedEvent(event, eventLog, fixture.repo), /EVENT_REFERENCE_INVALID/);
+    assert.equal(await eventLog.getById(event.eventId), null);
   });
 
-  test("a valid event still appends normally", () => {
-    const fixture = buildStoryFixture();
+  test("a valid event still appends normally", async () => {
+    const fixture = await buildStoryFixture();
     const eventLog = new InMemoryLearnerEventRepository();
     const event = recordOccurrenceOpened(
       {
@@ -96,7 +96,7 @@ describe("learner-progress / corruption must fail loudly", () => {
       },
       new FixedClock(),
     );
-    appendValidatedEvent(event, eventLog, fixture.repo);
-    assert.deepEqual(eventLog.getById(event.eventId), event);
+    await appendValidatedEvent(event, eventLog, fixture.repo);
+    assert.deepEqual(await eventLog.getById(event.eventId), event);
   });
 });

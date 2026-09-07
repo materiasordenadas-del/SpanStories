@@ -25,8 +25,8 @@ function metadata(calculatedAt: string): ProjectionMetadata {
 }
 
 describe("learner-progress / rebuildability", () => {
-  test("delete the projection, rebuild from the same event log: same result", () => {
-    const fixture = buildStoryFixture();
+  test("delete the projection, rebuild from the same event log: same result", async () => {
+    const fixture = await buildStoryFixture();
     const repo = new InMemoryLearnerEventRepository();
     const e1 = recordStateDeclared(
       {
@@ -58,11 +58,11 @@ describe("learner-progress / rebuildability", () => {
       },
       new FixedClock(new Date("2026-01-02T00:00:00.000Z")),
     );
-    repo.append(e1);
-    repo.append(e2);
+    await repo.append(e1);
+    await repo.append(e2);
 
-    const buildEverything = (calculatedAt: string) => {
-      const events = repo.listForLearner(learnerId);
+    const buildEverything = async (calculatedAt: string) => {
+      const events = await repo.listForLearner(learnerId);
       const declaredState = buildDeclaredStateProjection(learnerId, events, metadata(calculatedAt));
       const contextHistory = buildContextHistoryProjection(learnerId, events, metadata(calculatedAt));
       const progress = buildProgressProjection(learnerId, registry, contextHistory, declaredState, metadata(calculatedAt));
@@ -70,11 +70,11 @@ describe("learner-progress / rebuildability", () => {
     };
 
     // Projection A: computed once.
-    const a = buildEverything("2026-03-01T00:00:00.000Z");
+    const a = await buildEverything("2026-03-01T00:00:00.000Z");
     // "Delete" A (nothing persisted it) and recompute from the same log as B,
     // under a different `calculatedAt` to prove that field is the only thing
     // allowed to differ.
-    const b = buildEverything("2026-04-01T00:00:00.000Z");
+    const b = await buildEverything("2026-04-01T00:00:00.000Z");
 
     assert.deepEqual(withoutCalculatedAt(a.declaredState), withoutCalculatedAt(b.declaredState));
     assert.deepEqual(withoutCalculatedAt(a.contextHistory), withoutCalculatedAt(b.contextHistory));

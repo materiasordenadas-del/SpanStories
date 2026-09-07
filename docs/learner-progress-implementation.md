@@ -225,3 +225,19 @@ explicitly out of scope: `docs/architecture/plan-implementacion-motor-v1.0.md`
 §"Seguridad de datos" allows documenting the policy for a later phase without
 building it now, and this implementation takes that option — the append-only
 contract stays intentionally strict for every normal caller.
+
+---
+
+## 8. Addendum (phase 5): `LearnerEventRepository` is now `Promise`-based
+
+Same change, same reason, as `features/story-engine`'s repository (see
+`docs/story-engine-implementation.md` §9): phase 5 needed a real
+PostgreSQL-backed `LearnerEventRepository`, which cannot answer
+synchronously. Every method on the interface
+(`repository/learner-event-repository.ts`), on
+`InMemoryLearnerEventRepository`, and on `LocalStorageLearnerEventRepository`
+now returns a `Promise`; `engine/append-event.ts`'s
+`validateLearnerEvent`/`appendValidatedEvent` are `async` for the same
+reason. No event shape, projection, or attribution rule changed.
+`features/persistence`'s `PostgresLearnerEventRepository` implements the
+identical interface — see `docs/persistence.md`.

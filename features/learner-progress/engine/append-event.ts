@@ -21,18 +21,18 @@ export type EventValidationResult =
   | { readonly status: "VALID" }
   | { readonly status: "INVALID"; readonly issues: readonly EventValidationIssue[] };
 
-export function validateLearnerEvent(
+export async function validateLearnerEvent(
   event: LearnerEvent,
   storyRepository: StoryRepository,
-): EventValidationResult {
+): Promise<EventValidationResult> {
   const issues: EventValidationIssue[] = [];
 
-  if (storyRepository.getStoryVersion(event.storyVersionId) === null) {
+  if ((await storyRepository.getStoryVersion(event.storyVersionId)) === null) {
     issues.push({ code: "UNKNOWN_STORY_VERSION", storyVersionId: event.storyVersionId });
   }
 
   const occurrenceId = event.eventType === "OCCURRENCE_OPENED" ? event.occurrenceId : event.occurrenceId;
-  if (occurrenceId !== null && storyRepository.getOccurrence(occurrenceId) === null) {
+  if (occurrenceId !== null && (await storyRepository.getOccurrence(occurrenceId)) === null) {
     issues.push({ code: "UNKNOWN_OCCURRENCE", occurrenceId });
   }
 
@@ -40,14 +40,14 @@ export function validateLearnerEvent(
 }
 
 /** Validate, then append. Throws `EVENT_REFERENCE_INVALID` rather than storing a corrupt event. */
-export function appendValidatedEvent(
+export async function appendValidatedEvent(
   event: LearnerEvent,
   eventRepository: LearnerEventRepository,
   storyRepository: StoryRepository,
-): void {
-  const validation = validateLearnerEvent(event, storyRepository);
+): Promise<void> {
+  const validation = await validateLearnerEvent(event, storyRepository);
   if (validation.status === "INVALID") {
     throw new Error(`EVENT_REFERENCE_INVALID: ${JSON.stringify(validation.issues)}`);
   }
-  eventRepository.append(event);
+  await eventRepository.append(event);
 }

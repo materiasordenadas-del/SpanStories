@@ -6,6 +6,11 @@
  * mutating the returned array can never corrupt this repository's state; the
  * objects themselves are the same frozen-by-convention (`readonly`-typed)
  * values the domain already treats as immutable.
+ *
+ * Every method is declared `async` even though nothing here actually awaits
+ * anything: the interface is `Promise`-based (see `./story-repository.ts`)
+ * so this adapter and `features/persistence`'s PostgreSQL one are
+ * call-compatible, and contract tests can run unchanged against either.
  */
 
 import type {
@@ -31,30 +36,30 @@ export class InMemoryStoryRepository implements StoryRepository {
   private readonly bindingsByVersion = new Map<StoryVersionId, StoryTargetBinding[]>();
   private readonly revisionsByOccurrence = new Map<StoryOccurrenceId, OccurrenceAnnotationRevision[]>();
 
-  getStory(id: StoryId): Story | null {
+  async getStory(id: StoryId): Promise<Story | null> {
     return this.stories.get(id) ?? null;
   }
 
-  saveStory(story: Story): void {
+  async saveStory(story: Story): Promise<void> {
     this.stories.set(story.id, story);
   }
 
-  getStoryVersion(id: StoryVersionId): StoryVersion | null {
+  async getStoryVersion(id: StoryVersionId): Promise<StoryVersion | null> {
     return this.versions.get(id) ?? null;
   }
 
-  listVersions(storyId: StoryId): readonly StoryVersion[] {
+  async listVersions(storyId: StoryId): Promise<readonly StoryVersion[]> {
     const ids = this.versionsByStory.get(storyId) ?? [];
     return ids.map((id) => this.versions.get(id)!).filter((v): v is StoryVersion => v !== undefined);
   }
 
-  getPublishedVersion(storyId: StoryId): StoryVersion | null {
-    const versions = this.listVersions(storyId).filter((v) => v.status === "PUBLISHED");
+  async getPublishedVersion(storyId: StoryId): Promise<StoryVersion | null> {
+    const versions = (await this.listVersions(storyId)).filter((v) => v.status === "PUBLISHED");
     if (versions.length === 0) return null;
     return versions.reduce((latest, v) => (v.versionNumber > latest.versionNumber ? v : latest));
   }
 
-  saveNewVersion(input: NewVersionInput): void {
+  async saveNewVersion(input: NewVersionInput): Promise<void> {
     if (this.versions.has(input.version.id)) {
       throw new Error(`DUPLICATE_STORY_VERSION_ID: ${input.version.id} already exists — new text requires a new id`);
     }
@@ -75,7 +80,7 @@ export class InMemoryStoryRepository implements StoryRepository {
     this.bindingsByVersion.set(input.version.id, [...input.targetBindings]);
   }
 
-  markPublished(version: StoryVersion): void {
+  async markPublished(version: StoryVersion): Promise<void> {
     const existing = this.versions.get(version.id);
     if (existing === undefined) {
       throw new Error(`UNKNOWN_STORY_VERSION: cannot publish ${version.id}, it was never saved`);
@@ -86,34 +91,34 @@ export class InMemoryStoryRepository implements StoryRepository {
     this.versions.set(version.id, version);
   }
 
-  listSentences(storyVersionId: StoryVersionId): readonly StorySentence[] {
+  async listSentences(storyVersionId: StoryVersionId): Promise<readonly StorySentence[]> {
     return [...(this.sentencesByVersion.get(storyVersionId) ?? [])];
   }
 
-  listAnchors(storyVersionId: StoryVersionId): readonly TextAnchor[] {
+  async listAnchors(storyVersionId: StoryVersionId): Promise<readonly TextAnchor[]> {
     return [...(this.anchorsByVersion.get(storyVersionId) ?? [])];
   }
 
-  getOccurrence(id: StoryOccurrenceId): StoryOccurrence | null {
+  async getOccurrence(id: StoryOccurrenceId): Promise<StoryOccurrence | null> {
     return this.occurrences.get(id) ?? null;
   }
 
-  listOccurrences(storyVersionId: StoryVersionId): readonly StoryOccurrence[] {
+  async listOccurrences(storyVersionId: StoryVersionId): Promise<readonly StoryOccurrence[]> {
     const ids = this.occurrencesByVersion.get(storyVersionId) ?? [];
     return ids.map((id) => this.occurrences.get(id)!).filter((o): o is StoryOccurrence => o !== undefined);
   }
 
-  listTargetBindings(storyVersionId: StoryVersionId): readonly StoryTargetBinding[] {
+  async listTargetBindings(storyVersionId: StoryVersionId): Promise<readonly StoryTargetBinding[]> {
     return [...(this.bindingsByVersion.get(storyVersionId) ?? [])];
   }
 
-  appendAnnotationRevision(revision: OccurrenceAnnotationRevision): void {
+  async appendAnnotationRevision(revision: OccurrenceAnnotationRevision): Promise<void> {
     const list = this.revisionsByOccurrence.get(revision.occurrenceId) ?? [];
     list.push(revision);
     this.revisionsByOccurrence.set(revision.occurrenceId, list);
   }
 
-  listAnnotationRevisions(occurrenceId: StoryOccurrenceId): readonly OccurrenceAnnotationRevision[] {
+  async listAnnotationRevisions(occurrenceId: StoryOccurrenceId): Promise<readonly OccurrenceAnnotationRevision[]> {
     return [...(this.revisionsByOccurrence.get(occurrenceId) ?? [])];
   }
 }

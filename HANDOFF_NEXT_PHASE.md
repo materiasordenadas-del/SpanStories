@@ -1,20 +1,23 @@
-# Handoff — phases 1-4 to phase 5 (PostgreSQL / Persistence)
+# Handoff — phases 1-5 to phase 6 (NLP)
 
 ```text
 PHASE_1_MIGRATED             = PASS
 PHASE_2_REVALIDATED          = PASS
 PHASE_3_STORY_ENGINE         = PASS
 PHASE_4_LEARNER_EVENT_ENGINE = PASS
-PHASE_5_IMPLEMENTED          = NO
-PHASE_5_READY                = YES
+PHASE_5_POSTGRES             = PASS  (PostgreSQL via @electric-sql/pglite)
+PHASE_6_NLP                  = NOT_STARTED
+PHASE_6_READY                = YES
 ```
 
 Phase 3 (Story Engine) is documented in full in
 `docs/story-engine-implementation.md` (§14 below is the short summary). Phase 4
 (Learner Event / Progress Engine) is documented in full in
 `docs/learner-progress-implementation.md` (§15 below is the short summary).
-Sections 1-13 are the phase 1/2 handoff, unchanged and still authoritative for
-their scope.
+Phase 5 (PostgreSQL / Persistence) is documented in full in
+`docs/persistence.md` and `docs/data-model.md` (§16 below is the short
+summary). Sections 1-13 are the phase 1/2 handoff, unchanged and still
+authoritative for their scope.
 
 ## 1. Commits
 
@@ -71,6 +74,8 @@ features/curriculum/index.ts                    phase 1 public contract
 features/lexical-engine/index.ts                phase 2 public contract
 features/story-engine/index.ts                  phase 3 public contract
 features/learner-progress/index.ts              phase 4 public contract
+features/persistence/index.ts                   phase 5 public contract
+db/migrations/*.sql                             phase 5 SQL migrations, versioned
 generated/curriculum/a1/                        the executable registry
 content/a1/vocabulary/*.csv                      authoring authority (v1.51 + v1.37/v1.40)
 content/a1/vocabulary/respaldo/a1-curriculum-v1.44/   archived v1.44, read by nothing
@@ -78,6 +83,8 @@ docs/curriculum-import.md                       phase 1 documentation
 docs/lexical-engine-implementation.md           phase 2 documentation
 docs/story-engine-implementation.md             phase 3 documentation
 docs/learner-progress-implementation.md         phase 4 documentation
+docs/data-model.md                              phase 5 schema reference
+docs/persistence.md                             phase 5 documentation
 docs/curriculum/a1-restructure/                 the approved A–H curricular package
 docs/architecture/                              engine architecture and phase specs
 docs/lexical-engine.md                          lexical identity domain model
@@ -263,10 +270,10 @@ construction (the phase-3 id prefix scheme), not by accident. See
 
 ## 12. Not started, by design
 
-No PostgreSQL, ORM or persistence layer (phase 5), no auth, NLP or
-Python/spaCy (phase 6). No file under `app/` or `components/visual/` was
-touched. `features/story-engine/` and `features/learner-progress/` are
-phases 3 and 4's own scope — see §14 and §15.
+No auth, no NLP or Python/spaCy (phase 6), no ORM. No file under `app/` or
+`components/visual/` was touched. `features/story-engine/`,
+`features/learner-progress/` and `features/persistence/` are phases 3, 4 and
+5's own scope — see §14, §15 and §16.
 
 ## 13. Open contradictions
 
@@ -390,7 +397,85 @@ npm run lint               # PASS, 0 errors, 1 pre-existing warning
 npm run build              # PASS
 ```
 
-Phase 5 (PostgreSQL / Persistence) may proceed: it implements
-`StoryRepository` and `LearnerEventRepository` against PostgreSQL, using the
-same interfaces `InMemoryStoryRepository`/`InMemoryLearnerEventRepository`
-already satisfy, so contract tests can run unchanged against both.
+Phase 5 (PostgreSQL / Persistence) implemented `StoryRepository` and
+`LearnerEventRepository` against PostgreSQL, using the same interfaces
+`InMemoryStoryRepository`/`InMemoryLearnerEventRepository` already satisfy —
+both were converted to `Promise`-based contracts as part of phase 5 (a real
+adapter cannot answer synchronously); see §16 and §9 of
+`docs/story-engine-implementation.md`.
+
+## 16. Phase 5 (PostgreSQL / Persistence) summary
+
+```text
+PHASE_5_POSTGRES = PASS
+```
+
+Full design rationale, decisions and audit are in `docs/persistence.md` and
+`docs/data-model.md`. Short version:
+
+- **Environment**: no PostgreSQL or Docker was available in this
+  environment (checked `PATH`, `Program Files`, Windows services — none
+  found). With the user's explicit authorization, `@electric-sql/pglite`
+  (real PostgreSQL compiled to WASM, embedded in-process) was used instead
+  of installing system-level software unilaterally. See
+  `docs/persistence.md` §1 for `POSTGRES_SERVER_PARITY_TEST = PENDING_BEFORE_PRODUCTION`
+  — the explicit list of what a networked server would still need to prove
+  (SSL, real connection pooling, concurrent-process load,
+  deployment/backup/replication) before production use.
+- **DB access decision**: raw parameterized SQL against a thin
+  `SqlClient`/`SqlDatabase` seam, no ORM — see `docs/persistence.md` §2 for
+  the full criteria comparison. `db/pglite-database.ts` is the only file
+  that imports `@electric-sql/pglite`; a future real-server adapter
+  (`pg.Pool`-backed) implements the same two interfaces with no change to
+  any migration, seed or repository file.
+- **Database identity != published curriculum identity**: every id column
+  is a `TEXT PRIMARY KEY` carrying the exact published string; no
+  serial/UUID surrogate key exists anywhere in the schema.
+- **Migrations**: `db/migrations/0001_lexical.sql` through
+  `0004_learner_progress.sql`, plain versioned PostgreSQL DDL, idempotent
+  (tracked in `schema_migrations`). Ordered lexical -> curriculum -> story
+  engine -> learner progress so every foreign key points at a table that
+  already exists.
+- **Seed**: `seedCurriculum` inserts the entire `A1-CURRICULUM-v1.51` /
+  `A1-LEXICON-v1.0` release in one transaction from the same
+  `loadCurriculumRegistry()`/`loadLexicalEngine()` phases 1-2 already use —
+  never by re-parsing CSV. Verified exact published counts: 8 modules, 11
+  islands, 32 story blueprints, 985 targets (448 FOCUS + 537 SUPPORTED),
+  2867 recycle edges, 599 lexemes, 666 forms, 608 senses (602 A1 + 6 A2
+  boundary), 214 MWUs, 169 grammar units.
+- **A published `StoryVersion`'s text is protected twice over**: no
+  application code path issues an `UPDATE` on it, and a database trigger
+  (`db/migrations/0003_story_engine.sql`) rejects one regardless — proven by
+  a test that issues the raw `UPDATE` directly and expects it to fail.
+- **`learner_events` is append-only twice over** the same way: the
+  application interface has no update/delete method, and database triggers
+  reject a raw `UPDATE`/`DELETE` too.
+- **Lineage acyclicity re-validated in a transaction, not a `CHECK`**: a
+  cycle spans the whole table, which a single-row constraint cannot express.
+  `insertLineageEvent` re-runs phase 2's own `validateLineage` over every
+  existing event plus the candidate before the insert commits; a direct
+  two-node cycle (`A -> B`, `B -> A`) is proven rejected.
+- **Contract parity proven directly**: one shared assertion suite
+  (`features/persistence/__tests__/contract-parity.test.ts`) runs against
+  `InMemoryStoryRepository`/`InMemoryLearnerEventRepository` and their
+  PostgreSQL counterparts — the literal same-interface-same-behaviour check,
+  not just two similar-looking test files.
+- **`BLOCKER_PGLITE_PORTABILITY`**: none encountered. Every migration is
+  plain, standard PostgreSQL DDL; the one syntax fix needed during
+  development (quoting the reserved word `order`) is standard Postgres
+  behavior, not a PGlite-specific workaround.
+- **Known, deliberate debt**: no `surface_tokens` table exists (same gap
+  `docs/story-engine-implementation.md` §8 already records — nothing writes
+  a non-empty token list yet).
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 294/294 (263 phases 1-4 + 31 phase 5)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning
+npm run build              # PASS
+```
+
+Phase 6 (NLP) may proceed once a real environment decision is made about
+`POSTGRES_SERVER_PARITY_TEST`; nothing in phases 1-5's public contracts
+should need to change for that to happen.

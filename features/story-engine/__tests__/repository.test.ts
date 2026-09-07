@@ -14,62 +14,65 @@ function sentenceFor(versionId: StoryVersionId, text: string): StorySentence {
 }
 
 describe("story engine / repository contract", () => {
-  test("getStory/saveStory round-trip; an unknown id is null, not undefined", () => {
+  test("getStory/saveStory round-trip; an unknown id is null, not undefined", async () => {
     const repo = new InMemoryStoryRepository();
-    assert.equal(repo.getStory(storyId), null);
+    assert.equal(await repo.getStory(storyId), null);
     const clock = new FixedClock();
     const story = createStory(storyId, null, clock);
-    repo.saveStory(story);
-    assert.deepEqual(repo.getStory(storyId), story);
+    await repo.saveStory(story);
+    assert.deepEqual(await repo.getStory(storyId), story);
   });
 
-  test("a published StoryVersion's text is never mutated in place; new text is a new version", () => {
+  test("a published StoryVersion's text is never mutated in place; new text is a new version", async () => {
     const repo = new InMemoryStoryRepository();
     const clock = new FixedClock();
     const v1Id = asId("StoryVersionId", "storyver-1");
     const sentence1 = sentenceFor(v1Id, "Version uno.");
     const v1 = assembleStoryVersion({ id: v1Id, storyId, versionNumber: 1, title: "T1", sentences: [sentence1], status: "DRAFT", clock });
-    repo.saveNewVersion({ version: v1, sentences: [sentence1], anchors: [], occurrences: [], targetBindings: [] });
+    await repo.saveNewVersion({ version: v1, sentences: [sentence1], anchors: [], occurrences: [], targetBindings: [] });
 
     const published1 = publishStoryVersion(v1, clock);
-    repo.markPublished(published1);
-    assert.equal(repo.getStoryVersion(v1Id)?.status, "PUBLISHED");
-    assert.equal(repo.getStoryVersion(v1Id)?.text, "Version uno.");
+    await repo.markPublished(published1);
+    assert.equal((await repo.getStoryVersion(v1Id))?.status, "PUBLISHED");
+    assert.equal((await repo.getStoryVersion(v1Id))?.text, "Version uno.");
 
     const v2Id = asId("StoryVersionId", "storyver-2");
     const sentence2 = sentenceFor(v2Id, "Version dos, distinta.");
     const v2 = assembleStoryVersion({ id: v2Id, storyId, versionNumber: 2, title: "T2", sentences: [sentence2], status: "DRAFT", clock });
-    repo.saveNewVersion({ version: v2, sentences: [sentence2], anchors: [], occurrences: [], targetBindings: [] });
-    repo.markPublished(publishStoryVersion(v2, clock));
+    await repo.saveNewVersion({ version: v2, sentences: [sentence2], anchors: [], occurrences: [], targetBindings: [] });
+    await repo.markPublished(publishStoryVersion(v2, clock));
 
     // The old version's text is exactly as it was; anchors into it stay valid forever.
-    assert.equal(repo.getStoryVersion(v1Id)?.text, "Version uno.");
-    assert.equal(repo.listVersions(storyId).length, 2);
-    assert.equal(repo.getPublishedVersion(storyId)?.id, v2Id);
+    assert.equal((await repo.getStoryVersion(v1Id))?.text, "Version uno.");
+    assert.equal((await repo.listVersions(storyId)).length, 2);
+    assert.equal((await repo.getPublishedVersion(storyId))?.id, v2Id);
   });
 
-  test("saving a version under an id that already exists is rejected, not merged", () => {
+  test("saving a version under an id that already exists is rejected, not merged", async () => {
     const repo = new InMemoryStoryRepository();
     const clock = new FixedClock();
     const vId = asId("StoryVersionId", "storyver-1");
     const sentence = sentenceFor(vId, "Texto.");
     const v = assembleStoryVersion({ id: vId, storyId, versionNumber: 1, title: "T", sentences: [sentence], status: "DRAFT", clock });
-    repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] });
-    assert.throws(() => repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] }), /DUPLICATE_STORY_VERSION_ID/);
+    await repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] });
+    await assert.rejects(
+      () => repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] }),
+      /DUPLICATE_STORY_VERSION_ID/,
+    );
   });
 
-  test("markPublished cannot be used to change text or title", () => {
+  test("markPublished cannot be used to change text or title", async () => {
     const repo = new InMemoryStoryRepository();
     const clock = new FixedClock();
     const vId = asId("StoryVersionId", "storyver-1");
     const sentence = sentenceFor(vId, "Original.");
     const v = assembleStoryVersion({ id: vId, storyId, versionNumber: 1, title: "T", sentences: [sentence], status: "DRAFT", clock });
-    repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] });
+    await repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [], occurrences: [], targetBindings: [] });
     const tampered = { ...publishStoryVersion(v, clock), text: "Cambiado." };
-    assert.throws(() => repo.markPublished(tampered), /STORY_VERSION_TEXT_IMMUTABLE/);
+    await assert.rejects(() => repo.markPublished(tampered), /STORY_VERSION_TEXT_IMMUTABLE/);
   });
 
-  test("listOccurrences/getOccurrence expose what saveNewVersion stored", () => {
+  test("listOccurrences/getOccurrence expose what saveNewVersion stored", async () => {
     const repo = new InMemoryStoryRepository();
     const clock = new FixedClock();
     const vId = asId("StoryVersionId", "storyver-1");
@@ -87,15 +90,15 @@ describe("story engine / repository contract", () => {
       parts: [{ id: asId("OccurrencePartId", "part-1"), anchor, role: "HEAD" }],
     });
     const v = assembleStoryVersion({ id: vId, storyId, versionNumber: 1, title: "T", sentences: [sentence], status: "DRAFT", clock });
-    repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [anchor], occurrences: [occurrence], targetBindings: [] });
+    await repo.saveNewVersion({ version: v, sentences: [sentence], anchors: [anchor], occurrences: [occurrence], targetBindings: [] });
 
-    assert.deepEqual(repo.getOccurrence(occurrence.id), occurrence);
-    assert.equal(repo.listOccurrences(vId).length, 1);
-    assert.equal(repo.listSentences(vId).length, 1);
-    assert.equal(repo.listAnchors(vId).length, 1);
+    assert.deepEqual(await repo.getOccurrence(occurrence.id), occurrence);
+    assert.equal((await repo.listOccurrences(vId)).length, 1);
+    assert.equal((await repo.listSentences(vId)).length, 1);
+    assert.equal((await repo.listAnchors(vId)).length, 1);
   });
 
-  test("appendAnnotationRevision/listAnnotationRevisions is append-only in practice: nothing removes a prior entry", () => {
+  test("appendAnnotationRevision/listAnnotationRevisions is append-only in practice: nothing removes a prior entry", async () => {
     const repo = new InMemoryStoryRepository();
     const clock = new FixedClock();
     const revision1 = {
@@ -110,13 +113,13 @@ describe("story engine / repository contract", () => {
       editorialReference: null,
       createdAt: clock.now().toISOString(),
     };
-    repo.appendAnnotationRevision(revision1);
-    assert.equal(repo.listAnnotationRevisions(revision1.occurrenceId).length, 1);
-    repo.appendAnnotationRevision({ ...revision1, id: asId("OccurrenceAnnotationRevisionId", "rev-2"), reason: "second" });
-    assert.equal(repo.listAnnotationRevisions(revision1.occurrenceId).length, 2);
+    await repo.appendAnnotationRevision(revision1);
+    assert.equal((await repo.listAnnotationRevisions(revision1.occurrenceId)).length, 1);
+    await repo.appendAnnotationRevision({ ...revision1, id: asId("OccurrenceAnnotationRevisionId", "rev-2"), reason: "second" });
+    assert.equal((await repo.listAnnotationRevisions(revision1.occurrenceId)).length, 2);
   });
 
-  test("a failed construction never reaches the repository: corruption produces no partial write", () => {
+  test("a failed construction never reaches the repository: corruption produces no partial write", async () => {
     const repo = new InMemoryStoryRepository();
     const vId = asId("StoryVersionId", "storyver-1");
     const sentence = sentenceFor(vId, "hola mundo");
@@ -140,6 +143,6 @@ describe("story engine / repository contract", () => {
       }),
     );
     // Nothing was ever handed to the repository, so nothing was stored.
-    assert.equal(repo.listVersions(storyId).length, 0);
+    assert.equal((await repo.listVersions(storyId)).length, 0);
   });
 });

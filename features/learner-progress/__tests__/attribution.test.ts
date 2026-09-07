@@ -10,7 +10,7 @@ import type { LexemeId, SenseId } from "../../curriculum/index.ts";
 
 const learnerId = asId("LearnerId", "learner-1");
 
-function openedEvent(fixture: ReturnType<typeof buildStoryFixture>, lexemeId: string, senseId: string | null = null) {
+function openedEvent(fixture: Awaited<ReturnType<typeof buildStoryFixture>>, lexemeId: string, senseId: string | null = null) {
   return recordOccurrenceOpened(
     {
       eventId: asId("LearnerEventId", "levt-1"),
@@ -29,16 +29,16 @@ function openedEvent(fixture: ReturnType<typeof buildStoryFixture>, lexemeId: st
 }
 
 describe("learner-progress / attribution", () => {
-  test("EXACT: an untouched published lexeme resolves to itself", () => {
-    const fixture = buildStoryFixture();
+  test("EXACT: an untouched published lexeme resolves to itself", async () => {
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000001");
     const attribution = resolveAttribution(event, { lexicalEngine });
     assert.equal(attribution.status, "EXACT");
     assert.equal(attribution.effectiveLexemeId, "LEX-A1-000001");
   });
 
-  test("BY_OCCURRENCE: an OccurrenceAnnotationRevision on the named occurrence takes priority", () => {
-    const fixture = buildStoryFixture("LEX-A1-000001");
+  test("BY_OCCURRENCE: an OccurrenceAnnotationRevision on the named occurrence takes priority", async () => {
+    const fixture = await buildStoryFixture("LEX-A1-000001");
     const event = openedEvent(fixture, "LEX-A1-000001");
     const revision = reviseOccurrenceAnnotation(
       asStoryId("OccurrenceAnnotationRevisionId", "rev-1"),
@@ -51,10 +51,10 @@ describe("learner-progress / attribution", () => {
     assert.equal(attribution.effectiveLexemeId, "LEX-A1-000002");
   });
 
-  test("BY_SENSE: an ambiguous split is disambiguated by the recorded sense's current lexeme", () => {
+  test("BY_SENSE: an ambiguous split is disambiguated by the recorded sense's current lexeme", async () => {
     const split = lineageEvent("SPLIT", ["LEX-A1-000260"], ["LEX-A1-000261", "LEX-A1-000584"], { reason: "fixture split" });
     const engine = buildLexicalEngineWithLineage([split]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     // SENSE-A1-000265 belongs (in the real, current registry) to LEX-A1-000261.
     const event = openedEvent(fixture, "LEX-A1-000260", "SENSE-A1-000265");
     const attribution = resolveAttribution(event, { lexicalEngine: engine });
@@ -62,10 +62,10 @@ describe("learner-progress / attribution", () => {
     assert.equal(attribution.effectiveLexemeId, "LEX-A1-000261");
   });
 
-  test("AMBIGUOUS_LEGACY: a split with no recorded sense (or one that doesn't disambiguate) stays ambiguous", () => {
+  test("AMBIGUOUS_LEGACY: a split with no recorded sense (or one that doesn't disambiguate) stays ambiguous", async () => {
     const split = lineageEvent("SPLIT", ["LEX-A1-000260"], ["LEX-A1-000261", "LEX-A1-000584"], { reason: "fixture split" });
     const engine = buildLexicalEngineWithLineage([split]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000260");
     const attribution = resolveAttribution(event, { lexicalEngine: engine });
     assert.equal(attribution.status, "AMBIGUOUS_LEGACY");
@@ -73,10 +73,10 @@ describe("learner-progress / attribution", () => {
     assert.deepEqual([...attribution.ambiguousCandidates], ["LEX-A1-000261", "LEX-A1-000584"]);
   });
 
-  test("a split never duplicates evidence: an ambiguous event attributes to at most one candidate, never both", () => {
+  test("a split never duplicates evidence: an ambiguous event attributes to at most one candidate, never both", async () => {
     const split = lineageEvent("SPLIT", ["LEX-A1-000260"], ["LEX-A1-000261", "LEX-A1-000584"], { reason: "fixture split" });
     const engine = buildLexicalEngineWithLineage([split]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000260", "SENSE-A1-000265");
     const attribution = resolveAttribution(event, { lexicalEngine: engine });
     // Exactly one effective lexeme, never a list of "counts towards both."
@@ -84,28 +84,28 @@ describe("learner-progress / attribution", () => {
     assert.notEqual(attribution.effectiveLexemeId, null);
   });
 
-  test("BY_EQUIVALENT_MERGE: two ids resolvable to one successor under an identity-preserving merge", () => {
+  test("BY_EQUIVALENT_MERGE: two ids resolvable to one successor under an identity-preserving merge", async () => {
     const merge = lineageEvent("MERGE", ["LEX-A1-000002", "LEX-A1-000003"], ["LEX-A1-000004"], {
       semantics: "EQUIVALENT_IDENTITY",
       transferPolicy: "FULL_EQUIVALENT",
       reason: "fixture merge",
     });
     const engine = buildLexicalEngineWithLineage([merge]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000002");
     const attribution = resolveAttribution(event, { lexicalEngine: engine });
     assert.equal(attribution.status, "BY_EQUIVALENT_MERGE");
     assert.equal(attribution.effectiveLexemeId, "LEX-A1-000004");
   });
 
-  test("a merge never copies the underlying event: the log's own length is unaffected by attribution", () => {
+  test("a merge never copies the underlying event: the log's own length is unaffected by attribution", async () => {
     const merge = lineageEvent("MERGE", ["LEX-A1-000002", "LEX-A1-000003"], ["LEX-A1-000004"], {
       semantics: "EQUIVALENT_IDENTITY",
       transferPolicy: "FULL_EQUIVALENT",
       reason: "fixture merge",
     });
     const engine = buildLexicalEngineWithLineage([merge]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000002");
     const events = [event];
     resolveAttribution(event, { lexicalEngine: engine });
@@ -113,22 +113,22 @@ describe("learner-progress / attribution", () => {
     assert.equal(events.length, 1);
   });
 
-  test("UNATTRIBUTED: a coarsening merge licenses no automatic evidence transfer", () => {
+  test("UNATTRIBUTED: a coarsening merge licenses no automatic evidence transfer", async () => {
     const merge = lineageEvent("MERGE", ["LEX-A1-000005", "LEX-A1-000006"], ["LEX-A1-000007"], {
       semantics: "COARSENING",
       transferPolicy: "EVIDENCE_ONLY",
       reason: "fixture coarsening merge",
     });
     const engine = buildLexicalEngineWithLineage([merge]);
-    const fixture = buildStoryFixture();
+    const fixture = await buildStoryFixture();
     const event = openedEvent(fixture, "LEX-A1-000005");
     const attribution = resolveAttribution(event, { lexicalEngine: engine });
     assert.equal(attribution.status, "UNATTRIBUTED");
     assert.equal(attribution.effectiveLexemeId, null);
   });
 
-  test("UNATTRIBUTED: an event that recorded no lexeme contributes nothing", () => {
-    const fixture = buildStoryFixture();
+  test("UNATTRIBUTED: an event that recorded no lexeme contributes nothing", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -149,8 +149,8 @@ describe("learner-progress / attribution", () => {
     assert.equal(attribution.effectiveLexemeId, null);
   });
 
-  test("effectiveAnnotationOf underlies BY_OCCURRENCE and does not mutate the occurrence", () => {
-    const fixture = buildStoryFixture("LEX-A1-000001");
+  test("effectiveAnnotationOf underlies BY_OCCURRENCE and does not mutate the occurrence", async () => {
+    const fixture = await buildStoryFixture("LEX-A1-000001");
     const revision = reviseOccurrenceAnnotation(
       asStoryId("OccurrenceAnnotationRevisionId", "rev-1"),
       fixture.occurrence,

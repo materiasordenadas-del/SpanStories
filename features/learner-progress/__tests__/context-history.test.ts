@@ -22,8 +22,8 @@ function metadata(): ProjectionMetadata {
 }
 
 describe("learner-progress / context history projection", () => {
-  test("two distinct encounters of the same lexeme are kept as two entries, not one count", () => {
-    const fixture = buildStoryFixture();
+  test("two distinct encounters of the same lexeme are kept as two entries, not one count", async () => {
+    const fixture = await buildStoryFixture();
     const first = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -61,8 +61,8 @@ describe("learner-progress / context history projection", () => {
     assert.notEqual(entries?.[0].sourceEventId, entries?.[1].sourceEventId);
   });
 
-  test("each entry keeps its own StoryVersion and occurrence, not just the lexeme id", () => {
-    const fixture = buildStoryFixture();
+  test("each entry keeps its own StoryVersion and occurrence, not just the lexeme id", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -84,7 +84,7 @@ describe("learner-progress / context history projection", () => {
     assert.equal(entry.occurrenceId, fixture.occurrenceId);
   });
 
-  test("a lexeme with no recorded encounter is simply absent, not zero", () => {
+  test("a lexeme with no recorded encounter is simply absent, not zero", async () => {
     const projection = buildContextHistoryProjection(learnerId, [], metadata());
     assert.equal(projection.entriesByLexeme.has("LEX-A1-000999" as LexemeId), false);
   });

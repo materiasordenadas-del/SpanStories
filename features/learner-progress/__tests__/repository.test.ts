@@ -23,8 +23,8 @@ class FakeStorage implements StorageLike {
   }
 }
 
-function makeEvent(eventId: string, learner = learnerId, lexemeId = "LEX-A1-000001") {
-  const fixture = buildStoryFixture();
+async function makeEvent(eventId: string, learner = learnerId, lexemeId = "LEX-A1-000001") {
+  const fixture = await buildStoryFixture();
   return recordStateDeclared(
     {
       eventId: asId("LearnerEventId", eventId),
@@ -45,58 +45,58 @@ function makeEvent(eventId: string, learner = learnerId, lexemeId = "LEX-A1-0000
 /** The same behavioural contract, run against every adapter. */
 function runContractTests(name: string, makeRepository: () => LearnerEventRepository) {
   describe(`learner-progress / repository contract (${name})`, () => {
-    test("append then getById round-trips", () => {
+    test("append then getById round-trips", async () => {
       const repo = makeRepository();
-      const event = makeEvent("levt-1");
-      repo.append(event);
-      assert.deepEqual(repo.getById(event.eventId), event);
+      const event = await makeEvent("levt-1");
+      await repo.append(event);
+      assert.deepEqual(await repo.getById(event.eventId), event);
     });
 
-    test("an unknown id is null, not undefined", () => {
+    test("an unknown id is null, not undefined", async () => {
       const repo = makeRepository();
-      assert.equal(repo.getById(asId("LearnerEventId", "levt-missing")), null);
+      assert.equal(await repo.getById(asId("LearnerEventId", "levt-missing")), null);
     });
 
-    test("appending a duplicate eventId is rejected, not merged", () => {
+    test("appending a duplicate eventId is rejected, not merged", async () => {
       const repo = makeRepository();
-      const event = makeEvent("levt-1");
-      repo.append(event);
-      assert.throws(() => repo.append(event), /DUPLICATE_LEARNER_EVENT_ID/);
+      const event = await makeEvent("levt-1");
+      await repo.append(event);
+      await assert.rejects(() => repo.append(event), /DUPLICATE_LEARNER_EVENT_ID/);
     });
 
-    test("the interface offers no update/delete method", () => {
+    test("the interface offers no update/delete method", async () => {
       const repo = makeRepository();
       assert.equal("update" in repo, false);
       assert.equal("delete" in repo, false);
     });
 
-    test("listForLearner only returns that learner's events", () => {
+    test("listForLearner only returns that learner's events", async () => {
       const repo = makeRepository();
-      const mine = makeEvent("levt-1", learnerId);
-      const theirs = makeEvent("levt-2", otherLearnerId);
-      repo.append(mine);
-      repo.append(theirs);
-      const result = repo.listForLearner(learnerId);
+      const mine = await makeEvent("levt-1", learnerId);
+      const theirs = await makeEvent("levt-2", otherLearnerId);
+      await repo.append(mine);
+      await repo.append(theirs);
+      const result = await repo.listForLearner(learnerId);
       assert.equal(result.length, 1);
       assert.equal(result[0].eventId, mine.eventId);
     });
 
-    test("listForLearnerAndLexeme filters on both", () => {
+    test("listForLearnerAndLexeme filters on both", async () => {
       const repo = makeRepository();
-      const a = makeEvent("levt-1", learnerId, "LEX-A1-000001");
-      const b = makeEvent("levt-2", learnerId, "LEX-A1-000002");
-      repo.append(a);
-      repo.append(b);
-      const result = repo.listForLearnerAndLexeme(learnerId, "LEX-A1-000001" as LexemeId);
+      const a = await makeEvent("levt-1", learnerId, "LEX-A1-000001");
+      const b = await makeEvent("levt-2", learnerId, "LEX-A1-000002");
+      await repo.append(a);
+      await repo.append(b);
+      const result = await repo.listForLearnerAndLexeme(learnerId, "LEX-A1-000001" as LexemeId);
       assert.equal(result.length, 1);
       assert.equal(result[0].eventId, a.eventId);
     });
 
-    test("listForStoryVersion returns every event on that version", () => {
+    test("listForStoryVersion returns every event on that version", async () => {
       const repo = makeRepository();
-      const event = makeEvent("levt-1");
-      repo.append(event);
-      const result = repo.listForStoryVersion(event.storyVersionId);
+      const event = await makeEvent("levt-1");
+      await repo.append(event);
+      const result = await repo.listForStoryVersion(event.storyVersionId);
       assert.equal(result.length, 1);
     });
   });

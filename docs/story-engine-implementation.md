@@ -281,3 +281,17 @@ target types confirms the binding is well-formed and correctly scheduled, but
 unit. Tightening this is straightforward (the registry already resolves both)
 but was left for whichever phase first authors real Story content against a
 non-`SENSE` target, since MVP does not require it and no test needs it yet.
+
+---
+
+## 9. Addendum (phase 5): `StoryRepository` is now `Promise`-based
+
+Phase 5 (`docs/persistence.md`) needed to implement `StoryRepository`
+against PostgreSQL, which cannot answer synchronously. Every method on the
+interface (`repository/story-repository.ts`) and on
+`InMemoryStoryRepository` was converted to return a `Promise` — a call-site
+mechanical change (`await` added wherever the repository is used), not a
+change to any type's shape, invariant, or this document's design rationale
+above. `features/persistence`'s `PostgresStoryRepository` implements the
+exact same interface; contract tests run unchanged assertions against both
+(`features/persistence/__tests__/contract-parity.test.ts`).

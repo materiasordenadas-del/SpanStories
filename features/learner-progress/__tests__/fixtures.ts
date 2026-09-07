@@ -61,13 +61,13 @@ export class SequentialIdGenerator implements IdGenerator {
  * to accept an event naming it, and for attribution tests to have a real
  * `StoryOccurrence` to reannotate.
  */
-export function buildStoryFixture(lexemeId = "LEX-A1-000001") {
+export async function buildStoryFixture(lexemeId = "LEX-A1-000001") {
   const repo = new InMemoryStoryRepository();
   const clock = new FixedClock();
   const storyId: StoryId = asStoryId("StoryId", "story-fixture-1");
   const storyVersionId: StoryVersionId = asStoryId("StoryVersionId", "storyver-fixture-1");
   const story = createStory(storyId, null, clock);
-  repo.saveStory(story);
+  await repo.saveStory(story);
 
   const text = "hola mundo";
   const sentence = { id: asStoryId("SentenceId", "sent-fixture-1"), storyVersionId, order: 1, text, tokens: [] };
@@ -93,7 +93,7 @@ export function buildStoryFixture(lexemeId = "LEX-A1-000001") {
     status: "DRAFT",
     clock,
   });
-  repo.saveNewVersion({ version, sentences: [sentence], anchors: [anchor], occurrences: [occurrence], targetBindings: [] });
+  await repo.saveNewVersion({ version, sentences: [sentence], anchors: [anchor], occurrences: [occurrence], targetBindings: [] });
 
   return { repo, storyId, storyVersionId, occurrenceId, occurrence };
 }

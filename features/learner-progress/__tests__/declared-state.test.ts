@@ -22,8 +22,8 @@ function metadata(eventCutoff: string): ProjectionMetadata {
 }
 
 describe("learner-progress / declared state projection", () => {
-  test("the state reconstructs from events: the latest declaration wins", () => {
-    const fixture = buildStoryFixture();
+  test("the state reconstructs from events: the latest declaration wins", async () => {
+    const fixture = await buildStoryFixture();
     const early = recordStateDeclared(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -59,8 +59,8 @@ describe("learner-progress / declared state projection", () => {
     assert.equal(projection.states.get(lexemeId)?.state, "KNOWN");
   });
 
-  test("KNOWN is still just a declaration: the projection carries no independent mastery field", () => {
-    const fixture = buildStoryFixture();
+  test("KNOWN is still just a declaration: the projection carries no independent mastery field", async () => {
+    const fixture = await buildStoryFixture();
     const event = recordStateDeclared(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -81,8 +81,8 @@ describe("learner-progress / declared state projection", () => {
     assert.deepEqual(Object.keys(entry!).sort(), ["declaredAt", "lexemeId", "sourceEventId", "state"]);
   });
 
-  test("OCCURRENCE_OPENED events (mere exposure) never create a declared state", () => {
-    const fixture = buildStoryFixture();
+  test("OCCURRENCE_OPENED events (mere exposure) never create a declared state", async () => {
+    const fixture = await buildStoryFixture();
     const opened = recordOccurrenceOpened(
       {
         eventId: asId("LearnerEventId", "levt-1"),
@@ -102,14 +102,14 @@ describe("learner-progress / declared state projection", () => {
     assert.equal(projection.states.size, 0);
   });
 
-  test("the metadata carries an algorithm version and an event cutoff", () => {
+  test("the metadata carries an algorithm version and an event cutoff", async () => {
     const projection = buildDeclaredStateProjection(learnerId, [], metadata("2026-03-01T00:00:00.000Z"));
     assert.equal(projection.metadata.projectionAlgorithmVersion, "declared-state/1.0.0");
     assert.equal(projection.metadata.eventCutoff, "2026-03-01T00:00:00.000Z");
   });
 
-  test("an event after the cutoff is excluded", () => {
-    const fixture = buildStoryFixture();
+  test("an event after the cutoff is excluded", async () => {
+    const fixture = await buildStoryFixture();
     const late = recordStateDeclared(
       {
         eventId: asId("LearnerEventId", "levt-1"),
