@@ -1,7 +1,9 @@
 /**
  * `acceptAnnotationCandidate` — the *only* path from a proposal to something
  * the Story Engine recognises. Never automatic, never triggered by
- * `confidence` (§40): a caller decides to call this, once, per candidate.
+ * `confidence` (§40): a caller decides to call this, once, per candidate —
+ * "once" now enforced by `AnnotationDecisionRepository`
+ * (`../domain/decision-repository.ts`), not by convention (Corrección B).
  *
  * ```text
  * AnnotationCandidate --[this file]--> StoryOccurrence | OccurrenceAnnotationRevision
@@ -13,7 +15,10 @@
  *     interpretation of an occurrence the Story Engine already has. This
  *     path *does* write — `OccurrenceAnnotationRevision` via
  *     `reviseOccurrenceAnnotation`/`repository.appendAnnotationRevision`,
- *     the same mechanism a human editor's reannotation uses.
+ *     the same mechanism a human editor's reannotation uses. Reannotating a
+ *     `CONSTRUCTION` occurrence through this (lexical) path is refused
+ *     (`CANDIDATE_REANNOTATION_KIND_MISMATCH`, Corrección D) rather than
+ *     coerced with a type assertion.
  *   - unset: the candidate proposes a *brand-new* occurrence. `StoryRepository`
  *     has no "append one occurrence to an existing version" method by design
  *     (`docs/story-engine-implementation.md` — a `StoryVersion`'s content is
@@ -26,8 +31,18 @@
  *     — no `StoryVersion` text is ever touched, and nothing is ever
  *     auto-published.
  *
+ * Both outcomes are recorded exactly once in `ctx.decisionRepository`
+ * *before* returning: a second `acceptAnnotationCandidate`/
+ * `rejectAnnotationCandidate` call for the same `candidateId` — sequential,
+ * concurrent, or after a crash — gets `CANDIDATE_ALREADY_DECIDED`
+ * (`../domain/errors.ts`), never a second `StoryOccurrence`/
+ * `OccurrenceAnnotationRevision`. See §17/§18 in the corrective task for the
+ * exact ordering guarantees below.
+ *
  * Rejection (`rejectAnnotationCandidate`) is the deliberate non-writing
- * counterpart: it never touches the Story Engine at all.
+ * counterpart: it never touches the Story Engine, but still consumes the
+ * same exactly-once decision slot — an accepted candidate can never later be
+ * rejected, or vice versa.
  */
 
 import {
@@ -51,6 +66,10 @@ import {
 import type { CurriculumRegistry } from "../../curriculum/index.ts";
 import { NlpError, nlpIssue, type NlpIssue } from "../domain/errors.ts";
 import type { AnnotationCandidate } from "../domain/candidate.ts";
+import type { AnnotationCandidateDecision } from "../domain/decision.ts";
+import type { AnnotationDecisionRepository } from "../domain/decision-repository.ts";
+import type { AnnotationAcceptanceUnitOfWork } from "../domain/acceptance-unit-of-work.ts";
+import type { CurrentStoryVersionResolver } from "../domain/current-version.ts";
 
 export type AcceptanceContext = {
   readonly storyRepository: StoryRepository;
@@ -59,10 +78,38 @@ export type AcceptanceContext = {
   readonly currentLexiconReleaseId: string;
   readonly idGenerator: IdGenerator;
   readonly clock: Clock;
+  /** Corrección B — the single persisted authority over accept/reject; see module doc. */
+  readonly decisionRepository: AnnotationDecisionRepository;
+  /**
+   * Corrección C — which `StoryVersion` the editorial workflow currently
+   * authors against, per story. `null`/no entry fails closed
+   * (`STALE_CANDIDATE`), never falls back to guessing "highest version
+   * number" or "most recently created".
+   */
+  readonly currentStoryVersionResolver: CurrentStoryVersionResolver;
+  /**
+   * Corrección B §17 — when supplied, the `REVISION` path commits the
+   * revision and its decision atomically (real crash safety on a
+   * transactional backend). When absent, this falls back to a
+   * decision-first-then-revision ordering directly against
+   * `decisionRepository`/`storyRepository`: never two decisions, but a crash
+   * between the two writes can leave a decision with no revision applied yet
+   * (recoverable by replaying the stored `resultingRevisionId`, not by
+   * generating a new one) rather than a duplicated revision.
+   */
+  readonly unitOfWork?: AnnotationAcceptanceUnitOfWork;
   /** Set only when this candidate re-interprets an occurrence the Story Engine already has. */
   readonly reannotatesOccurrenceId?: string;
   readonly reason?: string;
   readonly editorialReference?: string | null;
+  /**
+   * Corrección C §23 — by default, a candidate naming a `StoryVersion` that
+   * is no longer the story's current editable version is `STALE_CANDIDATE`,
+   * even for a reannotation. Set this (with a non-empty `editorialReference`)
+   * only to explicitly authorize correcting a historical version's
+   * annotation without changing its text — never enabled implicitly.
+   */
+  readonly historicalReannotationAuthorized?: boolean;
 };
 
 export type AcceptanceResult =
@@ -73,8 +120,9 @@ export type AcceptanceResult =
        *  (alongside `occurrence`) in the caller's next `saveNewVersion` call. */
       readonly anchors: readonly TextAnchor[];
       readonly targetBinding: StoryTargetBinding | null;
+      readonly decision: AnnotationCandidateDecision;
     }
-  | { readonly kind: "REVISION"; readonly revision: OccurrenceAnnotationRevision };
+  | { readonly kind: "REVISION"; readonly revision: OccurrenceAnnotationRevision; readonly decision: AnnotationCandidateDecision };
 
 function fail(code: NlpIssue["code"], reason: string, context: Parameters<typeof nlpIssue>[2] = {}): never {
   throw new NlpError([nlpIssue(code, reason, context)]);
@@ -96,6 +144,26 @@ function assertNotStale(candidate: AnnotationCandidate, ctx: AcceptanceContext):
       actual: candidate.lexiconReleaseId,
     });
   }
+}
+
+/**
+ * Corrección C — a `StoryVersion` existing (`storyRepository.getStoryVersion`
+ * returning non-null) proves nothing about whether it is still the version
+ * the editorial workflow is authoring against: a `StoryVersion` is
+ * historical and immutable, so an old one goes on existing forever after a
+ * newer one supersedes it. The real check, in `acceptAnnotationCandidate`
+ * below, is against `ctx.currentStoryVersionResolver` — an authority NLP
+ * never derives on its own (see `../domain/current-version.ts`). This helper
+ * only formats the resulting failure.
+ */
+function failStaleVersion(candidate: AnnotationCandidate, currentEditableId: string | null): never {
+  fail(
+    "STALE_CANDIDATE",
+    currentEditableId === null
+      ? `storyVersion ${candidate.storyVersionId} cannot be accepted against: no current editable version has been designated for this story`
+      : `storyVersion ${candidate.storyVersionId} is not the current editable version (current: ${currentEditableId})`,
+    { recordId: candidate.candidateId, expected: currentEditableId ?? undefined, actual: candidate.storyVersionId },
+  );
 }
 
 function assertReferencesStillExist(candidate: AnnotationCandidate, ctx: AcceptanceContext): void {
@@ -267,6 +335,18 @@ export async function acceptAnnotationCandidate(candidate: AnnotationCandidate, 
     fail("CANDIDATE_NOT_PENDING", `candidate ${candidate.candidateId} is already ${candidate.status}`, { recordId: candidate.candidateId });
   }
 
+  // Corrección B — cheap early bail before any other work. The real,
+  // race-proof exactly-once guarantee is `decisionRepository.recordAccepted`
+  // itself (called below, after every validation and every id has been
+  // generated) — this first check only avoids wasted work for the common
+  // case of a plainly-already-decided candidate.
+  const existingDecision = await ctx.decisionRepository.getByCandidateId(candidate.candidateId);
+  if (existingDecision !== null) {
+    fail("CANDIDATE_ALREADY_DECIDED", `candidate ${candidate.candidateId} already has a recorded decision (${existingDecision.decision})`, {
+      recordId: candidate.candidateId,
+    });
+  }
+
   assertNotStale(candidate, ctx);
   const currentVersion = await ctx.storyRepository.getStoryVersion(candidate.storyVersionId);
   if (currentVersion === null) {
@@ -275,6 +355,16 @@ export async function acceptAnnotationCandidate(candidate: AnnotationCandidate, 
       referencedId: candidate.storyVersionId,
     });
   }
+
+  // Corrección C — existence is not currency; see `assertCurrentEditableVersion` doc above.
+  const currentEditableId = await ctx.currentStoryVersionResolver.currentEditableVersionId(currentVersion!.storyId);
+  const isCurrent = currentEditableId !== null && currentEditableId === candidate.storyVersionId;
+  const historicallyAuthorized =
+    ctx.historicalReannotationAuthorized === true && ctx.editorialReference !== undefined && ctx.editorialReference !== null && ctx.editorialReference !== "";
+  if (!isCurrent && !historicallyAuthorized) {
+    failStaleVersion(candidate, currentEditableId);
+  }
+
   assertReferencesStillExist(candidate, ctx);
   const { resolvedTexts, sentencesById } = await assertAnchorsStillResolve(candidate, ctx);
 
@@ -286,9 +376,21 @@ export async function acceptAnnotationCandidate(candidate: AnnotationCandidate, 
         referencedId: ctx.reannotatesOccurrenceId,
       });
     }
+    // Corrección D — never coerce a CONSTRUCTION occurrence into a LEXICAL
+    // reannotation with a type assertion. `existing` narrows to
+    // `LexicalOccurrence` below because every other branch of `kind` throws.
+    if (existing!.kind !== "LEXICAL") {
+      fail(
+        "CANDIDATE_REANNOTATION_KIND_MISMATCH",
+        `occurrence ${existing!.id} is a ${existing!.kind} occurrence; a LEXICAL reannotation candidate cannot reinterpret it`,
+        { recordId: candidate.candidateId, referencedId: ctx.reannotatesOccurrenceId, expected: "LEXICAL", actual: existing!.kind },
+      );
+    }
+
+    const revisionId = ctx.idGenerator.next("OccurrenceAnnotationRevisionId") as never;
     const revision = reviseOccurrenceAnnotation(
-      ctx.idGenerator.next("OccurrenceAnnotationRevisionId") as never,
-      existing as LexicalOccurrence,
+      revisionId,
+      existing,
       {
         newLexemeId: candidate.proposedLexemeId as never,
         newSenseId: candidate.proposedSenseId as never,
@@ -298,21 +400,75 @@ export async function acceptAnnotationCandidate(candidate: AnnotationCandidate, 
       },
       ctx.clock,
     );
-    await ctx.storyRepository.appendAnnotationRevision(revision);
-    return { kind: "REVISION", revision };
+
+    const decisionInput = {
+      candidateId: candidate.candidateId,
+      decidedAt: ctx.clock.now().toISOString(),
+      reason: ctx.reason ?? `NLP candidate ${candidate.candidateId} accepted`,
+      editorialReference: ctx.editorialReference ?? null,
+      resultKind: "REVISION" as const,
+      revisionId: revision.id,
+    };
+
+    // Corrección B §17 — decision-first (or atomic-with, when `unitOfWork`
+    // is supplied) ordering: never append the revision before the decision
+    // is durably exclusive, or two racing callers could both append one.
+    // The decision-first fallback is only safe with a decision repository
+    // that has no foreign key from the decision row to the revision row
+    // (true of `InMemoryAnnotationDecisionRepository`) — a Postgres-backed
+    // `decisionRepository` used without `unitOfWork` would violate its own
+    // `resulting_revision_id` foreign key here, by design: that combination
+    // is not a supported wiring (always supply `unitOfWork` alongside a
+    // Postgres-backed decision repository for the REVISION path).
+    const decision =
+      ctx.unitOfWork !== undefined
+        ? await ctx.unitOfWork.runRevisionAcceptance(revision, decisionInput)
+        : await (async () => {
+            const recorded = await ctx.decisionRepository.recordAccepted(decisionInput);
+            await ctx.storyRepository.appendAnnotationRevision(revision);
+            return recorded;
+          })();
+
+    return { kind: "REVISION", revision, decision };
   }
 
   const { occurrence, anchors } = buildOccurrence(candidate, resolvedTexts, sentencesById, ctx);
   const targetBinding = buildTargetBinding(candidate, occurrence, currentVersion!.storyId, ctx);
-  return { kind: "NEW_OCCURRENCE", occurrence, anchors, targetBinding };
+
+  // Corrección B §18 — the decision (and its materialization) is the only
+  // persisted effect of this branch; `occurrence`/`anchors`/`targetBinding`
+  // are handed back for the caller's next `saveNewVersion`, never written
+  // here. Recording the decision first (exclusively) means a second
+  // `acceptAnnotationCandidate` call for this candidate fails before it
+  // could ever hand the caller a second, different set of ids.
+  const decision = await ctx.decisionRepository.recordAccepted({
+    candidateId: candidate.candidateId,
+    decidedAt: ctx.clock.now().toISOString(),
+    reason: ctx.reason ?? `NLP candidate ${candidate.candidateId} accepted (${candidate.sourceAdapter}/${candidate.algorithmVersion})`,
+    editorialReference: ctx.editorialReference ?? null,
+    resultKind: "NEW_OCCURRENCE",
+    occurrenceId: occurrence.id,
+    anchorIds: anchors.map((a) => a.id),
+    targetBindingId: targetBinding?.id ?? null,
+  });
+
+  return { kind: "NEW_OCCURRENCE", occurrence, anchors, targetBinding, decision };
 }
 
 export type RejectedCandidate = { readonly candidateId: string; readonly reason: string; readonly rejectedAt: string };
 
-/** Pure — never touches the Story Engine. A rejected candidate can never contaminate the published domain. */
-export function rejectAnnotationCandidate(candidate: AnnotationCandidate, reason: string, clock: Clock): RejectedCandidate {
+/** Never touches the Story Engine — but still consumes the same exactly-once decision slot as acceptance. */
+export async function rejectAnnotationCandidate(candidate: AnnotationCandidate, reason: string, clock: Clock, ctx: { readonly decisionRepository: AnnotationDecisionRepository }): Promise<RejectedCandidate> {
   if (candidate.status === "ACCEPTED" || candidate.status === "REJECTED") {
     fail("CANDIDATE_NOT_PENDING", `candidate ${candidate.candidateId} is already ${candidate.status}`, { recordId: candidate.candidateId });
   }
-  return { candidateId: candidate.candidateId, reason, rejectedAt: clock.now().toISOString() };
+  const existingDecision = await ctx.decisionRepository.getByCandidateId(candidate.candidateId);
+  if (existingDecision !== null) {
+    fail("CANDIDATE_ALREADY_DECIDED", `candidate ${candidate.candidateId} already has a recorded decision (${existingDecision.decision})`, {
+      recordId: candidate.candidateId,
+    });
+  }
+  const rejectedAt = clock.now().toISOString();
+  await ctx.decisionRepository.recordRejected({ candidateId: candidate.candidateId, decidedAt: rejectedAt, reason });
+  return { candidateId: candidate.candidateId, reason, rejectedAt };
 }

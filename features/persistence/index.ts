@@ -21,6 +21,9 @@ export { migrate, listMigrationFiles, type MigrationResult } from "./db/migrate.
 
 export { seedCurriculum, type SeedResult } from "./seed/seed-curriculum.ts";
 
-export { PostgresStoryRepository } from "./repository/postgres-story-repository.ts";
+export { PostgresStoryRepository, insertAnnotationRevisionRow } from "./repository/postgres-story-repository.ts";
 export { PostgresLearnerEventRepository } from "./repository/postgres-learner-event-repository.ts";
 export { insertLineageEvent } from "./repository/lineage-repository.ts";
+export { PostgresAnnotationDecisionRepository, insertDecisionRow } from "./repository/postgres-annotation-decision-repository.ts";
+export { PostgresAnnotationAcceptanceUnitOfWork } from "./repository/postgres-annotation-acceptance-unit-of-work.ts";
+export { PostgresCurrentStoryVersionResolver } from "./repository/postgres-current-story-version-resolver.ts";

@@ -30,7 +30,17 @@ export type NlpErrorCode =
   | "CANDIDATE_SENSE_LEXEME_MISMATCH"
   /** The analyzer subprocess exited non-zero, timed out, or produced output
    *  that does not match the versioned Node<->Python JSON contract. */
-  | "ANALYZER_BRIDGE_FAILURE";
+  | "ANALYZER_BRIDGE_FAILURE"
+  /** A candidate already has a recorded `AnnotationCandidateDecision` — accept/reject
+   *  is exactly-once, enforced by `AnnotationDecisionRepository`, not by `status`. */
+  | "CANDIDATE_ALREADY_DECIDED"
+  /** A reannotation was attempted against a `StoryOccurrence` whose `kind` does not
+   *  match the reannotation being proposed (e.g. lexical reannotation of a
+   *  CONSTRUCTION occurrence) — never silently coerced via a type assertion. */
+  | "CANDIDATE_REANNOTATION_KIND_MISMATCH"
+  /** The runtime analyzer's spaCy/model version does not match the governed,
+   *  fingerprinted configuration this codebase was built and tested against. */
+  | "ANALYZER_VERSION_MISMATCH";
 
 export type NlpIssueContext = {
   readonly recordId?: string;

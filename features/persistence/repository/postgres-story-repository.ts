@@ -202,6 +202,32 @@ async function loadPartsForOccurrences(tx: SqlClient, occurrenceIds: readonly st
   return byOccurrence;
 }
 
+/**
+ * Insert one `OccurrenceAnnotationRevision` row — factored out of
+ * `PostgresStoryRepository.appendAnnotationRevision` so
+ * `PostgresAnnotationAcceptanceUnitOfWork` (`./postgres-annotation-acceptance-unit-of-work.ts`)
+ * can run it inside the *same* transaction as the matching
+ * `annotation_candidate_decisions` insert (Corrección B §17 crash-safety),
+ * rather than as two separate commits that could land independently.
+ */
+export async function insertAnnotationRevisionRow(client: SqlClient, revision: OccurrenceAnnotationRevision): Promise<void> {
+  await client.query(
+    "INSERT INTO occurrence_annotation_revisions (id, occurrence_id, previous_lexeme_id, new_lexeme_id, previous_sense_id, new_sense_id, reason, lexicon_release_id, editorial_reference, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    [
+      revision.id,
+      revision.occurrenceId,
+      revision.previousLexemeId,
+      revision.newLexemeId,
+      revision.previousSenseId,
+      revision.newSenseId,
+      revision.reason,
+      revision.lexiconReleaseId,
+      revision.editorialReference,
+      revision.createdAt,
+    ],
+  );
+}
+
 export class PostgresStoryRepository implements StoryRepository {
   private readonly db: SqlDatabase;
 
@@ -350,21 +376,7 @@ export class PostgresStoryRepository implements StoryRepository {
   }
 
   async appendAnnotationRevision(revision: OccurrenceAnnotationRevision): Promise<void> {
-    await this.db.query(
-      "INSERT INTO occurrence_annotation_revisions (id, occurrence_id, previous_lexeme_id, new_lexeme_id, previous_sense_id, new_sense_id, reason, lexicon_release_id, editorial_reference, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
-      [
-        revision.id,
-        revision.occurrenceId,
-        revision.previousLexemeId,
-        revision.newLexemeId,
-        revision.previousSenseId,
-        revision.newSenseId,
-        revision.reason,
-        revision.lexiconReleaseId,
-        revision.editorialReference,
-        revision.createdAt,
-      ],
-    );
+    await insertAnnotationRevisionRow(this.db, revision);
   }
 
   async listAnnotationRevisions(occurrenceId: StoryOccurrenceId): Promise<readonly OccurrenceAnnotationRevision[]> {

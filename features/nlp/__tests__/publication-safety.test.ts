@@ -20,6 +20,8 @@ import assert from "node:assert/strict";
 import {
   acceptAnnotationCandidate,
   asId as asNlpId,
+  InMemoryAnnotationDecisionRepository,
+  InMemoryCurrentStoryVersionResolver,
   type AnnotationCandidate,
   type AcceptanceContext,
 } from "../index.ts";
@@ -65,7 +67,9 @@ function baseCandidate(overrides: Partial<AnnotationCandidate>): AnnotationCandi
 
 async function acceptanceContextFor(sentenceText: string): Promise<{ readonly ctx: AcceptanceContext; readonly storyVersionId: StoryVersionId; readonly sentenceId: SentenceId }> {
   const ids = new SequentialIdGenerator();
-  const { repo, storyVersionId, sentences } = await buildStoryWithSentences([sentenceText], ids, clock);
+  const { repo, storyId, storyVersionId, sentences } = await buildStoryWithSentences([sentenceText], ids, clock);
+  const currentStoryVersionResolver = new InMemoryCurrentStoryVersionResolver();
+  currentStoryVersionResolver.setCurrentEditableVersion(storyId, storyVersionId);
   const ctx: AcceptanceContext = {
     storyRepository: repo,
     registry,
@@ -73,6 +77,8 @@ async function acceptanceContextFor(sentenceText: string): Promise<{ readonly ct
     currentLexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
     idGenerator: ids,
     clock,
+    decisionRepository: new InMemoryAnnotationDecisionRepository(),
+    currentStoryVersionResolver,
   };
   return { ctx, storyVersionId, sentenceId: sentences[0].id };
 }

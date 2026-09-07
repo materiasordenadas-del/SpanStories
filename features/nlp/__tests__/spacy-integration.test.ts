@@ -18,6 +18,8 @@ import assert from "node:assert/strict";
 import { SpaCyAnalyzer } from "../adapters/spacy/spacy-analyzer.ts";
 import { buildAnnotationCandidates, type CandidateBuildContext } from "../engine/candidate-builder.ts";
 import { acceptAnnotationCandidate, type AcceptanceContext } from "../review/acceptance-service.ts";
+import { InMemoryAnnotationDecisionRepository } from "../repository/in-memory-annotation-decision-repository.ts";
+import { InMemoryCurrentStoryVersionResolver } from "../repository/in-memory-current-story-version-resolver.ts";
 import {
   FixedClock,
   SequentialIdGenerator,
@@ -36,7 +38,7 @@ describe("nlp / real spaCy integration (BLOCKER_NLP_INTEGRATION_ENV if this fail
     const lexicalEngine = buildConstructionTestLexicalEngine(registry);
     const clock = new FixedClock();
     const ids = new SequentialIdGenerator();
-    const { repo, sentences, storyVersionId } = await buildStoryWithSentences([SENTENCE], ids, clock);
+    const { repo, sentences, storyId, storyVersionId } = await buildStoryWithSentences([SENTENCE], ids, clock);
 
     const analyzer = new SpaCyAnalyzer();
     const analysis = await analyzer.analyze(sentences.map((s, i) => ({ sentenceIndex: i, text: s.text })));
@@ -69,6 +71,8 @@ describe("nlp / real spaCy integration (BLOCKER_NLP_INTEGRATION_ENV if this fail
     );
 
     // And the full review -> accept path works over this real output too.
+    const currentStoryVersionResolver = new InMemoryCurrentStoryVersionResolver();
+    currentStoryVersionResolver.setCurrentEditableVersion(storyId, storyVersionId);
     const acceptCtx: AcceptanceContext = {
       storyRepository: repo,
       registry,
@@ -76,6 +80,8 @@ describe("nlp / real spaCy integration (BLOCKER_NLP_INTEGRATION_ENV if this fail
       currentLexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
       idGenerator: ids,
       clock,
+      decisionRepository: new InMemoryAnnotationDecisionRepository(),
+      currentStoryVersionResolver,
     };
     const result = await acceptAnnotationCandidate(mwuCandidate!, acceptCtx);
     assert.equal(result.kind, "NEW_OCCURRENCE");

@@ -33,6 +33,10 @@ import { migrate, listMigrationFiles } from "../db/migrate.ts";
 import { seedCurriculum } from "../seed/seed-curriculum.ts";
 import { PostgresStoryRepository } from "../repository/postgres-story-repository.ts";
 import { PostgresLearnerEventRepository } from "../repository/postgres-learner-event-repository.ts";
+import { PostgresAnnotationDecisionRepository } from "../repository/postgres-annotation-decision-repository.ts";
+import { PostgresAnnotationAcceptanceUnitOfWork } from "../repository/postgres-annotation-acceptance-unit-of-work.ts";
+import { reviseOccurrenceAnnotation } from "../../story-engine/index.ts";
+import type { AnnotationCandidateId } from "../../nlp/domain/ids.ts";
 import type { SqlDatabase } from "../db/sql-client.ts";
 
 class FixedClock {
@@ -66,6 +70,8 @@ const EXPECTED_TABLES = [
   "story_target_bindings",
   "learners",
   "learner_events",
+  "annotation_candidate_decisions",
+  "story_authoring_state",
   "schema_migrations",
 ] as const;
 
@@ -157,6 +163,119 @@ async function assertLearnerEventRepositoryContract(db: SqlDatabase, repo: Learn
 }
 
 /**
+ * Corrección B — `AnnotationDecisionRepository`'s exactly-once contract, and
+ * `AnnotationAcceptanceUnitOfWork`'s atomic revision+decision commit.
+ */
+async function assertAnnotationDecisionRepositoryContract(db: SqlDatabase): Promise<void> {
+  const clock = new FixedClock();
+  const storyRepo = new PostgresStoryRepository(db);
+  const decisionRepo = new PostgresAnnotationDecisionRepository(db);
+  const storyId = asId("StoryId", "story-suite-decision");
+  const versionId = asId("StoryVersionId", "storyver-suite-decision");
+  await storyRepo.saveStory(createStory(storyId, null, clock));
+  const sentence = { id: asId("SentenceId", "sent-suite-decision"), storyVersionId: versionId, order: 1, text: "hola mundo", tokens: [] };
+  const anchor = createTextAnchor(asId("TextAnchorId", "anchor-suite-decision"), versionId, sentence, { start: 0, end: 4 });
+  await db.query("INSERT INTO lexemes (id, lemma, type, data) VALUES ($1, $2, $3, $4)", ["LEX-SUITE-DECISION", "hola", "ATOMIC", "{}"]);
+  const occurrence = createLexicalOccurrence({
+    id: asId("StoryOccurrenceId", "occ-suite-decision"),
+    storyVersionId: versionId,
+    sentenceId: sentence.id,
+    surface: "hola",
+    lexemeId: "LEX-SUITE-DECISION" as never,
+    senseId: null,
+    lexemeFormId: null,
+    senseResolutionStatus: "NOT_REQUIRED",
+    parts: [{ id: asId("OccurrencePartId", "part-suite-decision"), anchor, role: "HEAD" }],
+  });
+  const version = assembleStoryVersion({ id: versionId, storyId, versionNumber: 1, title: "T", sentences: [sentence], status: "DRAFT", clock });
+  await storyRepo.saveNewVersion({ version, sentences: [sentence], anchors: [anchor], occurrences: [occurrence], targetBindings: [] });
+
+  // 1. getByCandidateId on an undecided candidate is null.
+  const rejectedId = "nlpcand-suite-1" as AnnotationCandidateId;
+  assert.equal(await decisionRepo.getByCandidateId(rejectedId), null);
+
+  // 2. recordRejected, then getByCandidateId reflects it.
+  const rejected = await decisionRepo.recordRejected({ candidateId: rejectedId, decidedAt: clock.now().toISOString(), reason: "test rejection" });
+  assert.equal(rejected.decision, "REJECTED");
+  assert.deepEqual(await decisionRepo.getByCandidateId(rejectedId), rejected);
+
+  // 3. Exactly-once: a second decision for the same candidate — accept or
+  // reject — fails, and never silently overwrites the first.
+  await assert.rejects(() => decisionRepo.recordRejected({ candidateId: rejectedId, decidedAt: clock.now().toISOString(), reason: "again" }), /CANDIDATE_ALREADY_DECIDED/);
+  await assert.rejects(
+    () => decisionRepo.recordAccepted({ candidateId: rejectedId, decidedAt: clock.now().toISOString(), reason: "flip", editorialReference: null, resultKind: "NEW_OCCURRENCE", occurrenceId: occurrence.id, anchorIds: [anchor.id], targetBindingId: null }),
+    /CANDIDATE_ALREADY_DECIDED/,
+  );
+
+  // 4. recordAccepted (NEW_OCCURRENCE) round-trips its materialization.
+  const acceptedId = "nlpcand-suite-2" as AnnotationCandidateId;
+  const accepted = await decisionRepo.recordAccepted({
+    candidateId: acceptedId,
+    decidedAt: clock.now().toISOString(),
+    reason: "test acceptance",
+    editorialReference: null,
+    resultKind: "NEW_OCCURRENCE",
+    occurrenceId: occurrence.id,
+    anchorIds: [anchor.id],
+    targetBindingId: null,
+  });
+  assert.equal(accepted.resultKind, "NEW_OCCURRENCE");
+  assert.deepEqual(accepted.materialization, { occurrenceId: occurrence.id, anchorIds: [anchor.id], targetBindingId: null });
+  assert.deepEqual(await decisionRepo.getByCandidateId(acceptedId), accepted);
+
+  // 5. Concurrent double-accept on the same candidate: exactly one wins,
+  // the other observes CANDIDATE_ALREADY_DECIDED — never two rows, never a
+  // silent second materialization.
+  const raceId = "nlpcand-suite-race" as AnnotationCandidateId;
+  const attempt = () =>
+    decisionRepo.recordAccepted({
+      candidateId: raceId,
+      decidedAt: clock.now().toISOString(),
+      reason: "race",
+      editorialReference: null,
+      resultKind: "NEW_OCCURRENCE",
+      occurrenceId: occurrence.id,
+      anchorIds: [anchor.id],
+      targetBindingId: null,
+    });
+  const results = await Promise.allSettled([attempt(), attempt()]);
+  const fulfilled = results.filter((r) => r.status === "fulfilled");
+  const rejectedRace = results.filter((r) => r.status === "rejected");
+  assert.equal(fulfilled.length, 1, "exactly one concurrent accept() must win");
+  assert.equal(rejectedRace.length, 1, "the other must observe CANDIDATE_ALREADY_DECIDED, not silently succeed");
+
+  // 6. AnnotationAcceptanceUnitOfWork: revision + decision commit atomically.
+  const uow = new PostgresAnnotationAcceptanceUnitOfWork(db);
+  const revisionCandidateId = "nlpcand-suite-revision" as AnnotationCandidateId;
+  const revision = reviseOccurrenceAnnotation(
+    asId("OccurrenceAnnotationRevisionId", "rev-suite-decision"),
+    occurrence,
+    { newLexemeId: occurrence.lexemeId, newSenseId: null, reason: "test revision", lexiconReleaseId: "A1-LEXICON-v1.0" as never },
+    clock,
+  );
+  const revisionDecision = await uow.runRevisionAcceptance(revision, {
+    candidateId: revisionCandidateId,
+    decidedAt: clock.now().toISOString(),
+    reason: "test revision acceptance",
+    editorialReference: null,
+    resultKind: "REVISION",
+    revisionId: revision.id,
+  });
+  assert.equal(revisionDecision.resultKind, "REVISION");
+  const revisions = await storyRepo.listAnnotationRevisions(occurrence.id);
+  assert.equal(revisions.length, 1, "the unit of work must have appended exactly the one revision");
+  assert.equal(revisions[0].id, revision.id);
+
+  // 7. Uniqueness holds at the raw SQL level too, not only through the interface.
+  await assert.rejects(() =>
+    db.query(
+      "INSERT INTO annotation_candidate_decisions (candidate_id, decision, decided_at, reason, editorial_reference, result_kind, resulting_occurrence_id, resulting_revision_id, materialization) VALUES ($1, 'REJECTED', now(), 'dup', NULL, 'NONE', NULL, NULL, NULL)",
+      [rejectedId],
+    ),
+  );
+}
+
+/**
  * Register the full suite under `describeName`, calling `openDb()` fresh for
  * every `test()` and always `close()`-ing afterward — same shape as every
  * existing `openPGliteDatabase()`-per-test file in `../__tests__/`.
@@ -223,6 +342,16 @@ export function registerDatabaseContractSuite(describeName: string, openDb: () =
       try {
         await migrate(db);
         await assertLearnerEventRepositoryContract(db, new PostgresLearnerEventRepository(db));
+      } finally {
+        await db.close();
+      }
+    });
+
+    test("AnnotationDecisionRepository contract: exactly-once, concurrent-safe, and atomic with AnnotationAcceptanceUnitOfWork", async () => {
+      const db = await openDb();
+      try {
+        await migrate(db);
+        await assertAnnotationDecisionRepositoryContract(db);
       } finally {
         await db.close();
       }

@@ -64,4 +64,19 @@ export { SpaCyAnalyzer, BRIDGE_CONTRACT_VERSION, type SpaCyAnalyzerOptions } fro
 export type { AcceptanceContext, AcceptanceResult, RejectedCandidate } from "./review/acceptance-service.ts";
 export { acceptAnnotationCandidate, rejectAnnotationCandidate } from "./review/acceptance-service.ts";
 
+export type {
+  AnnotationCandidateDecision,
+  AcceptedOccurrenceMaterialization,
+  DecisionKind,
+  DecisionResultKind,
+} from "./domain/decision.ts";
+export { DECISION_KINDS, DECISION_RESULT_KINDS, effectiveReviewStatus } from "./domain/decision.ts";
+export type { AnnotationDecisionRepository, RecordAcceptedInput, RecordRejectedInput } from "./domain/decision-repository.ts";
+export type { CurrentStoryVersionResolver } from "./domain/current-version.ts";
+export type { AnnotationAcceptanceUnitOfWork } from "./domain/acceptance-unit-of-work.ts";
+
+export { InMemoryAnnotationDecisionRepository } from "./repository/in-memory-annotation-decision-repository.ts";
+export { InMemoryCurrentStoryVersionResolver } from "./repository/in-memory-current-story-version-resolver.ts";
+export { InMemoryAnnotationAcceptanceUnitOfWork } from "./repository/in-memory-annotation-acceptance-unit-of-work.ts";
+
 export { RandomIdGenerator, SystemClock } from "./runtime/system-ports.ts";

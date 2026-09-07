@@ -12,6 +12,8 @@ import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { buildAnnotationCandidates, type CandidateBuildContext } from "../engine/candidate-builder.ts";
 import { acceptAnnotationCandidate, rejectAnnotationCandidate, type AcceptanceContext } from "../review/acceptance-service.ts";
+import { InMemoryAnnotationDecisionRepository } from "../repository/in-memory-annotation-decision-repository.ts";
+import { InMemoryCurrentStoryVersionResolver } from "../repository/in-memory-current-story-version-resolver.ts";
 import { FakeAnalyzer } from "../adapters/fake/fake-analyzer.ts";
 import { registry, lexicalEngine, FixedClock, SequentialIdGenerator, buildStoryWithSentences } from "./fixtures.ts";
 import { CURRENT_LEXICON_RELEASE_ID } from "../../lexical-engine/index.ts";
@@ -36,7 +38,7 @@ function registrySnapshot() {
 async function buildAndAccept() {
   const clock = new FixedClock();
   const ids = new SequentialIdGenerator();
-  const { repo, sentences, storyVersionId } = await buildStoryWithSentences([TEXT], ids, clock);
+  const { repo, sentences, storyId, storyVersionId } = await buildStoryWithSentences([TEXT], ids, clock);
   const buildCtx: CandidateBuildContext = {
     storyVersionId,
     sentences,
@@ -52,6 +54,9 @@ async function buildAndAccept() {
   const analysis = await analyzer.analyze([{ sentenceIndex: 0, text: TEXT }]);
   const candidates = buildAnnotationCandidates(buildCtx, analysis);
 
+  const currentStoryVersionResolver = new InMemoryCurrentStoryVersionResolver();
+  currentStoryVersionResolver.setCurrentEditableVersion(storyId, storyVersionId);
+
   const acceptCtx: AcceptanceContext = {
     storyRepository: repo,
     registry,
@@ -59,8 +64,10 @@ async function buildAndAccept() {
     currentLexiconReleaseId: CURRENT_LEXICON_RELEASE_ID,
     idGenerator: ids,
     clock,
+    decisionRepository: new InMemoryAnnotationDecisionRepository(),
+    currentStoryVersionResolver,
   };
-  return { candidates, acceptCtx, repo, storyVersionId };
+  return { candidates, acceptCtx, repo, storyId, storyVersionId };
 }
 
 describe("nlp / general candidate and acceptance safety", () => {
@@ -92,21 +99,24 @@ describe("nlp / general candidate and acceptance safety", () => {
   });
 
   test("7. a rejected candidate never modifies the Story Engine", async () => {
-    const { candidates, repo, storyVersionId } = await buildAndAccept();
+    const { candidates, repo, storyVersionId, acceptCtx } = await buildAndAccept();
     const clock = new FixedClock();
-    const rejected = rejectAnnotationCandidate(candidates[0], "test rejection", clock);
+    const rejected = await rejectAnnotationCandidate(candidates[0], "test rejection", clock, acceptCtx);
     assert.equal(rejected.candidateId, candidates[0].candidateId);
     assert.equal((await repo.listOccurrences(storyVersionId)).length, 0, "rejection must never write an occurrence");
   });
 
-  test("8. a candidate only ever becomes real content through the explicit acceptance service", async () => {
+  test("8. a candidate only ever becomes real content through the explicit acceptance service, and can never be accepted twice", async () => {
     const { candidates, acceptCtx } = await buildAndAccept();
     assert.equal(candidates[0].status, "CANDIDATE", "generation alone never sets ACCEPTED");
     const result = await acceptAnnotationCandidate(candidates[0], acceptCtx);
     assert.equal(result.kind, "NEW_OCCURRENCE");
-    // Calling accept a second time on the *same* object (still logically CANDIDATE) is fine —
-    // status transition is the caller's responsibility, not mutated by this function; but an
-    // object explicitly marked ACCEPTED/REJECTED must never be re-accepted.
+    // Corrección B: a second accept() call for the *same* candidateId is
+    // never fine, even on a fresh object that still reports status
+    // CANDIDATE — the exactly-once authority is `decisionRepository`, not
+    // the candidate's own `status` field.
+    await assert.rejects(() => acceptAnnotationCandidate(candidates[0], acceptCtx), /CANDIDATE_ALREADY_DECIDED/);
+    // An object explicitly marked ACCEPTED/REJECTED is refused even earlier, by the cheap status check.
     const alreadyAccepted = { ...candidates[0], status: "ACCEPTED" as const };
     await assert.rejects(() => acceptAnnotationCandidate(alreadyAccepted, acceptCtx), /CANDIDATE_NOT_PENDING/);
   });
