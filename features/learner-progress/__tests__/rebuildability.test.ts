@@ -4,6 +4,7 @@ import { asId } from "../domain/ids.ts";
 import { recordOccurrenceOpened, recordStateDeclared } from "../engine/record-event.ts";
 import { buildDeclaredStateProjection } from "../engine/declared-state-projection.ts";
 import { buildContextHistoryProjection } from "../engine/context-history-projection.ts";
+import { buildTargetEvidenceProjection, indexTargetBindingsByOccurrence } from "../engine/target-evidence-projection.ts";
 import { buildProgressProjection } from "../engine/progress-projection.ts";
 import { withoutCalculatedAt } from "../domain/projection-metadata.ts";
 import { InMemoryLearnerEventRepository } from "../repository/in-memory-learner-event-repository.ts";
@@ -65,7 +66,14 @@ describe("learner-progress / rebuildability", () => {
       const events = await repo.listForLearner(learnerId);
       const declaredState = buildDeclaredStateProjection(learnerId, events, metadata(calculatedAt));
       const contextHistory = buildContextHistoryProjection(learnerId, events, metadata(calculatedAt));
-      const progress = buildProgressProjection(learnerId, registry, contextHistory, declaredState, metadata(calculatedAt));
+      const targetEvidence = buildTargetEvidenceProjection(
+        learnerId,
+        registry,
+        events,
+        indexTargetBindingsByOccurrence([]),
+        metadata(calculatedAt),
+      );
+      const progress = buildProgressProjection(learnerId, registry, targetEvidence, declaredState, metadata(calculatedAt));
       return { declaredState, contextHistory, progress };
     };
 

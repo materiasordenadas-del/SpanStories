@@ -2,13 +2,14 @@ import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { asId } from "../domain/ids.ts";
 import { recordOccurrenceOpened } from "../engine/record-event.ts";
-import { buildContextHistoryProjection } from "../engine/context-history-projection.ts";
 import { buildDeclaredStateProjection } from "../engine/declared-state-projection.ts";
 import { buildProgressProjection } from "../engine/progress-projection.ts";
+import { buildTargetEvidenceProjection, indexTargetBindingsByOccurrence } from "../engine/target-evidence-projection.ts";
 import { withoutCalculatedAt } from "../domain/projection-metadata.ts";
 import { CURRENT_LEXICON_RELEASE_ID } from "../../lexical-engine/index.ts";
 import { FixedClock, buildStoryFixture, registry } from "./fixtures.ts";
 import type { LexemeId } from "../../curriculum/index.ts";
+import type { StoryTargetBinding } from "../../story-engine/index.ts";
 import type { ProjectionMetadata } from "../domain/projection-metadata.ts";
 
 const learnerId = asId("LearnerId", "learner-1");
@@ -25,10 +26,19 @@ function metadata(): ProjectionMetadata {
   };
 }
 
-function buildProjection(events: Parameters<typeof buildContextHistoryProjection>[1]) {
-  const contextHistory = buildContextHistoryProjection(learnerId, events, metadata());
+function buildProjection(
+  events: Parameters<typeof buildDeclaredStateProjection>[1],
+  bindings: readonly StoryTargetBinding[] = [],
+) {
   const declaredState = buildDeclaredStateProjection(learnerId, events, metadata());
-  return buildProgressProjection(learnerId, registry, contextHistory, declaredState, metadata());
+  const targetEvidence = buildTargetEvidenceProjection(
+    learnerId,
+    registry,
+    events,
+    indexTargetBindingsByOccurrence(bindings),
+    metadata(),
+  );
+  return buildProgressProjection(learnerId, registry, targetEvidence, declaredState, metadata());
 }
 
 function findStory(progression: ReturnType<typeof buildProjection>, storyBlueprintId: string) {

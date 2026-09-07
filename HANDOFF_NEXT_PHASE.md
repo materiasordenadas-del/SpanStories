@@ -6,6 +6,7 @@ PHASE_2_REVALIDATED          = PASS
 PHASE_3_STORY_ENGINE         = PASS
 PHASE_4_LEARNER_EVENT_ENGINE = PASS
 PHASE_5_POSTGRES             = PASS  (PostgreSQL via @electric-sql/pglite)
+DEUDA_A_TARGET_EVIDENCE      = PASS  (see §17 — 985/985 targets representable)
 PHASE_6_NLP                  = NOT_STARTED
 PHASE_6_READY                = YES
 ```
@@ -475,6 +476,46 @@ npm run typecheck          # PASS
 npm run lint               # PASS, 0 errors, 1 pre-existing warning
 npm run build              # PASS
 ```
+
+## 17. Deuda A closure: `TargetEvidence` for all 985 targets
+
+```text
+PROGRESS_ALL_TARGET_TYPES        = PASS
+CURRICULAR_TARGET_MODEL_COVERAGE = 985/985  (602 SENSE + 214 MWU_SOURCE_UNIT + 169 GRAMMAR_UNIT)
+```
+
+`ProgressProjection` previously reported evidence only for `SENSE` targets
+carrying a `lexemeId`; the 214 `MWU_SOURCE_UNIT` and 169 `GRAMMAR_UNIT`
+targets (383/985, including all 170 MWUs with `NO_LEXICAL_IDENTITY`) could
+never show evidence. `features/learner-progress/domain/target-evidence.ts`
+introduces `TargetEvidence` (`SenseTargetEvidence` / `MwuTargetEvidence` /
+`GrammarTargetEvidence`, a closed union — `Sense != MWU != GrammarUnit`
+throughout); `engine/target-evidence-projection.ts` resolves it via two
+independent paths that never merge: `SENSE` through lexeme attribution
+(unchanged, lineage-aware, same lexeme-level granularity as before) and
+`MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` through `StoryTargetBinding`, which needs no
+`Lexeme` at all. No `Lexeme`, `Sense` or grammar-Lexeme is ever minted by this
+path. Full rationale: `docs/learner-progress-implementation.md` §9.
+
+`ProgressProjection` gained `breakdown: TargetTypeBreakdown` at every scope
+(Story/Island/Module/Level): `{ SENSE, MWU_SOURCE_UNIT, GRAMMAR_UNIT, total }`,
+each `{ total, withEvidence, withoutEvidence }`. `computedMastery` stays
+`null` everywhere; `KNOWN` stays `USER_DECLARED_STATE`, never derived from
+evidence count.
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 312/312 (294 phases 1-5 + 18 deuda A)
+npm run typecheck          # PASS
+npm run lint                # PASS, 0 errors, 1 pre-existing warning
+npm run build               # PASS
+```
+
+## 18. Not yet started
+
+Deuda B (PostgreSQL server parity harness) and phase 6 (NLP / Annotation
+Assistant) had not started as of this section. See the top-of-file status
+block, which this handoff keeps current as each closes.
 
 Phase 6 (NLP) may proceed once a real environment decision is made about
 `POSTGRES_SERVER_PARITY_TEST`; nothing in phases 1-5's public contracts

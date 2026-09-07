@@ -13,15 +13,38 @@
  * `KNOWN != mastery` and `exposure count != mastery`.
  */
 
-import type { IslandId, ModuleId, StoryBlueprintId } from "../../curriculum/index.ts";
+import type { IslandId, ModuleId, StoryBlueprintId, TargetType } from "../../curriculum/index.ts";
 import type { LearnerId } from "./ids.ts";
 import type { DeclaredState } from "./declared-state.ts";
 import type { ProjectionMetadata } from "./projection-metadata.ts";
 
 export type TargetCoverage = {
   readonly targetId: string;
+  readonly targetType: TargetType;
   readonly hasEvidence: boolean;
   readonly declaredState: DeclaredState | null;
+};
+
+/**
+ * Scheduled/evidenced/missing counts for one `TargetType`, plus the `total`
+ * across all three — never one blended figure. Every scope (`Story`/`Island`/
+ * `Module`/the whole `ProgressProjection`) answers, per type and overall:
+ * how many targets exist, how many have evidence, how many don't.
+ *
+ * `withEvidence + withoutEvidence === total` always; neither figure is
+ * `mastery` — see `StoryProgress.computedMastery`.
+ */
+export type TargetTypeCounts = {
+  readonly total: number;
+  readonly withEvidence: number;
+  readonly withoutEvidence: number;
+};
+
+export type TargetTypeBreakdown = {
+  readonly SENSE: TargetTypeCounts;
+  readonly MWU_SOURCE_UNIT: TargetTypeCounts;
+  readonly GRAMMAR_UNIT: TargetTypeCounts;
+  readonly total: TargetTypeCounts;
 };
 
 export type StoryProgress = {
@@ -30,6 +53,7 @@ export type StoryProgress = {
   readonly totalTargets: number;
   readonly targetsWithEvidence: number;
   readonly targetsDeclaredKnown: number;
+  readonly breakdown: TargetTypeBreakdown;
   readonly computedMastery: null;
 };
 
@@ -39,6 +63,7 @@ export type IslandProgress = {
   readonly totalTargets: number;
   readonly targetsWithEvidence: number;
   readonly targetsDeclaredKnown: number;
+  readonly breakdown: TargetTypeBreakdown;
   readonly computedMastery: null;
 };
 
@@ -48,11 +73,18 @@ export type ModuleProgress = {
   readonly totalTargets: number;
   readonly targetsWithEvidence: number;
   readonly targetsDeclaredKnown: number;
+  readonly breakdown: TargetTypeBreakdown;
   readonly computedMastery: null;
 };
 
 export type ProgressProjection = {
   readonly learnerId: LearnerId;
   readonly modules: readonly ModuleProgress[];
+  readonly totalTargets: number;
+  readonly targetsWithEvidence: number;
+  readonly targetsDeclaredKnown: number;
+  /** Level-wide breakdown: the sum of every module's. */
+  readonly breakdown: TargetTypeBreakdown;
+  readonly computedMastery: null;
   readonly metadata: ProjectionMetadata;
 };

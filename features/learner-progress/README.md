@@ -20,8 +20,11 @@ LearnerEventRepository  (no update, no delete — by interface, not convention)
       |
       +--> DeclaredStateProjection    (latest STATE_DECLARED per Lexeme)
       +--> ContextHistoryProjection   (every OCCURRENCE_OPENED, never collapsed to a count)
-      +--> ProgressProjection         (content coverage + evidence + declared state;
-      |                                computedMastery is always null — no formula yet)
+      +--> TargetEvidenceProjection   (evidence per curricular target, all 3 target types:
+      |                                SENSE via lexeme attribution, MWU_SOURCE_UNIT/
+      |                                GRAMMAR_UNIT via StoryTargetBinding — never a Lexeme)
+      +--> ProgressProjection         (content coverage + evidence + declared state, per
+      |                                target type and total; computedMastery always null)
       v
 LearnerEventAttribution
   (reads a historical event against the *current* LexiconRelease:
@@ -46,6 +49,12 @@ LearnerEventAttribution
   `eventCutoff`, `calculatedAt`). Compare two projections' *content* with
   `withoutCalculatedAt`, the only field allowed to differ between two
   rebuilds of the same log.
+
+- **Every curriculum target type is representable, not just `SENSE` with a
+  `Lexeme`.** `domain/target-evidence.ts`'s `TargetEvidence` is a closed union
+  (`SenseTargetEvidence` / `MwuTargetEvidence` / `GrammarTargetEvidence`); the
+  MWU/grammar variants carry no `lexemeId` field at all — see
+  `docs/learner-progress-implementation.md` §9.
 
 ## What phase 4 does not do
 

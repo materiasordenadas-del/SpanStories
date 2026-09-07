@@ -180,11 +180,10 @@ change actually is the only one that changed.
 `ProgressProjection` walks `CurriculumRegistry.getTargetsIntroducedIn` per
 story — the same authority `features/story-engine`'s publication validator
 uses — rather than maintaining a second copy of "which targets does this
-story introduce." A target counts as having evidence when its `lexemeId` has
-at least one entry in the learner's `ContextHistoryProjection`; this only
-works for `SENSE`-type targets with a lexeme (the same known limitation
-`docs/story-engine-implementation.md` §8 records for
-`MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` targets carries forward here unchanged).
+story introduce." As of the addendum in §9, a target counts as having
+evidence when `TargetEvidenceProjection.evidenceByTarget` has an entry for
+its `targetId`, for **all three** target types — not only `SENSE` targets
+with a lexeme.
 
 ---
 
@@ -214,12 +213,6 @@ Spaced repetition, an adaptive recommender, a computed mastery formula,
 PostgreSQL persistence (phase 5), auth, or any UI change. No file under
 `components/visual/baseline-v1/` was touched.
 
-`StoryTargetBinding`-style deep verification for `MWU_SOURCE_UNIT`/
-`GRAMMAR_UNIT` targets in `ProgressProjection`'s evidence check is the same
-open item `docs/story-engine-implementation.md` §8 already names — this phase
-did not need to close it, since no test exercises evidence for a non-`SENSE`
-target yet.
-
 An administrative, privacy-driven erasure path for `LearnerEvent` data is
 explicitly out of scope: `docs/architecture/plan-implementacion-motor-v1.0.md`
 §"Seguridad de datos" allows documenting the policy for a later phase without
@@ -241,3 +234,116 @@ now returns a `Promise`; `engine/append-event.ts`'s
 reason. No event shape, projection, or attribution rule changed.
 `features/persistence`'s `PostgresLearnerEventRepository` implements the
 identical interface — see `docs/persistence.md`.
+
+---
+
+## 9. Addendum (deuda A): `TargetEvidence` for all 985 targets
+
+Before this addendum, `ProgressProjection`'s `hasEvidence` check worked only
+for `SENSE` targets carrying a `lexemeId` — the 214 `MWU_SOURCE_UNIT` and 169
+`GRAMMAR_UNIT` targets (383 of 985, including all 170 MWUs with
+`NO_LEXICAL_IDENTITY`) could never show evidence, no matter how many times a
+learner encountered them. `docs/architecture/plan-implementacion-motor-v1.0.md`
+requires the progress engine to represent all 985 targets homogeneously
+without collapsing `Sense != MWU != GrammarUnit`; this addendum closes that
+gap.
+
+### 9.1 `TargetEvidence` — a closed, discriminated union, not a `Lexeme` shape
+
+`domain/target-evidence.ts` defines `SenseTargetEvidence` /
+`MwuTargetEvidence` / `GrammarTargetEvidence` as three distinct members of one
+union, mirroring `TargetType`. A `MwuTargetEvidence`/`GrammarTargetEvidence`
+carries no `lexemeId` field at all — not `null`, absent from the type — so
+there is no way to accidentally read a `Lexeme` identity off evidence for a
+target that legitimately has none. `TargetEvidence != mastery`: it records
+that >= 1 event evidences this exact target, nothing about how well the
+learner knows it.
+
+### 9.2 Two resolution paths, never merged into one
+
+`engine/target-evidence-projection.ts`'s `buildTargetEvidenceProjection`
+keeps `SENSE` and `MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` on separate, independent
+paths:
+
+- **`SENSE` -> lexeme attribution, byte-for-byte the pre-existing behaviour.**
+  An `OCCURRENCE_OPENED` event with a non-null `recordedLexemeId` evidences
+  *every* `SENSE` target sharing that lexeme — the same lexeme-level (not
+  sense-exact) granularity `ProgressProjection` always had. This is a
+  deliberate compatibility decision, not an oversight: narrowing it to
+  sense-exact matching would change `targetsWithEvidence` counts for every
+  existing test and fixture, and the brief explicitly asks to keep this path
+  unchanged (§6 "no romper lineage-aware attribution"). Lineage-aware
+  reattribution (`engine/attribution-engine.ts`) is untouched — it operates
+  on the event's `recordedLexemeId` upstream of this projection and nothing
+  here changes what it resolves to.
+- **`MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` -> `StoryTargetBinding`, resolved from
+  the event's `occurrenceId`.** No `Lexeme` involved at any point — correct
+  for the 170 MWUs and 169 grammar units that have none.
+  `indexTargetBindingsByOccurrence` builds an
+  `occurrenceId -> StoryTargetBinding[]` map once per projection build (the
+  caller supplies the bindings — typically every `StoryTargetBinding` on the
+  `StoryVersion`s the learner's events reference); for each event, only the
+  bindings on that exact occurrence are consulted, and only non-`SENSE`
+  bindings are turned into evidence (a `SENSE` binding on the same occurrence
+  is left to the lexeme path, so it is never double-resolved).
+
+A `SENSE` target's evidence therefore never touches a `StoryTargetBinding`,
+and an `MWU_SOURCE_UNIT`/`GRAMMAR_UNIT` target's evidence never touches a
+`Lexeme` — provably, by construction, not by convention: the two code paths
+share no function.
+
+### 9.3 `createStoryTargetBindingEvidence` fails loudly on corrupt input
+
+Same convention as `CurriculumRegistry.getFirstIntroduction` and
+`features/story-engine/engine/target-binding.ts`: resolving one
+`MwuTargetEvidence`/`GrammarTargetEvidence` record is a pure, *throwing*
+function, not one that silently drops a bad record from the projection.
+Three distinct failure modes, each with its own error code and test:
+
+- `TARGET_EVIDENCE_UNKNOWN_TARGET` — the binding names a `targetId` the
+  registry does not publish.
+- `TARGET_EVIDENCE_BINDING_MISMATCH` — the binding's `occurrenceId`/
+  `storyVersionId` does not match the event being resolved (a caller passed
+  the wrong pair).
+- `TARGET_EVIDENCE_TARGET_TYPE_MISMATCH` — the binding claims a `targetType`
+  that disagrees with what the registry actually publishes for that
+  `targetId`.
+
+A `SENSE` binding reaching this function at all is also rejected
+(`TARGET_EVIDENCE_SENSE_VIA_BINDING_UNSUPPORTED`): `SENSE` evidence must come
+from lexeme attribution, never from a binding, by design (§9.2).
+
+### 9.4 `ProgressProjection` grew a per-type breakdown, not a second boolean
+
+`buildProgressProjection`'s signature changed: it now takes a
+`TargetEvidenceProjection` instead of a `ContextHistoryProjection` (the
+latter still exists, unchanged, for its own purpose — "studied contexts" —
+and is no longer progress's concern). `TargetCoverage` gained a `targetType`
+field, and `StoryProgress`/`IslandProgress`/`ModuleProgress`/
+`ProgressProjection` all gained a `breakdown: TargetTypeBreakdown` —
+`{ SENSE, MWU_SOURCE_UNIT, GRAMMAR_UNIT, total }`, each a
+`{ total, withEvidence, withoutEvidence }`. Every scope can now answer, per
+type and overall: how many targets exist, how many have evidence, which ones
+are missing (filter `targets` by `hasEvidence === false`) — without ever
+computing a percentage or a mastery figure. `computedMastery` stays `null`
+everywhere; `KNOWN` stays a declared state, never derived from evidence
+count.
+
+### 9.5 Structural coverage gate
+
+`__tests__/target-evidence.test.ts` asserts, over the real committed
+`A1-CURRICULUM-v1.51` registry with an empty event log, that
+`ProgressProjection.breakdown` reports exactly 602 `SENSE`, 214
+`MWU_SOURCE_UNIT`, 169 `GRAMMAR_UNIT` and 985 total — the progress engine
+*understands* every published target, independent of whether any learner has
+evidence for it yet.
+
+```text
+PROGRESS_ALL_TARGET_TYPES        PASS
+CURRICULAR_TARGET_MODEL_COVERAGE 985/985  (602 SENSE + 214 MWU_SOURCE_UNIT + 169 GRAMMAR_UNIT)
+npm run curriculum:check         PASS  (unchanged)
+npm test                         PASS  312/312 (294 phases 1-5 + 18 deuda A)
+npm run typecheck                PASS
+npm run lint                     PASS  0 errors, 1 pre-existing warning
+npm run build                    PASS
+```

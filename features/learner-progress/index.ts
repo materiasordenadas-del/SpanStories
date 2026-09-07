@@ -41,7 +41,18 @@ export type {
   ProgressProjection,
   StoryProgress,
   TargetCoverage,
+  TargetTypeBreakdown,
+  TargetTypeCounts,
 } from "./domain/progress.ts";
+
+export type {
+  EvidenceKind,
+  GrammarTargetEvidence,
+  MwuTargetEvidence,
+  SenseTargetEvidence,
+  TargetEvidence,
+} from "./domain/target-evidence.ts";
+export { EVIDENCE_KINDS, targetTypeOfEvidence } from "./domain/target-evidence.ts";
 
 export { compareLearnerEvents, sortedByOccurrence } from "./engine/ordering.ts";
 export { recordOccurrenceOpened, recordStateDeclared } from "./engine/record-event.ts";
@@ -52,6 +63,12 @@ export { resolveAttribution } from "./engine/attribution-engine.ts";
 export type { DeclaredStateEntry, DeclaredStateProjection } from "./engine/declared-state-projection.ts";
 export { buildDeclaredStateProjection } from "./engine/declared-state-projection.ts";
 export { buildContextHistoryProjection } from "./engine/context-history-projection.ts";
+export type { TargetEvidenceProjection } from "./engine/target-evidence-projection.ts";
+export {
+  buildTargetEvidenceProjection,
+  createStoryTargetBindingEvidence,
+  indexTargetBindingsByOccurrence,
+} from "./engine/target-evidence-projection.ts";
 export { buildProgressProjection } from "./engine/progress-projection.ts";
 
 export type { LearnerEventRepository } from "./repository/learner-event-repository.ts";
