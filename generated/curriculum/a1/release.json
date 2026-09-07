@@ -9,15 +9,15 @@
   "sourceFiles": [
     {
       "file": "spanishstories_a1_ws_normalization_master_v1.37.csv",
-      "sha256": "564b749f6913e34fb018a209e3447a96c6f745ea502e783dc05675fd93900836",
-      "byteLength": 2275769,
+      "sha256": "18e522742d59a00221512514ded72d23e0c005ff96ddd8ca419496ba1f5dfe4b",
+      "byteLength": 2272995,
       "recordCount": 2773,
       "declaredCurriculumVersion": "1.37"
     },
     {
       "file": "spanishstories_a1_ws_source_assertions_modes_v1.40.csv",
-      "sha256": "14fca848ae73a01762212f65aa81bc1099f8f2b54a520b4bff66c1958a172dc8",
-      "byteLength": 1781002,
+      "sha256": "24a19adf242f1c6f0fdc7d16347529addacc62c160a32d2df9650709b85cd33b",
+      "byteLength": 1779241,
       "recordCount": 1760,
       "declaredCurriculumVersion": "1.40"
     },
@@ -51,8 +51,8 @@
     },
     {
       "file": "spanishstories_a1_ws_coverage_final_v1.40.csv",
-      "sha256": "75f5a3c882475fba36743ed705859e913294834f0aba66d1411e71d470cc2f5b",
-      "byteLength": 18650,
+      "sha256": "263d67bb0a95a4ca9d766cf139e466d22b9227c8d2ef961f94fe34f9fd26babc",
+      "byteLength": 18572,
       "recordCount": 77,
       "declaredCurriculumVersion": null
     },
@@ -65,17 +65,17 @@
     }
   ],
   "sourceHashes": {
-    "spanishstories_a1_ws_normalization_master_v1.37.csv": "564b749f6913e34fb018a209e3447a96c6f745ea502e783dc05675fd93900836",
-    "spanishstories_a1_ws_source_assertions_modes_v1.40.csv": "14fca848ae73a01762212f65aa81bc1099f8f2b54a520b4bff66c1958a172dc8",
+    "spanishstories_a1_ws_normalization_master_v1.37.csv": "18e522742d59a00221512514ded72d23e0c005ff96ddd8ca419496ba1f5dfe4b",
+    "spanishstories_a1_ws_source_assertions_modes_v1.40.csv": "24a19adf242f1c6f0fdc7d16347529addacc62c160a32d2df9650709b85cd33b",
     "spanishstories_a1_ws_sequencing_architecture_v1.51.csv": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd",
     "spanishstories_a1_ws_sequencing_allocation_v1.51.csv": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d",
     "spanishstories_a1_ws_story_blueprints_v1.51.csv": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd",
     "spanishstories_a1_ws_recycling_edges_v1.51.csv": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065",
-    "spanishstories_a1_ws_coverage_final_v1.40.csv": "75f5a3c882475fba36743ed705859e913294834f0aba66d1411e71d470cc2f5b",
+    "spanishstories_a1_ws_coverage_final_v1.40.csv": "263d67bb0a95a4ca9d766cf139e466d22b9227c8d2ef961f94fe34f9fd26babc",
     "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63"
   },
-  "generatedAt": "2026-09-06T22:53:27.137Z",
-  "contentHash": "4d598dc1bffebb2b20be3ebabfa618a803bedeb5c45403934135ed9bb86eefad",
+  "generatedAt": "2026-09-06T23:53:20.477Z",
+  "contentHash": "e019ccc4675316f37772d214f1a058a5414ba1ef8796579fe20a25372f6dd464",
   "expectedCounts": {
     "lexemes": 599,
     "lexemeForms": 666,

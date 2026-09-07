@@ -6,6 +6,34 @@ SpanStories es una plataforma experimental para aprender español mediante histo
 
 El proyecto está en construcción. El desarrollo de la primera versión funcional se realiza en ramas de prueba antes de integrar cambios en `main`.
 
+Baseline técnico vigente del motor:
+
+```text
+CurriculumRelease = A1-CURRICULUM-v1.51   (8 módulos / 11 islas / 32 StoryBlueprints)
+LexiconRelease    = A1-LEXICON-v1.0
+
+Fase 1 Curriculum Importer + Registry   MIGRATED / PASS
+Fase 2 Lexical Engine                   REVALIDATED / PASS
+Fase 3 Story Engine                     READY — no iniciada
+```
+
+## Documentación
+
+La autoridad técnica del proyecto está versionada en este repositorio; no
+depende de carpetas locales fuera de él.
+
+| Documento | Qué es |
+| --- | --- |
+| `docs/architecture/README.md` | Índice de arquitectura y qué copia es la canónica |
+| `docs/architecture/plataforma-arquitectura-v1.0.md` | Arquitectura de plataforma |
+| `docs/architecture/plan-implementacion-motor-v1.0.md` | Plan de implementación del motor, Fases 1–6 |
+| `docs/architecture/fases-motor/` | Especificaciones de Fase 1 y Fase 2 |
+| `docs/lexical-engine.md` | Modelo de dominio de identidad léxica |
+| `docs/curriculum-import.md` | Notas de implementación de Fase 1 |
+| `docs/lexical-engine-implementation.md` | Notas de implementación de Fase 2 |
+| `docs/curriculum/a1-restructure/` | Paquete curricular aprobado A–H de `A1-CURRICULUM-v1.51` |
+| `HANDOFF_NEXT_PHASE.md` | Estado de fases y handoff a Fase 3 |
+
 ## Arquitectura pedagógica
 
 ```text

@@ -1,0 +1,26 @@
+# Byte-authoritative paths.
+#
+# The curriculum importer hashes the bytes it reads, and the published release
+# manifest (docs/curriculum/a1-restructure/curriculum-release-v1.51-rc1.json)
+# records SHA-256 over the *Git blob* bytes. With `core.autocrlf=true` a Windows
+# checkout rewrites LF to CRLF, so the same commit hashed differently on Windows
+# and Linux and `release.json` recorded a platform-dependent manifest.
+#
+# `-text` disables end-of-line conversion in both directions: the working tree
+# gets the blob verbatim, and `git add` stores what is on disk unchanged. That
+# makes the Git blob the single authority for these files on every platform.
+# It deliberately does NOT normalise anything: the published v1.51 sequencing
+# CSVs are stored with CRLF terminators and keep them, and the shared v1.37 and
+# v1.40 inventory CSVs are stored with LF and keep that. No blob is rewritten,
+# so no approved hash changes.
+#
+# `diff` is set alongside so these stay textually diffable rather than being
+# reported as binary.
+#
+# Scope is deliberately narrow. There is no repo-wide `text=auto`: normalising
+# every source file would churn the tree without making any hash reproducible.
+
+content/a1/vocabulary/**/*.csv          -text diff
+generated/curriculum/a1/*.json          -text diff
+docs/curriculum/a1-restructure/*.csv    -text diff
+docs/curriculum/a1-restructure/*.json   -text diff

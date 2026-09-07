@@ -9,7 +9,7 @@ PHASE_3_READY       = YES
 
 ## 1. Commits
 
-Branch `prueba`. `main` untouched, no merge, no push.
+Branch `prueba`, pushed to `origin/prueba`. `main` untouched, no merge.
 
 - Initial HEAD for this migration: `4c550674761eb9220a6d8157fbf7ba0e3d9edde7`
 - Migration commit: `6944663b053b6e52289c2a27c5c973766b7984bb`
@@ -66,7 +66,15 @@ content/a1/vocabulary/respaldo/a1-curriculum-v1.44/   archived v1.44, read by no
 docs/curriculum-import.md                       phase 1 documentation
 docs/lexical-engine-implementation.md           phase 2 documentation
 docs/curriculum/a1-restructure/                 the approved A–H curricular package
+docs/architecture/                              engine architecture and phase specs
+docs/lexical-engine.md                          lexical identity domain model
+.gitattributes                                  byte authority for hashed paths
 ```
+
+The architecture and phase-spec documents used to live only in a local folder
+outside the repository. They are now versioned here and **these copies are
+canonical** — see `docs/architecture/README.md`. Phase 3 does not need any
+out-of-repo folder to reconstruct the technical context.
 
 ## 4. What changed in phase 1
 
@@ -125,7 +133,7 @@ files in `generated/` changed.
 ```bash
 npm run curriculum:check   # IMPORT OK, 27 invariants PASS
 npm run curriculum:import  # regenerates generated/curriculum/a1
-npm test                   # 159 tests (78 phase 1 + 81 phase 2), 0 fail
+npm test                   # 160 tests (79 phase 1 + 81 phase 2), 0 fail
 npm run typecheck          # 0 errors
 npm run lint               # 0 errors, 1 pre-existing warning (§10)
 npm run build              # OK
@@ -151,6 +159,12 @@ npm run build              # OK
 The five root v1.44 sequencing CSVs were deleted **after** every gate was green,
 then every gate was rerun. `contentHash` was `4d598dc1bffebb…` before and after
 the deletion — nothing in the active path read them.
+
+The current `contentHash` is `e019ccc4675316…`. It moved only when
+`.gitattributes` made the working tree carry the Git blob bytes verbatim (§9):
+the hash covers `sourceHashes`, and three of those now record canonical blob
+hashes rather than Windows-CRLF ones. All eleven generated collection files
+stayed byte-identical through that change, so no canonical content moved.
 
 The archive under `content/a1/vocabulary/respaldo/a1-curriculum-v1.44/` was
 verified byte-identical (SHA-256) to the deleted files before deletion and was
@@ -188,12 +202,15 @@ Everything phases 1 and 2 established still holds. In addition:
   mechanically would require the importer to read the retired v1.44 id space,
   which is not a canonical source of the active release. The claim rests on the
   ETAPA H crosswalk. H-021 and H-023 *are* recomputed against the data.
-- **The v1.51 manifest hashes carried-over sources over LF-normalised bytes.**
-  `curriculum-release-v1.51-rc1.json` records LF hashes for the three shared
-  `v1.37`/`v1.40` files because the generator ran without CRLF conversion; a
-  Windows checkout hashes them differently. The five v1.51 files match exactly
-  on both. The repo has no `.gitattributes`; adding one would settle this, and
-  is deliberately left out of a curriculum migration.
+- ~~The v1.51 manifest hashes carried-over sources over LF-normalised bytes.~~
+  **Resolved.** `.gitattributes` now marks the byte-authoritative paths `-text`,
+  so a checkout writes the Git blob verbatim on every platform. All **8/8**
+  source hashes recorded in `release.json` equal the published manifest, and the
+  v1.44 archive verifies 5/5 against its own manifest. No blob was rewritten and
+  no approved hash changed; only `release.json` moved, recording the canonical
+  blob hashes for the three shared inventory files instead of Windows-CRLF ones.
+  A regression test in `importer.test.ts` now compares imported hashes against
+  the published manifest.
 - **`spanishstories_curriculo_a1_prueba1_v1.44.md`** remains under
   `content/a1/vocabulary/`. It is prose, not an importer source, and the cutover
   manifest lists only the five CSVs for removal.
@@ -234,8 +251,14 @@ Python/spaCy. No file under `app/`, `components/visual/`,
 
 ## 13. Open contradictions
 
-No `BLOCKER_CONTRADICTION` was raised. One apparent conflict was investigated
-and resolved from evidence — the manifest/on-disk SHA-256 divergence on the
-three carried-over inventory files, which is a CRLF-vs-LF artefact and not a
-content difference (§9). Nothing in the canonical CSVs or the generated registry
-was modified to make sources agree.
+No `BLOCKER_CONTRADICTION` and no `BLOCKER_HASH_CANONICALIZATION` was raised.
+
+One apparent conflict was investigated and resolved from evidence: the
+manifest/on-disk SHA-256 divergence on the three carried-over inventory files.
+It was a CRLF-vs-LF checkout artefact, not a content difference — the published
+manifest had been computed over Git blob bytes all along, and the divergence
+was confined to the Windows working tree. Fixing it therefore preserved every
+published blob and changed no approved hash, so it did not require the blocker.
+
+Nothing in the canonical CSVs or the generated collections was modified to make
+sources agree.

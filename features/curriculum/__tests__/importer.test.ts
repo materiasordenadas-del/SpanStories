@@ -3,6 +3,8 @@
  */
 
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { before, describe, test } from "node:test";
 
 import {
@@ -308,6 +310,38 @@ describe("curriculum importer / A1 release", () => {
       files.every((file) => !file.includes("v1.44")),
       "no v1.44 sequencing artefact may remain in the active release",
     );
+  });
+
+  test("source hashes reproduce the published release manifest byte for byte", () => {
+    /*
+     * The curriculum authority publishes a SHA-256 per source, computed over
+     * the Git blob. This test is what keeps that reproducible across platforms:
+     * `.gitattributes` marks these paths `-text`, so a Windows checkout no
+     * longer rewrites LF to CRLF and hashes the same bytes a Linux checkout
+     * does. Without it, three of the eight hashes differed by exactly one CR
+     * per line and `release.json` was platform-dependent.
+     */
+    const manifest = JSON.parse(
+      readFileSync(
+        join(
+          "docs",
+          "curriculum",
+          "a1-restructure",
+          "curriculum-release-v1.51-rc1.json",
+        ),
+        "utf8",
+      ),
+    ) as { sourceFiles: { path: string; sha256: string }[] };
+
+    assert.equal(manifest.sourceFiles.length, 8);
+    for (const source of manifest.sourceFiles) {
+      const file = source.path.split("/").pop() as string;
+      assert.equal(
+        release.sourceHashes[file],
+        source.sha256,
+        `${file}: imported hash must equal the published manifest hash`,
+      );
+    }
   });
 
   test("records the curriculum version each source declares", () => {
