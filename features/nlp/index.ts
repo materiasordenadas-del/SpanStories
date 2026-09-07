@@ -23,6 +23,15 @@ export { NlpError, nlpIssue, formatNlpIssue } from "./domain/errors.ts";
 export type { Clock, IdGenerator } from "./domain/ports.ts";
 
 export type { AnalyzerProvenance } from "./domain/provenance.ts";
+export {
+  EXPECTED_SPACY_VERSION,
+  EXPECTED_MODEL_NAME,
+  EXPECTED_MODEL_VERSION,
+  assertAnalyzerVersionGoverned,
+  computeAnalyzerFingerprint,
+  analyzerFingerprintString,
+  type AnalyzerFingerprint,
+} from "./domain/analyzer-config.ts";
 export type { NlpAnalysis, SentenceAnalysis, TokenAnalysis } from "./domain/analysis.ts";
 
 export type {

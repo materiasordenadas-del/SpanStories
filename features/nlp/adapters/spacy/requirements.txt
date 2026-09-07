@@ -1,1 +1,15 @@
+# Corrección E — governed, reproducible analyzer configuration. Both lines
+# here must match features/nlp/domain/analyzer-config.ts's EXPECTED_*
+# constants exactly; bump them together, never independently, and update
+# ../__tests__/analyzer-version.test.ts in the same change.
+#
+# spaCy itself:
 spacy==3.8.16
+#
+# The es_core_news_sm model, pinned to the exact release build spaCy models
+# publish on GitHub Releases (https://github.com/explosion/spacy-models/releases) —
+# spaCy's own documented mechanism for installing a specific model version
+# reproducibly, not `python -m spacy download` (which always resolves to
+# whatever the current release channel considers compatible with the
+# installed spaCy version, i.e. not pinned).
+https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.8.0/es_core_news_sm-3.8.0-py3-none-any.whl

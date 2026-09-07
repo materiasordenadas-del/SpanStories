@@ -12,8 +12,18 @@ Input:
   {
     "contractVersion": "1.0.0",
     "modelName": "es_core_news_sm",
+    "expectedSpacyVersion": "3.8.16" | null,
+    "expectedModelVersion": "3.8.0" | null,
     "sentences": [{"sentenceIndex": 0, "text": "..."}, ...]
   }
+
+`expectedSpacyVersion`/`expectedModelVersion` are the governed pin from
+`../../domain/analyzer-config.ts` (Node is the single source of truth for
+these two strings; this script never hardcodes its own copy). When either is
+non-null and does not match what actually loaded, this script fails loudly
+(`ANALYZER_VERSION_MISMATCH`) rather than silently analyzing under a
+different spaCy/model version than the one this codebase was built and
+tested against.
 
 Output:
   {
@@ -82,6 +92,8 @@ def main() -> None:
         return
 
     model_name = payload.get("modelName", "es_core_news_sm")
+    expected_spacy_version = payload.get("expectedSpacyVersion")
+    expected_model_version = payload.get("expectedModelVersion")
     sentences = payload.get("sentences", [])
     if not isinstance(sentences, list):
         fail("ANALYZER_BRIDGE_FAILURE: 'sentences' must be a list")
@@ -93,6 +105,15 @@ def main() -> None:
         fail(f"ANALYZER_BRIDGE_FAILURE: spaCy is not installed: {exc}")
         return
 
+    if expected_spacy_version is not None and spacy.__version__ != expected_spacy_version:
+        fail(
+            "ANALYZER_VERSION_MISMATCH: spaCy "
+            f"{spacy.__version__} is installed but {expected_spacy_version} is the governed version "
+            "(features/nlp/domain/analyzer-config.ts) — install the pinned version rather than running "
+            "under an unreviewed one"
+        )
+        return
+
     try:
         nlp = spacy.load(model_name)
     except OSError as exc:
@@ -100,6 +121,13 @@ def main() -> None:
         return
 
     model_version = nlp.meta.get("version", "unknown")
+
+    if expected_model_version is not None and model_version != expected_model_version:
+        fail(
+            f"ANALYZER_VERSION_MISMATCH: model {model_name} version {model_version} is installed but "
+            f"{expected_model_version} is the governed version (features/nlp/domain/analyzer-config.ts)"
+        )
+        return
 
     output_sentences = []
     for entry in sentences:

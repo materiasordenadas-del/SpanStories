@@ -16,6 +16,7 @@
 import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { SpaCyAnalyzer } from "../adapters/spacy/spacy-analyzer.ts";
+import { EXPECTED_SPACY_VERSION, EXPECTED_MODEL_VERSION } from "../domain/analyzer-config.ts";
 import { buildAnnotationCandidates, type CandidateBuildContext } from "../engine/candidate-builder.ts";
 import { acceptAnnotationCandidate, type AcceptanceContext } from "../review/acceptance-service.ts";
 import { InMemoryAnnotationDecisionRepository } from "../repository/in-memory-annotation-decision-repository.ts";
@@ -47,6 +48,13 @@ describe("nlp / real spaCy integration (BLOCKER_NLP_INTEGRATION_ENV if this fail
     assert.ok(analysis.provenance.analyzerVersion.length > 0);
     assert.equal(analysis.provenance.modelName, "es_core_news_sm");
     assert.ok(analysis.provenance.modelVersion !== null);
+    // Corrección E — the real installed environment must match the governed
+    // pin exactly; SpaCyAnalyzer.analyze() already enforces this (default
+    // `enforceGovernedVersion: true`) and would have thrown before returning,
+    // but assert it explicitly here too so a future relaxation of that
+    // default cannot silently regress this test's coverage.
+    assert.equal(analysis.provenance.analyzerVersion, EXPECTED_SPACY_VERSION);
+    assert.equal(analysis.provenance.modelVersion, EXPECTED_MODEL_VERSION);
 
     const buildCtx: CandidateBuildContext = {
       storyVersionId,

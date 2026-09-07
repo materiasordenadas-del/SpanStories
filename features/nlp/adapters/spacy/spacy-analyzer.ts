@@ -27,6 +27,7 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { NlpError, nlpIssue } from "../../domain/errors.ts";
+import { EXPECTED_MODEL_NAME, EXPECTED_MODEL_VERSION, EXPECTED_SPACY_VERSION, assertAnalyzerVersionGoverned } from "../../domain/analyzer-config.ts";
 import type { NlpAnalysis, SentenceAnalysis, TokenAnalysis } from "../../domain/analysis.ts";
 import type { AnalyzerSentenceInput, NlpAnalyzer } from "../analyzer.ts";
 
@@ -54,6 +55,14 @@ export type SpaCyAnalyzerOptions = {
   readonly scriptPath?: string;
   readonly modelName?: string;
   readonly timeoutMs?: number;
+  /**
+   * Corrección E — refuse to accept output from a spaCy/model version other
+   * than `../../domain/analyzer-config.ts`'s governed pin
+   * (`ANALYZER_VERSION_MISMATCH`). Defaults to `true`; the only reason to
+   * disable it is a deliberate, reviewed upgrade in progress that has not
+   * yet updated the governed constants.
+   */
+  readonly enforceGovernedVersion?: boolean;
 };
 
 type BridgeOutputToken = {
@@ -93,18 +102,25 @@ export class SpaCyAnalyzer implements NlpAnalyzer {
   private readonly scriptPath: string;
   private readonly modelName: string;
   private readonly timeoutMs: number;
+  private readonly enforceGovernedVersion: boolean;
 
   constructor(options: SpaCyAnalyzerOptions = {}) {
     this.pythonExecutable = options.pythonExecutable ?? process.env.SPANSTORIES_PYTHON ?? "python";
     this.scriptPath = options.scriptPath ?? DEFAULT_SCRIPT_PATH;
-    this.modelName = options.modelName ?? "es_core_news_sm";
+    this.modelName = options.modelName ?? EXPECTED_MODEL_NAME;
     this.timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+    this.enforceGovernedVersion = options.enforceGovernedVersion ?? true;
   }
 
   async analyze(sentences: readonly AnalyzerSentenceInput[]): Promise<NlpAnalysis> {
     const input = JSON.stringify({
       contractVersion: BRIDGE_CONTRACT_VERSION,
       modelName: this.modelName,
+      // Corrección E — Python reads the governed pin from this one payload
+      // rather than keeping its own possibly-drifting copy of the version
+      // string; see ../../domain/analyzer-config.ts.
+      expectedSpacyVersion: this.enforceGovernedVersion ? EXPECTED_SPACY_VERSION : null,
+      expectedModelVersion: this.enforceGovernedVersion ? EXPECTED_MODEL_VERSION : null,
       sentences,
     });
 
@@ -119,6 +135,13 @@ export class SpaCyAnalyzer implements NlpAnalyzer {
 
     if (parsed.contractVersion !== BRIDGE_CONTRACT_VERSION) {
       fail(`bridge contract version mismatch: expected ${BRIDGE_CONTRACT_VERSION}, got ${parsed.contractVersion}`);
+    }
+
+    // Corrección E §31 — a second, independent check on the Node side: never
+    // trust that Python's own check (analyzer.py, same governed constants
+    // passed above) ran or was honest about it.
+    if (this.enforceGovernedVersion) {
+      assertAnalyzerVersionGoverned({ analyzerVersion: parsed.analyzerVersion, modelName: parsed.modelName, modelVersion: parsed.modelVersion });
     }
 
     const resolvedSentences: SentenceAnalysis[] = parsed.sentences.map((s) => ({
