@@ -1,11 +1,17 @@
-# Handoff — phases 1 + 2 to phase 3 (Story Engine)
+# Handoff — phases 1-3 to phase 4 (Learner Event / Progress Engine)
 
 ```text
-PHASE_1_MIGRATED    = PASS
-PHASE_2_REVALIDATED = PASS
-PHASE_3_IMPLEMENTED = NO
-PHASE_3_READY       = YES
+PHASE_1_MIGRATED     = PASS
+PHASE_2_REVALIDATED  = PASS
+PHASE_3_STORY_ENGINE = PASS
+PHASE_4_IMPLEMENTED  = NO
+PHASE_4_READY        = YES
 ```
+
+Phase 3 (Story Engine) is documented in full in
+`docs/story-engine-implementation.md`; §14 below is the short summary. Sections
+1-13 are the phase 1/2 handoff, unchanged and still authoritative for their
+scope.
 
 ## 1. Commits
 
@@ -60,11 +66,13 @@ figures as current.
 ```text
 features/curriculum/index.ts                    phase 1 public contract
 features/lexical-engine/index.ts                phase 2 public contract
+features/story-engine/index.ts                  phase 3 public contract
 generated/curriculum/a1/                        the executable registry
 content/a1/vocabulary/*.csv                      authoring authority (v1.51 + v1.37/v1.40)
 content/a1/vocabulary/respaldo/a1-curriculum-v1.44/   archived v1.44, read by nothing
 docs/curriculum-import.md                       phase 1 documentation
 docs/lexical-engine-implementation.md           phase 2 documentation
+docs/story-engine-implementation.md             phase 3 documentation
 docs/curriculum/a1-restructure/                 the approved A–H curricular package
 docs/architecture/                              engine architecture and phase specs
 docs/lexical-engine.md                          lexical identity domain model
@@ -230,24 +238,30 @@ components/visual/baseline-v1/_ds/modernist-.../_ds_bundle.js
 
 Present before this migration. No new warning was introduced.
 
-## 11. The legacy fixture
+## 11. The legacy fixture (retired by phase 3, original untouched)
 
 `lib/lexical-prototype.ts`, `components/story-reader.tsx` and
-`content/a1/module-1/island-1/story-1.ts` are untouched. The fixture story still
-uses invented ids (`lex-ir`, `sense-ir-move`) that are **not** curriculum ids.
+`content/a1/module-1/island-1/story-1.ts` remain exactly as phase 2 left them —
+still using invented ids (`lex-ir`, `sense-ir-move`) that are **not**
+curriculum ids. Retiring them (pointing `story-reader.tsx` at the phase-3
+engine) is a UI-adapter decision the engine phases do not make; see
+`docs/architecture/plan-implementacion-motor-v1.0.md` §"No rediseñar UI".
 
-No `BLOCKER_ID_COLLISION` occurred: the fixture ids share no namespace with the
-v1.51 canonical ids. Mapping the fixture onto `LEX-A1-*` still requires an
-editorial decision no published artefact supplies. **This is phase 3's to
-retire.**
+Phase 3 satisfied the *technical* retirement this section asked for:
+`features/story-engine/fixtures/la-compra-olvidada.ts` rebuilds the fixture's
+most structurally interesting content (a contiguous occurrence, a
+discontinuous one) with the canonical engine, proves it stays a
+`TECHNICAL_FIXTURE` (`Story.storyBlueprintId = null`, unpublishable), and
+proves its ids still share no namespace with `LEX-A1-*` — this time by
+construction (the phase-3 id prefix scheme), not by accident. See
+`docs/story-engine-implementation.md` §5. No `BLOCKER_ID_COLLISION`.
 
 ## 12. Not started, by design
 
-`Story`, `StoryVersion`, `StoryOccurrence`, `TextAnchor`, `OccurrencePart`,
-`StoryTargetBinding`, the processor and the publication validator. No Learner
-Event Engine, mastery or progress engine, PostgreSQL, ORM, auth, NLP or
-Python/spaCy. No file under `app/`, `components/visual/`,
-`features/story-engine/` or `features/learner-progress/` was touched.
+No Learner Event Engine, mastery or progress engine (phase 4), no PostgreSQL,
+ORM or persistence layer (phase 5), no auth, NLP or Python/spaCy (phase 6). No
+file under `app/`, `components/visual/` or `features/learner-progress/` was
+touched. `features/story-engine/` is phase 3's own scope — see §14.
 
 ## 13. Open contradictions
 
@@ -262,3 +276,62 @@ published blob and changed no approved hash, so it did not require the blocker.
 
 Nothing in the canonical CSVs or the generated collections was modified to make
 sources agree.
+
+## 14. Phase 3 (Story Engine) summary
+
+```text
+PHASE_3_STORY_ENGINE = PASS
+```
+
+Full design rationale, decisions and audit are in
+`docs/story-engine-implementation.md`. Short version:
+
+- **Entities implemented**: `Story`, `StoryVersion`, `StorySentence`,
+  `SurfaceToken`, `TextAnchor`, `StoryOccurrence` (`LEXICAL`/`CONSTRUCTION`),
+  `OccurrencePart`, `OccurrenceAnnotationRevision`, `StoryTargetBinding`,
+  `StoryRepository`/`InMemoryStoryRepository`, and the publication validator
+  (`validateStoryPublication`).
+- **`Story != StoryBlueprint`**: never assumed equal; a `Story` may exist with
+  `storyBlueprintId = null` (technical fixture) but can never be *published*
+  as curricular without one.
+- **Technical id namespace**: every phase-3 id carries a fixed lowercase
+  prefix (`story-`, `storyver-`, `anchor-`, `occ-`, `part-`, `rev-`,
+  `bind-`, ...) that cannot collide with a published curriculum id
+  (`LEX-A1-*`, uppercase). No `BLOCKER_ID_COLLISION`.
+- **`TextAnchor` offsets are Unicode code points**, half-open `[start, end)` —
+  documented and tested against an astral character (an emoji) specifically
+  because JavaScript's `.length` would disagree with Python's `len()` there.
+- **Discontinuous occurrences work**: `"Marta se dio finalmente cuenta..."`
+  (`CLITIC`+`HEAD`+`FIXED`, gap on "finalmente"), `"vete"` (two anchors inside
+  one orthographic token), and `"Lleva tres años estudiando español"`
+  (`ANCHOR`+`SLOT(DURATION)`+`SLOT(GERUND_PREDICATE)`, a `CONSTRUCTION`
+  occurrence — no lexeme minted for the pattern) are all implemented and
+  tested.
+- **Publication validator** checks textual, lexical and curricular integrity
+  and is proven end-to-end against a real story blueprint
+  (`A1-M01-I05-S1`, all 33 first introductions bound, zero returns needed) —
+  not just against synthetic fixtures.
+- **No PostgreSQL yet** (phase 5): `InMemoryStoryRepository` is the only
+  adapter; the repository interface has no update/delete for published
+  content, by design, so a future PostgreSQL adapter cannot reintroduce
+  in-place mutation without changing the interface everyone already composes
+  against.
+- **Legacy fixture retired technically**, original untouched — see §11.
+- **Known, deliberate debt**: `StoryTargetBinding` does not deep-check that a
+  bound occurrence's `lexemeId`/`constructionId` matches a non-`SENSE`
+  (`MWU_SOURCE_UNIT`/`GRAMMAR_UNIT`) target's own identity — only that the
+  binding itself is well-formed and correctly scheduled. See
+  `docs/story-engine-implementation.md` §8.
+
+```bash
+npm run curriculum:check   # PASS, unchanged
+npm test                   # PASS 217/217 (160 phases 1-2 + 57 phase 3)
+npm run typecheck          # PASS
+npm run lint               # PASS, 0 errors, 1 pre-existing warning
+npm run build              # PASS
+```
+
+Phase 4 (Learner Event / Progress Engine) may proceed: it consumes
+`features/story-engine/index.ts`'s `StoryOccurrenceId`/`StoryVersionId` in its
+event shapes, but does not need to wait on real Story content (§8's debt) or
+on PostgreSQL (phase 5).
