@@ -54,6 +54,27 @@
 .readerPageWide .readingStory p { margin:0 0 1.25em; }
 .readerPageWide .readingStory p:nth-child(4),.readerPageWide .readingStory p:nth-child(9),.readerPageWide .readingStory p:nth-child(13) { margin-top:2.4em; }
 .readerPageWide .readingStory strong { font-size:13px; letter-spacing:.06em; }
+.storySentenceRoster { white-space:pre-line; }
+.storySentenceRoster .selectableWord { font-size:13px; font-weight:800; letter-spacing:.06em; }
+.selectableWord { display:inline; margin:0 -.1em; border:1px solid transparent; border-radius:4px; padding:0 .1em; color:inherit; background:transparent; font:inherit; line-height:inherit; text-align:inherit; cursor:pointer; transition:background .12s ease,border-color .12s ease,box-shadow .12s ease; }
+.selectableWord:hover { border-color:#cfd3d7; background:#fff; box-shadow:0 1px 2px #00000012; }
+.selectableWord:focus-visible { border-color:#aeb4ba; outline:2px solid color-mix(in srgb,var(--accent) 38%,transparent); outline-offset:1px; background:#fff; }
+.samuelStory { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:40px; align-items:start; }
+.samuelStory:has(.lexicalPanelClosed) { grid-template-columns:minmax(0,1fr) 176px; }
+.lexicalPanel { position:sticky; top:96px; max-width:none; margin:0; padding:0; border:1px solid var(--divider); background:var(--surface); box-shadow:0 12px 28px #201e1d12; }
+.lexicalToggle { display:flex; width:100%; align-items:center; justify-content:space-between; gap:12px; border:0; padding:13px 14px; color:var(--ink); background:transparent; font:inherit; font-size:12px; font-weight:800; text-align:left; cursor:pointer; }
+.lexicalToggle:hover { color:var(--accent); }
+.lexicalPanel>div { padding:2px 22px 20px; border-top:1px solid var(--divider); }
+.lexicalPanelClosed .lexicalToggle { min-height:52px; }
+.lexicalPanel>p,.lexicalPanel>div>p { margin:0; color:#605d5d; font-size:15px; line-height:1.5; }
+.lexicalPanel>strong { display:block; margin-bottom:14px; font-size:25px; letter-spacing:-.03em; }
+.lexicalPanel>div>strong { display:block; margin:16px 0 14px; font-size:25px; letter-spacing:-.03em; }
+.lexicalPanel dl { display:flex; flex-wrap:wrap; gap:12px 28px; margin:0; }
+.lexicalPanel dl div { display:grid; gap:2px; }
+.lexicalPanel dt { color:#77716f; font-size:12px; font-weight:700; }
+.lexicalPanel dd { margin:0; font-size:15px; font-weight:700; }
+.lexicalPanel .lexicalContext { margin-top:14px; font-style:italic; }
+.lexicalPanel .lexicalError { margin-top:12px; color:var(--accent); }
 .illustratedStory { animation:riseIn .45s cubic-bezier(.16,1,.3,1) both; }
 .illustrationIntro { display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,2fr); gap:32px; margin-bottom:22px; }
 .illustrationIntro p { margin:0; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
@@ -67,6 +88,7 @@
 .sceneSlide .sceneImage { aspect-ratio:1312/1199; }
 .sceneSlide .sceneCopy { position:relative; display:flex; align-items:flex-start; justify-content:center; padding:clamp(32px,4vw,64px); border-bottom:1px solid var(--divider); }
 .sceneCopy .sceneText { max-width:20ch; margin:0; color:var(--ink); font-size:clamp(24px,2.4vw,36px); font-weight:600; line-height:1.4; letter-spacing:-.025em; white-space:pre-line; }
+.sceneCopy .sceneText p { margin:0; color:inherit; font:inherit; line-height:inherit; }
 .sliderArrows { pointer-events:none; position:absolute; z-index:4; inset:0; }
 .sliderArrows a { pointer-events:auto; position:absolute; bottom:18px; display:inline-flex; align-items:center; gap:9px; min-height:42px; padding:0 15px; border:1px solid #ffffff66; border-radius:999px; color:#fff; background:#201e1df2; box-shadow:0 8px 20px #0004; font-size:13px; font-weight:800; transition:transform .2s ease,background .2s ease,border-color .2s ease; }
 .sliderArrows a:hover { border-color:var(--accent); background:var(--accent); transform:translateY(-2px); }
@@ -89,6 +111,7 @@
 .illustrationLayout .storyHeader .eyebrow { margin-bottom:9px; }
 .illustrationLayout .illustrationIntro { align-items:center; margin-bottom:16px; }
 .illustrationLayout .illustrationIntro span { font-size:clamp(18px,1.8vw,22px); }
+.illustrationLayout .lexicalPanel { max-width:none; margin-top:0; }
 .readerPageWide:has(.illustrationLayout) { max-width:1240px; padding-top:18px; padding-bottom:14px; }
 .readerPageWide:has(.illustrationLayout) .backLink,.page:has(.illustrationLayout) .footer { display:none; }
 .sceneImage { position:relative; aspect-ratio:1/1; overflow:hidden; background:#d8d5d3; }
@@ -97,7 +120,8 @@
 .sceneCopy { padding:16px 2px 0; }
 .sceneCopy h2 { margin:0 0 6px; font-size:22px; letter-spacing:-.035em; }
 .sceneCopy p { margin:0; color:#555150; font-size:15px; line-height:1.55; }
-.rosterCard { position:absolute; right:12px; bottom:12px; display:flex; flex-direction:column; gap:3px; padding:10px 12px; border-left:3px solid var(--accent); background:#fff; box-shadow:0 6px 20px #0003; font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:10px; letter-spacing:.04em; }
+.rosterCard { position:absolute; right:12px; bottom:12px; display:block; padding:10px 12px; border-left:3px solid var(--accent); background:#fff; box-shadow:0 6px 20px #0003; font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:10px; letter-spacing:.04em; white-space:pre-line; }
+.rosterCard .selectableWord { font-weight:800; }
 .rosterCard b { color:var(--accent); }
 .characterContinuity { display:grid; grid-template-columns:180px 1fr 1fr; gap:28px; margin-top:72px; padding:28px 0; border-top:2px solid var(--ink); border-bottom:1px solid var(--divider); }
 .characterContinuity>p { margin:0; color:var(--accent); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
@@ -105,5 +129,5 @@
 .characterContinuity strong { font-size:18px; }
 .characterContinuity span,.characterContinuity small { color:#605d5d; font-size:13px; line-height:1.5; }
 .characterContinuity small { grid-column:2/4; max-width:760px; }
-@media (max-width:900px) { .storyHeader { align-items:flex-start; flex-direction:column; }.sceneGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.sceneSlide { grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr); }.sceneSlide .sceneCopy { min-height:0; padding:28px; }.sceneCopy .sceneText { font-size:clamp(22px,3vw,32px); }.characterContinuity { grid-template-columns:1fr 1fr; }.characterContinuity>p,.characterContinuity small { grid-column:1/3; } }
+@media (max-width:900px) { .samuelStory,.samuelStory:has(.lexicalPanelClosed) { grid-template-columns:1fr; gap:24px; }.lexicalPanel { position:relative; top:auto; }.storyHeader { align-items:flex-start; flex-direction:column; }.sceneGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.sceneSlide { grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr); }.sceneSlide .sceneCopy { min-height:0; padding:28px; }.sceneCopy .sceneText { font-size:clamp(22px,3vw,32px); }.characterContinuity { grid-template-columns:1fr 1fr; }.characterContinuity>p,.characterContinuity small { grid-column:1/3; } }
 @media (max-width:700px) { .readerPageWide { padding-inline:20px; }.storyHeader { margin-bottom:30px; }.storyHeader h1 { font-size:clamp(36px,11vw,50px); }.storyModes { display:grid; grid-template-columns:1fr 1fr; width:100%; }.illustrationLayout .storyHeader { align-items:flex-start; }.illustrationIntro { grid-template-columns:1fr; gap:8px; }.illustrationLayout .illustrationIntro span { display:block; font-size:18px; }.illustrationHelp { margin:2px 0 16px; font-size:13px; }.sceneGrid { grid-template-columns:1fr; gap:34px; }.sceneSlide { grid-template-columns:1fr; }.sceneSlide .sceneImage { aspect-ratio:1312/1199; }.sceneSlide .sceneCopy { min-height:190px; padding:24px; }.sceneCopy .sceneText { max-width:none; padding-top:28px; font-size:clamp(22px,6.5vw,30px); }.sliderArrows a { bottom:12px; min-height:38px; padding-inline:12px; }.sliderArrowLeft { left:10px; }.sliderArrowRight { right:10px; }.sliderMeta { gap:12px; }.scenePicker { align-items:flex-start; flex-direction:column; gap:10px; }.scenePicker>div { width:100%; justify-content:space-between; gap:4px; }.scenePicker a { width:30px; height:30px; }.characterContinuity { grid-template-columns:1fr; }.characterContinuity>p,.characterContinuity small { grid-column:auto; } }
