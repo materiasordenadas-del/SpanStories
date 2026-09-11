@@ -22,7 +22,7 @@ Pantallas canónicas actuales:
 
 Lo que no se pida cambiar debe permanecer visualmente igual al baseline.
 
-No se debe usar como referencia visual el CSS legacy de la aplicación (`app/globals.css` ni `components/story-reader.module.css`). Ese CSS existe temporalmente para mantener operativo el prototipo técnico mientras las pantallas se migran al nuevo baseline.
+El prototipo visual anterior fue retirado del árbol activo y archivado fuera del repositorio. Las pantallas nuevas deben tomar como única referencia este baseline.
 
 ## Puedes modificar
 

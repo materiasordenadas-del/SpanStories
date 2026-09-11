@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { PageEditor } from "@/components/page-editor/PageEditor";
 import "./globals.css";
+import "./standalone-motion.css";
 
 export const metadata: Metadata = {
   title: "SpanStories",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body><PageEditor>{children}</PageEditor></body>
     </html>
   );
 }
