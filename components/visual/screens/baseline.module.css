@@ -189,6 +189,19 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 @media (prefers-reduced-motion:reduce) { .storyWorkspace>.lexicalPanel:not(.lexicalPanelClosed) { animation:none; } }
 
 /* ── C6 · Lector: tipografía de lectura ── */
+/* La historia se lee en Literata (diseñada para leer en pantalla, con acentos y ¿¡ claros); la interfaz sigue en Archivo.
+   La columna de lectura se alinea con el título y la narración se agrupa por escenas. */
+.storyWorkspace { --interaction-soft:#fde1db; }
+.readingHint { max-width:36em; margin:0 0 28px; color:var(--muted); font-size:15px; line-height:1.5; }
+.readerPageWide .readingStory { max-width:34em; margin:0; font-family:var(--font-literata,Literata),Georgia,"Times New Roman",serif; font-size:clamp(19px,1.4vw,21px); }
+.readerPageWide .readingStory .storyBeat { margin-bottom:1.8em; }
+.readerPageWide .readingStory .storyBeat:last-child { margin-bottom:0; }
+.readerPageWide .readingStory .storyBeat p { margin:0 0 .75em; font-size:1em; line-height:1.72; }
+.readerPageWide .readingStory .storyBeat p.storySentenceRoster { display:inline-block; margin:.1em 0 .9em; padding:10px 16px; border:1px solid color-mix(in srgb,var(--ink) 25%,transparent); background:#fbfbfa; font-family:Archivo,system-ui,sans-serif; font-size:17px; line-height:1.7; }
+.storySentenceRoster .selectableWord { font-size:inherit; letter-spacing:.02em; }
+.wordGroup { white-space:nowrap; }
+.lexicalWord { text-decoration-line:underline; text-decoration-style:dotted; text-decoration-color:color-mix(in srgb,var(--ink) 55%,transparent); text-decoration-thickness:1.5px; text-underline-offset:.24em; }
+.sceneCopy .sceneText { font-family:var(--font-literata,Literata),Georgia,"Times New Roman",serif; font-weight:500; letter-spacing:-.01em; }
 
 /* ── C8 · Lector: modo ilustración ── */
 .visuallyHidden { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
