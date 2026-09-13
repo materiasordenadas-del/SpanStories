@@ -1,0 +1,20 @@
+/* Práctica: los modos disponibles y cuántas palabras guardadas puede usar cada uno. */
+.main { padding:56px 40px 104px; }
+.title { margin:0; font-size:clamp(40px,5.5vw,72px); line-height:.95; letter-spacing:-.05em; }
+.lead { max-width:36em; margin:16px 0 0; font-size:19px; font-weight:600; line-height:1.4; letter-spacing:-.01em; }
+
+.modes { margin-top:48px; padding-top:24px; border-top:2px solid var(--divider); }
+.modesTitle { margin:0 0 20px; color:var(--muted); font-size:13px; font-weight:700; }
+.modeList { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); gap:40px 48px; margin:0; padding:0; list-style:none; }
+.mode { display:flex; flex-direction:column; align-items:flex-start; padding-top:14px; border-top:2px solid var(--ink); }
+.mode h3 { margin:0; font-size:26px; line-height:1.1; letter-spacing:-.03em; }
+.description { margin:6px 0 0; color:var(--muted); font-size:15px; line-height:1.45; }
+.count { margin:20px 0 0; font-size:17px; font-weight:800; }
+.note { max-width:32em; margin:8px 0 0; color:var(--muted); font-size:14px; line-height:1.45; }
+.mode .action { min-height:44px; margin-top:20px; padding-inline:18px; }
+.mode .action:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+@media (max-width:640px) {
+  .main { padding:40px 20px 80px; }
+  .modes { margin-top:36px; }
+}

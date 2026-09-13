@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { A1Island, A1Module } from "@/lib/adapters/a1-catalog";
+import { usePracticeItems } from "@/lib/adapters/practice";
 import { BaselineNav } from "../layouts/BaselineNav";
 import { storyHref, storyKey, useReadingMemory } from "../reading-memory";
 import { LockIcon } from "./IslandGrid";
@@ -16,7 +17,9 @@ function CheckIcon() {
 type IslandState = "done" | "current" | "locked" | "available";
 
 export function ProgressScreen({ modules, storyCount }: { modules: readonly A1Module[]; storyCount: number }) {
-  const { finished, lastStory, savedWords } = useReadingMemory();
+  const { finished, lastStory } = useReadingMemory();
+  const practice = usePracticeItems();
+  const savedCount = practice.items.length;
   const islands = modules.flatMap((entry) => entry.islands);
   const readCount = (island: A1Island) => island.stories.filter((story) => finished.includes(storyKey(story.island, story.story))).length;
   const currentIsland = islands.find((island) => island.published && readCount(island) < island.stories.length);
@@ -46,8 +49,10 @@ export function ProgressScreen({ modules, storyCount }: { modules: readonly A1Mo
           <div className={progress.bar} role="img" aria-label={`${finishedCount} de ${storyCount} historias leídas`}><i style={{ width: `${(finishedCount / storyCount) * 100}%` }} /></div>
         </div>
         <div className={progress.stat}>
-          <strong>{savedWords.length}</strong><span>{savedWords.length === 1 ? "palabra guardada" : "palabras guardadas"}</span>
-          {savedWords.length > 0 ? <ul className={progress.savedWords} lang="es">{savedWords.map((word) => <li key={word.key}>{word.surface}</li>)}</ul> : <p className={progress.hint}>Guarda palabras desde su ficha mientras lees.</p>}
+          <p className={progress.label}>Práctica</p>
+          <strong className={practice.ready ? undefined : progress.pending}>{savedCount}</strong><span>{savedCount === 1 ? "palabra guardada" : "palabras guardadas"}</span>
+          {practice.ready && savedCount === 0 ? <p className={progress.hint}>Guarda palabras desde su ficha mientras lees.</p> : null}
+          <Link className={`${styles.button} ${styles.secondary} ${progress.practiceLink}`} href="/progreso/practica">Ir a práctica</Link>
         </div>
       </section>
 

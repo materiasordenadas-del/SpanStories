@@ -145,3 +145,7 @@
 .saveButton[aria-pressed="true"],.saveButton[aria-pressed="true"]:hover { color:#c8260f; background:#fde1db; }
 .hint { font-size:14px; }
 @media (prefers-reduced-motion:reduce) { .more summary svg { transition:none; } }
+
+/* ── Práctica · guardar solo palabras con identidad léxica ── */
+/* Una palabra sin Lexeme no se puede guardar: queda solo «Escuchar la frase», a todo el ancho. */
+.actions:has(> button:only-child) { grid-template-columns:1fr; }

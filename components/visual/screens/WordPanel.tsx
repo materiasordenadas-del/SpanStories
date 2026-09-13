@@ -3,7 +3,7 @@ import type { CSSProperties, RefObject } from "react";
 import type { StoryReaderViewModel, StoryReaderWordReference } from "@/features/story-reader/model";
 import type { WordPanelTextPart, WordPanelViewModel } from "@/features/story-reader/word-panel";
 import { speakSpanish } from "@/features/story-reader/browser-speech";
-import { toggleSavedWord, useReadingMemory, type SavedWord } from "../reading-memory";
+import { readerWordPractice, togglePracticeWord, useIsPracticeWordSaved, type ReaderWordPractice } from "@/lib/adapters/practice";
 import styles from "./baseline.module.css";
 import panelStyles from "./word-panel.module.css";
 
@@ -72,18 +72,18 @@ function useFitWord(titleRef: RefObject<HTMLHeadingElement | null>, word: string
   }, [titleRef, word]);
 }
 
-function WordPanel({ panel, reference, saveWord, eventError, closeButtonRef, onClose }: {
+function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onClose }: {
   panel: WordPanelViewModel;
   reference: StoryReaderWordReference | undefined;
-  saveWord: Pick<SavedWord, "key" | "surface">;
+  /** Null cuando la palabra no tiene Lexeme publicado: se consulta y se escucha, pero no se guarda. */
+  practice: ReaderWordPractice | null;
   eventError: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
   onClose: () => void;
 }) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   useFitWord(titleRef, panel.surface);
-  const { savedWords } = useReadingMemory();
-  const saved = savedWords.some((word) => word.key === saveWord.key);
+  const saved = useIsPracticeWordSaved(practice);
   const examples = reference?.examples ?? panel.examples ?? [];
   const otherStories = reference?.otherStories ?? [];
   const usageNotes = reference?.usageNotes ?? [];
@@ -103,7 +103,7 @@ function WordPanel({ panel, reference, saveWord, eventError, closeButtonRef, onC
     </header>
     <div className={panelStyles.body}>
       {translation === undefined ? null : <p className={panelStyles.translation} lang="en">{translation}</p>}
-      {panel.kind === "SURFACE" ? <p className={panelStyles.note}>Esta palabra todavía no tiene ficha. Puedes escucharla y guardarla.</p> : null}
+      {panel.kind === "SURFACE" ? <p className={panelStyles.note}>Esta palabra todavía no tiene ficha. Puedes escucharla, pero aún no se puede guardar para practicar.</p> : null}
       {partOfSpeech !== undefined || panel.cefrLevel !== undefined ? <ul aria-label="Datos de la palabra" className={panelStyles.tags}>
         {partOfSpeech === undefined ? null : <li>{partOfSpeech}</li>}
         {panel.cefrLevel === undefined ? null : <li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel}</li>}
@@ -123,7 +123,7 @@ function WordPanel({ panel, reference, saveWord, eventError, closeButtonRef, onC
       {eventError ? <p className={panelStyles.error} role="status">La palabra se abrió, pero la interacción no pudo guardarse.</p> : null}
     </div>
     <footer className={panelStyles.actions}>
-      <button aria-pressed={saved} className={panelStyles.saveButton} onClick={() => toggleSavedWord({ ...saveWord, ...(translation === undefined ? {} : { translation }) })} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>
+      {practice === null ? null : <button aria-pressed={saved} className={panelStyles.saveButton} onClick={() => void togglePracticeWord(practice)} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>}
       <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar la frase</button>
     </footer>
   </div>;
@@ -149,10 +149,9 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
   }, [focusTarget, isOpen]);
   const isExpanded = panel !== undefined && isOpen;
   const close = () => { setFocusTarget("open"); onToggle(); };
-  // Se guarda la palabra (lema), no la aparición concreta: «soy» y «es» son la misma palabra guardada.
-  const saveWord = lexicalEntry !== undefined
-    ? { key: `lema:${lexicalEntry.lemma}`, surface: lexicalEntry.lemma }
-    : { key: `forma:${panel?.surface.toLocaleLowerCase("es") ?? ""}`, surface: panel?.surface.toLocaleLowerCase("es") ?? "" };
+  // Se guarda la identidad léxica publicada (Sense o, si no está resuelto, Lexeme), nunca la forma escrita:
+  // «soy» y «es» son la misma palabra guardada; una palabra sin Lexeme no se puede guardar.
+  const practice = selectedWordId === null ? null : readerWordPractice(model, selectedWordId);
   return <aside aria-label="Ficha de la palabra" className={`${styles.lexicalPanel} ${panelStyles.container} ${isExpanded ? "" : styles.lexicalPanelClosed}`} id="lexical-detail" onKeyDown={(event) => {
     if (event.key !== "Escape" || !isExpanded) return;
     event.stopPropagation();
@@ -162,7 +161,7 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
     {panel === undefined
       ? <p className={panelStyles.hint}><strong>Toca cualquier palabra</strong> de la historia para ver su ficha.</p>
       : isOpen
-        ? <><button aria-label="Ocultar la ficha" className={panelStyles.handle} onClick={close} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={close} panel={panel} reference={reference} saveWord={saveWord} /></>
+        ? <><button aria-label="Ocultar la ficha" className={panelStyles.handle} onClick={close} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={close} panel={panel} practice={practice} reference={reference} /></>
         : <button aria-expanded={false} className={panelStyles.openButton} onClick={() => { setFocusTarget("close"); onToggle(); }} ref={openButtonRef} type="button"><span>Ver «{panel.surface}»</span><ChevronIcon expanded={false} /></button>}
   </aside>;
 }

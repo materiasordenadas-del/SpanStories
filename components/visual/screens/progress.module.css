@@ -11,8 +11,11 @@
 .bar { height:6px; margin-top:16px; background:#d7d3d3; }
 .bar i { display:block; height:100%; background:var(--accent); }
 .hint { margin:14px 0 0; color:var(--muted); font-size:14px; }
-.savedWords { display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 0; padding:0; list-style:none; }
-.savedWords li { padding:4px 10px; background:var(--surface); font-size:14px; font-weight:600; }
+/* Práctica: cuántas palabras guardaste y el paso a /progreso/practica. */
+.stat .label { margin-bottom:10px; }
+.pending { visibility:hidden; }
+.practiceLink { min-height:44px; margin-top:16px; }
+.practiceLink:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
 
 .routeTitle { margin:0 0 28px; font-size:clamp(26px,3vw,40px); line-height:1; letter-spacing:-.045em; }
 .modules { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:56px 32px; margin:0; padding:0; list-style:none; }

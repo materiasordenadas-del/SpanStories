@@ -4,19 +4,18 @@ import { useSyncExternalStore } from "react";
 
 /**
  * Memoria de lectura del navegador, solo para continuidad de la interfaz:
- * retomar la última historia, marcar historias terminadas y guardar palabras.
+ * retomar la última historia y marcar historias terminadas.
  * No sustituye a los learner events: el progreso pedagógico sigue siendo de features/.
+ * Las palabras guardadas no viven aquí: son PracticeItems de features/practice.
  */
 export type StoryRef = { readonly island: string; readonly story: string; readonly title: string };
-export type SavedWord = { readonly key: string; readonly surface: string; readonly translation?: string };
 export type ReadingMemory = {
   readonly lastStory: StoryRef | null;
   readonly finished: readonly string[];
-  readonly savedWords: readonly SavedWord[];
 };
 
 const STORAGE_KEY = "spanstories.reading-memory:v1";
-const EMPTY: ReadingMemory = { lastStory: null, finished: [], savedWords: [] };
+const EMPTY: ReadingMemory = { lastStory: null, finished: [] };
 const listeners = new Set<() => void>();
 let cache: ReadingMemory | null = null;
 
@@ -26,20 +25,16 @@ export const storyHref = (ref: Pick<StoryRef, "island" | "story">) => `/islas/${
 const isString = (value: unknown): value is string => typeof value === "string";
 
 // localStorage es editable por cualquiera: solo se aceptan formas conocidas.
+// Un `savedWords` antiguo (identidad por forma o lema) se ignora y desaparece con la siguiente escritura.
 function parse(raw: string | null): ReadingMemory {
   if (raw === null) return EMPTY;
   const data: unknown = JSON.parse(raw);
   if (typeof data !== "object" || data === null) return EMPTY;
-  const { lastStory, finished, savedWords } = data as Record<string, unknown>;
+  const { lastStory, finished } = data as Record<string, unknown>;
   const story = lastStory as Partial<StoryRef> | null | undefined;
   return {
     lastStory: story && isString(story.island) && isString(story.story) && isString(story.title) ? { island: story.island, story: story.story, title: story.title } : null,
     finished: Array.isArray(finished) ? finished.filter(isString) : [],
-    savedWords: Array.isArray(savedWords)
-      ? savedWords.flatMap((word: Partial<SavedWord> | null) => word && isString(word.key) && isString(word.surface)
-        ? [{ key: word.key, surface: word.surface, ...(isString(word.translation) ? { translation: word.translation } : {}) }]
-        : [])
-      : [],
   };
 }
 
@@ -95,10 +90,4 @@ export function markStoryFinished(island: string, story: string) {
   const key = storyKey(island, story);
   if (memory.finished.includes(key)) return;
   write({ ...memory, finished: [...memory.finished, key] });
-}
-
-export function toggleSavedWord(word: SavedWord) {
-  const memory = read();
-  const saved = memory.savedWords.some((entry) => entry.key === word.key);
-  write({ ...memory, savedWords: saved ? memory.savedWords.filter((entry) => entry.key !== word.key) : [...memory.savedWords, word] });
 }
