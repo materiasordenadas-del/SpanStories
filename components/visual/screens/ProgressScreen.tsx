@@ -1,37 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import type { A1Island, A1Module } from "@/lib/adapters/a1-catalog";
 import { BaselineNav } from "../layouts/BaselineNav";
+import { storyHref, storyKey, useReadingMemory } from "../reading-memory";
+import { LockIcon } from "./IslandGrid";
 import styles from "./baseline.module.css";
+import progress from "./progress.module.css";
 
-const islands = [
-  ["01", "El mercado", "Completada · 6/6", "done", 100, 290, "labelBottom"],
-  ["02", "La casa de la abuela", "En curso · 2/6", "current", 280, 130, "labelTop"],
-  ["03", "Trámites", "Bloqueada", "locked", 280, 450, "labelBottom"],
-  ["04", "El último autobús", "Bloqueada", "locked", 480, 290, "labelBottom"],
-  ["05", "Vecinos", "Bloqueada", "locked", 700, 290, "labelBottom"],
-  ["06", "La cocina de la tía", "Bloqueada", "locked", 900, 130, "labelTop"],
-  ["07", "La azotea", "Bloqueada", "locked", 900, 450, "labelBottom"],
-  ["08", "El domingo", "Bloqueada · cierre de módulo", "locked", 1080, 290, "labelBottom"],
-] as const;
+function CheckIcon() {
+  return <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" /></svg>;
+}
 
-export function ProgressScreen() {
-  const [routeMotion, setRouteMotion] = useState(true);
-  const [nodeMotion, setNodeMotion] = useState(true);
-  const [animationRun, setAnimationRun] = useState(0);
+type IslandState = "done" | "current" | "locked" | "available";
+
+export function ProgressScreen({ modules, storyCount }: { modules: readonly A1Module[]; storyCount: number }) {
+  const { finished, lastStory, savedWords } = useReadingMemory();
+  const islands = modules.flatMap((entry) => entry.islands);
+  const readCount = (island: A1Island) => island.stories.filter((story) => finished.includes(storyKey(story.island, story.story))).length;
+  const currentIsland = islands.find((island) => island.published && readCount(island) < island.stories.length);
+  const stateOf = (island: A1Island): IslandState => {
+    if (!island.published) return "locked";
+    if (readCount(island) === island.stories.length) return "done";
+    return island === currentIsland ? "current" : "available";
+  };
+  const finishedCount = islands.reduce((total, island) => total + readCount(island), 0);
+  const nextUnread = islands.filter((island) => island.published).flatMap((island) => island.stories).find((story) => !finished.includes(storyKey(story.island, story.story)));
+  const resume = lastStory !== null && !finished.includes(storyKey(lastStory.island, lastStory.story)) ? lastStory : null;
 
   return <div className={`${styles.page} standalone-layer`} data-standalone="progress"><BaselineNav />
-    <main className={styles.referenceProgress} id="progreso"><header className={styles.referenceHeader}><p className={styles.eyebrow}>Tu avance · A2</p><h1>Progreso.</h1></header><section className={styles.referenceMap} data-route-motion={routeMotion ? "on" : "off"} data-node-motion={nodeMotion ? "on" : "off"}>
-      <div className={styles.referenceMapHeader}><div><p>A2 · Módulo 2 — El barrio</p><h2>El mapa del barrio.</h2></div><div className={styles.referenceSummary}><span>8/44 lecciones · 18%</span><i><b /></i><em>Estás en la historia 02 de 08</em></div></div>
-      <aside className={styles.animationTools} aria-label="Herramientas de animación"><p>Herramientas</p><h2>Animación</h2><button type="button" aria-pressed={routeMotion} onClick={() => setRouteMotion((active) => !active)}><span>Ruta</span><b>{routeMotion ? "Activa" : "Pausada"}</b></button><button type="button" aria-pressed={nodeMotion} onClick={() => setNodeMotion((active) => !active)}><span>Nodo actual</span><b>{nodeMotion ? "Activo" : "Pausado"}</b></button><button className={styles.replayButton} type="button" onClick={() => setAnimationRun((run) => run + 1)}>Reproducir</button></aside>
-      <div className={styles.mapScroller}><div className={styles.mapCanvas} key={animationRun}><svg viewBox="0 0 1180 580" aria-hidden="true">
-        <path className={styles.mapFuture} d="M 100 290 L 280 130 L 480 290 L 700 290 L 900 130 L 1080 290" />
-        <path className={styles.mapFuture} d="M 100 290 L 280 450 L 480 290" />
-        <path className={styles.mapFuture} d="M 700 290 L 900 450 L 1080 290" />
-        <path className={styles.mapDone} d="M 100 290 L 280 130" pathLength="1" />
-        <circle className={styles.mapTraveller} r="7"><animateMotion dur="2.6s" repeatCount="indefinite" path="M 100 290 L 280 130" /></circle>
-      </svg><span className={styles.storyDirection} aria-hidden="true">Tu recorrido</span>{islands.map(([number,name,status,state,x,y,labelPosition],index) => <article className={`${styles.mapIsland} ${styles[state]} ${styles[labelPosition]}`} key={number} style={{left:x,top:y,animationDelay:`${index*.12}s`}}><div className={styles.mapNode}>{state === "done" ? "✓" : state === "current" ? <><small>{number}</small><strong>2/6</strong></> : number}</div><div className={styles.mapLabel}><h3>{name}</h3><p>{status}</p></div></article>)}</div></div>
-      <div className={styles.mapLegend}><span><i className={styles.legendDone} />Completada</span><span><i className={styles.legendCurrent} />En curso</span><span><i className={styles.legendLocked} />Bloqueada</span></div>
-    </section></main><footer className={styles.footer}><span>SpanStories.</span><span>Pre-alfa · 2026</span></footer>
+    <main className={progress.main}>
+      <header><p className={styles.eyebrow}>Tu avance en A1</p><h1 className={progress.title}>Progreso.</h1></header>
+
+      <section className={progress.summary} aria-label="Resumen">
+        <div className={progress.next}>
+          {resume !== null
+            ? <><p className={progress.label}>Seguías leyendo</p><h2>{resume.title}</h2><Link className={`${styles.button} ${styles.primary}`} href={storyHref(resume)}>Continuar leyendo</Link></>
+            : nextUnread !== undefined
+              ? <><p className={progress.label}>{finishedCount === 0 ? "Tu primera historia" : "Siguiente historia"}</p><h2>{nextUnread.title}</h2><Link className={`${styles.button} ${styles.primary}`} href={nextUnread.href}>{finishedCount === 0 ? "Empezar a leer" : "Leer ahora"}</Link></>
+              : <><p className={progress.label}>Al día</p><h2>Has leído todas las historias publicadas.</h2><Link className={`${styles.button} ${styles.secondary}`} href="/islas">Ver islas</Link></>}
+        </div>
+        <div className={progress.stat}>
+          <strong>{finishedCount}</strong><span>de {storyCount} historias leídas</span>
+          <div className={progress.bar} role="img" aria-label={`${finishedCount} de ${storyCount} historias leídas`}><i style={{ width: `${(finishedCount / storyCount) * 100}%` }} /></div>
+        </div>
+        <div className={progress.stat}>
+          <strong>{savedWords.length}</strong><span>{savedWords.length === 1 ? "palabra guardada" : "palabras guardadas"}</span>
+          {savedWords.length > 0 ? <ul className={progress.savedWords} lang="es">{savedWords.map((word) => <li key={word.key}>{word.surface}</li>)}</ul> : <p className={progress.hint}>Guarda palabras desde su ficha mientras lees.</p>}
+        </div>
+      </section>
+
+      <section aria-labelledby="recorrido-a1">
+        <h2 className={progress.routeTitle} id="recorrido-a1">Recorrido de A1</h2>
+        <ol className={progress.modules}>
+          {modules.map((entry) => <li className={progress.module} key={entry.order}>
+            <p className={progress.moduleName}>Módulo {entry.order}<b>{entry.name}</b></p>
+            <ol className={progress.islands}>
+              {entry.islands.map((island) => {
+                const state = stateOf(island);
+                const read = readCount(island);
+                const total = island.stories.length;
+                const status = state === "done" ? "Completada" : state === "locked" ? "Próximamente" : `${read} de ${total} historias`;
+                const node = <span className={progress.node} style={{ "--progress": read / total } as CSSProperties}>
+                  {state === "done" ? <CheckIcon /> : state === "locked" ? <LockIcon /> : <span>{read}/{total}</span>}
+                </span>;
+                const text = <div><h3>{island.name}</h3><p>{status}</p></div>;
+                return <li className={`${progress.island} ${progress[state]}`} key={island.id} aria-current={state === "current" ? "step" : undefined}>
+                  {island.published ? <Link className={progress.islandLink} href={island.href}>{node}{text}</Link> : <div className={progress.islandLink}>{node}{text}</div>}
+                </li>;
+              })}
+            </ol>
+          </li>)}
+        </ol>
+      </section>
+    </main>
+    <footer className={styles.footer}><span>SpanStories.</span><span>Pre-alfa · 2026</span></footer>
   </div>;
 }

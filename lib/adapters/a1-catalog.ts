@@ -129,6 +129,16 @@ export async function getA1IslandForReading(number: string): Promise<A1Island | 
   return { ...island, stories };
 }
 
+/** Catálogo completo con los títulos publicados de las islas que ya se pueden leer. */
+export async function getA1CatalogForReading(): Promise<A1Catalog> {
+  const islands = await Promise.all(catalog.islands.map(async (island) => island.published ? (await getA1IslandForReading(island.number)) ?? island : island));
+  return {
+    ...catalog,
+    islands,
+    modules: catalog.modules.map((entry) => ({ ...entry, islands: islands.filter((island) => island.moduleOrder === entry.order) })),
+  };
+}
+
 /** Lo que sigue después de una historia: la siguiente de la isla o la isla siguiente. */
 export function getA1NextStep(islandNumber: string, storyNumber: string): { readonly island?: A1Island; readonly story?: A1Story; readonly nextIsland?: A1Island } {
   const island = getA1Island(islandNumber);
