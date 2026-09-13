@@ -136,3 +136,20 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 .characterContinuity small { grid-column:2/4; max-width:760px; }
 @media (max-width:900px) { .storyHeader { grid-template-columns:minmax(0,1fr); align-items:start; justify-items:start; }.sceneGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.sceneSlide { grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr); }.sceneSlide .sceneCopy { min-height:0; padding:28px; }.sceneCopy .sceneText { font-size:clamp(22px,3vw,32px); }.characterContinuity { grid-template-columns:1fr 1fr; }.characterContinuity>p,.characterContinuity small { grid-column:1/3; } }
 @media (max-width:700px) { .storyHeader { margin-bottom:30px; }.storyHeader h1 { font-size:clamp(36px,11vw,50px); }.storyModes { display:grid; grid-template-columns:1fr 1fr; width:100%; }.illustrationLayout .storyHeader { align-items:flex-start; }.illustrationIntro { grid-template-columns:1fr; gap:8px; }.illustrationLayout .illustrationIntro span { display:block; font-size:18px; }.illustrationHelp { margin:2px 0 16px; font-size:13px; }.sceneGrid { grid-template-columns:1fr; gap:34px; }.sceneSlide { grid-template-columns:1fr; }.sceneSlide .sceneImage { aspect-ratio:3/2; }.sceneSlide .sceneCopy { min-height:190px; padding:24px; }.sceneCopy .sceneText { max-width:none; padding-top:28px; font-size:clamp(22px,6.5vw,30px); }.sliderArrows a { bottom:12px; min-height:38px; padding-inline:12px; }.sliderArrowLeft { left:10px; }.sliderArrowRight { right:10px; }.sliderMeta { gap:12px; }.scenePicker { align-items:flex-start; flex-direction:column; gap:10px; }.scenePicker>div { width:100%; justify-content:space-between; gap:4px; }.scenePicker a { width:30px; height:30px; }.characterContinuity { grid-template-columns:1fr; }.characterContinuity>p,.characterContinuity small { grid-column:auto; } }
+
+/* ═══ Correcciones de experiencia del estudiante (rama diseno/correcciones-estudiante).
+   Cada bloque pertenece a un commit propio y se puede revertir por separado. ═══ */
+
+/* ── C2 · Contraste y etiquetas legibles ── */
+
+/* ── C4 · Contenido A1: niveles, islas e historias ── */
+
+/* ── C5 · Lector: disposición de la ficha ── */
+
+/* ── C6 · Lector: tipografía de lectura ── */
+
+/* ── C8 · Lector: modo ilustración ── */
+
+/* ── C11 · Portada ── */
+
+/* ── C12 · Titulares de navegación ── */

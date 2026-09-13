@@ -98,3 +98,11 @@
 .practiceButton:hover { color:var(--accent); background:#fde1db; }
 .error { margin:14px 0 0; color:var(--accent); font-size:13px; line-height:1.45; }
 @media (max-width:900px) { .handle { display:none; }.topBar { position:static; }.wordLine { --word-max:clamp(34px,8vw,44px); } }
+
+/* ═══ Correcciones de experiencia del estudiante: un bloque por commit. ═══ */
+
+/* ── C2 · Contraste y etiquetas legibles ── */
+
+/* ── C5 · Lector: disposición de la ficha ── */
+
+/* ── C7 · Ficha de palabra simplificada ── */
