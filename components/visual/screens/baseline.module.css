@@ -192,3 +192,11 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 .closingAction { margin-top:24px; }
 
 /* ── C12 · Titulares de navegación ── */
+/* Las páginas de paso no compiten con su contenido: la primera isla o historia queda a la vista. */
+.levelsPage,.islandsPage,.storyListPage { padding-top:56px; }
+.levelsPage h1,.islandsPage h1,.storyListPage h1 { font-size:clamp(40px,5.5vw,72px); line-height:.95; letter-spacing:-.05em; }
+.levelsPage h1 { margin-bottom:36px; }
+.storyListPage h1 { margin-bottom:20px; }
+.islandsIntro { margin:0 0 32px; padding-top:20px; font-size:19px; font-weight:600; line-height:1.4; letter-spacing:-.01em; }
+.storyListPage .islandsIntro { padding-top:0; border-top:0; }
+.storyListPage .backLink { margin-bottom:28px; }
