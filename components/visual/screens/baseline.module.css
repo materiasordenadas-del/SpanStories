@@ -42,10 +42,14 @@
 .animationTools { position:fixed; top:108px; right:24px; z-index:12; width:176px; padding:14px; border:1px solid var(--divider); background:color-mix(in srgb,var(--bg) 94%,transparent); box-shadow:0 12px 30px #201e1d12; backdrop-filter:blur(10px); }.animationTools p { margin:0 0 5px; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; }.animationTools h2 { margin:0 0 10px; font-size:16px; letter-spacing:-.02em; }.animationTools button { display:flex; width:100%; align-items:center; justify-content:space-between; margin-top:5px; border:1px solid #d7d3d3; padding:8px; color:var(--ink); background:transparent; font:inherit; font-size:12px; cursor:pointer; }.animationTools button:hover { border-color:var(--accent); }.animationTools button b { color:#8a8583; font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:9px; font-weight:400; text-transform:uppercase; }.animationTools button[aria-pressed="true"] b { color:#ae1800; }.animationTools .replayButton { display:block; margin-top:12px; border-color:var(--ink); text-align:center; font-weight:800; }.animationTools .replayButton:hover { color:var(--bg); background:var(--ink); }.referenceMap[data-route-motion="off"] .mapFuture { animation:none; stroke-dasharray:none; }.referenceMap[data-route-motion="off"] .mapTraveller { display:none; }.referenceMap[data-node-motion="off"] .mapIsland.current .mapNode { animation:none; }.referenceMap[data-node-motion="off"] .mapIsland { animation:none; }
 @media (max-width:760px) { .animationTools { position:static; width:auto; margin:0 20px 18px; }.animationTools button { max-width:none; } }
 
-/* Historia 01: lector editorial y secuencia visual en una sola página. */
-.readerPageWide { max-width:1440px; margin:0 auto; }
-.storyHeader { display:flex; align-items:end; justify-content:space-between; gap:32px; margin-bottom:42px; padding-bottom:22px; border-bottom:2px solid var(--divider); }
-.storyHeader h1 { max-width:760px; margin:0; font-size:clamp(40px,4.8vw,64px); line-height:1; letter-spacing:-.05em; }
+/* Lector de historias (compartido por todas las historias): shell fluido con tope para monitores anchos.
+   Es query container: el lector y la ficha léxica se distribuyen según el ancho real del shell, nunca según la historia. */
+.readerPageWide { --shell-gutter:clamp(20px,3vw,56px); container:story-shell / inline-size; max-width:calc(1680px + 2 * var(--shell-gutter)); margin:0 auto; padding-inline:var(--shell-gutter); }
+/* Reserva el hueco del scrollbar: abrir o cerrar la ficha cambia la altura del documento y no debe desplazar la historia. */
+html:has(.readerPageWide) { scrollbar-gutter:stable; }
+/* Título flexible + selector de modo intrínseco: el título solo se parte cuando de verdad no cabe. */
+.storyHeader { display:grid; grid-template-columns:minmax(0,1fr) max-content; align-items:end; gap:32px; margin-bottom:42px; padding-bottom:22px; border-bottom:2px solid var(--divider); }
+.storyHeader h1 { margin:0; font-size:clamp(40px,4.8vw,64px); line-height:1; letter-spacing:-.05em; text-wrap:balance; }
 .storyHeader .eyebrow { margin-bottom:12px; }
 .storyModes { display:inline-flex; flex:0 0 auto; padding:4px; border:1px solid var(--divider); background:var(--surface); }
 .storyModes a { display:flex; align-items:center; justify-content:center; min-height:42px; padding:9px 16px; color:var(--ink); background:transparent; font:inherit; font-size:14px; font-weight:800; }
@@ -59,22 +63,23 @@
 .selectableWord { display:inline; margin:0 -.1em; border:1px solid transparent; border-radius:4px; padding:0 .1em; color:inherit; background:transparent; font:inherit; line-height:inherit; text-align:inherit; cursor:pointer; transition:background .12s ease,border-color .12s ease,box-shadow .12s ease; }
 .selectableWord:hover { border-color:#cfd3d7; background:#fff; box-shadow:0 1px 2px #00000012; }
 .selectableWord:focus-visible { border-color:#aeb4ba; outline:2px solid color-mix(in srgb,var(--accent) 38%,transparent); outline-offset:1px; background:#fff; }
-.samuelStory { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:40px; align-items:start; }
-.samuelStory:has(.lexicalPanelClosed) { grid-template-columns:minmax(0,1fr) 176px; }
-.lexicalPanel { position:sticky; top:96px; max-width:none; margin:0; padding:0; border:1px solid var(--divider); background:var(--surface); box-shadow:0 12px 28px #201e1d12; }
-.lexicalToggle { display:flex; width:100%; align-items:center; justify-content:space-between; gap:12px; border:0; padding:13px 14px; color:var(--ink); background:transparent; font:inherit; font-size:12px; font-weight:800; text-align:left; cursor:pointer; }
-.lexicalToggle:hover { color:var(--accent); }
-.lexicalPanel>div { padding:2px 22px 20px; border-top:1px solid var(--divider); }
-.lexicalPanelClosed .lexicalToggle { min-height:52px; }
-.lexicalPanel>p,.lexicalPanel>div>p { margin:0; color:#605d5d; font-size:15px; line-height:1.5; }
-.lexicalPanel>strong { display:block; margin-bottom:14px; font-size:25px; letter-spacing:-.03em; }
-.lexicalPanel>div>strong { display:block; margin:16px 0 14px; font-size:25px; letter-spacing:-.03em; }
-.lexicalPanel dl { display:flex; flex-wrap:wrap; gap:12px 28px; margin:0; }
-.lexicalPanel dl div { display:grid; gap:2px; }
-.lexicalPanel dt { color:#77716f; font-size:12px; font-weight:700; }
-.lexicalPanel dd { margin:0; font-size:15px; font-weight:700; }
-.lexicalPanel .lexicalContext { margin-top:14px; font-style:italic; }
-.lexicalPanel .lexicalError { margin-top:12px; color:var(--accent); }
+.storyWorkspace { --interaction-soft:#e2eafa; --panel-width:clamp(360px,25cqi,420px); display:grid; grid-template-columns:minmax(0,1fr); gap:24px; align-items:start; }
+.selectableWord[aria-pressed="true"],.selectableWord[aria-pressed="true"]:hover { border-color:transparent; background:var(--interaction-soft); box-shadow:none; }
+.lexicalPanel { margin:0; overscroll-behavior:contain; }
+/* La ficha nunca decide el ancho del lector. Tres estados según el shell:
+   estrecho → ficha en el flujo, debajo de la historia (comportamiento móvil existente);
+   medio    → cajón superpuesto a la derecha: abrir o cerrar no mueve la historia;
+   amplio   → rail acoplado del mismo ancho abierto o cerrado, con el lector aún holgado (≥ ~1040px). */
+@container story-shell (min-width:840px) {
+  .storyWorkspace>.lexicalPanel { justify-self:end; width:var(--panel-width); }
+  .storyWorkspace>.lexicalPanel:not(.lexicalPanelClosed) { position:fixed; z-index:9; top:96px; right:var(--shell-gutter); box-shadow:0 12px 30px #201e1d12; animation:lexicalDrawerIn .28s cubic-bezier(.16,1,.3,1) both; }
+}
+@container story-shell (min-width:1480px) {
+  .storyWorkspace { grid-template-columns:minmax(0,1fr) var(--panel-width); gap:40px; }
+  .storyWorkspace>.lexicalPanel,.storyWorkspace>.lexicalPanel:not(.lexicalPanelClosed) { position:sticky; top:96px; right:auto; justify-self:stretch; width:auto; box-shadow:none; animation:none; }
+}
+@keyframes lexicalDrawerIn { from { opacity:0; transform:translateX(24px); } }
+@media (prefers-reduced-motion:reduce) { .storyWorkspace>.lexicalPanel:not(.lexicalPanelClosed) { animation:none; } }
 .illustratedStory { animation:riseIn .45s cubic-bezier(.16,1,.3,1) both; }
 .illustrationIntro { display:grid; grid-template-columns:minmax(180px,.7fr) minmax(0,2fr); gap:32px; margin-bottom:22px; }
 .illustrationIntro p { margin:0; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",Menlo,monospace; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
@@ -85,7 +90,7 @@
 .sliderViewport { position:relative; overflow:hidden; border-top:2px solid var(--ink); }
 .sliderTrack { display:flex; transition:transform .6s cubic-bezier(.16,1,.3,1); }
 .sceneSlide { display:grid; grid-template-columns:minmax(0,1fr) minmax(340px,1fr); flex:0 0 100%; min-width:0; background:var(--bg); }
-.sceneSlide .sceneImage { aspect-ratio:1312/1199; }
+.sceneSlide .sceneImage { aspect-ratio:3/2; }
 .sceneSlide .sceneCopy { position:relative; display:flex; align-items:flex-start; justify-content:center; padding:clamp(32px,4vw,64px); border-bottom:1px solid var(--divider); }
 .sceneCopy .sceneText { max-width:20ch; margin:0; color:var(--ink); font-size:clamp(24px,2.4vw,36px); font-weight:600; line-height:1.4; letter-spacing:-.025em; white-space:pre-line; }
 .sceneCopy .sceneText p { margin:0; color:inherit; font:inherit; line-height:inherit; }
@@ -112,10 +117,10 @@
 .illustrationLayout .illustrationIntro { align-items:center; margin-bottom:16px; }
 .illustrationLayout .illustrationIntro span { font-size:clamp(18px,1.8vw,22px); }
 .illustrationLayout .lexicalPanel { max-width:none; margin-top:0; }
-.readerPageWide:has(.illustrationLayout) { max-width:1240px; padding-top:18px; padding-bottom:14px; }
+.readerPageWide:has(.illustrationLayout) { padding-top:18px; padding-bottom:14px; }
 .readerPageWide:has(.illustrationLayout) .backLink,.page:has(.illustrationLayout) .footer { display:none; }
 .sceneImage { position:relative; aspect-ratio:1/1; overflow:hidden; background:#d8d5d3; }
-.sceneImage>img { position:absolute; width:300%; max-width:none; height:300%; object-fit:cover; transform:translate(calc(var(--scene-column) * -33.3333%),calc(var(--scene-row) * -33.3333%)); transform-origin:top left; }
+.sceneImage>img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .sceneNumber { position:absolute; top:12px; left:12px; display:grid; place-items:center; width:36px; height:36px; color:#fff; background:#201e1dcc; font-size:11px; font-weight:800; letter-spacing:.06em; backdrop-filter:blur(5px); }
 .sceneCopy { padding:16px 2px 0; }
 .sceneCopy h2 { margin:0 0 6px; font-size:22px; letter-spacing:-.035em; }
@@ -129,5 +134,5 @@
 .characterContinuity strong { font-size:18px; }
 .characterContinuity span,.characterContinuity small { color:#605d5d; font-size:13px; line-height:1.5; }
 .characterContinuity small { grid-column:2/4; max-width:760px; }
-@media (max-width:900px) { .samuelStory,.samuelStory:has(.lexicalPanelClosed) { grid-template-columns:1fr; gap:24px; }.lexicalPanel { position:relative; top:auto; }.storyHeader { align-items:flex-start; flex-direction:column; }.sceneGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.sceneSlide { grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr); }.sceneSlide .sceneCopy { min-height:0; padding:28px; }.sceneCopy .sceneText { font-size:clamp(22px,3vw,32px); }.characterContinuity { grid-template-columns:1fr 1fr; }.characterContinuity>p,.characterContinuity small { grid-column:1/3; } }
-@media (max-width:700px) { .readerPageWide { padding-inline:20px; }.storyHeader { margin-bottom:30px; }.storyHeader h1 { font-size:clamp(36px,11vw,50px); }.storyModes { display:grid; grid-template-columns:1fr 1fr; width:100%; }.illustrationLayout .storyHeader { align-items:flex-start; }.illustrationIntro { grid-template-columns:1fr; gap:8px; }.illustrationLayout .illustrationIntro span { display:block; font-size:18px; }.illustrationHelp { margin:2px 0 16px; font-size:13px; }.sceneGrid { grid-template-columns:1fr; gap:34px; }.sceneSlide { grid-template-columns:1fr; }.sceneSlide .sceneImage { aspect-ratio:1312/1199; }.sceneSlide .sceneCopy { min-height:190px; padding:24px; }.sceneCopy .sceneText { max-width:none; padding-top:28px; font-size:clamp(22px,6.5vw,30px); }.sliderArrows a { bottom:12px; min-height:38px; padding-inline:12px; }.sliderArrowLeft { left:10px; }.sliderArrowRight { right:10px; }.sliderMeta { gap:12px; }.scenePicker { align-items:flex-start; flex-direction:column; gap:10px; }.scenePicker>div { width:100%; justify-content:space-between; gap:4px; }.scenePicker a { width:30px; height:30px; }.characterContinuity { grid-template-columns:1fr; }.characterContinuity>p,.characterContinuity small { grid-column:auto; } }
+@media (max-width:900px) { .storyHeader { grid-template-columns:minmax(0,1fr); align-items:start; justify-items:start; }.sceneGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.sceneSlide { grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr); }.sceneSlide .sceneCopy { min-height:0; padding:28px; }.sceneCopy .sceneText { font-size:clamp(22px,3vw,32px); }.characterContinuity { grid-template-columns:1fr 1fr; }.characterContinuity>p,.characterContinuity small { grid-column:1/3; } }
+@media (max-width:700px) { .storyHeader { margin-bottom:30px; }.storyHeader h1 { font-size:clamp(36px,11vw,50px); }.storyModes { display:grid; grid-template-columns:1fr 1fr; width:100%; }.illustrationLayout .storyHeader { align-items:flex-start; }.illustrationIntro { grid-template-columns:1fr; gap:8px; }.illustrationLayout .illustrationIntro span { display:block; font-size:18px; }.illustrationHelp { margin:2px 0 16px; font-size:13px; }.sceneGrid { grid-template-columns:1fr; gap:34px; }.sceneSlide { grid-template-columns:1fr; }.sceneSlide .sceneImage { aspect-ratio:3/2; }.sceneSlide .sceneCopy { min-height:190px; padding:24px; }.sceneCopy .sceneText { max-width:none; padding-top:28px; font-size:clamp(22px,6.5vw,30px); }.sliderArrows a { bottom:12px; min-height:38px; padding-inline:12px; }.sliderArrowLeft { left:10px; }.sliderArrowRight { right:10px; }.sliderMeta { gap:12px; }.scenePicker { align-items:flex-start; flex-direction:column; gap:10px; }.scenePicker>div { width:100%; justify-content:space-between; gap:4px; }.scenePicker a { width:30px; height:30px; }.characterContinuity { grid-template-columns:1fr; }.characterContinuity>p,.characterContinuity small { grid-column:auto; } }
