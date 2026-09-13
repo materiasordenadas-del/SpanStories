@@ -191,6 +191,20 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 /* ── C6 · Lector: tipografía de lectura ── */
 
 /* ── C8 · Lector: modo ilustración ── */
+.visuallyHidden { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.illustrationLead { max-width:62ch; margin:0 0 20px; font-size:clamp(18px,1.8vw,22px); font-weight:600; line-height:1.35; letter-spacing:-.015em; text-wrap:pretty; }
+.rosterCard { font-family:inherit; font-size:15px; line-height:1.45; letter-spacing:0; }
+.scenePicker>span { color:var(--ink); font-family:inherit; font-size:14px; font-weight:700; letter-spacing:0; text-transform:none; }
+.scenePicker>div { flex-wrap:wrap; justify-content:flex-end; }
+.scenePicker a { width:40px; height:40px; font-family:inherit; font-size:13px; }
+.scenePicker a[aria-current="page"] { border-color:var(--accent-ink); background:var(--accent-ink); }
+@media (max-width:700px) {
+  .scenePicker>div { flex-wrap:nowrap; justify-content:flex-start; gap:8px; overflow-x:auto; padding-bottom:4px; }
+  .scenePicker a { flex:0 0 44px; width:44px; height:44px; }
+  .sliderArrows a { min-height:44px; }
+  .sceneSlide .sceneCopy { padding-bottom:76px; }
+  .sceneCopy .sceneText { padding-top:0; }
+}
 
 /* ── C11 · Portada ── */
 .portraitLink { display:flex; flex-direction:column; gap:12px; }

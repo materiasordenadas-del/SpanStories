@@ -24,8 +24,8 @@ export function IllustratedStory({ initialScene, island, story, model, selectedW
     if (event.key === "Home") { event.preventDefault(); goToScene(0); }
     if (event.key === "End") { event.preventDefault(); goToScene(model.scenes.length - 1); }
   }}>
-    <div className={styles.illustrationIntro}><p>{model.title}</p>{model.summary === undefined ? null : <span>{model.summary}</span>}</div>
-    <p className={styles.illustrationHelp} id="illustration-help">Usa las flechas, desliza o elige una escena. En teclado, usa ← →, Inicio y Fin.</p>
+    {model.summary === undefined ? null : <p className={styles.illustrationLead}>{model.summary}</p>}
+    <p className={styles.visuallyHidden} id="illustration-help">Usa Anterior y Siguiente, desliza o elige una escena. Con teclado: flechas izquierda y derecha, Inicio y Fin.</p>
     <div className={styles.sliderViewport} aria-live="polite" aria-atomic="true" onTouchStart={(event) => {
       touchStartX.current = event.touches[0]?.clientX ?? null;
     }} onTouchEnd={(event) => {
@@ -40,7 +40,6 @@ export function IllustratedStory({ initialScene, island, story, model, selectedW
         {model.scenes.map((scene, index) => <article className={styles.sceneSlide} key={scene.number} aria-hidden={currentScene !== index}>
           <div className={styles.sceneImage}>
             <img src={scene.illustration.src} alt={scene.illustration.alt} />
-            <span className={styles.sceneNumber}>{String(index + 1).padStart(2, "0")}</span>
             {scene.rosterSentenceIndex !== null ? <div className={styles.rosterCard} aria-label="Información escrita en la lista"><StoryText segments={model.sentences[scene.rosterSentenceIndex].segments} selectedWordId={selectedWordId} onSelect={onSelect} /></div> : null}
           </div>
           <div className={styles.sceneCopy}><div className={styles.sceneText}>{scene.sentenceIndexes.filter((sentenceIndex) => sentenceIndex !== scene.rosterSentenceIndex).map((sentenceIndex, sentencePosition) => <p key={model.sentences[sentenceIndex].id}>
@@ -54,13 +53,9 @@ export function IllustratedStory({ initialScene, island, story, model, selectedW
         {currentScene < model.scenes.length - 1 ? <Link className={styles.sliderArrowRight} href={sceneHref(currentScene + 1)}><span>Siguiente</span><span aria-hidden>→</span></Link> : null}
       </nav>
     </div>
-    <div className={styles.sliderMeta}>
-      <div className={styles.sliderProgress} aria-label={`Escena ${currentScene + 1} de ${model.scenes.length}`}><i style={{ width: `${((currentScene + 1) / model.scenes.length) * 100}%` }} /></div>
-      <span className={styles.sliderCount}>{String(currentScene + 1).padStart(2, "0")} / {String(model.scenes.length).padStart(2, "0")}</span>
-    </div>
     <nav className={styles.scenePicker} aria-label="Ir directamente a una escena">
-      <span>Ir a escena</span>
-      <div>{model.scenes.map((scene, index) => <Link key={scene.number} href={sceneHref(index)} aria-current={currentScene === index ? "page" : undefined} aria-label={`Ver escena ${index + 1}`}>{String(index + 1).padStart(2, "0")}</Link>)}</div>
+      <span>Escena {currentScene + 1} de {model.scenes.length}</span>
+      <div>{model.scenes.map((scene, index) => <Link key={scene.number} href={sceneHref(index)} aria-current={currentScene === index ? "page" : undefined} aria-label={`Ver escena ${index + 1}`}>{index + 1}</Link>)}</div>
     </nav>
   </section>;
 }
