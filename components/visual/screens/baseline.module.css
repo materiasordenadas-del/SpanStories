@@ -156,6 +156,18 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 .footer { font-size:13px; }
 
 /* ── C4 · Contenido A1: niveles, islas e historias ── */
+.levelSoon,.levelSoon:hover { color:var(--locked-ink); }
+.levelSoon .levelCode { color:var(--locked-ink); }
+.islandImage { justify-content:space-between; }
+.lockIcon { align-self:flex-start; flex:0 0 auto; }
+.islandCard.locked,.islandCard.locked:hover { color:inherit; cursor:default; transform:none; }
+.islandCard.locked h2 { color:var(--locked-ink); }
+.storyRowEnd { display:flex; align-items:center; gap:18px; }
+.storyReadMark { color:var(--muted); font-size:13px; font-weight:700; }
+.storyRowLocked,.storyRowLocked:hover { padding-inline:0; color:var(--locked-ink); }
+.storyRowLocked>span,.storyRowLocked p { color:var(--locked-ink); }
+.islandLockedNote { display:flex; flex-wrap:wrap; align-items:center; gap:16px 24px; margin:0 0 40px; padding-top:24px; border-top:2px solid var(--divider); }
+.islandLockedNote p { margin:0; font-size:19px; font-weight:600; }
 
 /* ── C5 · Lector: disposición de la ficha ── */
 

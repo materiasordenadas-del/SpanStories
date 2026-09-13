@@ -1,3 +1,4 @@
-import { A1StartScreen } from "@/components/visual/screens/A1StartScreen";
+import { redirect } from "next/navigation";
 
-export default function A1Page() { return <A1StartScreen />; }
+// La antigua página intermedia de A1 solo tenía un botón hacia las islas: se va directo.
+export default function A1Page() { redirect("/islas"); }
