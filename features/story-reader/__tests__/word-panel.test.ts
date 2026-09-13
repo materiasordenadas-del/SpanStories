@@ -41,9 +41,12 @@ describe("Historia 1 / word panel view model", () => {
     assert.deepEqual(first.storyContexts?.map((context) => [context.text, context.sceneLabel]), [[model.sentences[4].text, "Escena 3"]]);
     assert.deepEqual(second.storyContexts?.map((context) => context.sceneLabel), ["Escena 1"]);
 
-    for (const field of ["translation", "shortUsage", "examples", "pronunciation", "image", "previousContexts", "canSave", "canPractice"] as const) {
+    for (const field of ["translation", "shortUsage", "examples", "pronunciation", "previousContexts", "canSave", "canPractice"] as const) {
       assert.equal(field in first, false, `${field} has no published source yet`);
     }
+    // The panel image comes from the published illustration of the occurrence's scene.
+    assert.deepEqual(first.image, { src: "/stories/historia-01/scenes/scene-01.png", alt: "Ilustración de la escena 1" });
+    assert.deepEqual(second.image, { src: "/stories/historia-01/scenes/scene-03.png", alt: "Ilustración de la escena 3" });
   });
 
   test("annotated function words get a learner label", async () => {

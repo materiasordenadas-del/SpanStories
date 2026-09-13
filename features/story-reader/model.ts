@@ -7,7 +7,7 @@ import type {
   TextAnchor,
 } from "../story-engine/index.ts";
 import type { LexiconReleaseId } from "../lexical-engine/index.ts";
-import type { WordPanelViewModel } from "./word-panel.ts";
+import type { WordPanelExample, WordPanelViewModel } from "./word-panel.ts";
 
 export type StoryReaderTextSegment =
   | { readonly kind: "TEXT"; readonly text: string }
@@ -29,10 +29,33 @@ export type StoryReaderSentence = {
   readonly segments: readonly StoryReaderTextSegment[];
 };
 
+export type StoryReaderSceneIllustration = {
+  readonly src: string;
+  readonly alt: string;
+};
+
 export type StoryReaderScene = {
   readonly number: number;
   readonly sentenceIndexes: readonly number[];
   readonly rosterSentenceIndex: number | null;
+  readonly illustration: StoryReaderSceneIllustration;
+};
+
+/**
+ * Editorial reference content a story authors for one StoryOccurrence. It is
+ * not a published lexical source: the panel's published fields stay untouched
+ * and the reader shows this in their place.
+ */
+export type StoryReaderWordReference = {
+  readonly translation: string;
+  readonly partOfSpeechLabel: string;
+  readonly imageCaption: string;
+  readonly shortUsage: string;
+  readonly examples: readonly WordPanelExample[];
+  readonly usageNotes: readonly string[];
+  readonly otherStories: readonly { readonly word: string; readonly rest: string; readonly meta: string }[];
+  readonly frequency: string;
+  readonly relatedWords: readonly string[];
 };
 
 export type StoryReaderLexicalEntry = {
@@ -43,6 +66,8 @@ export type StoryReaderLexicalEntry = {
   readonly senseItem: string | null;
   readonly lexicalCategory: string | null;
   readonly panel: WordPanelViewModel;
+  /** Bound to this entry's occurrenceId, never to its surface text. */
+  readonly reference?: StoryReaderWordReference;
 };
 
 export type StoryReaderSurfaceEntry = {
@@ -68,6 +93,8 @@ export type StoryReaderViewModel = {
   readonly storyId: string;
   readonly storyVersionId: string;
   readonly title: string;
+  /** One-line synopsis shown under the title in illustrated mode. */
+  readonly summary?: string;
   readonly sentences: readonly StoryReaderSentence[];
   readonly scenes: readonly StoryReaderScene[];
   readonly lexicalEntries: Readonly<Record<string, StoryReaderLexicalEntry>>;

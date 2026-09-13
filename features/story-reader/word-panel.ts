@@ -137,6 +137,7 @@ export type WordPanelStoryIndex = {
   readonly anchorsById: ReadonlyMap<string, TextAnchor>;
   readonly occurrences: readonly StoryOccurrence[];
   readonly sceneLabelBySentenceId: ReadonlyMap<string, string>;
+  readonly sceneImageSrcBySentenceId: ReadonlyMap<string, string>;
 };
 
 export function createWordPanelStoryIndex(
@@ -146,10 +147,13 @@ export function createWordPanelStoryIndex(
   scenes: readonly StoryReaderScene[],
 ): WordPanelStoryIndex {
   const sceneLabelBySentenceId = new Map<string, string>();
+  const sceneImageSrcBySentenceId = new Map<string, string>();
   for (const scene of scenes) {
     for (const sentenceIndex of scene.sentenceIndexes) {
       const sentence = sentences[sentenceIndex];
-      if (sentence !== undefined) sceneLabelBySentenceId.set(sentence.id, `Escena ${scene.number}`);
+      if (sentence === undefined) continue;
+      sceneLabelBySentenceId.set(sentence.id, `Escena ${scene.number}`);
+      sceneImageSrcBySentenceId.set(sentence.id, scene.illustration.src);
     }
   }
   return {
@@ -157,6 +161,7 @@ export function createWordPanelStoryIndex(
     anchorsById: new Map(anchors.map((anchor) => [anchor.id, anchor] as const)),
     occurrences,
     sceneLabelBySentenceId,
+    sceneImageSrcBySentenceId,
   };
 }
 
@@ -194,6 +199,7 @@ export function buildLexicalWordPanel(input: {
   const label = partOfSpeechLabel(lexeme, sense);
   const sceneLabel = index.sceneLabelBySentenceId.get(occurrence.sentenceId);
   const sceneNumber = Number(sceneLabel?.replace(/^Escena\s+/, ""));
+  const sceneImageSrc = index.sceneImageSrcBySentenceId.get(occurrence.sentenceId);
   const sentenceOrder = (candidate: LexicalOccurrence) => index.sentencesById.get(candidate.sentenceId)?.order ?? 0;
   const storyContexts = index.occurrences
     .filter((candidate): candidate is LexicalOccurrence =>
@@ -208,8 +214,8 @@ export function buildLexicalWordPanel(input: {
     surface: occurrence.surface,
     ...(label === undefined ? {} : { partOfSpeechLabel: label }),
     ...(hasCurricularLevel ? { cefrLevel: levelCode } : {}),
-    ...(Number.isInteger(sceneNumber) && sceneNumber > 0
-      ? { image: { src: `/stories/historia-01/scenes/scene-${String(sceneNumber).padStart(2, "0")}.png`, alt: `Ilustración de la escena ${sceneNumber}` } }
+    ...(sceneImageSrc !== undefined && Number.isInteger(sceneNumber) && sceneNumber > 0
+      ? { image: { src: sceneImageSrc, alt: `Ilustración de la escena ${sceneNumber}` } }
       : {}),
     currentContext: { ...occurrenceContext(occurrence, index), highlightedSurface: occurrence.surface },
     ...(storyContexts.length > 0 ? { storyContexts } : {}),

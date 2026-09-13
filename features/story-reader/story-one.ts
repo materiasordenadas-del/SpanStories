@@ -28,7 +28,7 @@ import {
   type StoryTargetBinding,
   type TextAnchor,
 } from "../story-engine/index.ts";
-import type { StoryReaderEventContext, StoryReaderLexicalEntry, StoryReaderScene, StoryReaderSurfaceEntry, StoryReaderViewModel } from "./model.ts";
+import type { StoryReaderEventContext, StoryReaderLexicalEntry, StoryReaderScene, StoryReaderSurfaceEntry, StoryReaderViewModel, StoryReaderWordReference } from "./model.ts";
 import { buildReaderSegments } from "./segments.ts";
 import { buildLexicalWordPanel, buildSurfaceWordPanel, createWordPanelStoryIndex } from "./word-panel.ts";
 
@@ -128,17 +128,54 @@ const CONSTRUCTION_SPECS: readonly ConstructionSpec[] = [
   { key: "de-donde", sentence: 13, constructionId: "DE_DONDE_ORIGIN_QUESTION", parts: [{ surface: "de dónde", role: "ANCHOR" }] },
 ] as const;
 
+const STORY_ONE_SUMMARY = "Samuel pasa de los nervios de la llegada a sentirse parte de su nueva clase.";
+
+const storyOneSceneSrc = (number: number) => `/stories/historia-01/scenes/scene-${String(number).padStart(2, "0")}.png`;
+
 const STORY_ONE_SCENES: readonly StoryReaderScene[] = [
-  { number: 1, sentenceIndexes: [0, 1, 2], rosterSentenceIndex: null },
-  { number: 2, sentenceIndexes: [3], rosterSentenceIndex: null },
-  { number: 3, sentenceIndexes: [4], rosterSentenceIndex: null },
-  { number: 4, sentenceIndexes: [5, 6, 7], rosterSentenceIndex: null },
-  { number: 5, sentenceIndexes: [8], rosterSentenceIndex: null },
-  { number: 6, sentenceIndexes: [9, 10, 11], rosterSentenceIndex: 11 },
-  { number: 7, sentenceIndexes: [12, 13], rosterSentenceIndex: null },
-  { number: 8, sentenceIndexes: [14, 15, 16], rosterSentenceIndex: null },
-  { number: 9, sentenceIndexes: [17], rosterSentenceIndex: null },
+  { number: 1, sentenceIndexes: [0, 1, 2], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(1), alt: "Samuel llega a su nueva escuela en Bogotá" } },
+  { number: 2, sentenceIndexes: [3], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(2), alt: "Samuel entra al aula mientras el Sr. Taylor saluda a la clase" } },
+  { number: 3, sentenceIndexes: [4], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(3), alt: "Samuel y sus compañeros responden al saludo del profesor" } },
+  { number: 4, sentenceIndexes: [5, 6, 7], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(4), alt: "El Sr. Taylor revisa la lista y busca a Samuel López" } },
+  { number: 5, sentenceIndexes: [8], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(5), alt: "Samuel explica que su apellido es Gómez, no López" } },
+  { number: 6, sentenceIndexes: [9, 10, 11], rosterSentenceIndex: 11, illustration: { src: storyOneSceneSrc(6), alt: "El Sr. Taylor vuelve a comprobar la lista" } },
+  { number: 7, sentenceIndexes: [12, 13], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(7), alt: "El Sr. Taylor piensa mientras confirma el nombre de Samuel" } },
+  { number: 8, sentenceIndexes: [14, 15, 16], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(8), alt: "El Sr. Taylor da la bienvenida a Samuel" } },
+  { number: 9, sentenceIndexes: [17], rosterSentenceIndex: null, illustration: { src: storyOneSceneSrc(9), alt: "Samuel está contento en su primer día de clases" } },
 ];
+
+const STORY_ONE_HOLA_REFERENCE: StoryReaderWordReference = {
+  translation: "hello / hi",
+  partOfSpeechLabel: "Interjección",
+  imageCaption: "Escena: Samuel saluda",
+  shortUsage: "Se usa para saludar cuando encuentras o te diriges a alguien. Es una forma común y neutral.",
+  examples: [
+    { text: "Hola, Ana.", translation: "Hi, Ana." },
+    { text: "Hola, buenos días.", translation: "Hello, good morning." },
+    { text: "Hola, ¿cómo estás?", translation: "Hi, how are you?" },
+    { text: "¡Hola a todos!", translation: "Hi everyone!" },
+    { text: "Hola, soy Samuel.", translation: "Hi, I'm Samuel." },
+  ],
+  usageNotes: [
+    "Saludo neutral: sirve en cualquier momento del día.",
+    "Se combina con otro saludo: «Hola, buenos días».",
+    "Informal, pero también apropiado al iniciar una conversación formal.",
+    "No cambia de forma: no tiene género ni número.",
+  ],
+  otherStories: [
+    { word: "Hola", rest: ", buenos días, profesor.", meta: "Isla 01 · Historia 01 · Escena 2" },
+    { word: "¡Hola", rest: "! ¿Cómo estás?", meta: "Isla 02 · Historia 03 · Escena 1" },
+    { word: "Hola", rest: ", chicos.", meta: "Isla 01 · Historia 02 · Escena 3" },
+  ],
+  frequency: "Muy alta — entre las 50 palabras más usadas en A1.",
+  relatedWords: ["Buenos días", "Adiós", "¿Qué tal?"],
+};
+
+/** Editorial references by LEXICAL_SPECS key: each one is bound to a single occurrence. */
+const STORY_ONE_REFERENCES_BY_SPEC_KEY: ReadonlyMap<string, StoryReaderWordReference> = new Map([
+  ["hola-1", STORY_ONE_HOLA_REFERENCE],
+  ["hola-2", STORY_ONE_HOLA_REFERENCE],
+]);
 
 function tokenizeSentence(sentenceId: StorySentence["id"], text: string, sentenceIndex: number): readonly SurfaceToken[] {
   return [...text.matchAll(/[\p{L}\p{M}]+/gu)].map((match, tokenIndex) => {
@@ -243,7 +280,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
   const lexicalByKey = new Map<string, LexicalOccurrence>();
   const lexicalEntries: Record<string, StoryReaderLexicalEntry> = {};
   const surfaceEntries: Record<string, StoryReaderSurfaceEntry> = {};
-  const lexicalIdentities: { occurrence: LexicalOccurrence; sentence: StorySentence; lexeme: Lexeme; sense: Sense }[] = [];
+  const lexicalIdentities: { occurrence: LexicalOccurrence; sentence: StorySentence; lexeme: Lexeme; sense: Sense; reference: StoryReaderWordReference | undefined }[] = [];
   let anchorIndex = 0;
   let occurrenceIndex = 0;
 
@@ -276,7 +313,10 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
     });
     occurrences.push(occurrence);
     lexicalByKey.set(spec.key, occurrence);
-    lexicalIdentities.push({ occurrence, sentence, lexeme, sense });
+    lexicalIdentities.push({ occurrence, sentence, lexeme, sense, reference: STORY_ONE_REFERENCES_BY_SPEC_KEY.get(spec.key) });
+  }
+  for (const key of STORY_ONE_REFERENCES_BY_SPEC_KEY.keys()) {
+    if (!lexicalByKey.has(key)) throw new Error(`BLOCKER_INTEGRATION_CONTRADICTION: word reference for unknown occurrence ${key}`);
   }
 
   const constructionByKey = new Map<string, StoryOccurrence>();
@@ -311,7 +351,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
   }
 
   const panelIndex = createWordPanelStoryIndex(sentences, anchors, occurrences, STORY_ONE_SCENES);
-  for (const { occurrence, sentence, lexeme, sense } of lexicalIdentities) {
+  for (const { occurrence, sentence, lexeme, sense, reference } of lexicalIdentities) {
     lexicalEntries[occurrence.id] = {
       occurrenceId: occurrence.id,
       surface: occurrence.surface,
@@ -320,6 +360,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
       senseItem: sense.item,
       lexicalCategory: lexeme.lexicalCategory,
       panel: buildLexicalWordPanel({ occurrence, lexeme, sense, levelCode: LEVEL_CODE, index: panelIndex }),
+      ...(reference === undefined ? {} : { reference }),
     };
   }
 
@@ -416,6 +457,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
     storyId: story.id,
     storyVersionId: version.id,
     title: version.title,
+    summary: STORY_ONE_SUMMARY,
     sentences: readerSentences,
     scenes: STORY_ONE_SCENES,
     lexicalEntries,

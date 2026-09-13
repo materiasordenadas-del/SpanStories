@@ -94,6 +94,17 @@ describe("Historia 1 / vertical slice", () => {
     assert.equal(holas[0].senseId, "SENSE-A1-000292");
   });
 
+  test("editorial word references are bound to occurrence identity, not to surface text", async () => {
+    const model = await getStoryOneReaderViewModel();
+    const referencedIds = Object.values(model.lexicalEntries).filter((entry) => entry.reference !== undefined).map((entry) => entry.occurrenceId);
+    const holaSenseIds = model.eventContext.occurrences
+      .filter((occurrence): occurrence is LexicalOccurrence => occurrence.kind === "LEXICAL" && occurrence.senseId === "SENSE-A1-000292")
+      .map((occurrence) => occurrence.id);
+    assert.equal(referencedIds.length, 2);
+    assert.deepEqual([...referencedIds].sort(), [...holaSenseIds].sort());
+    assert.equal("wordReferences" in model, false);
+  });
+
   test("the renderer preserves a discontinuous multi-part lexical occurrence", () => {
     const storyVersionId = asId("StoryVersionId", "storyver-renderer-fixture");
     const sentence: StorySentence = {

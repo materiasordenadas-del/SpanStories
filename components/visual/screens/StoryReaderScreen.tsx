@@ -3,25 +3,13 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
 import Link from "next/link";
-import type { StoryReaderTextSegment, StoryReaderViewModel } from "@/features/story-reader/model";
+import type { StoryReaderTextSegment, StoryReaderViewModel, StoryReaderWordReference } from "@/features/story-reader/model";
 import type { WordPanelContext, WordPanelTextPart, WordPanelViewModel } from "@/features/story-reader/word-panel";
 import { recordStoryOccurrenceOpened } from "@/features/story-reader/record-occurrence-opened";
 import { speakSpanish } from "@/features/story-reader/browser-speech";
 import { BaselineNav } from "../layouts/BaselineNav";
 import styles from "./baseline.module.css";
 import panelStyles from "./word-panel.module.css";
-
-const sceneIllustrations = [
-  "Samuel llega a su nueva escuela en Bogotá",
-  "Samuel entra al aula mientras el Sr. Taylor saluda a la clase",
-  "Samuel y sus compañeros responden al saludo del profesor",
-  "El Sr. Taylor revisa la lista y busca a Samuel López",
-  "Samuel explica que su apellido es Gómez, no López",
-  "El Sr. Taylor vuelve a comprobar la lista",
-  "El Sr. Taylor piensa mientras confirma el nombre de Samuel",
-  "El Sr. Taylor da la bienvenida a Samuel",
-  "Samuel está contento en su primer día de clases",
-] as const;
 
 function StoryText({ segments, selectedWordId, onSelect }: {
   segments: readonly StoryReaderTextSegment[];
@@ -128,8 +116,9 @@ function useFitWord(titleRef: RefObject<HTMLHeadingElement | null>, word: string
   }, [titleRef, word]);
 }
 
-function WordPanel({ panel, eventError, closeButtonRef, onClose }: {
+function WordPanel({ panel, reference, eventError, closeButtonRef, onClose }: {
   panel: WordPanelViewModel;
+  reference: StoryReaderWordReference | undefined;
   eventError: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
   onClose: () => void;
@@ -139,27 +128,12 @@ function WordPanel({ panel, eventError, closeButtonRef, onClose }: {
   const [saved, setSaved] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   useFitWord(titleRef, panel.surface);
-  const isReferenceHola = panel.surface.toLocaleLowerCase("es") === "hola";
-  const examples = isReferenceHola ? [
-    { text: "Hola, Ana.", translation: "Hi, Ana." },
-    { text: "Hola, buenos días.", translation: "Hello, good morning." },
-    { text: "Hola, ¿cómo estás?", translation: "Hi, how are you?" },
-    { text: "¡Hola a todos!", translation: "Hi everyone!" },
-    { text: "Hola, soy Samuel.", translation: "Hi, I'm Samuel." },
-  ] : panel.examples;
-  const otherStories = isReferenceHola ? [
-    { word: "Hola", rest: ", buenos días, profesor.", meta: "Isla 01 · Historia 01 · Escena 2" },
-    { word: "¡Hola", rest: "! ¿Cómo estás?", meta: "Isla 02 · Historia 03 · Escena 1" },
-    { word: "Hola", rest: ", chicos.", meta: "Isla 01 · Historia 02 · Escena 3" },
-  ] : [];
-  const usageNotes = isReferenceHola ? [
-    "Saludo neutral: sirve en cualquier momento del día.",
-    "Se combina con otro saludo: «Hola, buenos días».",
-    "Informal, pero también apropiado al iniciar una conversación formal.",
-    "No cambia de forma: no tiene género ni número.",
-  ] : [];
+  const examples = reference?.examples ?? panel.examples;
+  const otherStories = reference?.otherStories ?? [];
+  const usageNotes = reference?.usageNotes ?? [];
   const tabs = [{ id: "resumen", label: "Resumen" }, { id: "ejemplos", label: "Ejemplos" }, { id: "uso", label: "Uso" }, { id: "contexto", label: "En contexto" }, { id: "mas", label: "Más" }] as const;
-  const partOfSpeech = isReferenceHola ? "Interjección" : panel.partOfSpeechLabel;
+  const translation = reference?.translation ?? panel.translation;
+  const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
   const hasTags = partOfSpeech !== undefined || panel.cefrLevel !== undefined;
   const renderExamples = (items: NonNullable<typeof examples>) => <div className={panelStyles.sourceList}>{items.map((example, index) => <div className={panelStyles.sourceRow} key={index}><strong>{example.text}</strong>{example.translation === undefined ? null : <span lang="en">{example.translation}</span>}</div>)}</div>;
   const renderOtherStories = (items: typeof otherStories) => <div className={panelStyles.otherStories}>{items.map((story, index) => <div className={panelStyles.otherStory} key={index}><BookIcon /><div><p><strong>{story.word}</strong>{story.rest}</p><small>{story.meta}</small></div></div>)}</div>;
@@ -176,14 +150,14 @@ function WordPanel({ panel, eventError, closeButtonRef, onClose }: {
             <AudioButton label={`Escuchar «${panel.surface}»`} text={panel.surface} />
             <button aria-pressed={saved} className={`${panelStyles.favoriteButton} ${saved ? panelStyles.favoriteActive : ""}`} onClick={() => setSaved((value) => !value)} type="button"><span className={panelStyles.srOnly}>Guardar como favorita</span>☆</button>
           </div>
-          {isReferenceHola ? <p className={panelStyles.translation} lang="en">hello / hi</p> : panel.translation === undefined ? null : <p className={panelStyles.translation} lang="en">{panel.translation}</p>}
+          {translation === undefined ? null : <p className={panelStyles.translation} lang="en">{translation}</p>}
           {panel.kind === "SURFACE" ? <p className={panelStyles.note}>Todavía no hay una ficha para esta palabra.</p> : null}
           {hasTags ? <ul aria-label="Datos de la palabra" className={panelStyles.tags}>
             {partOfSpeech === undefined ? null : <li>{partOfSpeech}</li>}
             {panel.cefrLevel === undefined ? null : <li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel}</li>}
           </ul> : null}
         </div>
-        {panel.image === undefined ? null : <div aria-label={panel.image.alt} className={panelStyles.imagePlaceholder}><ImagePlaceholderIcon /><span>{isReferenceHola ? "Escena: Samuel saluda" : panel.image.alt}</span></div>}
+        {panel.image === undefined ? null : <div aria-label={panel.image.alt} className={panelStyles.imagePlaceholder}><ImagePlaceholderIcon /><span>{reference?.imageCaption ?? panel.image.alt}</span></div>}
       </header>
       <button aria-controls="word-panel-details" aria-expanded={detailsOpen} className={panelStyles.detailsToggle} onClick={() => setDetailsOpen((open) => !open)} type="button"><span>Detalles</span><ChevronIcon expanded={detailsOpen} /></button>
       <div className={detailsOpen ? panelStyles.detailsOpen : panelStyles.details} id="word-panel-details">
@@ -192,7 +166,7 @@ function WordPanel({ panel, eventError, closeButtonRef, onClose }: {
           {tabs.map((tab) => <button aria-current={activeTab === tab.id ? "page" : undefined} className={activeTab === tab.id ? panelStyles.activeTab : undefined} key={tab.id} onClick={() => setActiveTab(tab.id)} type="button">{tab.label}</button>)}
         </nav>
           {activeTab === "resumen" ? <div className={panelStyles.tabContent}>
-            <p className={panelStyles.usage}><SpeakerIcon /><span>{isReferenceHola ? "Se usa para saludar cuando encuentras o te diriges a alguien. Es una forma común y neutral." : panel.shortUsage ?? "Palabra seleccionada en esta historia."}</span></p>
+            <p className={panelStyles.usage}><SpeakerIcon /><span>{reference?.shortUsage ?? panel.shortUsage ?? "Palabra seleccionada en esta historia."}</span></p>
             {examples?.length ? <section><div className={panelStyles.sourceHeading}><h3>Ejemplos</h3><button onClick={() => setActiveTab("ejemplos")} type="button">Ver más →</button></div>{renderExamples(examples.slice(0, 3))}</section> : null}
             <section><h3>En esta historia</h3><p className={panelStyles.contextCard} lang="es"><ContextText parts={panel.currentContext.parts} /></p></section>
             {otherStories.length ? <section><div className={panelStyles.sourceHeading}><h3>En otras historias</h3><button onClick={() => setActiveTab("contexto")} type="button">Ver todas →</button></div>{renderOtherStories(otherStories.slice(0, 2))}</section> : null}
@@ -200,7 +174,7 @@ function WordPanel({ panel, eventError, closeButtonRef, onClose }: {
           {activeTab === "ejemplos" ? <div className={panelStyles.tabContent}>{examples?.length ? renderExamples(examples) : <p>Aún no hay ejemplos publicados para esta palabra.</p>}</div> : null}
           {activeTab === "uso" ? <div className={panelStyles.tabContent}>{usageNotes.length ? <ul className={panelStyles.usageNotes}>{usageNotes.map((note) => <li key={note}>{note}</li>)}</ul> : <p>No hay datos de uso publicados.</p>}</div> : null}
           {activeTab === "contexto" ? <div className={panelStyles.tabContent}><section><h3>En esta historia</h3><p className={panelStyles.contextCard} lang="es"><ContextText parts={panel.currentContext.parts} /></p></section>{otherStories.length ? <section><h3>En otras historias</h3>{renderOtherStories(otherStories)}</section> : null}</div> : null}
-          {activeTab === "mas" ? <div className={panelStyles.tabContent}><dl className={panelStyles.dataList}>{isReferenceHola ? <><div><dt>Frecuencia</dt><dd>Muy alta — entre las 50 palabras más usadas en A1.</dd></div><div><dt>Categoría gramatical</dt><dd>Interjección</dd></div><div><dt>Palabras relacionadas</dt><dd className={panelStyles.related}><span>Buenos días</span><span>Adiós</span><span>¿Qué tal?</span></dd></div></> : <div><dd>Aún no hay más información publicada para esta palabra.</dd></div>}</dl></div> : null}
+          {activeTab === "mas" ? <div className={panelStyles.tabContent}><dl className={panelStyles.dataList}>{reference !== undefined ? <><div><dt>Frecuencia</dt><dd>{reference.frequency}</dd></div><div><dt>Categoría gramatical</dt><dd>{reference.partOfSpeechLabel}</dd></div><div><dt>Palabras relacionadas</dt><dd className={panelStyles.related}>{reference.relatedWords.map((word) => <span key={word}>{word}</span>)}</dd></div></> :<div><dd>Aún no hay más información publicada para esta palabra.</dd></div>}</dl></div> : null}
           {eventError ? <p className={panelStyles.error} role="status">La palabra se abrió, pero la interacción no pudo guardarse.</p> : null}
         </div>
       </div>
@@ -220,6 +194,7 @@ function LexicalPanel({ model, selectedWordId, eventError, isOpen, onToggle }: {
   onToggle: () => void;
 }) {
   const panel = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId]?.panel ?? model.surfaceEntries[selectedWordId]?.panel;
+  const reference = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId]?.reference;
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   // Focus only follows the panel's own open/close buttons; selecting a word never moves focus out of the story.
@@ -234,7 +209,7 @@ function LexicalPanel({ model, selectedWordId, eventError, isOpen, onToggle }: {
     {panel === undefined
       ? <p className={panelStyles.hint}><strong>Selecciona una palabra</strong> para ver su información.</p>
       : isOpen
-        ? <><button aria-label="Ocultar panel de palabra" className={panelStyles.handle} onClick={() => { setFocusTarget("open"); onToggle(); }} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={() => { setFocusTarget("open"); onToggle(); }} panel={panel} /></>
+        ? <><button aria-label="Ocultar panel de palabra" className={panelStyles.handle} onClick={() => { setFocusTarget("open"); onToggle(); }} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={() => { setFocusTarget("open"); onToggle(); }} panel={panel} reference={reference} /></>
         : <button aria-expanded={false} className={panelStyles.openButton} onClick={() => { setFocusTarget("close"); onToggle(); }} ref={openButtonRef} type="button"><span>Ver palabra seleccionada</span><ChevronIcon expanded={false} /></button>}
   </aside>;
 }
@@ -259,7 +234,7 @@ function IllustratedStory({ initialScene, island, story, model, selectedWordId, 
     if (event.key === "Home") { event.preventDefault(); goToScene(0); }
     if (event.key === "End") { event.preventDefault(); goToScene(model.scenes.length - 1); }
   }}>
-    <div className={styles.illustrationIntro}><p>Primer día de clases en Bogotá</p><span>Samuel pasa de los nervios de la llegada a sentirse parte de su nueva clase.</span></div>
+    <div className={styles.illustrationIntro}><p>{model.title}</p>{model.summary === undefined ? null : <span>{model.summary}</span>}</div>
     <p className={styles.illustrationHelp} id="illustration-help">Usa las flechas, desliza o elige una escena. En teclado, usa ← →, Inicio y Fin.</p>
     <div className={styles.sliderViewport} aria-live="polite" aria-atomic="true" onTouchStart={(event) => {
       touchStartX.current = event.touches[0]?.clientX ?? null;
@@ -274,7 +249,7 @@ function IllustratedStory({ initialScene, island, story, model, selectedWordId, 
       <div className={styles.sliderTrack} style={{ transform: `translateX(-${currentScene * 100}%)` }}>
         {model.scenes.map((scene, index) => <article className={styles.sceneSlide} key={scene.number} aria-hidden={currentScene !== index}>
           <div className={styles.sceneImage}>
-            <img src={`/stories/historia-01/scenes/scene-${String(index + 1).padStart(2, "0")}.png`} alt={sceneIllustrations[index] ?? `Ilustración de la escena ${index + 1}`} />
+            <img src={scene.illustration.src} alt={scene.illustration.alt} />
             <span className={styles.sceneNumber}>{String(index + 1).padStart(2, "0")}</span>
             {scene.rosterSentenceIndex !== null ? <div className={styles.rosterCard} aria-label="Información escrita en la lista"><StoryText segments={model.sentences[scene.rosterSentenceIndex].segments} selectedWordId={selectedWordId} onSelect={onSelect} /></div> : null}
           </div>
