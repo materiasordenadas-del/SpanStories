@@ -9,10 +9,13 @@ export const metadata: Metadata = {
   description: "Aprende español mediante historias e islas de conocimiento.",
 };
 
+// El editor de maquetas es una herramienta de diseño: nunca llega a los estudiantes en producción.
+const pageEditorEnabled = process.env.NODE_ENV === "development";
+
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="es">
-      <body><PageEditor>{children}</PageEditor></body>
+      <body>{pageEditorEnabled ? <PageEditor>{children}</PageEditor> : children}</body>
     </html>
   );
 }
