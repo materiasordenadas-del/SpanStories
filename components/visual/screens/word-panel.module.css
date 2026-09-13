@@ -115,5 +115,7 @@
 .tabContent section>h3,.sourceHeading h3 { font-size:14px; }
 
 /* ── C5 · Lector: disposición de la ficha ── */
+.panel { min-height:0; max-height:var(--panel-max-height,calc(100dvh - 112px)); }
+.handle { display:none; }
 
 /* ── C7 · Ficha de palabra simplificada ── */

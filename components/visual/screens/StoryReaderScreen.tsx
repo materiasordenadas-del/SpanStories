@@ -10,16 +10,29 @@ import { StoryText } from "./StoryText";
 import { LexicalPanel } from "./WordPanel";
 import styles from "./baseline.module.css";
 
+/** Con la ficha como hoja inferior, la palabra tocada sube lo justo para quedar a la vista. */
+function keepWordAboveSheet(word: HTMLElement) {
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const sheet = document.getElementById("lexical-detail");
+    if (sheet === null || getComputedStyle(sheet).position !== "fixed") return;
+    const covered = word.getBoundingClientRect().bottom + 24 - (window.innerHeight - sheet.offsetHeight);
+    if (covered <= 0) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollBy({ top: covered, behavior: reduceMotion ? "auto" : "smooth" });
+  }));
+}
+
 function StoryWorkspace({ initialMode, initialScene, island, story, model }: { initialMode: "read" | "illustration"; initialScene: number; island: string; story: string; model: StoryReaderViewModel }) {
   const mode = initialMode === "illustration" && model.scenes.length > 0 ? "illustration" : "read";
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null);
   const [eventError, setEventError] = useState(false);
   const [isLexicalPanelOpen, setIsLexicalPanelOpen] = useState(false);
-  const selectWord = (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>) => {
+  const selectWord = (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>, word?: HTMLElement) => {
     const selectedId = segment.kind === "LEXICAL" ? segment.occurrenceId : segment.tokenId;
     setSelectedWordId(selectedId);
     setIsLexicalPanelOpen(true);
     setEventError(false);
+    if (word !== undefined) keepWordAboveSheet(word);
     if (segment.kind === "LEXICAL" && model.eventContext !== undefined) {
       void recordStoryOccurrenceOpened(model.eventContext, segment.occurrenceId).catch(() => setEventError(true));
     }
