@@ -1,11 +1,13 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import type { StoryReaderSentence, StoryReaderTextSegment, StoryReaderViewModel } from "@/features/story-reader/model";
 import { recordStoryOccurrenceOpened } from "@/features/story-reader/record-occurrence-opened";
 import { BaselineNav } from "../layouts/BaselineNav";
+import { rememberStory } from "../reading-memory";
 import { IllustratedStory } from "./IllustratedStory";
+import { StoryEnd, type ConsultedWord, type StoryNextStep } from "./StoryEnd";
 import { StoryText } from "./StoryText";
 import { LexicalPanel } from "./WordPanel";
 import styles from "./baseline.module.css";
@@ -52,22 +54,35 @@ function readingBlocks(model: StoryReaderViewModel): readonly ReadingBlock[] {
   return blocks;
 }
 
-function StoryWorkspace({ initialMode, initialScene, island, story, model }: { initialMode: "read" | "illustration"; initialScene: number; island: string; story: string; model: StoryReaderViewModel }) {
+function StoryWorkspace({ initialMode, initialScene, island, story, model, next }: { initialMode: "read" | "illustration"; initialScene: number; island: string; story: string; model: StoryReaderViewModel; next: StoryNextStep }) {
   const mode = initialMode === "illustration" && model.scenes.length > 0 ? "illustration" : "read";
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null);
   const [eventError, setEventError] = useState(false);
   const [isLexicalPanelOpen, setIsLexicalPanelOpen] = useState(false);
+  const [consultedWords, setConsultedWords] = useState<readonly ConsultedWord[]>([]);
+  const [illustrationScene, setIllustrationScene] = useState(initialScene);
   const hasLexicalWords = Object.keys(model.lexicalEntries).length > 0;
+  // En modo ilustración el cierre aparece al llegar a la última escena, no antes.
+  const reachedEnd = mode === "read" || illustrationScene === model.scenes.length - 1;
+
+  useEffect(() => { rememberStory({ island, story, title: model.title }); }, [island, story, model.title]);
+
   const selectWord = (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>, word?: HTMLElement) => {
     const selectedId = segment.kind === "LEXICAL" ? segment.occurrenceId : segment.tokenId;
     setSelectedWordId(selectedId);
     setIsLexicalPanelOpen(true);
     setEventError(false);
+    setConsultedWords((words) => words.some((entry) => entry.surface.toLocaleLowerCase("es") === segment.text.toLocaleLowerCase("es")) ? words : [...words, { id: selectedId, surface: segment.text }]);
     if (word !== undefined) keepWordAboveSheet(word);
     if (segment.kind === "LEXICAL" && model.eventContext !== undefined) {
       void recordStoryOccurrenceOpened(model.eventContext, segment.occurrenceId).catch(() => setEventError(true));
     }
   };
+  const reopenWord = (id: string) => {
+    setSelectedWordId(id);
+    setIsLexicalPanelOpen(true);
+  };
+
   return <div className={styles.storyWorkspace}>
     <div className={mode === "illustration" ? styles.illustrationLayout : ""}>
       <header className={styles.storyHeader}>
@@ -86,12 +101,13 @@ function StoryWorkspace({ initialMode, initialScene, island, story, model }: { i
             </p>)}
           </div>)}</article>
         </>
-        : <IllustratedStory key={initialScene} initialScene={initialScene} island={island} story={story} model={model} selectedWordId={selectedWordId} onSelect={selectWord} />}
+        : <IllustratedStory key={initialScene} initialScene={initialScene} island={island} story={story} model={model} selectedWordId={selectedWordId} onSelect={selectWord} onSceneChange={setIllustrationScene} />}
+      {reachedEnd ? <StoryEnd consultedWords={consultedWords} island={island} next={next} onReopenWord={reopenWord} story={story} title={model.title} /> : null}
     </div>
     <LexicalPanel model={model} selectedWordId={selectedWordId} eventError={eventError} isOpen={isLexicalPanelOpen} onToggle={() => setIsLexicalPanelOpen((open) => !open)} />
   </div>;
 }
 
-export function StoryReaderScreen({ island, story, initialMode = "read", initialScene = 0, storyModel }: { island: string; story: string; initialMode?: "read" | "illustration"; initialScene?: number; storyModel: StoryReaderViewModel }) {
-  return <div className={`${styles.page} standalone-layer`} data-interactive-story><BaselineNav /><main className={`${styles.readerPage} ${styles.readerPageWide}`}><Link className={styles.backLink} href={`/islas/${island}`}>← Volver a las historias</Link><StoryWorkspace initialMode={initialMode} initialScene={initialScene} island={island} story={story} model={storyModel} /></main><footer className={styles.footer}><span>SpanStories.</span><span>A1 · 2026</span></footer></div>;
+export function StoryReaderScreen({ island, story, initialMode = "read", initialScene = 0, storyModel, next }: { island: string; story: string; initialMode?: "read" | "illustration"; initialScene?: number; storyModel: StoryReaderViewModel; next: StoryNextStep }) {
+  return <div className={`${styles.page} standalone-layer`} data-interactive-story><BaselineNav /><main className={`${styles.readerPage} ${styles.readerPageWide}`}><Link className={styles.backLink} href={`/islas/${island}`}>← Volver a las historias</Link><StoryWorkspace initialMode={initialMode} initialScene={initialScene} island={island} story={story} model={storyModel} next={next} /></main><footer className={styles.footer}><span>SpanStories.</span><span>A1 · 2026</span></footer></div>;
 }

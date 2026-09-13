@@ -1,21 +1,23 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { StoryReaderTextSegment, StoryReaderViewModel } from "@/features/story-reader/model";
 import { StoryText } from "./StoryText";
 import styles from "./baseline.module.css";
 
-export function IllustratedStory({ initialScene, island, story, model, selectedWordId, onSelect }: {
+export function IllustratedStory({ initialScene, island, story, model, selectedWordId, onSelect, onSceneChange }: {
   initialScene: number;
   island: string;
   story: string;
   model: StoryReaderViewModel;
   selectedWordId: string | null;
   onSelect: (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>) => void;
+  onSceneChange?: (scene: number) => void;
 }) {
   const [currentScene, setCurrentScene] = useState(initialScene);
   const touchStartX = useRef<number | null>(null);
   const goToScene = (nextScene: number) => setCurrentScene(Math.max(0, Math.min(model.scenes.length - 1, nextScene)));
   const sceneHref = (scene: number) => `/islas/${island}/${story}?modo=ilustracion&escena=${scene + 1}`;
+  useEffect(() => { onSceneChange?.(currentScene); }, [currentScene, onSceneChange]);
 
   return <section className={styles.illustratedStory} aria-label="Historia ilustrada" aria-describedby="illustration-help" tabIndex={0} onKeyDown={(event) => {
     if ((event.target as HTMLElement).closest("button")) return;
