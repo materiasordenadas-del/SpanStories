@@ -141,6 +141,19 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
    Cada bloque pertenece a un commit propio y se puede revertir por separado. ═══ */
 
 /* ── C2 · Contraste y etiquetas legibles ── */
+/* #ec3013 queda para titulares grandes y rellenos; el texto pequeño y los botones con texto blanco usan #c8260f (≥ 5:1). */
+.page { --accent-ink:#c8260f; --muted:#605d5d; --locked-ink:#6b6766; }
+.eyebrow,.backLink,.methodNumber { color:var(--accent-ink); }
+.eyebrow { font-size:13px; font-weight:700; letter-spacing:.01em; text-transform:none; }
+.sectionLabel { font-size:13px; font-weight:700; letter-spacing:.01em; text-transform:none; }
+.primary,.marquee,.closing { background:var(--accent-ink); }
+.primary:hover { background:#ae1800; }
+.closing h2 em { color:#fde1db; }
+.word { color:var(--accent-ink); border-bottom-color:var(--accent-ink); }
+.levelRow small { font-size:13px; letter-spacing:0; text-transform:none; }
+.islandCard p { color:var(--muted); font-family:inherit; font-size:13px; letter-spacing:0; text-transform:none; }
+.islandCard.locked .islandImage { color:var(--locked-ink); }
+.footer { font-size:13px; }
 
 /* ── C4 · Contenido A1: niveles, islas e historias ── */
 

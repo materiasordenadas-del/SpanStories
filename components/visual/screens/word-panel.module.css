@@ -102,6 +102,17 @@
 /* ═══ Correcciones de experiencia del estudiante: un bloque por commit. ═══ */
 
 /* ── C2 · Contraste y etiquetas legibles ── */
+.container { --interaction:#c8260f; }
+.tags li { border-color:#c8260f; color:#c8260f; }
+.actions button { border-color:#c8260f; }
+.saveButton { background:#c8260f; }
+.saveButton:hover { background:#ae1800; }
+.handle { background:#c8260f; }
+.sourceHeading button { color:#c8260f; font-size:13px; }
+.error { color:#c8260f; }
+.topBar,.detailsToggle,.tabContent section>h3,.sourceHeading h3,.dataList dt,.otherStory small { letter-spacing:0; text-transform:none; }
+.detailsToggle,.otherStory small,.dataList dt { font-size:13px; }
+.tabContent section>h3,.sourceHeading h3 { font-size:14px; }
 
 /* ── C5 · Lector: disposición de la ficha ── */
 
