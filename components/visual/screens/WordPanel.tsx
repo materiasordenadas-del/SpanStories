@@ -1,21 +1,18 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode, RefObject } from "react";
+import type { CSSProperties, RefObject } from "react";
 import type { StoryReaderViewModel, StoryReaderWordReference } from "@/features/story-reader/model";
-import type { WordPanelContext, WordPanelTextPart, WordPanelViewModel } from "@/features/story-reader/word-panel";
+import type { WordPanelTextPart, WordPanelViewModel } from "@/features/story-reader/word-panel";
 import { speakSpanish } from "@/features/story-reader/browser-speech";
+import { toggleSavedWord, useReadingMemory, type SavedWord } from "../reading-memory";
 import styles from "./baseline.module.css";
 import panelStyles from "./word-panel.module.css";
 
-const INITIAL_LIST_SIZE = 3;
+const EXAMPLES_IN_SUMMARY = 2;
 
 function ContextText({ parts }: { parts: readonly WordPanelTextPart[] }) {
   return <>{parts.map((part, index) => part.highlighted
     ? <mark className={panelStyles.contextMark} key={index}>{part.text}</mark>
     : <span key={index}>{part.text}</span>)}</>;
-}
-
-function contextMeta(context: WordPanelContext) {
-  return [context.islandLabel, context.storyTitle, context.sceneLabel].filter((value): value is string => value !== undefined).join(" · ");
 }
 
 function SpeakerIcon() {
@@ -34,31 +31,12 @@ function BookIcon() {
   return <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 4 5v13c3-.5 6 0 8 1.5m0-13C14 5 17 4.5 20 5v13c-3-.5-6 0-8 1.5m0-13v13" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.8" /></svg>;
 }
 
-function ImagePlaceholderIcon() {
-  return <svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" /><circle cx="8.5" cy="9" r="1.5" fill="none" stroke="currentColor" strokeWidth="1.6" /><path d="m5 17 4.5-4 3 2.5 2.5-2 4 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>;
+function BookmarkIcon({ filled }: { filled: boolean }) {
+  return <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24"><path d="M6.5 4h11v16l-5.5-4-5.5 4V4Z" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeLinejoin="round" strokeWidth="1.8" /></svg>;
 }
 
 function AudioButton({ label, text }: { label: string; text: string }) {
   return <button aria-label={label} className={panelStyles.audioButton} onClick={() => speakSpanish(text)} title={label} type="button"><SpeakerIcon /></button>;
-}
-
-function ExpandableList<T>({ id, title, headingLevel = 3, items, renderItem }: {
-  id: string;
-  title: string;
-  headingLevel?: 3 | 4;
-  items: readonly T[];
-  renderItem: (item: T, index: number) => ReactNode;
-}) {
-  const [expanded, setExpanded] = useState(false);
-  const Heading = headingLevel === 3 ? "h3" : "h4";
-  const hiddenCount = items.length - INITIAL_LIST_SIZE;
-  return <section aria-labelledby={`${id}-title`} className={panelStyles.section} id={id}>
-    <div className={panelStyles.sectionHeader}>
-      <Heading id={`${id}-title`}>{title}</Heading>
-      {hiddenCount > 0 ? <button aria-controls={`${id}-list`} aria-expanded={expanded} className={panelStyles.moreButton} onClick={() => setExpanded((value) => !value)} type="button">{expanded ? "Ver menos" : `Ver más (${hiddenCount})`}</button> : null}
-    </div>
-    <ul className={panelStyles.list} id={`${id}-list`}>{(expanded ? items : items.slice(0, INITIAL_LIST_SIZE)).map(renderItem)}</ul>
-  </section>;
 }
 
 /** Ajusta --word-fit para que la palabra del panel quepa en una línea con el espacio real que deja la fila. */
@@ -94,72 +72,59 @@ function useFitWord(titleRef: RefObject<HTMLHeadingElement | null>, word: string
   }, [titleRef, word]);
 }
 
-function WordPanel({ panel, reference, eventError, closeButtonRef, onClose }: {
+function WordPanel({ panel, reference, saveWord, eventError, closeButtonRef, onClose }: {
   panel: WordPanelViewModel;
   reference: StoryReaderWordReference | undefined;
+  saveWord: Pick<SavedWord, "key" | "surface">;
   eventError: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
   onClose: () => void;
 }) {
-  const [detailsOpen, setDetailsOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState<"resumen" | "ejemplos" | "uso" | "contexto" | "mas">("resumen");
-  const [saved, setSaved] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   useFitWord(titleRef, panel.surface);
-  const examples = reference?.examples ?? panel.examples;
+  const { savedWords } = useReadingMemory();
+  const saved = savedWords.some((word) => word.key === saveWord.key);
+  const examples = reference?.examples ?? panel.examples ?? [];
   const otherStories = reference?.otherStories ?? [];
   const usageNotes = reference?.usageNotes ?? [];
-  const tabs = [{ id: "resumen", label: "Resumen" }, { id: "ejemplos", label: "Ejemplos" }, { id: "uso", label: "Uso" }, { id: "contexto", label: "En contexto" }, { id: "mas", label: "Más" }] as const;
+  const relatedWords = reference?.relatedWords ?? [];
   const translation = reference?.translation ?? panel.translation;
   const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
-  const hasTags = partOfSpeech !== undefined || panel.cefrLevel !== undefined;
-  const renderExamples = (items: NonNullable<typeof examples>) => <div className={panelStyles.sourceList}>{items.map((example, index) => <div className={panelStyles.sourceRow} key={index}><strong>{example.text}</strong>{example.translation === undefined ? null : <span lang="en">{example.translation}</span>}</div>)}</div>;
-  const renderOtherStories = (items: typeof otherStories) => <div className={panelStyles.otherStories}>{items.map((story, index) => <div className={panelStyles.otherStory} key={index}><BookIcon /><div><p><strong>{story.word}</strong>{story.rest}</p><small>{story.meta}</small></div></div>)}</div>;
+  const usage = reference?.shortUsage ?? panel.shortUsage;
+  const hasMore = examples.length > EXAMPLES_IN_SUMMARY || usageNotes.length > 0 || otherStories.length > 0 || reference !== undefined;
+  const renderExamples = (items: typeof examples) => <div className={panelStyles.sourceList}>{items.map((example, index) => <div className={panelStyles.sourceRow} key={index}><strong lang="es">{example.text}</strong>{example.translation === undefined ? null : <span lang="en">{example.translation}</span>}</div>)}</div>;
   return <div className={panelStyles.panel} id="lexical-detail-content">
-    <div className={panelStyles.topBar}>
-      <span>Palabra seleccionada</span>
-      <button aria-label="Cerrar información de palabra" className={panelStyles.closeButton} onClick={onClose} ref={closeButtonRef} type="button"><CloseIcon /></button>
-    </div>
-    <div className={panelStyles.body}>
-      <header className={`${panelStyles.summary} ${panel.image === undefined ? "" : panelStyles.summaryWithImage}`} id="word-panel-summary">
-        <div>
-          <div className={panelStyles.wordLine}>
-            <h2 lang="es" ref={titleRef} style={{ "--word-length": Array.from(panel.surface).length } as CSSProperties}>{panel.surface}</h2>
-            <AudioButton label={`Escuchar «${panel.surface}»`} text={panel.surface} />
-            <button aria-pressed={saved} className={`${panelStyles.favoriteButton} ${saved ? panelStyles.favoriteActive : ""}`} onClick={() => setSaved((value) => !value)} type="button"><span className={panelStyles.srOnly}>Guardar como favorita</span>☆</button>
-          </div>
-          {translation === undefined ? null : <p className={panelStyles.translation} lang="en">{translation}</p>}
-          {panel.kind === "SURFACE" ? <p className={panelStyles.note}>Todavía no hay una ficha para esta palabra.</p> : null}
-          {hasTags ? <ul aria-label="Datos de la palabra" className={panelStyles.tags}>
-            {partOfSpeech === undefined ? null : <li>{partOfSpeech}</li>}
-            {panel.cefrLevel === undefined ? null : <li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel}</li>}
-          </ul> : null}
-        </div>
-        {panel.image === undefined ? null : <div aria-label={panel.image.alt} className={panelStyles.imagePlaceholder}><ImagePlaceholderIcon /><span>{reference?.imageCaption ?? panel.image.alt}</span></div>}
-      </header>
-      <button aria-controls="word-panel-details" aria-expanded={detailsOpen} className={panelStyles.detailsToggle} onClick={() => setDetailsOpen((open) => !open)} type="button"><span>Detalles</span><ChevronIcon expanded={detailsOpen} /></button>
-      <div className={detailsOpen ? panelStyles.detailsOpen : panelStyles.details} id="word-panel-details">
-        <div className={panelStyles.detailsInner}>
-        <nav aria-label="Secciones de la palabra" className={panelStyles.sectionNav}>
-          {tabs.map((tab) => <button aria-current={activeTab === tab.id ? "page" : undefined} className={activeTab === tab.id ? panelStyles.activeTab : undefined} key={tab.id} onClick={() => setActiveTab(tab.id)} type="button">{tab.label}</button>)}
-        </nav>
-          {activeTab === "resumen" ? <div className={panelStyles.tabContent}>
-            <p className={panelStyles.usage}><SpeakerIcon /><span>{reference?.shortUsage ?? panel.shortUsage ?? "Palabra seleccionada en esta historia."}</span></p>
-            {examples?.length ? <section><div className={panelStyles.sourceHeading}><h3>Ejemplos</h3><button onClick={() => setActiveTab("ejemplos")} type="button">Ver más →</button></div>{renderExamples(examples.slice(0, 3))}</section> : null}
-            <section><h3>En esta historia</h3><p className={panelStyles.contextCard} lang="es"><ContextText parts={panel.currentContext.parts} /></p></section>
-            {otherStories.length ? <section><div className={panelStyles.sourceHeading}><h3>En otras historias</h3><button onClick={() => setActiveTab("contexto")} type="button">Ver todas →</button></div>{renderOtherStories(otherStories.slice(0, 2))}</section> : null}
-          </div> : null}
-          {activeTab === "ejemplos" ? <div className={panelStyles.tabContent}>{examples?.length ? renderExamples(examples) : <p>Aún no hay ejemplos publicados para esta palabra.</p>}</div> : null}
-          {activeTab === "uso" ? <div className={panelStyles.tabContent}>{usageNotes.length ? <ul className={panelStyles.usageNotes}>{usageNotes.map((note) => <li key={note}>{note}</li>)}</ul> : <p>No hay datos de uso publicados.</p>}</div> : null}
-          {activeTab === "contexto" ? <div className={panelStyles.tabContent}><section><h3>En esta historia</h3><p className={panelStyles.contextCard} lang="es"><ContextText parts={panel.currentContext.parts} /></p></section>{otherStories.length ? <section><h3>En otras historias</h3>{renderOtherStories(otherStories)}</section> : null}</div> : null}
-          {activeTab === "mas" ? <div className={panelStyles.tabContent}><dl className={panelStyles.dataList}>{reference !== undefined ? <><div><dt>Frecuencia</dt><dd>{reference.frequency}</dd></div><div><dt>Categoría gramatical</dt><dd>{reference.partOfSpeechLabel}</dd></div><div><dt>Palabras relacionadas</dt><dd className={panelStyles.related}>{reference.relatedWords.map((word) => <span key={word}>{word}</span>)}</dd></div></> :<div><dd>Aún no hay más información publicada para esta palabra.</dd></div>}</dl></div> : null}
-          {eventError ? <p className={panelStyles.error} role="status">La palabra se abrió, pero la interacción no pudo guardarse.</p> : null}
-        </div>
+    <header className={panelStyles.head}>
+      <div className={panelStyles.wordLine}>
+        <h2 lang="es" ref={titleRef} style={{ "--word-length": Array.from(panel.surface).length } as CSSProperties}>{panel.surface}</h2>
+        <AudioButton label={`Escuchar «${panel.surface}»`} text={panel.surface} />
       </div>
+      <button aria-label="Cerrar la ficha" className={panelStyles.closeButton} onClick={onClose} ref={closeButtonRef} type="button"><CloseIcon /></button>
+    </header>
+    <div className={panelStyles.body}>
+      {translation === undefined ? null : <p className={panelStyles.translation} lang="en">{translation}</p>}
+      {panel.kind === "SURFACE" ? <p className={panelStyles.note}>Esta palabra todavía no tiene ficha. Puedes escucharla y guardarla.</p> : null}
+      {partOfSpeech !== undefined || panel.cefrLevel !== undefined ? <ul aria-label="Datos de la palabra" className={panelStyles.tags}>
+        {partOfSpeech === undefined ? null : <li>{partOfSpeech}</li>}
+        {panel.cefrLevel === undefined ? null : <li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel}</li>}
+      </ul> : null}
+      {usage === undefined ? null : <p className={panelStyles.usageText}>{usage}</p>}
+      <section><h3 className={panelStyles.blockTitle}>En esta historia</h3><p className={panelStyles.contextCard} lang="es"><ContextText parts={panel.currentContext.parts} /></p></section>
+      {examples.length > 0 ? <section><h3 className={panelStyles.blockTitle}>Ejemplos</h3>{renderExamples(examples.slice(0, EXAMPLES_IN_SUMMARY))}</section> : null}
+      {hasMore ? <details className={panelStyles.more}>
+        <summary>Más sobre «{panel.surface}»<ChevronIcon expanded={false} /></summary>
+        <div className={panelStyles.moreContent}>
+          {examples.length > EXAMPLES_IN_SUMMARY ? <section><h3 className={panelStyles.blockTitle}>Más ejemplos</h3>{renderExamples(examples.slice(EXAMPLES_IN_SUMMARY))}</section> : null}
+          {usageNotes.length > 0 ? <section><h3 className={panelStyles.blockTitle}>Uso</h3><ul className={panelStyles.usageNotes}>{usageNotes.map((note) => <li key={note}>{note}</li>)}</ul></section> : null}
+          {otherStories.length > 0 ? <section><h3 className={panelStyles.blockTitle}>En otras historias</h3><div className={panelStyles.otherStories}>{otherStories.map((item, index) => <div className={panelStyles.otherStory} key={index}><BookIcon /><div><p lang="es"><strong>{item.word}</strong>{item.rest}</p><small>{item.meta}</small></div></div>)}</div></section> : null}
+          {reference !== undefined ? <dl className={panelStyles.dataList}><div><dt>Frecuencia</dt><dd>{reference.frequency}</dd></div>{relatedWords.length > 0 ? <div><dt>Palabras relacionadas</dt><dd className={panelStyles.related} lang="es">{relatedWords.map((word) => <span key={word}>{word}</span>)}</dd></div> : null}</dl> : null}
+        </div>
+      </details> : null}
+      {eventError ? <p className={panelStyles.error} role="status">La palabra se abrió, pero la interacción no pudo guardarse.</p> : null}
     </div>
     <footer className={panelStyles.actions}>
-      <button className={panelStyles.saveButton} onClick={() => setSaved((value) => !value)} type="button">▱ {saved ? "Palabra guardada" : "Guardar palabra"}</button>
-      <button className={panelStyles.practiceButton} onClick={() => setActiveTab("ejemplos")} type="button">▥ Practicar</button>
+      <button aria-pressed={saved} className={panelStyles.saveButton} onClick={() => toggleSavedWord({ ...saveWord, ...(translation === undefined ? {} : { translation }) })} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>
+      <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar la frase</button>
     </footer>
   </div>;
 }
@@ -171,8 +136,9 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
   isOpen: boolean;
   onToggle: () => void;
 }) {
-  const panel = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId]?.panel ?? model.surfaceEntries[selectedWordId]?.panel;
-  const reference = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId]?.reference;
+  const lexicalEntry = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId];
+  const panel = selectedWordId === null ? undefined : lexicalEntry?.panel ?? model.surfaceEntries[selectedWordId]?.panel;
+  const reference = lexicalEntry?.reference;
   const openButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   // Focus only follows the panel's own open/close buttons; selecting a word never moves focus out of the story.
@@ -182,12 +148,21 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
     if (focusTarget === "close" && isOpen) closeButtonRef.current?.focus();
   }, [focusTarget, isOpen]);
   const isExpanded = panel !== undefined && isOpen;
-  return <aside aria-label="Información de la palabra" className={`${styles.lexicalPanel} ${panelStyles.container} ${isExpanded ? "" : styles.lexicalPanelClosed}`} id="lexical-detail">
+  const close = () => { setFocusTarget("open"); onToggle(); };
+  // Se guarda la palabra (lema), no la aparición concreta: «soy» y «es» son la misma palabra guardada.
+  const saveWord = lexicalEntry !== undefined
+    ? { key: `lema:${lexicalEntry.lemma}`, surface: lexicalEntry.lemma }
+    : { key: `forma:${panel?.surface.toLocaleLowerCase("es") ?? ""}`, surface: panel?.surface.toLocaleLowerCase("es") ?? "" };
+  return <aside aria-label="Ficha de la palabra" className={`${styles.lexicalPanel} ${panelStyles.container} ${isExpanded ? "" : styles.lexicalPanelClosed}`} id="lexical-detail" onKeyDown={(event) => {
+    if (event.key !== "Escape" || !isExpanded) return;
+    event.stopPropagation();
+    close();
+  }}>
     <p aria-live="polite" className={panelStyles.srOnly}>{panel === undefined ? "" : `Palabra seleccionada: ${panel.surface}`}</p>
     {panel === undefined
-      ? <p className={panelStyles.hint}><strong>Selecciona una palabra</strong> para ver su información.</p>
+      ? <p className={panelStyles.hint}><strong>Toca cualquier palabra</strong> de la historia para ver su ficha.</p>
       : isOpen
-        ? <><button aria-label="Ocultar panel de palabra" className={panelStyles.handle} onClick={() => { setFocusTarget("open"); onToggle(); }} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={() => { setFocusTarget("open"); onToggle(); }} panel={panel} reference={reference} /></>
-        : <button aria-expanded={false} className={panelStyles.openButton} onClick={() => { setFocusTarget("close"); onToggle(); }} ref={openButtonRef} type="button"><span>Ver palabra seleccionada</span><ChevronIcon expanded={false} /></button>}
+        ? <><button aria-label="Ocultar la ficha" className={panelStyles.handle} onClick={close} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={close} panel={panel} reference={reference} saveWord={saveWord} /></>
+        : <button aria-expanded={false} className={panelStyles.openButton} onClick={() => { setFocusTarget("close"); onToggle(); }} ref={openButtonRef} type="button"><span>Ver «{panel.surface}»</span><ChevronIcon expanded={false} /></button>}
   </aside>;
 }

@@ -119,3 +119,29 @@
 .handle { display:none; }
 
 /* ── C7 · Ficha de palabra simplificada ── */
+/* Orden de lectura para A1: palabra y audio → traducción → frase de la historia → ejemplos → «Más». */
+.head { display:flex; flex:0 0 auto; align-items:center; gap:12px; padding:14px 12px 12px 18px; border-bottom:1px solid var(--panel-line); }
+.head .wordLine { --word-controls:36px; --word-max:40px; flex:1 1 auto; }
+.body { gap:18px; }
+.translation { margin:0; color:var(--ink); font-size:22px; font-weight:600; line-height:1.25; letter-spacing:-.01em; }
+.tags { gap:6px; }
+.tags li { min-height:24px; border:0; padding:2px 8px; color:var(--panel-muted); background:var(--panel-soft); font-size:13px; font-weight:600; }
+.tags .levelTag { color:#7c1405; background:#fff2ef; font-size:13px; letter-spacing:0; }
+.usageText { margin:0; font-size:15px; line-height:1.5; }
+.blockTitle { margin:0 0 8px; font-size:14px; font-weight:800; }
+.contextCard { font-size:15px; line-height:1.5; }
+.dataList { margin:0; }
+.more { padding-top:10px; border-top:1px solid var(--panel-line); }
+.more summary { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:40px; font-size:14px; font-weight:800; list-style:none; cursor:pointer; }
+.more summary::-webkit-details-marker { display:none; }
+.more summary:hover { color:var(--interaction); }
+.more summary:focus-visible { outline:2px solid var(--interaction); outline-offset:2px; }
+.more summary svg { flex:0 0 auto; transition:transform .2s ease; }
+.more[open] summary svg { transform:rotate(180deg); }
+.moreContent { display:flex; flex-direction:column; gap:18px; padding:8px 0 4px; }
+.actions { gap:6px; }
+.actions button { display:inline-flex; align-items:center; gap:6px; min-height:44px; padding-inline:10px; white-space:nowrap; }
+.actions button svg { flex:0 0 auto; width:18px; height:18px; }
+.saveButton[aria-pressed="true"],.saveButton[aria-pressed="true"]:hover { color:#c8260f; background:#fde1db; }
+.hint { font-size:14px; }
+@media (prefers-reduced-motion:reduce) { .more summary svg { transition:none; } }
