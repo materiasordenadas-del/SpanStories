@@ -17,6 +17,7 @@
 .summary { display:grid; grid-template-columns:minmax(0,1fr); gap:14px; align-items:start; padding:0; scroll-margin-top:64px; }
 .summaryWithImage { grid-template-columns:minmax(0,1fr) 144px; }
 .summaryImage { width:100%; aspect-ratio:4/3; border-radius:10px; object-fit:cover; background:#d8d5d3; }
+.imageCaption { margin:5px 0 0; color:var(--panel-muted); font-size:11px; line-height:1.3; text-align:center; }
 .imagePlaceholder { display:flex; width:144px; height:117px; flex-direction:column; align-items:center; justify-content:center; gap:8px; border:1px dashed var(--panel-line); color:var(--panel-muted); background:#faf9f8; font-size:13px; line-height:1.3; text-align:center; }
 .imagePlaceholder svg { flex:0 0 auto; }
 /* La palabra siempre ocupa una sola línea. --word-fit lo mide el componente (useFitWord) con el ancho real;
@@ -94,6 +95,7 @@
 .actions button { min-height:42px; border:1px solid var(--accent); padding:8px 10px; font:inherit; font-size:13px; font-weight:800; text-align:left; cursor:pointer; }
 .saveButton { color:#fff; background:var(--accent); }
 .saveButton:hover { background:#c8260f; }
+.knownButton { color:var(--ink); background:var(--panel-soft); }
 .practiceButton { color:var(--ink); background:transparent; }
 .practiceButton:hover { color:var(--accent); background:#fde1db; }
 .error { margin:14px 0 0; color:var(--accent); font-size:13px; line-height:1.45; }
@@ -149,3 +151,18 @@
 /* ── Práctica · guardar solo palabras con identidad léxica ── */
 /* Una palabra sin Lexeme no se puede guardar: queda solo «Escuchar la frase», a todo el ancho. */
 .actions:has(> button:only-child) { grid-template-columns:1fr; }
+.actions:has(.knownButton) { grid-template-columns:repeat(3,minmax(0,1fr)); }
+
+/* ── C13 · Paleta: naranja, azul marino y negro ── */
+/* Botones rellenos en naranja con texto en tinta; textos y bordes pequeños en naranja oscuro. */
+.container { --interaction:var(--accent-ink); --interaction-soft:var(--botella-soft); }
+.tags .levelTag,.usage { color:var(--accent-deep); background:#fff1ec; }
+.otherStory>svg,.otherStory strong,.contextMark { color:var(--accent-deep); }
+.actions button { border-color:var(--accent-ink); }
+.saveButton { color:var(--ink); background:var(--accent); }
+.saveButton:hover { background:var(--accent-hover); }
+.saveButton[aria-pressed="true"],.saveButton[aria-pressed="true"]:hover { color:var(--accent-ink); background:var(--accent-soft); }
+.practiceButton:hover { color:var(--accent-ink); background:var(--accent-soft); }
+.handle { background:var(--accent-ink); }
+.handle:hover { background:var(--accent-deep); }
+.sourceHeading button,.error { color:var(--accent-ink); }

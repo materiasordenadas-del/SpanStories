@@ -1,0 +1,187 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Modelo de datos. No hay grupos: el profesor invita a personas.
+    // users/{uid}: uid, role, displayName, email, createdAt. PII; solo el dueño lee.
+    // teacherInvites/{code}: code, teacherId, teacherName, active, usedBy, usedAt, createdAt.
+    //   Invitación personal de un solo uso. Mientras está activa se previsualiza sin cuenta.
+    // teacherStudents/{teacherId_studentId}: teacherId, teacherName, studentId, studentName,
+    //   inviteCode, joinedAt. Lo crea el estudiante en el mismo lote que consume la invitación.
+    // studentProgress/{studentId}: studentId, finishedStories, savedWords, updatedAt, lastActivityAt.
+    // studentProgress/{studentId}/events/{eventId}: historia terminada o sesión de práctica.
+    //   Solo el estudiante escribe; leen él y los profesores con los que tiene vínculo.
+    // teacherTasks/{taskId}: teacherId, kind, title, content, startsAt, dueAt, createdAt.
+    // teacherTasks/{taskId}/assignees/{studentId}: studentId, studentName, assignedAt.
+    //   Una tarea se asigna individualmente; la finalización se deriva del progreso, no se escribe aquí.
+    // IDs, dueños y roles son inmutables. Las marcas de tiempo usan request.time.
+    // ===============================================================
+
+    function signedIn() { return request.auth != null; }
+    function hasRole(role) {
+      return signedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+    function myName() { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.displayName; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function validString(value, min, max) { return value is string && value.size() >= min && value.size() <= max; }
+    function validCode(code) { return code is string && code.matches('^[A-HJ-NP-Z2-9]{6}$'); }
+    function teachesStudent(studentId) {
+      return hasRole('teacher') &&
+        exists(/databases/$(database)/documents/teacherStudents/$(request.auth.uid + '_' + studentId));
+    }
+    function taskData(taskId) {
+      return get(/databases/$(database)/documents/teacherTasks/$(taskId)).data;
+    }
+    function ownsTask(taskId) {
+      return hasRole('teacher') && taskData(taskId).teacherId == request.auth.uid;
+    }
+    function ownsTaskAfter(taskId) {
+      return hasRole('teacher') &&
+        getAfter(/databases/$(database)/documents/teacherTasks/$(taskId)).data.teacherId == request.auth.uid;
+    }
+    function isAssignedTask(taskId, studentId) {
+      return signedIn() && request.auth.uid == studentId &&
+        exists(/databases/$(database)/documents/teacherTasks/$(taskId)/assignees/$(studentId));
+    }
+
+    function validUser(data, uid) {
+      return data.keys().hasOnly(['uid','role','displayName','email','createdAt']) &&
+        data.keys().hasAll(['uid','role','displayName','email','createdAt']) &&
+        data.uid == uid && data.role in ['student','teacher'] && data.email == request.auth.token.email &&
+        validString(data.displayName, 1, 80) && data.email is string && data.email.size() <= 254 &&
+        data.createdAt is timestamp;
+    }
+    function validNewInvite(data, code) {
+      return data.keys().hasOnly(['code','teacherId','teacherName','active','usedBy','usedAt','createdAt']) &&
+        data.keys().hasAll(['code','teacherId','teacherName','active','usedBy','usedAt','createdAt']) &&
+        data.code == code && validCode(code) && data.teacherId == request.auth.uid &&
+        validString(data.teacherName, 1, 80) && data.teacherName == myName() &&
+        data.active == true && data.usedBy == null && data.usedAt == null && data.createdAt == request.time;
+    }
+    function validLink(data, linkId) {
+      return data.keys().hasOnly(['teacherId','teacherName','studentId','studentName','inviteCode','joinedAt']) &&
+        data.keys().hasAll(['teacherId','teacherName','studentId','studentName','inviteCode','joinedAt']) &&
+        data.studentId == request.auth.uid && linkId == data.teacherId + '_' + request.auth.uid &&
+        validString(data.studentName, 1, 80) && data.studentName == myName() &&
+        validCode(data.inviteCode) && data.joinedAt == request.time &&
+        get(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.active == true &&
+        get(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.teacherId == data.teacherId &&
+        get(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.teacherName == data.teacherName &&
+        getAfter(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.usedBy == request.auth.uid;
+    }
+    function validProgress(data, studentId) {
+      return data.keys().hasOnly(['studentId','finishedStories','savedWords','updatedAt','lastActivityAt']) &&
+        data.keys().hasAll(['studentId','updatedAt']) && data.studentId == studentId &&
+        data.get('finishedStories', []) is list && data.get('finishedStories', []).size() <= 500 &&
+        data.get('savedWords', []) is list && data.get('savedWords', []).size() <= 3000 &&
+        data.updatedAt == request.time &&
+        (!('lastActivityAt' in data) || data.lastActivityAt is timestamp);
+    }
+    function validEvent(data) {
+      return data.at == request.time && (
+        (data.kind == 'story' &&
+          data.keys().hasOnly(['kind','story','at']) && data.keys().hasAll(['kind','story','at']) &&
+          data.story is string && data.story.matches('^[0-9]{2}/[0-9]{2}$')) ||
+        (data.kind == 'practice' &&
+          data.keys().hasOnly(['kind','mode','source','total','correct','incorrect','revealed','misses','at']) &&
+          data.keys().hasAll(['kind','mode','total','correct','incorrect','revealed','misses','at']) &&
+          data.mode in ['tarjetas','verbos'] &&
+          (data.mode == 'tarjetas' ? !('source' in data) :
+            (!('source' in data) || data.source in ['todos','historias','elegir'])) &&
+          data.total is int && data.correct is int && data.incorrect is int && data.revealed is int &&
+          data.total <= 200 && data.correct >= 0 && data.incorrect >= 0 && data.revealed >= 0 &&
+          data.correct + data.incorrect + data.revealed <= data.total &&
+          data.misses is list && data.misses.size() <= 60)
+      );
+    }
+    function validTask(data) {
+      return data.keys().hasOnly(['teacherId','kind','title','content','startsAt','dueAt','createdAt']) &&
+        data.keys().hasAll(['teacherId','kind','title','content','startsAt','dueAt','createdAt']) &&
+        data.teacherId == request.auth.uid && data.kind in ['story','flashcards','verbs'] &&
+        validString(data.title, 1, 120) && data.content is map &&
+        data.startsAt is timestamp && data.dueAt is timestamp && data.startsAt <= data.dueAt &&
+        data.createdAt == request.time &&
+        ((data.kind == 'story' && data.content.keys().hasOnly(['storyKey']) &&
+          data.content.keys().hasAll(['storyKey']) && data.content.storyKey is string &&
+          data.content.storyKey.matches('^[0-9]{2}/[0-9]{2}$')) ||
+         (data.kind == 'flashcards' && data.content.keys().hasOnly(['minimumCards']) &&
+          data.content.keys().hasAll(['minimumCards']) && data.content.minimumCards in [5,10,20,30]) ||
+         (data.kind == 'verbs' && data.content.keys().hasOnly(['source','minimumQuestions']) &&
+          data.content.keys().hasAll(['source','minimumQuestions']) &&
+          data.content.source in ['todos','historias'] && data.content.minimumQuestions in [5,10,20,30]));
+    }
+    function validTaskAssignee(data, taskId, studentId) {
+      return data.keys().hasOnly(['studentId','studentName','assignedAt']) &&
+        data.keys().hasAll(['studentId','studentName','assignedAt']) &&
+        data.studentId == studentId && validString(data.studentName, 1, 80) &&
+        data.assignedAt == request.time &&
+        exists(/databases/$(database)/documents/teacherStudents/$(getAfter(/databases/$(database)/documents/teacherTasks/$(taskId)).data.teacherId + '_' + studentId)) &&
+        data.studentName == get(/databases/$(database)/documents/teacherStudents/$(getAfter(/databases/$(database)/documents/teacherTasks/$(taskId)).data.teacherId + '_' + studentId)).data.studentName;
+    }
+
+    match /users/{uid} {
+      allow get: if isOwner(uid);
+      allow list: if false;
+      allow create: if isOwner(uid) && validUser(request.resource.data, uid) && request.resource.data.createdAt == request.time;
+      allow update: if isOwner(uid) && validUser(request.resource.data, uid) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName']);
+      allow delete: if false;
+    }
+
+    match /teacherInvites/{code} {
+      // Requisito de producto: la invitación activa se previsualiza antes de iniciar sesión.
+      // Un documento inexistente también se puede pedir, para comprobar si un código está libre.
+      allow get: if resource == null || resource.data.active == true ||
+        (signedIn() && (resource.data.teacherId == request.auth.uid || resource.data.usedBy == request.auth.uid));
+      allow list: if hasRole('teacher') && resource.data.teacherId == request.auth.uid;
+      allow create: if hasRole('teacher') && validNewInvite(request.resource.data, code);
+      // La consume el estudiante que la usa, en el mismo lote que crea su vínculo.
+      allow update: if hasRole('student') && resource.data.active == true &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['active','usedBy','usedAt']) &&
+        request.resource.data.active == false && request.resource.data.usedBy == request.auth.uid &&
+        request.resource.data.usedAt == request.time &&
+        existsAfter(/databases/$(database)/documents/teacherStudents/$(resource.data.teacherId + '_' + request.auth.uid));
+      allow delete: if hasRole('teacher') && resource.data.teacherId == request.auth.uid && resource.data.active == true;
+    }
+
+    match /teacherStudents/{linkId} {
+      allow create: if hasRole('student') && validLink(request.resource.data, linkId);
+      allow get: if signedIn() && (resource == null ||
+        resource.data.studentId == request.auth.uid || resource.data.teacherId == request.auth.uid);
+      allow list: if signedIn() && (resource.data.studentId == request.auth.uid || resource.data.teacherId == request.auth.uid);
+      allow update: if false;
+      allow delete: if signedIn() && (resource.data.studentId == request.auth.uid || resource.data.teacherId == request.auth.uid);
+    }
+
+    match /studentProgress/{studentId} {
+      allow get: if isOwner(studentId) || teachesStudent(studentId);
+      allow list: if false;
+      allow create, update: if isOwner(studentId) && hasRole('student') && validProgress(request.resource.data, studentId);
+      allow delete: if false;
+
+      match /events/{eventId} {
+        allow read: if isOwner(studentId) || teachesStudent(studentId);
+        allow create: if isOwner(studentId) && hasRole('student') && validEvent(request.resource.data);
+        allow update, delete: if false;
+      }
+    }
+
+    match /teacherTasks/{taskId} {
+      // El profesor lista sus propias tareas. El alumno solo puede obtener una que le fue asignada.
+      allow get: if ownsTask(taskId) || isAssignedTask(taskId, request.auth.uid);
+      allow list: if hasRole('teacher') && resource.data.teacherId == request.auth.uid;
+      allow create: if hasRole('teacher') && validTask(request.resource.data);
+      allow update, delete: if false;
+
+      match /assignees/{studentId} {
+        allow get, list: if ownsTask(taskId) || isAssignedTask(taskId, studentId);
+        allow create: if ownsTaskAfter(taskId) && validTaskAssignee(request.resource.data, taskId, studentId);
+        allow update: if false;
+        // Se permite retirar un destinatario al quitar al estudiante de la lista del profesor.
+        allow delete: if ownsTask(taskId);
+      }
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
