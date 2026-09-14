@@ -160,10 +160,20 @@ describe("practice / Historia 1", () => {
     assert.equal(deck[0].image, undefined, "a scene illustration is not used as a word image");
   });
 
-  test("surface tokens without a Lexeme can be consulted but not saved", async () => {
+  test("surface tokens without a Lexeme can still be saved, by their exact selection", async () => {
     const model = await getStoryOneReaderViewModel();
     const tokenIds = Object.keys(model.surfaceEntries);
     assert.ok(tokenIds.length > 0);
-    for (const id of tokenIds) assert.equal(readerWordPractice(model, id), null);
+    for (const id of tokenIds) {
+      const word = readerWordPractice(model, id);
+      assert.ok(word, `token ${id} should be saveable`);
+      assert.equal(word.target.type, "UNRESOLVED_SURFACE");
+    }
+    const repository = new InMemoryPracticeItemRepository();
+    const first = readerWordPractice(model, tokenIds[0]);
+    assert.ok(first);
+    const saved = await repository.save(createPracticeItem({ target: first.target, savedAt: SAVED_AT, savedFrom: first.savedFrom }));
+    assert.equal(await repository.has(first.target), true);
+    assert.equal(saved.savedFrom?.occurrenceId, tokenIds[0]);
   });
 });

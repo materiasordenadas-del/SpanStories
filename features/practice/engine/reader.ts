@@ -1,3 +1,4 @@
+import { asId } from "../../story-engine/index.ts";
 import type { StoryReaderViewModel } from "../../story-reader/model.ts";
 import type { PracticeOccurrence, ReaderWordPractice } from "../domain/occurrence.ts";
 import { practiceTargetOf } from "../domain/target.ts";
@@ -11,13 +12,29 @@ function occurrenceOf(model: StoryReaderViewModel, wordId: string) {
   return model.eventContext?.occurrences.find((occurrence) => occurrence.id === wordId);
 }
 
-/** What saving the selected reader word would save, or null when it has no Lexeme. */
+/**
+ * What saving the selected reader word would save.
+ *
+ * A lexical or construction occurrence yields its own target (SENSE, LEXEME
+ * or UNRESOLVED_SURFACE); a bare SurfaceToken — selectable text with no
+ * occurrence at all — is anchored by the story's own `storyVersionId` into an
+ * UNRESOLVED_SURFACE target. Every selectable word can be saved.
+ */
 export function readerWordPractice(model: StoryReaderViewModel, wordId: string): ReaderWordPractice | null {
-  if (model.lexicalEntries[wordId] === undefined) return null;
-  const occurrence = occurrenceOf(model, wordId);
-  const target = practiceTargetOf(occurrence);
-  if (occurrence === undefined || target === null) return null;
-  return { target, savedFrom: { storyVersionId: occurrence.storyVersionId, occurrenceId: occurrence.id } };
+  const lexicalEntry = model.lexicalEntries[wordId];
+  if (lexicalEntry !== undefined) {
+    const occurrence = occurrenceOf(model, wordId);
+    const target = practiceTargetOf(occurrence);
+    if (occurrence === undefined || target === null) return null;
+    return { target, savedFrom: { storyVersionId: occurrence.storyVersionId, occurrenceId: occurrence.id } };
+  }
+  const surfaceEntry = model.surfaceEntries[wordId];
+  if (surfaceEntry === undefined) return null;
+  const storyVersionId = asId("StoryVersionId", model.storyVersionId);
+  const tokenId = asId("SurfaceTokenId", surfaceEntry.tokenId);
+  const target = practiceTargetOf({ id: tokenId, surface: surfaceEntry.surface }, storyVersionId);
+  if (target === null) return null;
+  return { target, savedFrom: { storyVersionId, occurrenceId: tokenId } };
 }
 
 /** Every lexical occurrence of a published story, with the content Practice may use. */

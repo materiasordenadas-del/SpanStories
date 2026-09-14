@@ -11,7 +11,7 @@ import {
   type PracticeTarget,
 } from "../index.ts";
 import type { LexicalOccurrence } from "../../story-engine/index.ts";
-import { FakeStorage, SAVED_AT, constructionOccurrence, lexicalOccurrence, originOf, surfaceToken } from "./fixtures.ts";
+import { FakeStorage, SAVED_AT, STORY_VERSION_ID, constructionOccurrence, lexicalOccurrence, originOf, surfaceToken } from "./fixtures.ts";
 
 // «soy» and «es»: two forms, one Lexeme (ser), one resolved Sense.
 const soy = lexicalOccurrence({ id: "occ-soy", surface: "soy", lexemeId: "LEX-A1-000511", senseId: "SENSE-A1-000520", status: "RESOLVED" });
@@ -62,10 +62,41 @@ describe("practice / canonical identity", () => {
     assert.deepEqual(targetOf(notRequired), { type: "LEXEME", lexemeId: "LEX-A1-000176" });
   });
 
-  test("a SurfaceToken without a Lexeme is not eligible for Practice", () => {
+  test("a SurfaceToken or construction without a Lexeme is still saveable, by its exact selection", () => {
+    const construction = practiceTargetOf(constructionOccurrence("occ-greeting", "Buenos días"));
+    assert.deepEqual(construction, {
+      type: "UNRESOLVED_SURFACE",
+      storyVersionId: STORY_VERSION_ID,
+      anchorId: "occ-greeting",
+      surface: "Buenos días",
+      normalizedSurface: "buenos dias",
+    });
+    const token = practiceTargetOf(surfaceToken("tok-samuel", "Samuel"), STORY_VERSION_ID);
+    assert.deepEqual(token, {
+      type: "UNRESOLVED_SURFACE",
+      storyVersionId: STORY_VERSION_ID,
+      anchorId: "tok-samuel",
+      surface: "Samuel",
+      normalizedSurface: "samuel",
+    });
+  });
+
+  test("a bare SurfaceToken with no storyVersionId to anchor it to has no target", () => {
     assert.equal(practiceTargetOf(surfaceToken("tok-samuel", "Samuel")), null);
-    assert.equal(practiceTargetOf(constructionOccurrence("occ-greeting", "Buenos días")), null);
     assert.equal(practiceTargetOf(undefined), null);
+  });
+
+  test("two different unresolved selections that share the same text are two PracticeItems, never merged by text", async () => {
+    const first = constructionOccurrence("occ-greeting-1", "Buenos días");
+    const second = constructionOccurrence("occ-greeting-2", "Buenos días");
+    const repository = new InMemoryPracticeItemRepository();
+    for (const occurrence of [first, second]) {
+      const target = practiceTargetOf(occurrence);
+      assert.ok(target, `${occurrence.id} should have a practice target`);
+      await repository.save(createPracticeItem({ target, savedAt: SAVED_AT, savedFrom: { storyVersionId: occurrence.storyVersionId, occurrenceId: occurrence.id } }));
+    }
+    const items = await repository.list();
+    assert.deepEqual(items.map(practiceItemKey), [`SURFACE:${STORY_VERSION_ID}:occ-greeting-1`, `SURFACE:${STORY_VERSION_ID}:occ-greeting-2`]);
   });
 
   test("the key comes from the published id, never from the surface or the lemma", () => {
@@ -146,5 +177,16 @@ describe("practice / localStorage adapter", () => {
       ],
     }));
     assert.deepEqual(await new LocalStoragePracticeItemRepository(storage).list(), [valid]);
+  });
+
+  test("an UNRESOLVED_SURFACE item persists after a refresh", async () => {
+    const storage = new FakeStorage();
+    const occurrence = constructionOccurrence("occ-greeting", "Buenos días");
+    const target = practiceTargetOf(occurrence);
+    assert.ok(target);
+    const saved = await new LocalStoragePracticeItemRepository(storage).save(
+      createPracticeItem({ target, savedAt: SAVED_AT, savedFrom: { storyVersionId: occurrence.storyVersionId, occurrenceId: occurrence.id } }),
+    );
+    assert.deepEqual(await new LocalStoragePracticeItemRepository(storage).list(), [saved]);
   });
 });

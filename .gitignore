@@ -9,6 +9,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+firestore-debug.log*
 .DS_Store
 next-env.d.ts
 *.tsbuildinfo

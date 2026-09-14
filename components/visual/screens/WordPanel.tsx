@@ -77,7 +77,7 @@ function useFitWord(titleRef: RefObject<HTMLHeadingElement | null>, word: string
 function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onClose }: {
   panel: WordPanelViewModel;
   reference: StoryReaderWordReference | undefined;
-  /** Null cuando la palabra no tiene Lexeme publicado: se consulta y se escucha, pero no se guarda. */
+  /** Null solo si la selección no resuelve a nada guardable; toda palabra seleccionable tiene esta opción. */
   practice: ReaderWordPractice | null;
   eventError: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
@@ -132,7 +132,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
     <footer className={panelStyles.actions}>
       {practice === null ? null : <button aria-pressed={saved} className={panelStyles.saveButton} onClick={() => void togglePracticeWord(practice)} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>}
       {practice === null || !saved ? null : <button className={panelStyles.knownButton} onClick={() => void togglePracticeWord(practice)} type="button">Marcar como conocida</button>}
-      <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar la frase</button>
+      <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar frase</button>
     </footer>
   </div>;
 }
@@ -157,8 +157,9 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
   }, [focusTarget, isOpen]);
   const isExpanded = panel !== undefined && isOpen;
   const close = () => { setFocusTarget("open"); onToggle(); };
-  // Se guarda la identidad léxica publicada (Sense o, si no está resuelto, Lexeme), nunca la forma escrita:
-  // «soy» y «es» son la misma palabra guardada; una palabra sin Lexeme no se puede guardar.
+  // Se guarda la identidad léxica publicada (Sense o, si no está resuelto, Lexeme) cuando existe, nunca la
+  // forma escrita: «soy» y «es» son la misma palabra guardada. Una palabra sin Lexeme se guarda igual, por
+  // su selección exacta en la historia (UNRESOLVED_SURFACE), sin inventarle un Lexeme a partir del texto.
   const practice = selectedWordId === null ? null : readerWordPractice(model, selectedWordId);
   return <aside aria-label="Ficha de la palabra" className={`${styles.lexicalPanel} ${panelStyles.container} ${isExpanded ? "" : styles.lexicalPanelClosed}`} id="lexical-detail" onKeyDown={(event) => {
     if (event.key !== "Escape" || !isExpanded) return;

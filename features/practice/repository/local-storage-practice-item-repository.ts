@@ -1,7 +1,7 @@
 // Imported from the ids module, not the curriculum index: the index also exports the Node-only importer,
 // and this adapter runs in the browser.
-import { asId as asCurriculumId, matchesIdPattern } from "../../curriculum/domain/ids.ts";
-import { asId as asStoryId } from "../../story-engine/index.ts";
+import { asId as asCurriculumId, matchesIdPattern as matchesCurriculumIdPattern } from "../../curriculum/domain/ids.ts";
+import { asId as asStoryId, matchesIdPattern as matchesStoryIdPattern } from "../../story-engine/index.ts";
 import { practiceItemKey, type PracticeItem, type PracticeItemOrigin } from "../domain/item.ts";
 import { practiceTargetKey, type PracticeTarget } from "../domain/target.ts";
 import type { PracticeItemRepository } from "./practice-item-repository.ts";
@@ -29,11 +29,32 @@ const isRecord = (value: unknown): value is Record<string, unknown> => typeof va
 
 function parseTarget(value: unknown): PracticeTarget | null {
   if (!isRecord(value)) return null;
-  const { type, lexemeId, senseId } = value;
-  if (typeof lexemeId !== "string" || !matchesIdPattern("LexemeId", lexemeId)) return null;
-  if (type === "LEXEME") return { type, lexemeId: asCurriculumId("LexemeId", lexemeId) };
-  if (type === "SENSE" && typeof senseId === "string" && matchesIdPattern("SenseId", senseId)) {
-    return { type, senseId: asCurriculumId("SenseId", senseId), lexemeId: asCurriculumId("LexemeId", lexemeId) };
+  const { type, lexemeId, senseId, storyVersionId, anchorId, surface, normalizedSurface } = value;
+  if (type === "LEXEME" || type === "SENSE") {
+    if (typeof lexemeId !== "string" || !matchesCurriculumIdPattern("LexemeId", lexemeId)) return null;
+    if (type === "LEXEME") return { type, lexemeId: asCurriculumId("LexemeId", lexemeId) };
+    if (typeof senseId === "string" && matchesCurriculumIdPattern("SenseId", senseId)) {
+      return { type, senseId: asCurriculumId("SenseId", senseId), lexemeId: asCurriculumId("LexemeId", lexemeId) };
+    }
+    return null;
+  }
+  if (
+    type === "UNRESOLVED_SURFACE" &&
+    typeof storyVersionId === "string" && matchesStoryIdPattern("StoryVersionId", storyVersionId) &&
+    typeof anchorId === "string" &&
+    (matchesStoryIdPattern("StoryOccurrenceId", anchorId) || matchesStoryIdPattern("SurfaceTokenId", anchorId)) &&
+    typeof surface === "string" && surface !== "" &&
+    typeof normalizedSurface === "string"
+  ) {
+    return {
+      type,
+      storyVersionId: asStoryId("StoryVersionId", storyVersionId),
+      anchorId: matchesStoryIdPattern("StoryOccurrenceId", anchorId)
+        ? asStoryId("StoryOccurrenceId", anchorId)
+        : asStoryId("SurfaceTokenId", anchorId),
+      surface,
+      normalizedSurface,
+    };
   }
   return null;
 }
@@ -41,7 +62,15 @@ function parseTarget(value: unknown): PracticeTarget | null {
 function parseOrigin(value: unknown): PracticeItemOrigin | null | undefined {
   if (value === null) return null;
   if (!isRecord(value) || typeof value.storyVersionId !== "string" || typeof value.occurrenceId !== "string") return undefined;
-  return { storyVersionId: asStoryId("StoryVersionId", value.storyVersionId), occurrenceId: asStoryId("StoryOccurrenceId", value.occurrenceId) };
+  const { storyVersionId, occurrenceId } = value;
+  if (!matchesStoryIdPattern("StoryVersionId", storyVersionId)) return undefined;
+  if (matchesStoryIdPattern("StoryOccurrenceId", occurrenceId)) {
+    return { storyVersionId: asStoryId("StoryVersionId", storyVersionId), occurrenceId: asStoryId("StoryOccurrenceId", occurrenceId) };
+  }
+  if (matchesStoryIdPattern("SurfaceTokenId", occurrenceId)) {
+    return { storyVersionId: asStoryId("StoryVersionId", storyVersionId), occurrenceId: asStoryId("SurfaceTokenId", occurrenceId) };
+  }
+  return undefined;
 }
 
 // localStorage is editable by anyone: only known shapes with published id patterns are accepted.

@@ -148,10 +148,14 @@
 .hint { font-size:14px; }
 @media (prefers-reduced-motion:reduce) { .more summary svg { transition:none; } }
 
-/* ── Práctica · guardar solo palabras con identidad léxica ── */
-/* Una palabra sin Lexeme no se puede guardar: queda solo «Escuchar la frase», a todo el ancho. */
+/* ── Práctica · guardar toda palabra seleccionable ── */
+/* Guardar + Escuchar son siempre dos columnas; una vez guardada se suma «Marcar como
+   conocida» arriba (dos columnas) y Escuchar baja a una fila propia a todo el ancho,
+   para que ningún texto se corte contra el botón vecino. */
 .actions:has(> button:only-child) { grid-template-columns:1fr; }
-.actions:has(.knownButton) { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.actions:has(.knownButton) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.actions:has(.knownButton) .practiceButton { grid-column:1 / -1; }
+.actions button { white-space:normal; }
 
 /* ── C13 · Paleta: naranja, azul marino y negro ── */
 /* Botones rellenos en naranja con texto en tinta; textos y bordes pequeños en naranja oscuro. */

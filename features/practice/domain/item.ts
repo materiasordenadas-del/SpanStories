@@ -1,10 +1,14 @@
-import type { StoryOccurrenceId, StoryVersionId } from "../../story-engine/index.ts";
+import type { StoryOccurrenceId, StoryVersionId, SurfaceTokenId } from "../../story-engine/index.ts";
 import { practiceTargetKey, type PracticeTarget, type PracticeTargetKey } from "./target.ts";
 
-/** Where the learner saved the word. Provenance for context — never part of the identity. */
+/**
+ * Where the learner saved the word. Provenance for context — never part of the
+ * identity. `occurrenceId` is a `SurfaceTokenId` when the word was saved from
+ * a bare SurfaceToken (no occurrence exists for it at all).
+ */
 export type PracticeItemOrigin = {
   readonly storyVersionId: StoryVersionId;
-  readonly occurrenceId: StoryOccurrenceId;
+  readonly occurrenceId: StoryOccurrenceId | SurfaceTokenId;
 };
 
 /**
