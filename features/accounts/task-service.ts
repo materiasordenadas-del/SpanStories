@@ -35,6 +35,12 @@ function parseContent(kind: TeacherTaskKind, raw: Record<string, unknown>): Teac
   return null;
 }
 
+function serializeContent(content: TeacherTaskContent): Record<string, unknown> {
+  if (content.kind === "story") return { storyKey: content.storyKey };
+  if (content.kind === "flashcards") return { minimumCards: content.minimumCards };
+  return { source: content.source, minimumQuestions: content.minimumQuestions };
+}
+
 function parseTask(id: string, value: unknown): TeacherTask | null {
   if (typeof value !== "object" || value === null) return null;
   const raw = value as RawTask;
@@ -77,7 +83,7 @@ export async function createTeacherTask(input: {
     teacherId: input.teacherId,
     kind: input.kind,
     title: input.title.trim(),
-    content: { ...input.content },
+    content: serializeContent(input.content),
     startsAt: input.startsAt,
     dueAt: input.dueAt,
     createdAt: serverTimestamp(),

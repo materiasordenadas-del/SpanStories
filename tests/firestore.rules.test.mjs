@@ -7,9 +7,9 @@ import { addDoc, collection, collectionGroup, deleteDoc, doc, getDoc, getDocs, q
 let env;
 before(async () => {
   env = await initializeTestEnvironment({ projectId: "spanstories-test", firestore: { rules: await readFile("firestore.rules", "utf8") } });
-  await env.withSecurityRulesDisabled(async ({ firestore }) => {
+  await env.withSecurityRulesDisabled(async (context) => {
     const now = new Date();
-    const store = firestore();
+    const store = context.firestore();
     await setDoc(doc(store, "users/student-1"), { uid:"student-1", role:"student", displayName:"Ana", email:"ana@example.com", createdAt:now });
     await setDoc(doc(store, "users/student-2"), { uid:"student-2", role:"student", displayName:"Beto", email:"beto@example.com", createdAt:now });
     await setDoc(doc(store, "users/teacher-1"), { uid:"teacher-1", role:"teacher", displayName:"Laura", email:"laura@example.com", createdAt:now });
@@ -94,6 +94,7 @@ test("las tareas se asignan solo a estudiantes vinculados y no se pueden marcar 
 
   await assertSucceeds(getDoc(doc(as("student-2"), "teacherTasks/task-1")));
   await assertSucceeds(getDocs(query(collectionGroup(as("student-2"), "assignees"), where("studentId", "==", "student-2"))));
+  await assertFails(getDocs(query(collectionGroup(as("student-1"), "assignees"), where("studentId", "==", "student-2"))));
   await assertFails(getDoc(doc(as("student-1"), "teacherTasks/task-1")));
   await assertFails(setDoc(doc(as("student-2"), "teacherTasks/task-1/assignees/student-1"), { studentId:"student-1", studentName:"Ana", assignedAt:serverTimestamp() }));
   await assertFails(setDoc(doc(as("teacher-2"), "teacherTasks/task-2"), {

@@ -174,12 +174,18 @@ service cloud.firestore {
       allow update, delete: if false;
 
       match /assignees/{studentId} {
-        allow get, list: if ownsTask(taskId) || isAssignedTask(taskId, studentId);
+        allow get, list: if ownsTask(taskId) || (signedIn() && studentId == request.auth.uid && resource.data.studentId == request.auth.uid);
         allow create: if ownsTaskAfter(taskId) && validTaskAssignee(request.resource.data, taskId, studentId);
         allow update: if false;
         // Se permite retirar un destinatario al quitar al estudiante de la lista del profesor.
         allow delete: if ownsTask(taskId);
       }
+    }
+
+    // Las consultas collectionGroup necesitan una coincidencia recursiva explícita.
+    // La consulta del alumno incluye where('studentId', '==', request.auth.uid).
+    match /{path=**}/assignees/{studentId} {
+      allow list: if signedIn() && resource.data.studentId == request.auth.uid;
     }
 
     match /{document=**} { allow read, write: if false; }
