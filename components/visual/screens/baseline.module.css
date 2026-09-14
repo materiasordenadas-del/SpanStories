@@ -264,3 +264,63 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 .storyWorkspace { --interaction-soft:var(--botella-soft); }
 .scenePicker a[aria-current="page"] { color:var(--ink); border-color:var(--accent); background:var(--accent); }
 .sliderArrows a:hover { color:var(--ink); }
+
+/* ── C14 · Lector: traducción rápida ── */
+/* Interruptor y tuerquita de color al final de la línea de ayuda. Con el modo apagado el lector no cambia. */
+.hintRow { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:12px 24px; max-width:calc(34 * clamp(19px,1.4vw,21px)); margin:0 0 28px; }
+.hintRow .readingHint { flex:1 1 300px; margin:0; }
+/* En pantallas estrechas los controles bajan a otra línea antes que salirse por la derecha. */
+.glossTools { position:relative; display:flex; flex:0 1 auto; flex-wrap:wrap; align-items:center; gap:8px 14px; max-width:100%; min-height:32px; }
+.glossSwitch { display:inline-flex; align-items:center; gap:10px; border:0; padding:0; color:var(--ink); background:transparent; font:inherit; font-size:14px; font-weight:800; cursor:pointer; }
+.glossTrack { position:relative; width:38px; height:22px; border:2px solid var(--ink); transition:background-color .16s ease; }
+.glossTrack::after { content:""; position:absolute; top:2px; left:2px; width:14px; height:14px; background:var(--ink); transition:transform .16s ease,background-color .16s ease; }
+.glossSwitch[aria-checked="true"] .glossTrack { background:var(--ink); }
+.glossSwitch[aria-checked="true"] .glossTrack::after { background:var(--bg); transform:translateX(16px); }
+.glossClear { border:0; padding:0; color:var(--accent-ink); background:transparent; font:inherit; font-size:14px; font-weight:700; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.glossGear { display:grid; place-items:center; width:32px; height:32px; margin:0 -6px 0 -4px; border:0; border-radius:6px; padding:0; color:var(--muted); background:transparent; cursor:pointer; }
+.glossGear svg { transition:transform .3s ease; }
+.glossGear:hover,.glossGear[aria-expanded="true"] { color:var(--ink); background:var(--surface); }
+.glossGear[aria-expanded="true"] svg { transform:rotate(60deg); }
+.glossSwitch:focus-visible,.glossClear:focus-visible,.glossGear:focus-visible,.glossSwatch:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+.glossColorMenu { position:absolute; top:calc(100% + 8px); right:0; z-index:25; width:228px; padding:14px; border:1px solid color-mix(in srgb,var(--ink) 25%,transparent); background:#fbfbfa; box-shadow:0 10px 28px #20201f1f; }
+.glossColorMenu p { margin:0 0 10px; font-size:13px; font-weight:800; }
+.glossSwatches { display:grid; gap:6px; }
+.glossSwatch { display:flex; align-items:center; gap:10px; width:100%; min-height:44px; padding:6px 10px; border:2px solid transparent; color:var(--ink); background:var(--surface); font:inherit; font-size:14px; font-weight:700; text-align:left; cursor:pointer; }
+.glossSwatch:hover { border-color:color-mix(in srgb,var(--ink) 25%,transparent); }
+.glossSwatch[aria-checked="true"] { border-color:var(--ink); background:#fff; }
+.glossSample { padding:.1em .45em .16em; border-radius:.3em; color:#fff; font-size:13px; font-weight:600; }
+.glossCheck { margin-left:auto; visibility:hidden; }
+.glossSwatch[aria-checked="true"] .glossCheck { visibility:visible; }
+@media (max-width:700px) { .glossColorMenu { right:auto; left:0; } }
+
+/* Un solo tono usado tres veces: etiqueta sólida, palabra tocada y tinte del hover. */
+.glossMode { --gloss:#b84a18; --gloss-on:#fff; --gloss-missing:#6b6664; }
+.glossMode[data-gloss-color="azul"] { --gloss:#2f5596; }
+.glossHost { position:relative; }
+.glossMode .selectableWord:hover { border-color:transparent; box-shadow:none; background:color-mix(in srgb,var(--gloss) 20%,transparent); transition:none; }
+.glossMode .selectableWord[aria-pressed="true"],.glossMode .glossOn .selectableWord:hover { border-color:transparent; box-shadow:none; background:transparent; }
+.glossOn { display:inline-block; vertical-align:baseline; }
+.glossOn > .glossWords { display:block; color:var(--gloss); }
+.glossMissing.glossOn > .glossWords { color:var(--gloss-missing); }
+.glossOn .selectableWord { text-decoration-color:currentColor; }
+.glossLeaving > .glossWords { color:var(--ink); transition:color .12s ease; }
+/* La línea se abre para la etiqueta, así nunca tapa la línea de arriba. */
+.glossRow { position:relative; display:block; height:2.35em; animation:glossRowOpen .14s ease-out both; }
+.glossInstant > .glossRow { animation:none; }
+.glossLeaving > .glossRow { animation:glossRowClose .18s ease-in .12s both; }
+/* Etiqueta más grande que el español. Su posición horizontal la escribe layoutQuickGloss; solo se animan
+   la opacidad y una subida corta, que empieza cuando la línea ya está abierta: nunca entra de lado. */
+.glossChip { position:absolute; left:calc(50% + var(--nudge,0px)); bottom:.34em; padding:.14em calc(.42em + var(--extR,0px)) .2em calc(.42em + var(--extL,0px)); border-radius:var(--rL,.3em) var(--rR,.3em) var(--rR,.3em) var(--rL,.3em); color:var(--gloss-on); background:var(--gloss); font-family:Archivo,system-ui,sans-serif; font-size:1.22em; font-weight:600; line-height:1.2; letter-spacing:-.01em; white-space:nowrap; transform:translateX(-50%); pointer-events:none; animation:glossChipIn .24s cubic-bezier(.2,.7,.3,1) .12s both; }
+.glossChip::before { content:""; position:absolute; left:clamp(.5em,calc(50% - var(--nudge,0px)),calc(100% - .5em)); bottom:-.3em; border:.32em solid transparent; border-bottom:0; border-top-color:var(--gloss); transform:translateX(-50%); }
+.glossMissing > .glossRow > .glossChip { background:var(--gloss-missing); font-weight:500; }
+.glossMissing > .glossRow > .glossChip::before { border-top-color:var(--gloss-missing); }
+.glossInstant > .glossRow > .glossChip { animation-delay:0s; }
+.glossLeaving > .glossRow > .glossChip { animation:glossChipOut .12s ease-out both; }
+@keyframes glossRowOpen { from { height:0; } }
+@keyframes glossRowClose { to { height:0; } }
+@keyframes glossChipIn { from { opacity:0; transform:translate(-50%,.22em); } }
+@keyframes glossChipOut { to { opacity:0; } }
+@media (prefers-reduced-motion:reduce) {
+  .glossRow,.glossLeaving > .glossRow,.glossChip,.glossLeaving > .glossRow > .glossChip { animation:none; }
+  .glossTrack,.glossTrack::after,.glossGear svg,.glossLeaving > .glossWords { transition:none; }
+}

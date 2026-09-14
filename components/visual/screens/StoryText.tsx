@@ -5,8 +5,8 @@ import styles from "./baseline.module.css";
 type TextSegment = Extract<StoryReaderTextSegment, { readonly kind: "TEXT" }>;
 
 // Puntuación que se pega a la palabra vecina: «clases.», «Sr.», «¿Quién», «—dice».
-const CLOSING = /^[.,;:!?…»”)\]]+/u;
-const OPENING = /[¿¡«“(\[—]+$/u;
+export const CLOSING = /^[.,;:!?…»”)\]]+/u;
+export const OPENING = /[¿¡«“(\[—]+$/u;
 
 const isText = (segment: StoryReaderTextSegment | undefined): segment is TextSegment => segment?.kind === "TEXT";
 

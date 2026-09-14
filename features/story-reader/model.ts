@@ -26,11 +26,36 @@ export type StoryReaderTextSegment =
       readonly curriculumFocus?: true;
     };
 
+/** Traducción rápida de una palabra o de una expresión en esta aparición. */
+export type StoryReaderQuickGloss = {
+  readonly text: string;
+  /** NAME: nombre propio, sin traducción. MISSING: ninguna fuente traduce esta aparición. */
+  readonly kind: "TRANSLATION" | "NAME" | "MISSING";
+};
+
+export type StoryReaderGlossWord = {
+  /** El mismo id que selecciona la palabra: occurrenceId o tokenId de su segmento. */
+  readonly id: string;
+  readonly segmentIndex: number;
+  readonly gloss: StoryReaderQuickGloss;
+  /** Entre esta palabra y la siguiente de la frase solo hay espacio: sus etiquetas pueden unirse en una barra. */
+  readonly joinsNext: boolean;
+};
+
+/** Una palabra suelta o una expresión de varias palabras seguidas. */
+export type StoryReaderGlossUnit = {
+  readonly id: string;
+  readonly words: readonly StoryReaderGlossWord[];
+  /** Traducción de la expresión entera; solo existe en expresiones de varias palabras. */
+  readonly gloss?: StoryReaderQuickGloss;
+};
+
 export type StoryReaderSentence = {
   readonly id: string;
   readonly text: string;
   readonly presentation: "PARAGRAPH" | "ROSTER";
   readonly segments: readonly StoryReaderTextSegment[];
+  readonly glossUnits?: readonly StoryReaderGlossUnit[];
 };
 
 export type StoryReaderSceneIllustration = {

@@ -2,6 +2,8 @@ import { asId, type StorySentence, type SurfaceToken } from "../story-engine/ind
 import { loadCurriculumRegistry } from "../curriculum/index.ts";
 import type { StoryReaderLexicalEntry, StoryReaderSurfaceEntry, StoryReaderViewModel } from "./model.ts";
 import type { StoryReaderScene } from "./model.ts";
+import { withQuickGloss } from "./gloss.ts";
+import { QUICK_GLOSS_SOURCES } from "./quick-gloss-sources.ts";
 import { buildReaderSegments } from "./segments.ts";
 import { getStoryOneReaderViewModel } from "./story-one.ts";
 import { buildSurfaceWordPanel } from "./word-panel.ts";
@@ -310,15 +312,15 @@ export async function getStoryReaderViewModel(island: string, story: string) {
       : [];
     const model = createSurfaceStoryReader({ island, story, title: publishedStory.title, paragraphs: publishedStory.paragraphs }, scenes);
     const enrichedModel = key === "01/01" ? await enrichStoryOne(model) : model;
-    return {
+    return withQuickGloss({
       ...enrichedModel,
       summary: publishedStory.summary,
-    };
+    }, QUICK_GLOSS_SOURCES[key]);
   }
-  return createSurfaceStoryReader({
+  return withQuickGloss(createSurfaceStoryReader({
     island,
     story,
     title: TITLES[key] ?? "Una nueva historia",
     paragraphs: DEFAULT_PARAGRAPHS,
-  });
+  }));
 }
