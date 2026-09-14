@@ -32,13 +32,16 @@ function StudentPageContent() {
 
   useEffect(() => {
     if (!user) return;
-    Promise.all([listStudentTeachers(user.uid), listStudentTasks(user.uid)])
-      .then(([nextTeachers, nextTasks]) => {
-        setTeachers(nextTeachers);
-        setTasks([...nextTasks].sort((a, b) => a.dueAt.toMillis() - b.dueAt.toMillis()));
-      })
-      .catch(() => { setTeachers([]); setTasks([]); })
-      .finally(() => setLoading(false));
+    const load = async () => {
+      const [teacherResult, taskResult] = await Promise.allSettled([
+        listStudentTeachers(user.uid),
+        listStudentTasks(user.uid),
+      ]);
+      setTeachers(teacherResult.status === "fulfilled" ? teacherResult.value : []);
+      setTasks(taskResult.status === "fulfilled" ? [...taskResult.value].sort((a, b) => a.dueAt.toMillis() - b.dueAt.toMillis()) : []);
+      setLoading(false);
+    };
+    void load();
   }, [user]);
 
   return <main className={styles.main}>
