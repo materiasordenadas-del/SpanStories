@@ -4,6 +4,7 @@ import type { StoryReaderTextSegment } from "./model.ts";
 type AnchoredPart = {
   readonly start: number;
   readonly end: number;
+  readonly curriculumFocus?: true;
 } & (
   | { readonly kind: "LEXICAL"; readonly occurrenceId: string }
   | { readonly kind: "SURFACE"; readonly tokenId: string }
@@ -14,16 +15,33 @@ export function buildReaderSegments(
   anchors: readonly TextAnchor[],
   occurrences: readonly StoryOccurrence[],
   selectableTokenIds: ReadonlySet<string> = new Set(sentence.tokens.map((token) => token.id)),
+  focusSenseIds: ReadonlySet<string> = new Set(),
+  focusOccurrenceIds: ReadonlySet<string> = new Set(),
 ): readonly StoryReaderTextSegment[] {
   const anchorById = new Map(anchors.map((anchor) => [anchor.id, anchor] as const));
   const parts: AnchoredPart[] = [];
+  const focusRanges: { readonly start: number; readonly end: number }[] = [];
+
+  for (const occurrence of occurrences) {
+    if (!focusOccurrenceIds.has(occurrence.id) || occurrence.sentenceId !== sentence.id) continue;
+    for (const part of occurrence.parts) {
+      const anchor = anchorById.get(part.anchorId);
+      if (anchor !== undefined && anchor.sentenceId === sentence.id) focusRanges.push(anchor);
+    }
+  }
 
   for (const occurrence of occurrences) {
     if (occurrence.kind !== "LEXICAL" || occurrence.sentenceId !== sentence.id) continue;
     for (const part of occurrence.parts) {
       const anchor = anchorById.get(part.anchorId);
       if (anchor === undefined || anchor.sentenceId !== sentence.id) continue;
-      parts.push({ kind: "LEXICAL", start: anchor.start, end: anchor.end, occurrenceId: occurrence.id });
+      parts.push({
+        kind: "LEXICAL",
+        start: anchor.start,
+        end: anchor.end,
+        occurrenceId: occurrence.id,
+        ...((occurrence.senseId !== null && focusSenseIds.has(occurrence.senseId)) || focusOccurrenceIds.has(occurrence.id) ? { curriculumFocus: true as const } : {}),
+      });
     }
   }
 
@@ -38,6 +56,7 @@ export function buildReaderSegments(
         start: token.startOffset,
         end: token.endOffset,
         tokenId: token.id,
+        ...(focusRanges.some((range) => token.startOffset < range.end && range.start < token.endOffset) ? { curriculumFocus: true as const } : {}),
       });
     }
   }
@@ -56,8 +75,8 @@ export function buildReaderSegments(
     }
     const text = codePoints.slice(part.start, part.end).join("");
     segments.push(part.kind === "LEXICAL"
-      ? { kind: "LEXICAL", text, occurrenceId: part.occurrenceId }
-      : { kind: "SURFACE", text, tokenId: part.tokenId });
+      ? { kind: "LEXICAL", text, occurrenceId: part.occurrenceId, ...(part.curriculumFocus === true ? { curriculumFocus: true as const } : {}) }
+      : { kind: "SURFACE", text, tokenId: part.tokenId, ...(part.curriculumFocus === true ? { curriculumFocus: true as const } : {}) });
     cursor = part.end;
   }
 

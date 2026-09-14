@@ -19,24 +19,47 @@ import {
  */
 
 export {
+  A1_VERBS,
+  CONJUGATION_PERSONS,
   PRACTICE_MODES,
+  VERB_GROUPS,
+  buildConjugationPool,
   buildFlashcardDeck,
+  conjugationPersonLabel,
+  conjugationTable,
+  currentConjugationAttempt,
+  currentConjugationQuestion,
   currentFlashcard,
   currentFlashcardAttempt,
+  findConjugationVerb,
+  isVerbTypeOn,
+  nextConjugationQuestion,
   nextFlashcard,
+  practiceItemKey,
   readerWordPractice,
+  revealConjugationAnswer,
   revealFlashcardAnswer,
+  savedConjugationVerbs,
+  sentenceWithAnswer,
+  startConjugationSession,
   startFlashcardSession,
+  submitConjugationAnswer,
   submitFlashcardAnswer,
+  summarizeConjugationSession,
   summarizeFlashcardSession,
+  withoutMarks,
 } from "@/features/practice";
 export type {
+  ConjugationPerson,
+  ConjugationSession,
+  ConjugationSettings,
   Flashcard,
   FlashcardAttempt,
   FlashcardSession,
   PracticeModeId,
   PracticeOccurrence,
   ReaderWordPractice,
+  VerbGroup,
 } from "@/features/practice";
 
 export type PracticeItemsSnapshot = { readonly ready: boolean; readonly items: readonly PracticeItem[] };

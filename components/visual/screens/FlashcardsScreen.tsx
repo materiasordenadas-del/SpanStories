@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { recordPracticeSession } from "@/features/accounts/progress-service";
 import { speakSpanish } from "@/features/story-reader/browser-speech";
 import {
   buildFlashcardDeck,
@@ -70,7 +71,7 @@ function EmptyDeck({ savedCount }: { savedCount: number }) {
       ? "Guarda palabras desde su ficha mientras lees y vuelve aquí para repasarlas."
       : "Las flashcards te piden escribir la palabra a partir de su traducción publicada. Tus palabras siguen guardadas y entrarán en cuanto la tengan."}</p>
     <div className={cards.messageActions}>
-      {savedCount === 0 ? <Link className={`${styles.button} ${styles.primary}`} href="/islas">Ir a las islas</Link> : null}
+      {savedCount === 0 ? <Link className={`${styles.button} ${styles.primary}`} href="/niveles">Ir a las islas</Link> : null}
       <Link className={`${styles.button} ${styles.secondary}`} href={PRACTICE_HREF}>Volver a práctica</Link>
     </div>
   </section>;
@@ -91,6 +92,25 @@ function SessionEnd({ session, onRestart }: { session: FlashcardSession; onResta
       <Link className={`${styles.button} ${styles.secondary}`} href={PRACTICE_HREF}>Volver a práctica</Link>
     </div>
   </section>;
+}
+
+/** Resultado de la sesión para la cuenta del estudiante (lo ve su profesor). */
+function recordFlashcardSession(session: FlashcardSession) {
+  const summary = summarizeFlashcardSession(session);
+  const byKey = new Map(session.deck.map((card) => [card.key, card]));
+  recordPracticeSession({
+    mode: "tarjetas",
+    total: summary.total,
+    correct: summary.correct,
+    incorrect: summary.incorrect,
+    revealed: summary.revealed,
+    misses: session.attempts.flatMap((attempt) => {
+      const card = byKey.get(attempt.cardKey);
+      return attempt.outcome === "CORRECT" || card === undefined
+        ? []
+        : [{ prompt: card.prompt, response: attempt.response ?? "", answer: card.answer, accentsOnly: attempt.accentsOnly }];
+    }),
+  });
 }
 
 export function FlashcardsScreen({ occurrences }: { occurrences: readonly PracticeOccurrence[] }) {
@@ -122,7 +142,9 @@ export function FlashcardsScreen({ occurrences }: { occurrences: readonly Practi
   };
   const next = () => {
     setResponse("");
-    setStarted(nextFlashcard(session));
+    const moved = nextFlashcard(session);
+    if (moved !== session && moved.status === "FINISHED") recordFlashcardSession(moved);
+    setStarted(moved);
   };
   const restart = () => {
     setResponse("");

@@ -25,6 +25,37 @@ export type { PracticeImage, PracticeOccurrence, ReaderWordPractice } from "./do
 export type { Flashcard, PracticeSummary } from "./domain/flashcard.ts";
 export { buildFlashcard, buildFlashcardDeck, summarizePractice } from "./domain/flashcard.ts";
 
+export type {
+  ConjugationCheck,
+  ConjugationFormPart,
+  ConjugationPair,
+  ConjugationPerson,
+  ConjugationPersonInfo,
+  ConjugationQuestion,
+  ConjugationSettings,
+  ConjugationTableRow,
+  ConjugationVerb,
+  VerbCategory,
+  VerbGroup,
+} from "./domain/conjugation.ts";
+export {
+  A1_VERBS,
+  CONJUGATION_PERSONS,
+  CONJUGATION_PERSON_IDS,
+  VERB_GROUPS,
+  buildConjugationPool,
+  buildConjugationQuestion,
+  checkConjugationAnswer,
+  conjugationPersonLabel,
+  conjugationTable,
+  findConjugationVerb,
+  hasConjugationSentence,
+  isVerbTypeOn,
+  savedConjugationVerbs,
+  sentenceWithAnswer,
+  withoutMarks,
+} from "./domain/conjugation.ts";
+
 export type { PracticeMode, PracticeModeId } from "./domain/mode.ts";
 export { PRACTICE_MODE_IDS, PRACTICE_MODES, getPracticeMode } from "./domain/mode.ts";
 
@@ -41,6 +72,17 @@ export {
   submitFlashcardAnswer,
   summarizeFlashcardSession,
 } from "./engine/flashcard-session.ts";
+
+export type { ConjugationAttempt, ConjugationOutcome, ConjugationSession, ConjugationSessionSummary } from "./engine/conjugation-session.ts";
+export {
+  currentConjugationAttempt,
+  currentConjugationQuestion,
+  nextConjugationQuestion,
+  revealConjugationAnswer,
+  startConjugationSession,
+  submitConjugationAnswer,
+  summarizeConjugationSession,
+} from "./engine/conjugation-session.ts";
 
 export type { PracticeItemRepository } from "./repository/practice-item-repository.ts";
 export { InMemoryPracticeItemRepository } from "./repository/in-memory-practice-item-repository.ts";

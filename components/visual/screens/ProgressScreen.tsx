@@ -42,7 +42,7 @@ export function ProgressScreen({ modules, storyCount }: { modules: readonly A1Mo
             ? <><p className={progress.label}>Seguías leyendo</p><h2>{resume.title}</h2><Link className={`${styles.button} ${styles.primary}`} href={storyHref(resume)}>Continuar leyendo</Link></>
             : nextUnread !== undefined
               ? <><p className={progress.label}>{finishedCount === 0 ? "Tu primera historia" : "Siguiente historia"}</p><h2>{nextUnread.title}</h2><Link className={`${styles.button} ${styles.primary}`} href={nextUnread.href}>{finishedCount === 0 ? "Empezar a leer" : "Leer ahora"}</Link></>
-              : <><p className={progress.label}>Al día</p><h2>Has leído todas las historias publicadas.</h2><Link className={`${styles.button} ${styles.secondary}`} href="/islas">Ver islas</Link></>}
+              : <><p className={progress.label}>Al día</p><h2>Has leído todas las historias publicadas.</h2><Link className={`${styles.button} ${styles.secondary}`} href="/niveles">Ver islas</Link></>}
         </div>
         <div className={progress.stat}>
           <strong>{finishedCount}</strong><span>de {storyCount} historias leídas</span>

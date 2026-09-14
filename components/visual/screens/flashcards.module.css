@@ -1,5 +1,5 @@
 /* Flashcards: una sola tarea en el centro. Traducción → escribir en español → respuesta con audio y la frase de la historia.
-   Sin navegación ni adornos: barra fina de avance, mucho aire y el rojo solo para la acción y los errores. */
+   Sin navegación ni adornos: barra fina de avance, mucho aire y el naranja solo para la acción y los errores. */
 .screen { display:flex; flex-direction:column; min-height:100dvh; }
 
 .topBar { display:grid; grid-template-columns:44px minmax(0,1fr) 72px; align-items:center; gap:clamp(12px,3vw,32px); width:100%; max-width:1120px; margin:0 auto; padding:14px clamp(16px,3vw,40px); }
@@ -23,8 +23,8 @@
 .input::placeholder { color:#8a8584; }
 .input:hover { border-color:#a8a3a1; }
 .input:focus { border-color:var(--ink); outline:none; }
-.check { min-height:60px; border:0; padding:0 24px; color:#fff; background:var(--accent-ink); font:inherit; font-size:15px; font-weight:800; cursor:pointer; }
-.check:hover { background:#ae1800; }
+.check { min-height:60px; border:0; padding:0 24px; color:var(--ink); background:var(--accent); font:inherit; font-size:15px; font-weight:800; cursor:pointer; }
+.check:hover { background:var(--accent-hover); }
 .dontKnow { min-height:44px; border:0; padding:0 12px; color:var(--muted); background:transparent; font:inherit; font-size:15px; font-weight:700; text-decoration:underline; text-decoration-color:color-mix(in srgb,var(--ink) 30%,transparent); text-underline-offset:4px; cursor:pointer; }
 .dontKnow:hover { color:var(--ink); text-decoration-color:currentColor; }
 
@@ -32,7 +32,7 @@
 .answerLine { display:flex; align-items:center; justify-content:center; gap:6px; max-width:100%; }
 .answer { margin:0; font-size:clamp(44px,10vw,72px); font-weight:800; line-height:1.04; letter-spacing:-.05em; overflow-wrap:anywhere; }
 .audio { display:grid; flex:0 0 auto; place-items:center; width:48px; height:48px; border:0; padding:0; color:var(--accent-ink); background:transparent; cursor:pointer; }
-.audio:hover { background:#fde1db; }
+.audio:hover { background:var(--accent-soft); }
 .status { display:flex; align-items:center; justify-content:center; gap:6px; margin:14px 0 0; font-size:16px; font-weight:600; line-height:1.4; text-wrap:balance; }
 .status svg { flex:0 0 auto; }
 .status[data-outcome="CORRECT"] { color:var(--ink); }

@@ -6,7 +6,7 @@ import styles from "./baseline.module.css";
 
 export function StoryListScreen({ island, previousIsland }: { island: A1Island; previousIsland?: A1Island }) {
   return <div className={`${styles.page} standalone-layer`}><BaselineNav /><main className={styles.storyListPage}>
-    <Link className={styles.backLink} href="/islas">← Volver a Islas</Link>
+    <Link className={styles.backLink} href="/niveles">← Volver a Niveles</Link>
     <p className={styles.eyebrow}>A1 · Isla {island.number} · {island.moduleName}</p>
     <h1>{island.name}.</h1>
     {island.published

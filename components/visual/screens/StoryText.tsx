@@ -32,7 +32,7 @@ export function StoryText({ segments, selectedWordId, onSelect }: {
     const button = <button
       aria-controls="lexical-detail"
       aria-pressed={selectedWordId === id}
-      className={segment.kind === "LEXICAL" ? `${styles.selectableWord} ${styles.lexicalWord}` : styles.selectableWord}
+      className={segment.curriculumFocus === true ? `${styles.selectableWord} ${styles.lexicalWord}` : styles.selectableWord}
       onClick={(event) => onSelect(segment, event.currentTarget)}
       type="button"
     >{segment.text}</button>;

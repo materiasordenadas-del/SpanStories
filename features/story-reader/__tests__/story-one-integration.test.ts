@@ -85,6 +85,17 @@ describe("Historia 1 / vertical slice", () => {
     }
   });
 
+  test("points are reserved for curricular FOCUS targets, not every annotated word", async () => {
+    const model = await getStoryOneReaderViewModel();
+    const focused = model.sentences.flatMap((sentence) => sentence.segments)
+      .filter((segment): segment is Exclude<typeof segment, { readonly kind: "TEXT" }> => segment.kind !== "TEXT" && segment.curriculumFocus === true)
+      .map((segment) => segment.text);
+    assert.deepEqual(focused, ["Hola", "Buenos", "días", "Sr", "Hola"]);
+    const gracias = model.sentences.flatMap((sentence) => sentence.segments)
+      .find((segment): segment is Exclude<typeof segment, { readonly kind: "TEXT" }> => segment.kind !== "TEXT" && segment.text === "Gracias");
+    assert.equal(gracias?.curriculumFocus, undefined);
+  });
+
   test("repeated forms keep distinct occurrence identity and resolve the published Lexeme/Sense", async () => {
     const model = await getStoryOneReaderViewModel();
     const holas = model.eventContext.occurrences.filter((occurrence): occurrence is LexicalOccurrence => occurrence.kind === "LEXICAL" && occurrence.surface === "Hola");

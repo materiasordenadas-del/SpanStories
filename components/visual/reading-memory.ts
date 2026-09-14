@@ -85,9 +85,11 @@ export function rememberStory(ref: StoryRef) {
   write({ ...memory, lastStory: ref });
 }
 
-export function markStoryFinished(island: string, story: string) {
+/** Devuelve true solo la primera vez que se termina la historia en este navegador. */
+export function markStoryFinished(island: string, story: string): boolean {
   const memory = read();
   const key = storyKey(island, story);
-  if (memory.finished.includes(key)) return;
+  if (memory.finished.includes(key)) return false;
   write({ ...memory, finished: [...memory.finished, key] });
+  return true;
 }

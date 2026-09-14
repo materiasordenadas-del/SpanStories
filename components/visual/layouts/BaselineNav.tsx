@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "@/features/accounts/AuthProvider";
 import { storyHref, useReadingMemory } from "../reading-memory";
 import styles from "../screens/baseline.module.css";
 import navStyles from "./nav.module.css";
 
 const LINKS = [
   { href: "/", label: "Inicio", isCurrent: (path: string) => path === "/" },
-  { href: "/niveles", label: "Niveles", isCurrent: (path: string) => path.startsWith("/niveles") },
-  { href: "/islas", label: "Islas", isCurrent: (path: string) => path.startsWith("/islas") },
+  // Las islas forman parte de Niveles: sus páginas también marcan esta sección.
+  { href: "/niveles", label: "Niveles", isCurrent: (path: string) => path.startsWith("/niveles") || path.startsWith("/islas") },
   { href: "/progreso", label: "Progreso", isCurrent: (path: string) => path.startsWith("/progreso") },
 ] as const;
 
@@ -25,11 +26,13 @@ function MenuIcon({ open }: { open: boolean }) {
 export function BaselineNav() {
   const pathname = usePathname();
   const { lastStory } = useReadingMemory();
+  const { profile } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   // Mientras se lee, la cabecera no compite con la historia.
   const reading = READER_PATH.test(pathname);
+  const accountHref = profile ? (profile.role === "teacher" ? "/teacher" : "/niveles") : "/sign-in?next=%2Fniveles";
   const cta = lastStory === null
-    ? { href: "/islas", label: "Empezar", shortLabel: "Empezar" }
+    ? { href: accountHref, label: "Empezar", shortLabel: "Empezar" }
     : { href: storyHref(lastStory), label: "Continuar leyendo", shortLabel: "Continuar" };
   const closeMenu = () => setMenuOpen(false);
 
@@ -38,6 +41,7 @@ export function BaselineNav() {
       <Link className={styles.brand} href="/" aria-label="SpanStories, inicio" onClick={closeMenu}>SpanStories<span>.</span></Link>
       <nav className={`${styles.navLinks} ${navStyles.links}`} aria-label="Navegación principal" data-open={menuOpen} id="menu-principal">
         {LINKS.map((link) => <Link aria-current={link.isCurrent(pathname) ? "page" : undefined} href={link.href} key={link.href} onClick={closeMenu}>{link.label}</Link>)}
+        <Link aria-current={pathname.startsWith("/sign-in") || pathname.startsWith("/student") || pathname.startsWith("/teacher") ? "page" : undefined} href={profile ? `/${profile.role}` : "/sign-in?next=%2Fniveles"} onClick={closeMenu}>Cuenta</Link>
       </nav>
       {reading ? null : <Link className={`${styles.button} ${styles.primary} ${navStyles.cta}`} href={cta.href} onClick={closeMenu} title={lastStory === null ? undefined : lastStory.title}><span className={navStyles.ctaLong}>{cta.label}</span><span className={navStyles.ctaShort}>{cta.shortLabel}</span></Link>}
       <button aria-controls="menu-principal" aria-expanded={menuOpen} className={navStyles.menuButton} onClick={() => setMenuOpen((open) => !open)} type="button"><MenuIcon open={menuOpen} /><span>Menú</span></button>

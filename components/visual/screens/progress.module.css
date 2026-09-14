@@ -1,5 +1,5 @@
 /* Progreso A1: qué sigue, qué llevas y el recorrido real por módulos.
-   Estados: negro = completada, anillo rojo = estás aquí, contorno discontinuo = aún no disponible. */
+   Estados: negro = completada, anillo naranja = estás aquí, contorno discontinuo = aún no disponible. */
 .main { padding:56px 40px 104px; }
 .title { margin:0; font-size:clamp(40px,5.5vw,72px); line-height:.95; letter-spacing:-.05em; }
 

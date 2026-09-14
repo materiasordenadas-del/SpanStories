@@ -30,3 +30,7 @@ export function speakSpanish(text: string, locale = DEFAULT_SPANISH_LOCALE) {
   speech.speak(utterance);
   return true;
 }
+
+export function stopSpanishSpeech() {
+  if (typeof window !== "undefined" && typeof window.speechSynthesis !== "undefined") window.speechSynthesis.cancel();
+}

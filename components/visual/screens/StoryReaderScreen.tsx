@@ -94,7 +94,7 @@ function StoryWorkspace({ initialMode, initialScene, island, story, model, next 
       </header>
       {mode === "read"
         ? <>
-          <p className={styles.readingHint}>{hasLexicalWords ? "Toca cualquier palabra para ver su ficha; las subrayadas tienen más información." : "Toca cualquier palabra para escucharla."}</p>
+          <p className={styles.readingHint}>{hasLexicalWords ? "Los puntos señalan los objetivos FOCUS de esta historia. Toca cualquier palabra para ver su ficha." : "Toca cualquier palabra para escucharla."}</p>
           <article className={styles.readingStory} lang="es">{readingBlocks(model).map((block) => <div className={styles.storyBeat} key={block.key}>
             {block.paragraphs.map((paragraph) => <p className={paragraph.roster ? styles.storySentenceRoster : undefined} key={paragraph.key}>
               {paragraph.sentences.map((sentence, index) => <Fragment key={sentence.id}>{index > 0 ? " " : null}<StoryText segments={sentence.segments} selectedWordId={selectedWordId} onSelect={selectWord} /></Fragment>)}

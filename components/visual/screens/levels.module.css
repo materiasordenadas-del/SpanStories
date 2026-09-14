@@ -1,0 +1,78 @@
+/* Niveles e islas en una sola página: paleta «Mar y arena» sobre la identidad de SpanStories,
+   con la estructura de la guía de SpanishDict (cabecera centrada, secciones por nivel, cuadrícula centrada). */
+.screen {
+  --paper:#faf9f9; --hero:#efe6d6; --sky:#fbf3e8; --marino:#1b2a4a; --track:#e3dfde; --soon:#ecebea;
+  --sea:#1d4e5f; --sea-hover:#163d4b; --sea-soft:#e3eef1;
+  --hair:color-mix(in srgb,#201e1d 14%,transparent);
+  /* Un tono por módulo de A1: las islas del mismo módulo comparten color. */
+  --m1:#fde0d9; --m2:#fde9d2; --m3:#e9e3f6; --m4:#dbeaf6; --m5:#e2f0df; --m6:#fadfe9; --m7:#dcefec; --m8:#f1ead5;
+}
+
+/* Cabecera: título y selector sobre el cielo de la ilustración de islas, que ocupa todo el ancho anclada abajo. */
+.hero { position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; align-items:center; padding:48px 24px clamp(170px,22vw,470px); background:var(--sky); text-align:center; }
+.heroArt { position:absolute; right:0; bottom:0; left:0; z-index:-1; display:block; width:100%; height:auto; aspect-ratio:3/1; object-fit:cover; object-position:50% 100%;
+  /* El borde superior se funde con --sky para que el cielo continúe hacia arriba. */
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%); mask-image:linear-gradient(to bottom,transparent 0,#000 14%); }
+.hero h1 { margin:0; color:var(--marino); font-size:clamp(36px,4.6vw,56px); font-weight:800; line-height:1; letter-spacing:-.05em; text-wrap:balance; }
+.intro { max-width:52ch; margin:14px 0 24px; color:var(--ink); font-size:17px; line-height:1.45; text-wrap:pretty; }
+.levelPicker { display:flex; max-width:100%; overflow-x:auto; padding:5px; border:1px solid var(--hair); border-radius:999px; background:color-mix(in srgb,#fff 90%,transparent); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 8px 24px color-mix(in srgb,var(--marino) 12%,transparent); }
+.levelPicker a { display:flex; align-items:baseline; gap:7px; padding:9px 16px; border-radius:999px; font-size:14px; white-space:nowrap; }
+.levelPicker b { font-weight:800; }
+.levelPicker span { color:var(--muted); }
+.levelPicker a:hover { background:color-mix(in srgb,var(--accent) 12%,#fff); }
+/* Nivel activo en naranja; sobre naranja el texto va en tinta. */
+.levelPicker a[aria-current="true"] { color:var(--ink); background:var(--accent); }
+.levelPicker a[aria-current="true"] span { color:var(--ink); }
+.hero .progressLink { margin-top:14px; padding:5px 12px; border:1px solid var(--marino); border-radius:999px; color:var(--marino); background:#fff; font-size:13px; font-weight:700; }
+.hero .progressLink:hover { color:var(--accent-ink); border-color:var(--accent-ink); }
+.levelPicker a:focus-visible,.hero .progressLink:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 60%,transparent); outline-offset:3px; }
+.cardLink:focus-visible { outline:3px solid color-mix(in srgb,var(--sea) 50%,transparent); outline-offset:3px; }
+
+/* Secciones por nivel. */
+.body { background:var(--paper); }
+.levels { display:flex; flex-direction:column; gap:72px; max-width:1000px; margin:0 auto; padding:64px 24px 104px; }
+.level { scroll-margin-top:90px; }
+.levelHead { display:flex; flex-direction:column; align-items:center; gap:6px; margin-bottom:30px; text-align:center; }
+.levelHead h2 { display:flex; align-items:center; gap:12px; margin:0; font-size:30px; font-weight:800; line-height:1.1; letter-spacing:-.035em; }
+.code { padding:3px 8px 4px; color:#fff; background:var(--sea); font-size:15px; letter-spacing:-.01em; }
+.levelHead p { margin:0; color:var(--muted); font-size:14px; }
+.soon .code { background:var(--locked-ink); }
+.soon h2 { color:var(--locked-ink); }
+
+/* Cuadrícula centrada: las filas incompletas quedan en el centro, como en la guía. */
+.grid { display:flex; flex-wrap:wrap; justify-content:center; gap:34px 22px; margin:0; padding:0; list-style:none; }
+.grid > li { flex:0 0 calc((100% - 66px) / 4); min-width:0; }
+.card { display:flex; flex-direction:column; align-items:center; text-align:center; }
+.tile { position:relative; display:grid; place-items:center; width:100%; aspect-ratio:16/11; border-radius:10px; background:var(--tint,var(--soon)); transition:transform .2s ease,box-shadow .2s ease; }
+.art { width:64px; height:64px; }
+.num { position:absolute; top:9px; left:11px; color:color-mix(in srgb,var(--ink) 55%,transparent); font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
+.badge { position:absolute; top:8px; right:8px; display:grid; place-items:center; width:26px; height:26px; border-radius:50%; color:var(--locked-ink); background:#fff; }
+.bar { width:100%; height:4px; margin:10px 0 9px; border-radius:4px; background:transparent; }
+.bar.started { background:var(--track); }
+.bar i { display:block; height:100%; border-radius:4px; background:var(--accent); }
+.card h3 { margin:0 0 2px; font-size:15px; font-weight:700; line-height:1.25; letter-spacing:-.01em; text-wrap:balance; }
+.card p { margin:0; color:var(--muted); font-size:12.5px; line-height:1.35; }
+.cardLink:hover .tile { transform:translateY(-3px); box-shadow:0 10px 22px color-mix(in srgb,var(--ink) 12%,transparent); }
+.cardLink:hover h3 { color:var(--sea); }
+.locked { cursor:default; }
+.locked .art { opacity:.5; filter:grayscale(.55); }
+.locked h3 { color:var(--locked-ink); }
+.placeholder .tile { color:color-mix(in srgb,var(--ink) 30%,transparent); }
+
+.footer { border-top:2px solid var(--divider); }
+
+@media (max-width:900px) { .grid > li { flex-basis:calc((100% - 44px) / 3); } }
+@media (max-width:640px) {
+  .hero { padding-top:36px; padding-bottom:180px; }
+  .levelPicker { align-self:stretch; }
+  .levelPicker span { display:none; }
+  .levelPicker a { flex:1; justify-content:center; padding-inline:10px; }
+  /* En móvil se recorta a lo alto para que el barco y las islas centrales sigan visibles. */
+  .heroArt { height:230px; aspect-ratio:auto; object-position:42% 100%; }
+  .levels { gap:56px; padding-inline:16px; }
+  .levelHead h2 { font-size:24px; }
+  .grid { gap:26px 14px; }
+  .grid > li { flex-basis:calc((100% - 14px) / 2); }
+  .art { width:48px; height:48px; }
+}
+@media (prefers-reduced-motion:reduce) { .tile { transition:none; } .cardLink:hover .tile { transform:none; } }

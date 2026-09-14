@@ -244,3 +244,23 @@ html:has(.readerPageWide) { scrollbar-gutter:stable; }
 .islandsIntro { margin:0 0 32px; padding-top:20px; font-size:19px; font-weight:600; line-height:1.4; letter-spacing:-.01em; }
 .storyListPage .islandsIntro { padding-top:0; border-top:0; }
 .storyListPage .backLink { margin-bottom:28px; }
+
+/* ── C13 · Paleta: naranja, azul marino y negro ── */
+/* El naranja #ff5a3c sustituye al rojo en rellenos y titulares; #bd4512 (mismo tono, más oscuro) en textos pequeños (≥ 4.5:1).
+   Sobre naranja el texto va en tinta. El azul marino lleva las franjas oscuras; el negro, las cifras y los fondos suaves de palabra. */
+.page { --accent:#ff5a3c; --accent-ink:#bd4512; --accent-hover:#ff7a60; --accent-deep:#9a3a0e; --accent-soft:#ffe6df; --marino:#1b2a4a; --botella:var(--ink); --botella-soft:color-mix(in srgb,var(--botella) 20%,#fff); }
+.primary { color:var(--ink)!important; background:var(--accent); }
+.primary:hover { background:var(--accent-hover); }
+.marquee { color:var(--bg); background:var(--marino); }
+.stat strong { color:var(--botella); }
+.stat strong.accentText { color:var(--accent); }
+.wordCard { border-top-color:var(--marino); background:color-mix(in srgb,var(--botella) 9%,#fff); }
+.wordSelected { background:var(--botella-soft); }
+.closing { color:var(--bg); background:var(--marino); }
+.closing .eyebrow { color:var(--bg); }
+.closing h2 em { color:var(--accent); }
+.closing .darkButton { color:var(--ink); background:var(--accent); }
+.closing .darkButton:hover { background:var(--accent-hover); }
+.storyWorkspace { --interaction-soft:var(--botella-soft); }
+.scenePicker a[aria-current="page"] { color:var(--ink); border-color:var(--accent); background:var(--accent); }
+.sliderArrows a:hover { color:var(--ink); }

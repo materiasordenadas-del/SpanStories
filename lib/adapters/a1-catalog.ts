@@ -49,9 +49,9 @@ const PUBLISHED_ISLAND_IDS: ReadonlySet<string> = new Set(["A1-M01-I05"]);
 
 /** Texto para estudiantes cuando la historia no trae resumen publicado. */
 const STORY_BLURBS: Readonly<Record<string, string>> = {
-  "A1-M01-I05-S2": "Una ficha sencilla con nombres, países y preguntas.",
-  "A1-M01-I05-S3": "Una conversación nueva durante el recreo.",
-  "A1-M01-I05-S4": "Pedir ayuda también es parte de empezar.",
+  "A1-M01-I05-S2": "Samuel está en la clase.",
+  "A1-M01-I05-S3": "Samuel está en clase con Mateo.",
+  "A1-M01-I05-S4": "La clase termina.",
 };
 
 export const twoDigits = (value: number) => String(value).padStart(2, "0");

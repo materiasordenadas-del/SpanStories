@@ -1,0 +1,20 @@
+"use client";
+
+import Link from "next/link";
+import { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { AccountShell } from "@/components/accounts/AccountShell";
+import styles from "@/components/accounts/accounts.module.css";
+import { acceptTeacherInvite, getTeacherInvite, normalizeCode, type AcceptInviteResult } from "@/features/accounts/account-service";
+import { useAuth } from "@/features/accounts/AuthProvider";
+import type { TeacherInvite } from "@/features/accounts/types";
+
+const SHARED = "verá tu progreso: las historias que terminas, tus palabras guardadas y tus resultados de práctica.";
+
+export default function JoinPage({params}:{params:Promise<{code:string}>}){const {code:rawCode}=use(params);const code=normalizeCode(decodeURIComponent(rawCode));const {user,profile,loading:authLoading}=useAuth();const router=useRouter();const [invite,setInvite]=useState<TeacherInvite|null>(null);const [loading,setLoading]=useState(true);const [joining,setJoining]=useState(false);const [result,setResult]=useState<AcceptInviteResult|null>(null);const [error,setError]=useState("");
+  // Una invitación usada solo la puede leer quien la usó: se vuelve a pedir cuando cambia la sesión.
+  useEffect(()=>{if(authLoading)return;let cancelled=false;getTeacherInvite(code).then(found=>{if(!cancelled)setInvite(found)}).catch(()=>{if(!cancelled)setInvite(null)}).finally(()=>{if(!cancelled)setLoading(false)});return()=>{cancelled=true}},[authLoading,code,user]);
+  const usable=Boolean(invite&&(invite.active||(user&&invite.usedBy===user.uid)));
+  useEffect(()=>{if(authLoading||loading||!user||!profile||!invite||!usable||result||joining||error||profile.role!=="student")return;let cancelled=false;const run=async()=>{setJoining(true);try{const accepted=await acceptTeacherInvite({code,studentId:user.uid,studentName:profile.displayName});if(!cancelled)setResult(accepted)}catch(e){if(!cancelled)setError(e instanceof Error?e.message:"No pudimos aceptar la invitación.")}finally{if(!cancelled)setJoining(false)}};void run();return()=>{cancelled=true}},[authLoading,code,error,invite,joining,loading,profile,result,usable,user]);
+  const signInHref=`/sign-in?next=${encodeURIComponent(`/join/${code}`)}`;
+  return <AccountShell signedIn={Boolean(user)}><main className={`${styles.main} ${styles.narrow}`}><p className={styles.eyebrow}>Invitación personal</p>{loading||authLoading?<p className={styles.loading}>Buscando invitación…</p>:!invite||!usable?<><h1 className={styles.title}>Invitación no válida</h1><p className={styles.subtitle}>Puede que ya se haya usado o que tu profesor la haya eliminado. Pídele una nueva: cada invitación sirve para una sola persona.</p>{user&&profile?.role==="student"?<Link className={`${styles.button} ${styles.secondary}`} href="/student">Ir a mi cuenta</Link>:null}</>:<><h1 className={styles.title}>{invite.teacherName} te invita</h1><p className={styles.subtitle}>Código <span className={styles.code}>{code}</span></p>{!user?<div className={styles.card}><p>Inicia sesión o crea una cuenta de estudiante para aceptar. Al aceptar, {invite.teacherName} {SHARED}</p><Link className={styles.button} href={signInHref}>Continuar</Link></div>:!profile?<div className={styles.card}><p>Completa tu cuenta como estudiante para aceptar la invitación.</p><Link className={styles.button} href={`/onboarding?next=${encodeURIComponent(`/join/${code}`)}`}>Elegir tipo de cuenta</Link></div>:profile.role!=="student"?<p className={`${styles.message} ${styles.error}`}>Las cuentas de profesor no pueden aceptar invitaciones de estudiante.</p>:joining?<p className={styles.message}>Aceptando la invitación…</p>:result?<div className={styles.card}><h2>{result.alreadyLinked?`Ya estabas con ${result.teacherName}`:"Ya estás dentro"}</h2><p>{result.teacherName} {SHARED}</p><button className={styles.button} onClick={()=>router.replace("/student")} type="button">Ir a mi cuenta</button></div>:null}{error?<p className={`${styles.message} ${styles.error}`}>{error}</p>:null}</>}</main></AccountShell>}

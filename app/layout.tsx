@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Literata } from "next/font/google";
 import type { ReactNode } from "react";
+import { ProgressSync } from "@/components/accounts/ProgressSync";
 import { PageEditor } from "@/components/page-editor/PageEditor";
+import { AuthProvider } from "@/features/accounts/AuthProvider";
 import "./globals.css";
 import "./standalone-motion.css";
 
@@ -19,7 +21,7 @@ const pageEditorEnabled = process.env.NODE_ENV === "development";
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="es" className={literata.variable}>
-      <body>{pageEditorEnabled ? <PageEditor>{children}</PageEditor> : children}</body>
+      <body><AuthProvider><ProgressSync />{pageEditorEnabled ? <PageEditor>{children}</PageEditor> : children}</AuthProvider></body>
     </html>
   );
 }

@@ -402,6 +402,16 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
     });
   });
 
+  // Los puntos del lector señalan los FOCUS de la malla, no todas las palabras
+  // que ya disponen de una ficha léxica. Un FOCUS léxico se destaca en cada una
+  // de sus apariciones; un FOCUS de construcción destaca sus palabras ancla.
+  const focusSenseIds = new Set(targetBindings
+    .filter((binding) => binding.salience === "FOCUS" && binding.targetType === "SENSE")
+    .map((binding) => binding.targetId));
+  const focusOccurrenceIds = new Set(targetBindings
+    .filter((binding) => binding.salience === "FOCUS" && binding.targetType !== "SENSE")
+    .map((binding) => binding.occurrenceId));
+
   const validation = validateStoryPublication({
     story,
     storyVersion: draftVersion,
@@ -438,7 +448,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
 
   const selectableTokenIds = new Set(sentences.flatMap((sentence) => sentence.tokens.map((token) => token.id)));
   const readerSentences = sentences.map((sentence, index) => {
-    const segments = buildReaderSegments(sentence, anchors, occurrences, selectableTokenIds);
+    const segments = buildReaderSegments(sentence, anchors, occurrences, selectableTokenIds, focusSenseIds, focusOccurrenceIds);
     const renderedSurfaceIds = new Set(segments.filter((segment) => segment.kind === "SURFACE").map((segment) => segment.tokenId));
     for (const token of sentence.tokens) {
       if (!renderedSurfaceIds.has(token.id)) continue;

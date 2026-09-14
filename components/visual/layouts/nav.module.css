@@ -1,6 +1,6 @@
 /* Navegación: sección activa visible, menú en móvil y una sola acción principal. */
 .links a[aria-current="page"] { color:var(--ink); text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:2px; text-underline-offset:7px; }
-.links a:hover { color:#c8260f; }
+.links a:hover { color:var(--accent-ink); }
 .menuButton { display:none; align-items:center; gap:8px; min-height:44px; border:1px solid var(--divider); padding:0 12px; color:var(--ink); background:transparent; font:inherit; font-size:14px; font-weight:800; cursor:pointer; }
 .menuButton:focus-visible,.links a:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
 .ctaShort { display:none; }

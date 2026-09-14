@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project spanstories-test \"node --test tests/firestore.rules.test.mjs\"",
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"features/**/*.test.ts\"",
     "curriculum:import": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts",
     "curriculum:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts --check",
@@ -19,12 +20,14 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
+    "firebase": "^12.19.0",
     "next": "16.2.11",
     "pg": "^8.23.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "@types/node": "latest",
     "@types/pg": "^8.23.1",
     "@types/react": "latest",

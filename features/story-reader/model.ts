@@ -15,11 +15,15 @@ export type StoryReaderTextSegment =
       readonly kind: "LEXICAL";
       readonly text: string;
       readonly occurrenceId: string;
+      /** The occurrence realizes a FOCUS target in this story's curriculum. */
+      readonly curriculumFocus?: true;
     }
   | {
       readonly kind: "SURFACE";
       readonly text: string;
       readonly tokenId: string;
+      /** The token belongs to a FOCUS construction in this story's curriculum. */
+      readonly curriculumFocus?: true;
     };
 
 export type StoryReaderSentence = {

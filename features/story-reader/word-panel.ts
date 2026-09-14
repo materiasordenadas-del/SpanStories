@@ -63,6 +63,7 @@ export type WordPanelViewModel = {
 /** Published annotation → learner label. Unlisted values get no label rather than a guess. */
 const CATEGORY_LABELS: ReadonlyMap<string, string> = new Map([
   ["NOUN", "Sustantivo"],
+  ["VERB", "Verbo"],
   ["TEMPORAL_NOUN", "Sustantivo"],
   ["ADJECTIVE", "Adjetivo"],
   ["TEMPORAL_ADVERB", "Adverbio"],
@@ -84,6 +85,7 @@ const CATEGORY_LABELS: ReadonlyMap<string, string> = new Map([
 
 const ENGINE_POS_LABELS: ReadonlyMap<string, string> = new Map([
   ["NOUN", "Sustantivo"],
+  ["VERB", "Verbo"],
   ["ADJ", "Adjetivo"],
   ["ADV", "Adverbio"],
   ["ADP", "Preposición"],

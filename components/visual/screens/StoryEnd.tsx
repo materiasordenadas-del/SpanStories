@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { markStoryFinished } from "../reading-memory";
+import { recordStoryFinished } from "@/features/accounts/progress-service";
+import { markStoryFinished, storyKey } from "../reading-memory";
 import styles from "./baseline.module.css";
 import end from "./story-end.module.css";
 
@@ -28,7 +29,8 @@ export function StoryEnd({ island, story, title, next, consultedWords, onReopenW
     if (section === null) return;
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
-      markStoryFinished(island, story);
+      // Solo la primera lectura completa llega a la actividad que ve el profesor.
+      if (markStoryFinished(island, story)) recordStoryFinished(storyKey(island, story));
       observer.disconnect();
     }, { threshold: 0.5 });
     observer.observe(section);
