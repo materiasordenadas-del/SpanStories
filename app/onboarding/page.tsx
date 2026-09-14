@@ -12,7 +12,7 @@ import type { AccountRole } from "@/features/accounts/types";
 const NOTE = "El tipo de cuenta no se puede cambiar después.";
 const ROLES: { role: AccountRole; name: string; lead: string; gets: string[]; image: { src: string; width: number; height: number } }[] = [
   { role: "student", name: "Estudiante", lead: "Quiero aprender español y guardar mi progreso.", gets: ["Historias de nivel A1 organizadas por islas", "Palabras guardadas y tarjetas para repasarlas", "Unirte a tu profesor con su enlace o código"], image: { src: "/cuenta/estudiante.jpg", width: 1000, height: 605 } },
-  { role: "teacher", name: "Profesor", lead: "Quiero invitar a mis estudiantes y seguir su progreso.", gets: ["Una invitación personal para cada estudiante", "La ficha de cada uno: historias, palabras y práctica", "Tareas de lectura, tarjetas y verbos (próximamente)"], image: { src: "/cuenta/profesor.jpg", width: 1000, height: 623 } },
+  { role: "teacher", name: "Profesor", lead: "Quiero invitar a mis estudiantes y seguir su progreso.", gets: ["Una invitación personal para cada estudiante", "La ficha de cada uno: historias, palabras y práctica", "Tareas de lectura, tarjetas y verbos"], image: { src: "/cuenta/profesor.jpg", width: 1000, height: 623 } },
 ];
 
 function Onboarding(){const {user,profile,loading,refreshProfile}=useAuth();const router=useRouter();const params=useSearchParams();const next=params.get("next");const destination=next?.startsWith("/")&&!next.startsWith("//")?next:null;
