@@ -36,7 +36,7 @@ export const A1_EDITORIAL_ENRICHMENTS: readonly DictionarySenseEnrichment[] = [
       {
         kind: "SPANSTORIES_EDITORIAL",
         label: "SpanStories learner reference",
-        reference: "A1-DICTIONARY-v1 / SENSE-A1-000292",
+        reference: "A1-DICTIONARY-v1",
       },
     ],
   },
