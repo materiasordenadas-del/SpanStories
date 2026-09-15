@@ -21,5 +21,5 @@ export default async function StoryPage({ params, searchParams }: { params: Prom
     ...(step.story === undefined ? {} : { nextStory: { href: step.story.href, title: step.story.title } }),
     ...(step.nextIsland === undefined ? {} : { nextIsland: { name: step.nextIsland.name, href: step.nextIsland.href, published: step.nextIsland.published } }),
   };
-  return <StoryReaderScreen island={island} story={story} initialMode={modo === "ilustracion" ? "illustration" : "read"} initialScene={initialScene} storyModel={storyModel} next={next} />;
+  return <StoryReaderScreen island={island} story={story} initialListenMode={modo === "leer-escuchar"} initialMode={modo === "ilustracion" ? "illustration" : "read"} initialScene={initialScene} storyModel={storyModel} next={next} />;
 }

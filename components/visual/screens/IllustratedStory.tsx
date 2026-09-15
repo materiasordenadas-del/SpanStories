@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import Link from "next/link";
+import type { ShownGloss } from "@/features/story-reader/gloss";
 import type { StoryReaderTextSegment, StoryReaderViewModel } from "@/features/story-reader/model";
+import { GlossStoryText } from "./GlossStoryText";
 import { StoryText } from "./StoryText";
 import styles from "./baseline.module.css";
 
-export function IllustratedStory({ initialScene, island, story, model, selectedWordId, onSelect, onSceneChange }: {
+export function IllustratedStory({ initialScene, island, story, model, selectedWordId, onSelect, onSceneChange, glossMode, glossColor, activeGlossWords, shownGlosses, onToggleGloss, glossRootRef }: {
   initialScene: number;
   island: string;
   story: string;
@@ -12,14 +14,26 @@ export function IllustratedStory({ initialScene, island, story, model, selectedW
   selectedWordId: string | null;
   onSelect: (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>) => void;
   onSceneChange?: (scene: number) => void;
+  glossMode: boolean;
+  glossColor: "naranja" | "azul";
+  activeGlossWords: ReadonlySet<string>;
+  shownGlosses: ReadonlyMap<string, ShownGloss>;
+  onToggleGloss: (wordId: string, surface: string) => void;
+  glossRootRef: RefObject<HTMLElement | null>;
 }) {
   const [currentScene, setCurrentScene] = useState(initialScene);
   const touchStartX = useRef<number | null>(null);
   const goToScene = (nextScene: number) => setCurrentScene(Math.max(0, Math.min(model.scenes.length - 1, nextScene)));
   const sceneHref = (scene: number) => `/islas/${island}/${story}?modo=ilustracion&escena=${scene + 1}`;
   useEffect(() => { onSceneChange?.(currentScene); }, [currentScene, onSceneChange]);
+  const storySentence = (sentenceIndex: number) => {
+    const sentence = model.sentences[sentenceIndex];
+    return glossMode && sentence.glossUnits !== undefined
+      ? <GlossStoryText activeWordIds={activeGlossWords} onSelect={onSelect} onToggle={onToggleGloss} segments={sentence.segments} shown={shownGlosses} units={sentence.glossUnits} />
+      : <StoryText segments={sentence.segments} selectedWordId={selectedWordId} onSelect={onSelect} />;
+  };
 
-  return <section className={styles.illustratedStory} aria-label="Historia ilustrada" aria-describedby="illustration-help" tabIndex={0} onKeyDown={(event) => {
+  return <section className={`${styles.illustratedStory} ${glossMode ? styles.glossMode : ""}`} aria-label="Historia ilustrada" aria-describedby="illustration-help" data-gloss-color={glossMode ? glossColor : undefined} ref={glossRootRef} tabIndex={0} onKeyDown={(event) => {
     if ((event.target as HTMLElement).closest("button")) return;
     if (event.key === "ArrowRight") { event.preventDefault(); goToScene(currentScene + 1); }
     if (event.key === "ArrowLeft") { event.preventDefault(); goToScene(currentScene - 1); }
@@ -42,10 +56,10 @@ export function IllustratedStory({ initialScene, island, story, model, selectedW
         {model.scenes.map((scene, index) => <article className={styles.sceneSlide} key={scene.number} aria-hidden={currentScene !== index}>
           <div className={styles.sceneImage}>
             <img src={scene.illustration.src} alt={scene.illustration.alt} />
-            {scene.rosterSentenceIndex !== null ? <div className={styles.rosterCard} aria-label="Información escrita en la lista"><StoryText segments={model.sentences[scene.rosterSentenceIndex].segments} selectedWordId={selectedWordId} onSelect={onSelect} /></div> : null}
+            {scene.rosterSentenceIndex !== null ? <div className={styles.rosterCard} aria-label="Información escrita en la lista">{storySentence(scene.rosterSentenceIndex)}</div> : null}
           </div>
           <div className={styles.sceneCopy}><div className={styles.sceneText}>{scene.sentenceIndexes.filter((sentenceIndex) => sentenceIndex !== scene.rosterSentenceIndex).map((sentenceIndex, sentencePosition) => <p key={model.sentences[sentenceIndex].id}>
-            <StoryText segments={model.sentences[sentenceIndex].segments} selectedWordId={selectedWordId} onSelect={onSelect} />
+            {storySentence(sentenceIndex)}
             {sentencePosition < scene.sentenceIndexes.length - (scene.rosterSentenceIndex === null ? 1 : 2) ? <br /> : null}
           </p>)}</div></div>
         </article>)}

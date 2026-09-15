@@ -29,12 +29,13 @@ function GlossHost({ id, shown, expression = false, children }: { id: string; sh
  * La frase en modo traducción rápida: mismas palabras y puntuación que StoryText, pero cada palabra
  * y cada expresión es anfitriona de su etiqueta. La colocación de las etiquetas la hace layoutQuickGloss.
  */
-export function GlossStoryText({ segments, units, shown, activeWordIds, onToggle }: {
+export function GlossStoryText({ segments, units, shown, activeWordIds, onToggle, onSelect }: {
   segments: readonly StoryReaderTextSegment[];
   units: readonly StoryReaderGlossUnit[];
   shown: ReadonlyMap<string, ShownGloss>;
   activeWordIds: ReadonlySet<string>;
   onToggle: (wordId: string, surface: string) => void;
+  onSelect: (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>, word: HTMLElement) => void;
 }) {
   const unitBySegment = new Map<number, StoryReaderGlossUnit>();
   for (const unit of units) for (const word of unit.words) unitBySegment.set(word.segmentIndex, unit);
@@ -66,7 +67,10 @@ export function GlossStoryText({ segments, units, shown, activeWordIds, onToggle
         <button
           aria-pressed={activeWordIds.has(id)}
           className={part.curriculumFocus === true ? `${styles.selectableWord} ${styles.lexicalWord}` : styles.selectableWord}
-          onClick={() => onToggle(id, part.text)}
+          onClick={(event) => {
+            onToggle(id, part.text);
+            onSelect(part, event.currentTarget);
+          }}
           type="button"
         >{part.text}</button>
       </GlossHost>;

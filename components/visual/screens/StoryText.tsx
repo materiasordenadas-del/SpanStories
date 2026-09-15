@@ -10,9 +10,12 @@ export const OPENING = /[¿¡«“(\[—]+$/u;
 
 const isText = (segment: StoryReaderTextSegment | undefined): segment is TextSegment => segment?.kind === "TEXT";
 
-export function StoryText({ segments, selectedWordId, onSelect }: {
+export function StoryText({ segments, selectedWordId, activeWordId, spokenWordOffset, onSelect }: {
   segments: readonly StoryReaderTextSegment[];
   selectedWordId: string | null;
+  activeWordId?: string | null;
+  /** Índice de la última palabra ya pronunciada: el subrayado nunca retrocede dentro de la frase. */
+  spokenWordOffset?: number;
   onSelect: (segment: Exclude<StoryReaderTextSegment, { readonly kind: "TEXT" }>, word: HTMLElement) => void;
 }) {
   // Cada palabra es un botón y el navegador puede partir la línea justo después de él:
@@ -27,12 +30,14 @@ export function StoryText({ segments, selectedWordId, onSelect }: {
       return text === "" ? null : <span key={index}>{text}</span>;
     }
     const id = segment.kind === "LEXICAL" ? segment.occurrenceId : segment.tokenId;
+    const interactiveOffset = segments.slice(0, index).filter((entry) => entry.kind !== "TEXT").length;
     const before = isText(previous) ? previous.text.match(OPENING)?.[0] ?? "" : "";
     const after = isText(next) ? next.text.match(CLOSING)?.[0] ?? "" : "";
     const button = <button
       aria-controls="lexical-detail"
       aria-pressed={selectedWordId === id}
-      className={segment.curriculumFocus === true ? `${styles.selectableWord} ${styles.lexicalWord}` : styles.selectableWord}
+      className={`${segment.curriculumFocus === true ? `${styles.selectableWord} ${styles.lexicalWord}` : styles.selectableWord}${(spokenWordOffset !== undefined && interactiveOffset <= spokenWordOffset) || activeWordId === id ? ` ${styles.spokenWord}` : ""}`}
+      data-spoken-current={activeWordId === id ? "true" : undefined}
       onClick={(event) => onSelect(segment, event.currentTarget)}
       type="button"
     >{segment.text}</button>;

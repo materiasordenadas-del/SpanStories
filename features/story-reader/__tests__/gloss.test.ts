@@ -95,8 +95,12 @@ test("the 01/01 editorial source points at words that exist in the story", async
   }
 });
 
-test("a story without a quick-gloss source shows no invented translation", async () => {
-  const model = await getStoryReaderViewModel("01", "02");
-  const kinds = new Set(model.sentences.flatMap((sentence) => (sentence.glossUnits ?? []).flatMap((unit) => unit.words.map((entry) => entry.gloss.kind))));
-  assert.deepEqual([...kinds], ["MISSING"]);
+test("every published story has quick-gloss coverage for every word", async () => {
+  for (const story of ["01", "02", "03", "04"]) {
+    const model = await getStoryReaderViewModel("01", story);
+    const missing = model.sentences.flatMap((sentence) => (sentence.glossUnits ?? []).flatMap((unit) => unit.words))
+      .filter((entry) => entry.gloss.kind === "MISSING")
+      .map((entry) => entry.id);
+    assert.deepEqual(missing, [], `01/${story}`);
+  }
 });

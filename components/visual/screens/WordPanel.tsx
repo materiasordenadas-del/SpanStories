@@ -74,7 +74,7 @@ function useFitWord(titleRef: RefObject<HTMLHeadingElement | null>, word: string
   }, [titleRef, word]);
 }
 
-function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onClose }: {
+function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onClose, fallbackTranslation }: {
   panel: WordPanelViewModel;
   reference: StoryReaderWordReference | undefined;
   /** Null solo si la selección no resuelve a nada guardable; toda palabra seleccionable tiene esta opción. */
@@ -82,6 +82,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   eventError: boolean;
   closeButtonRef: RefObject<HTMLButtonElement | null>;
   onClose: () => void;
+  fallbackTranslation?: string;
 }) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   useFitWord(titleRef, panel.surface);
@@ -92,7 +93,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   const otherStories = reference?.otherStories ?? [];
   const usageNotes = reference?.usageNotes ?? [];
   const relatedWords = reference?.relatedWords ?? [];
-  const translation = reference?.translation ?? panel.translation;
+  const translation = reference?.translation ?? panel.translation ?? fallbackTranslation;
   const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
   const usage = reference?.shortUsage ?? panel.shortUsage;
   const imageEligible = partOfSpeech === "Sustantivo" || partOfSpeech === "Verbo";
@@ -137,12 +138,13 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   </div>;
 }
 
-export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onToggle }: {
+export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onToggle, fallbackTranslation }: {
   model: StoryReaderViewModel;
   selectedWordId: string | null;
   eventError: boolean;
   isOpen: boolean;
   onToggle: () => void;
+  fallbackTranslation?: string;
 }) {
   const lexicalEntry = selectedWordId === null ? undefined : model.lexicalEntries[selectedWordId];
   const panel = selectedWordId === null ? undefined : lexicalEntry?.panel ?? model.surfaceEntries[selectedWordId]?.panel;
@@ -170,7 +172,7 @@ export function LexicalPanel({ model, selectedWordId, eventError, isOpen, onTogg
     {panel === undefined
       ? <p className={panelStyles.hint}><strong>Toca cualquier palabra</strong> de la historia para ver su ficha.</p>
       : isOpen
-        ? <><button aria-label="Ocultar la ficha" className={panelStyles.handle} onClick={close} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} key={panel.id} onClose={close} panel={panel} practice={practice} reference={reference} /></>
+        ? <><button aria-label="Ocultar la ficha" className={panelStyles.handle} onClick={close} type="button"><ChevronIcon expanded={true} /></button><WordPanel closeButtonRef={closeButtonRef} eventError={eventError} fallbackTranslation={fallbackTranslation} key={panel.id} onClose={close} panel={panel} practice={practice} reference={reference} /></>
         : <button aria-expanded={false} className={panelStyles.openButton} onClick={() => { setFocusTarget("close"); onToggle(); }} ref={openButtonRef} type="button"><span>Ver «{panel.surface}»</span><ChevronIcon expanded={false} /></button>}
   </aside>;
 }
