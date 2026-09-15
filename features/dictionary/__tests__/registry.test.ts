@@ -32,7 +32,7 @@ describe("A1 dictionary registry", () => {
     assert.equal(hola.item, "hola");
     assert.equal(hola.enrichment?.translation, "hello / hi");
     assert.equal(hola.enrichment?.partOfSpeechLabel, "Interjección");
-    assert.ok((hola.enrichment?.examples.length ?? 0) >= 3);
+    assert.ok((hola.enrichment?.examples?.length ?? 0) >= 3);
   });
 
   test("reports enrichment coverage explicitly", () => {
