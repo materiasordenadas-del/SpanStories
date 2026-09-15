@@ -1,8 +1,27 @@
 {
   "releaseId": "A1-DICTIONARY-v0.1",
   "curriculumReleaseId": "A1-CURRICULUM-v1.51",
-  "generatedAt": null,
-  "sources": [],
-  "publishedEnrichmentCount": 0,
-  "note": "Generated external enrichment is empty until the dictionary import/curation pipeline publishes reviewed Sense mappings. Editorial overrides live in features/dictionary/a1-editorial.ts."
+  "generatedAt": "2026-09-15T18:27:48.063Z",
+  "sources": [
+    {
+      "id": "kaikki-enwiktionary-spanish",
+      "url": "https://kaikki.org/dictionary/Spanish",
+      "role": "English glosses and bilingual examples",
+      "license": "CC BY-SA via Wiktionary/Kaikki; see docs/dictionary-sources.md"
+    },
+    {
+      "id": "kaikki-eswiktionary-espanol",
+      "url": "https://kaikki.org/eswiktionary/Espa%C3%B1ol",
+      "role": "Spanish definitions, POS and lexical relations",
+      "license": "CC BY-SA via Wikcionario/Kaikki; see docs/dictionary-sources.md"
+    },
+    {
+      "id": "doozan-spanish-data-frequency",
+      "url": "https://raw.githubusercontent.com/doozan/spanish_data/master/frequency.csv",
+      "role": "frequency band/rank",
+      "license": "CC BY-SA 3.0; see docs/dictionary-sources.md"
+    }
+  ],
+  "publishedEnrichmentCount": 602,
+  "coreCompleteCount": 527
 }

@@ -140,7 +140,7 @@ describe("practice / flashcard session", () => {
 });
 
 describe("practice / Historia 1", () => {
-  test("both «Hola» save one Sense item, and only published translations reach the deck", async () => {
+  test("both «Hola» save one Sense item, and published Sense translations reach the deck", async () => {
     const model = await getStoryOneReaderViewModel();
     const repository = new InMemoryPracticeItemRepository();
     const selected = Object.values(model.lexicalEntries).filter((entry) => ["Hola", "soy", "Soy", "es"].includes(entry.surface));
@@ -156,7 +156,10 @@ describe("practice / Historia 1", () => {
       { type: "SENSE", senseId: "SENSE-A1-000520", lexemeId: "LEX-A1-000511" },
     ]);
     const deck = buildFlashcardDeck(items, collectPracticeOccurrences(model));
-    assert.deepEqual(deck.map((card) => [card.prompt, card.answer, card.details]), [["hello / hi", "hola", ["Interjección", "A1"]]]);
+    assert.deepEqual(deck.map((card) => [card.prompt, card.answer, card.details]), [
+      ["hello / hi", "hola", ["Interjección", "A1"]],
+      ["to be (essentially or identified as)", "ser", ["Verbo", "A1"]],
+    ]);
     assert.equal(deck[0].image, undefined, "a scene illustration is not used as a word image");
   });
 

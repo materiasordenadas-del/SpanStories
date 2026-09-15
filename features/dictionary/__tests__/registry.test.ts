@@ -79,4 +79,16 @@ describe("A1 dictionary registry", () => {
     assert.equal(kinds.has("SPANSTORIES_EDITORIAL"), true);
     assert.equal(kinds.has("KAIKKI_WIKTEXTRACT"), true);
   });
+
+  test("editorial refinements retain generated fields they do not define", () => {
+    const cafeDrink = dictionary.getSense("SENSE-A1-000086")?.enrichment;
+    assert.ok(cafeDrink);
+    assert.equal(cafeDrink.partOfSpeechLabel, "Sustantivo");
+    assert.ok(cafeDrink.frequency);
+    assert.ok((cafeDrink.relatedWords?.length ?? 0) > 0);
+    assert.equal(
+      new Set(cafeDrink.sources.map((source) => `${source.kind}\u0000${source.reference}\u0000${source.label}`)).size,
+      cafeDrink.sources.length,
+    );
+  });
 });

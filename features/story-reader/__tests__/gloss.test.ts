@@ -70,12 +70,15 @@ test("a merged expression replaces its word tags at once, and removed tags leave
   assert.equal(reconcile(leaving, ["t1", "t2", "t3"]).get("t3")?.leaving, false, "tapping again brings it back");
 });
 
-test("story 01/01 reads its published translation first and never lets editorial glosses reach the word panel", async () => {
+test("story 01/01 reads its published translation first and keeps editorial glosses out of the word panel", async () => {
   const model = await getStoryReaderViewModel("01", "01");
   const first = model.sentences[0].glossUnits ?? [];
   assert.equal(first[0].words[0].gloss.text, "hello / hi");
   assert.equal(first[1].gloss?.text, "good morning");
-  assert.equal(Object.values(model.lexicalEntries).every((entry) => entry.panel.translation === undefined), true);
+  const lexicalTranslations = Object.values(model.lexicalEntries)
+    .flatMap((entry) => entry.panel.translation === undefined ? [] : [entry.panel.translation]);
+  assert.ok(lexicalTranslations.includes("hello / hi"));
+  assert.equal(lexicalTranslations.includes("good morning"), false, "the editorial expression gloss stays in the reader tag");
   assert.equal(Object.values(model.surfaceEntries).every((entry) => entry.panel.translation === undefined), true);
   const missing = model.sentences.flatMap((sentence) => (sentence.glossUnits ?? []).flatMap((unit) => unit.words)).filter((entry) => entry.gloss.kind === "MISSING");
   assert.deepEqual(missing, [], "every word of 01/01 has a quick translation");

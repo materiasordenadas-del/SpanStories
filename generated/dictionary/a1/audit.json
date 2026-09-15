@@ -1,0 +1,606 @@
+{
+  "curriculumReleaseId": "A1-CURRICULUM-v1.51",
+  "targetA1SenseCount": 602,
+  "generatedEntryCount": 602,
+  "coreCompleteCount": 527,
+  "withTranslation": 532,
+  "withPartOfSpeech": 600,
+  "withShortUsage": 568,
+  "withExamples": 180,
+  "missingCore": [
+    {
+      "senseId": "SENSE-A1-000002",
+      "item": "a la derecha",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000003",
+      "item": "a la izquierda",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000004",
+      "item": "a mediodía",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000005",
+      "item": "a pie",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000006",
+      "item": "a veces",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000018",
+      "item": "agua con gas",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000019",
+      "item": "agua mineral",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000020",
+      "item": "agua sin gas",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000023",
+      "item": "ahoy",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000025",
+      "item": "aire acondicionado",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000028",
+      "item": "alegre",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000035",
+      "item": "ama de casa",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000041",
+      "item": "anteojos",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000044",
+      "item": "aparcamiento",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000077",
+      "item": "bocadillo",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000083",
+      "item": "budista",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000084",
+      "item": "budista",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000088",
+      "item": "café con leche",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000089",
+      "item": "café cortado",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000090",
+      "item": "café solo",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000092",
+      "item": "calefacción central",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000093",
+      "item": "calefacción individual",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000101",
+      "item": "campin",
+      "missing": [
+        "translation",
+        "partOfSpeechLabel",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000109",
+      "item": "carné",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000110",
+      "item": "carné de conducir",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000111",
+      "item": "carné de identidad",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000121",
+      "item": "cena",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000137",
+      "item": "circo",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000144",
+      "item": "código postal",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000156",
+      "item": "comunicado",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000158",
+      "item": "concierto",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000167",
+      "item": "crédito",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000177",
+      "item": "cuenta",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000180",
+      "item": "dedicarse",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000195",
+      "item": "director",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000200",
+      "item": "don",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000202",
+      "item": "dormitorio",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000205",
+      "item": "DVD",
+      "missing": [
+        "translation",
+        "partOfSpeechLabel"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000212",
+      "item": "el fin de semana",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000233",
+      "item": "esquiar",
+      "missing": [
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000236",
+      "item": "estampilla",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000237",
+      "item": "estantería",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000244",
+      "item": "euro",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000255",
+      "item": "fecha de nacimiento",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000256",
+      "item": "felicidades",
+      "missing": [
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000269",
+      "item": "gafa",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000278",
+      "item": "guagua",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000281",
+      "item": "guión bajo",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000310",
+      "item": "interior",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000330",
+      "item": "lavarse",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000345",
+      "item": "lugar de nacimiento",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000371",
+      "item": "mesero",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000418",
+      "item": "okay",
+      "missing": [
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000436",
+      "item": "parqueadero",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000456",
+      "item": "por la mañana",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000457",
+      "item": "por la noche",
+      "missing": [
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000458",
+      "item": "por la tarde",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000472",
+      "item": "primer plato",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000481",
+      "item": "puerto",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000495",
+      "item": "religión",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000506",
+      "item": "sala de estar",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000509",
+      "item": "salón",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000514",
+      "item": "segundo plato",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000546",
+      "item": "tarjeta de crédito",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000552",
+      "item": "teléfono fijo",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000553",
+      "item": "teléfono móvil",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000565",
+      "item": "todo recto",
+      "missing": [
+        "translation",
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000575",
+      "item": "un",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000576",
+      "item": "un poco",
+      "missing": [
+        "shortUsage"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000591",
+      "item": "vídeo",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000596",
+      "item": "vino blanco",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000597",
+      "item": "vino tinto",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000603",
+      "item": "vuelta",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000604",
+      "item": "vuestro",
+      "missing": [
+        "translation"
+      ]
+    },
+    {
+      "senseId": "SENSE-A1-000605",
+      "item": "web",
+      "missing": [
+        "translation"
+      ]
+    }
+  ],
+  "multiSenseReview": [
+    {
+      "senseId": "SENSE-A1-000086",
+      "item": "café",
+      "senseKey": "BEVERAGE",
+      "sourceGloss": "Semilla del fruto del cafeto, rica en el estimulante cafeína, que se emplea tostada y molida para preparar una bebida con estas propiedades que se consume en casi todo el mundo. Es el segundo producto en volumen en el comercio internacional, solo superado por el petróleo."
+    },
+    {
+      "senseId": "SENSE-A1-000087",
+      "item": "café",
+      "senseKey": "ESTABLISHMENT",
+      "sourceGloss": "Semilla del fruto del cafeto, rica en el estimulante cafeína, que se emplea tostada y molida para preparar una bebida con estas propiedades que se consume en casi todo el mundo. Es el segundo producto en volumen en el comercio internacional, solo superado por el petróleo."
+    },
+    {
+      "senseId": "SENSE-A1-000385",
+      "item": "mujer",
+      "senseKey": "ADULT_FEMALE_PERSON",
+      "sourceGloss": "Ser humano de sexo femenino."
+    },
+    {
+      "senseId": "SENSE-A1-000386",
+      "item": "mujer",
+      "senseKey": "WIFE_OR_FEMALE_PARTNER",
+      "sourceGloss": "Ser humano de sexo femenino."
+    },
+    {
+      "senseId": "SENSE-A1-000422",
+      "item": "padre",
+      "senseKey": "FATHER",
+      "sourceGloss": "Macho, animal o humano, que ha engendrado o adoptado hijos."
+    },
+    {
+      "senseId": "SENSE-A1-000423",
+      "item": "padre",
+      "senseKey": "PARENTS_COLLECTIVE",
+      "sourceGloss": "Macho, animal o humano, que ha engendrado o adoptado hijos."
+    }
+  ]
+}
