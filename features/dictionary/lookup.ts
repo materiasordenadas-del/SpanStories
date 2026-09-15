@@ -1,15 +1,27 @@
 import type { SenseId } from "../curriculum/index.ts";
-import { A1_EDITORIAL_ENRICHMENT_BY_SENSE } from "./a1-editorial.ts";
+import { A1_EDITORIAL_ENRICHMENTS } from "./a1-editorial.ts";
 import type { DictionarySenseEnrichment } from "./domain.ts";
+import { A1_GENERATED_ENRICHMENTS } from "./generated.ts";
 
-/**
- * Runtime lookup used by learner-facing adapters.
- *
- * Imported A1 enrichment will be merged into this lookup at build/import time;
- * editorial records have final precedence for product-specific wording.
- */
+/** Generated data is the baseline; SpanStories editorial content may refine it. */
+const enrichmentBySense = new Map<SenseId, DictionarySenseEnrichment>();
+for (const enrichment of A1_GENERATED_ENRICHMENTS) {
+  if (enrichmentBySense.has(enrichment.senseId)) {
+    throw new Error(`DICTIONARY_DUPLICATE_GENERATED_SENSE: ${enrichment.senseId}`);
+  }
+  enrichmentBySense.set(enrichment.senseId, enrichment);
+}
+for (const enrichment of A1_EDITORIAL_ENRICHMENTS) {
+  enrichmentBySense.set(enrichment.senseId, enrichment);
+}
+
+export const A1_DICTIONARY_ENRICHMENTS: readonly DictionarySenseEnrichment[] = [
+  ...enrichmentBySense.values(),
+];
+
+/** Runtime lookup used by learner-facing adapters. */
 export function getA1DictionaryEnrichment(
   senseId: SenseId | string,
 ): DictionarySenseEnrichment | undefined {
-  return A1_EDITORIAL_ENRICHMENT_BY_SENSE.get(senseId as SenseId);
+  return enrichmentBySense.get(senseId as SenseId);
 }
