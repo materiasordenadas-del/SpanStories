@@ -1,4 +1,4 @@
-import generatedEnrichments from "../../generated/dictionary/a1/enrichments.json";
+import generatedEnrichments from "../../generated/dictionary/a1/enrichments.json" with { type: "json" };
 import type { SenseId } from "../curriculum/index.ts";
 import type { DictionarySenseEnrichment } from "./domain.ts";
 
