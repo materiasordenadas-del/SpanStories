@@ -26,6 +26,23 @@ describe("A1 dictionary registry", () => {
     }
   });
 
+  test("publishes all 602 A1 Senses with the required learner-facing core", () => {
+    const incomplete = dictionary.senses.filter((entry) => {
+      const enrichment = entry.enrichment;
+      return enrichment === undefined
+        || enrichment.translation === undefined
+        || enrichment.partOfSpeechLabel === undefined
+        || enrichment.shortUsage === undefined;
+    });
+
+    assert.deepEqual(
+      incomplete.map((entry) => ({ senseId: entry.senseId, item: entry.item })),
+      [],
+    );
+    assert.equal(dictionary.stats.enrichedSenseCount, 602);
+    assert.equal(dictionary.stats.missingEnrichmentCount, 0);
+  });
+
   test("resolves the existing Hola learner reference by Sense id", () => {
     const hola = dictionary.getSense("SENSE-A1-000292");
     assert.ok(hola);
@@ -35,11 +52,31 @@ describe("A1 dictionary registry", () => {
     assert.ok((hola.enrichment?.examples?.length ?? 0) >= 3);
   });
 
-  test("reports enrichment coverage explicitly", () => {
-    assert.ok(dictionary.stats.enrichedSenseCount >= 1);
-    assert.equal(
-      dictionary.stats.missingEnrichmentCount,
-      dictionary.stats.a1SenseCount - dictionary.stats.enrichedSenseCount,
-    );
+  test("keeps polysemous A1 Senses distinct at learner-facing level", () => {
+    const cafeDrink = dictionary.getSense("SENSE-A1-000086");
+    const cafePlace = dictionary.getSense("SENSE-A1-000087");
+    const woman = dictionary.getSense("SENSE-A1-000385");
+    const wife = dictionary.getSense("SENSE-A1-000386");
+    const father = dictionary.getSense("SENSE-A1-000422");
+    const parents = dictionary.getSense("SENSE-A1-000423");
+
+    assert.equal(cafeDrink?.enrichment?.translation, "coffee");
+    assert.equal(cafePlace?.enrichment?.translation, "café / coffee shop");
+    assert.notEqual(cafeDrink?.enrichment?.shortUsage, cafePlace?.enrichment?.shortUsage);
+
+    assert.equal(woman?.enrichment?.translation, "woman");
+    assert.equal(wife?.enrichment?.translation, "wife / female partner");
+    assert.notEqual(woman?.enrichment?.shortUsage, wife?.enrichment?.shortUsage);
+
+    assert.equal(father?.enrichment?.translation, "father / dad");
+    assert.equal(parents?.enrichment?.translation, "parents");
+    assert.notEqual(father?.enrichment?.shortUsage, parents?.enrichment?.shortUsage);
+  });
+
+  test("editorial refinement preserves imported provenance", () => {
+    const cafeDrink = dictionary.getSense("SENSE-A1-000086");
+    const kinds = new Set(cafeDrink?.enrichment?.sources.map((source) => source.kind) ?? []);
+    assert.equal(kinds.has("SPANSTORIES_EDITORIAL"), true);
+    assert.equal(kinds.has("KAIKKI_WIKTEXTRACT"), true);
   });
 });
