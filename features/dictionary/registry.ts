@@ -3,13 +3,13 @@ import type {
   MwuUnitId,
   SenseId,
 } from "../curriculum/index.ts";
-import { A1_EDITORIAL_ENRICHMENTS } from "./a1-editorial.ts";
 import type {
   A1DictionaryStats,
   DictionaryMwuEntry,
   DictionarySenseEnrichment,
   DictionarySenseEntry,
 } from "./domain.ts";
+import { A1_DICTIONARY_ENRICHMENTS } from "./lookup.ts";
 
 function indexEnrichments(
   curriculum: CurriculumRegistry,
@@ -42,7 +42,7 @@ export class A1Dictionary {
 
   constructor(
     curriculum: CurriculumRegistry,
-    enrichments: readonly DictionarySenseEnrichment[] = A1_EDITORIAL_ENRICHMENTS,
+    enrichments: readonly DictionarySenseEnrichment[] = A1_DICTIONARY_ENRICHMENTS,
   ) {
     const enrichmentBySense = indexEnrichments(curriculum, enrichments);
 
@@ -94,7 +94,7 @@ export class A1Dictionary {
 
 export function createA1Dictionary(
   curriculum: CurriculumRegistry,
-  enrichments: readonly DictionarySenseEnrichment[] = A1_EDITORIAL_ENRICHMENTS,
+  enrichments: readonly DictionarySenseEnrichment[] = A1_DICTIONARY_ENRICHMENTS,
 ): A1Dictionary {
   return new A1Dictionary(curriculum, enrichments);
 }
