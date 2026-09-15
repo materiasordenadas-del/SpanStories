@@ -13,4 +13,5 @@ export {
   A1_EDITORIAL_ENRICHMENT_BY_SENSE,
 } from "./a1-editorial.ts";
 
+export { getA1DictionaryEnrichment } from "./lookup.ts";
 export { A1Dictionary, createA1Dictionary } from "./registry.ts";
