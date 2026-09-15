@@ -8,7 +8,8 @@ export type DictionarySourceKind =
   | "SPANSTORIES_EDITORIAL"
   | "FREEDICT"
   | "KAIKKI_WIKTEXTRACT"
-  | "TATOEBA";
+  | "TATOEBA"
+  | "DOOZAN_SPANISH_DATA";
 
 export type DictionarySourceRef = {
   readonly kind: DictionarySourceKind;
