@@ -1,0 +1,8 @@
+{
+  "releaseId": "A1-DICTIONARY-v0.1",
+  "curriculumReleaseId": "A1-CURRICULUM-v1.51",
+  "generatedAt": null,
+  "sources": [],
+  "publishedEnrichmentCount": 0,
+  "note": "Generated external enrichment is empty until the dictionary import/curation pipeline publishes reviewed Sense mappings. Editorial overrides live in features/dictionary/a1-editorial.ts."
+}
