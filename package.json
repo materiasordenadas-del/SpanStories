@@ -15,6 +15,9 @@
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"features/**/*.test.ts\"",
     "curriculum:import": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts",
     "curriculum:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts --check",
+    "dictionary:import:a1": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/dictionary/import-a1.ts",
+    "dictionary:refresh:a1": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/dictionary/import-a1.ts --refresh",
+    "dictionary:check:a1": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/dictionary/import-a1.ts --check",
     "db:setup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db/migrate-and-seed.ts",
     "db:test:server": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/persistence/__tests__/server-parity.test.ts"
   },
