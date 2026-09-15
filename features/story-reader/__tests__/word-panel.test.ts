@@ -24,7 +24,7 @@ describe("Historia 1 / word panel view model", () => {
     assert.equal(partOfSpeechLabel({ type: "ATOMIC", lexicalCategory: null, enginePos: null }, null), undefined);
   });
 
-  test("each Hola occurrence shows its own sentence and points to the other one", async () => {
+  test("each Hola occurrence resolves the same global Sense enrichment with its own story context", async () => {
     const model = await getStoryOneReaderViewModel();
     const holas = Object.values(model.lexicalEntries).filter((entry) => entry.surface === "Hola");
     assert.equal(holas.length, 2);
@@ -37,12 +37,21 @@ describe("Historia 1 / word panel view model", () => {
     assert.equal(second.currentContext.text, model.sentences[4].text);
 
     assert.equal(first.cefrLevel, "A1");
-    assert.equal(first.partOfSpeechLabel, undefined, "hola has no published category, so none is invented");
+    assert.equal(first.partOfSpeechLabel, "Interjección");
+    assert.equal(first.translation, "hello / hi");
+    assert.match(first.shortUsage ?? "", /saludar/);
+    assert.ok((first.examples?.length ?? 0) >= 3);
+    assert.ok((first.usageNotes?.length ?? 0) >= 1);
+    assert.ok((first.relatedWords?.length ?? 0) >= 1);
+    assert.equal(typeof first.frequency, "string");
+    assert.equal(second.translation, first.translation);
+    assert.equal(second.shortUsage, first.shortUsage);
+
     assert.deepEqual(first.storyContexts?.map((context) => [context.text, context.sceneLabel]), [[model.sentences[4].text, "Escena 3"]]);
     assert.deepEqual(second.storyContexts?.map((context) => context.sceneLabel), ["Escena 1"]);
 
-    for (const field of ["translation", "shortUsage", "examples", "pronunciation", "previousContexts", "canSave", "canPractice"] as const) {
-      assert.equal(field in first, false, `${field} has no published source yet`);
+    for (const field of ["pronunciation", "previousContexts", "canSave", "canPractice"] as const) {
+      assert.equal(field in first, false, `${field} still has no published source`);
     }
     // The panel image comes from the published illustration of the occurrence's scene.
     assert.deepEqual(first.image, { src: "/stories/historia-01/scenes/scene-01.png", alt: "Ilustración de la escena 1" });
