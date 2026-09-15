@@ -1,4 +1,5 @@
 import type { Lexeme, Sense } from "../curriculum/index.ts";
+import { getA1DictionaryEnrichment } from "../dictionary/index.ts";
 import type {
   LexicalOccurrence,
   StoryOccurrence,
@@ -15,8 +16,7 @@ import type { StoryReaderScene } from "./model.ts";
  *
  * No ids, enums or engine objects cross this boundary. Every optional field is
  * omitted — never filled with a placeholder — when no published source provides
- * it: translation, usage, examples, audio and images have no source yet, so they
- * stay absent until one is published.
+ * it: dictionary enrichment, audio and images stay absent until a source exists.
  */
 
 export type WordPanelTextPart = {
@@ -51,6 +51,9 @@ export type WordPanelViewModel = {
   readonly shortUsage?: string;
   readonly currentContext: WordPanelContext & { readonly highlightedSurface: string };
   readonly examples?: readonly WordPanelExample[];
+  readonly usageNotes?: readonly string[];
+  readonly frequency?: string;
+  readonly relatedWords?: readonly string[];
   /** Other occurrences of the same Sense (or Lexeme, when unresolved) in this StoryVersion. */
   readonly storyContexts?: readonly WordPanelContext[];
   /** Occurrences in other published stories. */
@@ -198,7 +201,9 @@ export function buildLexicalWordPanel(input: {
   readonly index: WordPanelStoryIndex;
 }): WordPanelViewModel {
   const { occurrence, lexeme, sense, levelCode, index } = input;
-  const label = partOfSpeechLabel(lexeme, sense);
+  const enrichment = sense === null ? undefined : getA1DictionaryEnrichment(sense.id);
+  const publishedLabel = partOfSpeechLabel(lexeme, sense);
+  const label = enrichment?.partOfSpeechLabel ?? publishedLabel;
   const sceneLabel = index.sceneLabelBySentenceId.get(occurrence.sentenceId);
   const sceneNumber = Number(sceneLabel?.replace(/^Escena\s+/, ""));
   const sceneImageSrc = index.sceneImageSrcBySentenceId.get(occurrence.sentenceId);
@@ -214,11 +219,17 @@ export function buildLexicalWordPanel(input: {
     id: occurrence.id,
     kind: "LEXICAL",
     surface: occurrence.surface,
+    ...(enrichment?.translation === undefined ? {} : { translation: enrichment.translation }),
     ...(label === undefined ? {} : { partOfSpeechLabel: label }),
     ...(hasCurricularLevel ? { cefrLevel: levelCode } : {}),
     ...(sceneImageSrc !== undefined && Number.isInteger(sceneNumber) && sceneNumber > 0
       ? { image: { src: sceneImageSrc, alt: `Ilustración de la escena ${sceneNumber}` } }
       : {}),
+    ...(enrichment?.shortUsage === undefined ? {} : { shortUsage: enrichment.shortUsage }),
+    ...(enrichment?.examples === undefined ? {} : { examples: enrichment.examples }),
+    ...(enrichment?.usageNotes === undefined ? {} : { usageNotes: enrichment.usageNotes }),
+    ...(enrichment?.frequency === undefined ? {} : { frequency: enrichment.frequency }),
+    ...(enrichment?.relatedWords === undefined ? {} : { relatedWords: enrichment.relatedWords }),
     currentContext: { ...occurrenceContext(occurrence, index), highlightedSurface: occurrence.surface },
     ...(storyContexts.length > 0 ? { storyContexts } : {}),
   };
