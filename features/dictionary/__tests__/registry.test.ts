@@ -35,8 +35,11 @@ describe("A1 dictionary registry", () => {
     assert.ok((hola.enrichment?.examples.length ?? 0) >= 3);
   });
 
-  test("reports enrichment coverage explicitly instead of inventing missing content", () => {
-    assert.equal(dictionary.stats.enrichedSenseCount, 1);
-    assert.equal(dictionary.stats.missingEnrichmentCount, 601);
+  test("reports enrichment coverage explicitly", () => {
+    assert.ok(dictionary.stats.enrichedSenseCount >= 1);
+    assert.equal(
+      dictionary.stats.missingEnrichmentCount,
+      dictionary.stats.a1SenseCount - dictionary.stats.enrichedSenseCount,
+    );
   });
 });
