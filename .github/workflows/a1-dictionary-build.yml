@@ -1,0 +1,57 @@
+name: A1 dictionary build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/a1-dictionary
+    paths:
+      - "scripts/dictionary/**"
+      - "features/dictionary/**"
+      - "generated/curriculum/a1/senses.json"
+      - "generated/curriculum/a1/lexemes.json"
+      - ".github/workflows/a1-dictionary-build.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-a1-dictionary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: feat/a1-dictionary
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Import A1 dictionary
+        run: npm run dictionary:import:a1
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test
+
+      - name: Commit generated dictionary artifacts
+        shell: bash
+        run: |
+          if git diff --quiet -- generated/dictionary/a1; then
+            echo "Dictionary artifacts are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add generated/dictionary/a1
+          git commit -m "chore(dictionary): publish generated A1 enrichment [skip ci]"
+          git push origin HEAD:feat/a1-dictionary
