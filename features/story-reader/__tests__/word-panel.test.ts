@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
+import { createSurfaceStoryReader } from "../reader.ts";
 import { getStoryOneReaderViewModel } from "../story-one.ts";
 import { highlightParts, partOfSpeechLabel, type WordPanelTextPart } from "../word-panel.ts";
 
@@ -62,9 +63,25 @@ describe("Historia 1 / word panel view model", () => {
     for (const entry of Object.values(model.surfaceEntries)) {
       assert.equal(entry.panel.kind, "SURFACE");
       assert.equal(entry.panel.id, entry.tokenId);
+      assert.equal(entry.panel.canSave, false, "no SenseId or Lexeme was invented, so saving stays disabled");
       assert.equal(entry.panel.currentContext.text, entry.context);
       assert.deepEqual(highlighted(entry.panel.currentContext.parts), [entry.surface]);
-      assert.deepEqual(Object.keys(entry.panel).sort(), ["currentContext", "id", "kind", "surface"]);
+      assert.deepEqual(Object.keys(entry.panel).sort(), ["canSave", "currentContext", "id", "kind", "surface"]);
+    }
+  });
+
+  test("any selectable SurfaceToken gets its own useful panel, without inventing a lexical identity", () => {
+    const model = createSurfaceStoryReader({ island: "9", story: "9", title: "Historia sin anotar", paragraphs: ["Hola amigo."] });
+    const panels = Object.values(model.surfaceEntries).map((entry) => entry.panel);
+    assert.equal(panels.length, 2, "every selectable word — Hola, amigo — opens a panel");
+    for (const panel of panels) {
+      // No SenseId, LexemeId or other lexical identity is ever present on a SURFACE panel.
+      assert.equal(panel.kind, "SURFACE");
+      assert.equal(panel.canSave, false, "no stable lexical identity yet: saving stays visible but disabled");
+      assert.equal("senseId" in panel, false);
+      assert.equal("lexemeId" in panel, false);
+      assert.notEqual(panel.surface, undefined);
+      assert.notEqual(panel.currentContext.text, undefined);
     }
   });
 

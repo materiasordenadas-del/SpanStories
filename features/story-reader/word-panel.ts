@@ -44,6 +44,13 @@ export type WordPanelViewModel = {
   readonly kind: "LEXICAL" | "SURFACE";
   readonly surface: string;
   readonly translation?: string;
+  /**
+   * Contextual gloss for this exact appearance, sourced from the reader's quick-gloss
+   * system (editorial, per-story). Only ever set on a SURFACE panel, and only when
+   * `translation` has no published source — it is a hint for this sentence, never a
+   * dictionary entry, and it never feeds practice, LEXICAL panels or the Sense model.
+   */
+  readonly contextTranslation?: string;
   readonly partOfSpeechLabel?: string;
   readonly cefrLevel?: string;
   readonly pronunciation?: { readonly audioSrc?: string };
@@ -55,7 +62,12 @@ export type WordPanelViewModel = {
   readonly storyContexts?: readonly WordPanelContext[];
   /** Occurrences in other published stories. */
   readonly previousContexts?: readonly WordPanelContext[];
-  /** Reserved for real save/practice actions: opening a word is neither saving nor mastery. */
+  /**
+   * Whether the panel can offer saving right now. Absent means yes (a LEXICAL
+   * panel always has a stable Lexeme/Sense to save). `false` on a SURFACE panel
+   * means the token has no stable lexical identity yet — the save action stays
+   * visible, disabled, until the token is annotated.
+   */
   readonly canSave?: boolean;
   readonly canPractice?: boolean;
 };
@@ -229,6 +241,8 @@ export function buildSurfaceWordPanel(token: SurfaceToken, sentence: StorySenten
     id: token.id,
     kind: "SURFACE",
     surface: token.surface,
+    // A bare SurfaceToken never carries a Lexeme or Sense: saving stays offered, not silently hidden.
+    canSave: false,
     currentContext: {
       text: sentence.text,
       parts: highlightParts(sentence.text, [{ start: token.startOffset, end: token.endOffset }]),

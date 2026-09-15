@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildGlossUnits, glossHosts, reconcileGlosses, type QuickGlossSource, type ShownGloss } from "../gloss.ts";
-import type { StoryReaderTextSegment } from "../model.ts";
+import { buildGlossUnits, glossHosts, reconcileGlosses, withQuickGloss, type QuickGlossSource, type ShownGloss } from "../gloss.ts";
+import type { StoryReaderViewModel, StoryReaderTextSegment } from "../model.ts";
 import { QUICK_GLOSS_SOURCES } from "../quick-gloss-sources.ts";
 import { getStoryReaderViewModel } from "../reader.ts";
 
@@ -93,6 +93,35 @@ test("the 01/01 editorial source points at words that exist in the story", async
     const found = model.sentences.some((sentence) => sentence.glossUnits?.some((unit) => unit.gloss?.text === expression.text));
     assert.equal(found, true, expression.text);
   }
+});
+
+test("withQuickGloss fills a SURFACE panel's contextTranslation from the quick-gloss system, never LEXICAL, never translation itself", () => {
+  const surfacePanel = (tokenId: string, surface: string) => ({
+    id: tokenId,
+    kind: "SURFACE" as const,
+    surface,
+    canSave: false,
+    currentContext: { text: "", parts: [], highlightedSurface: surface },
+  });
+  const model: StoryReaderViewModel = {
+    storyBlueprintId: "b", storyId: "s", storyVersionId: "v", title: "t",
+    sentences: [{ id: "s0", text: "", presentation: "PARAGRAPH", segments }],
+    scenes: [],
+    lexicalEntries: {},
+    surfaceEntries: {
+      t5: { tokenId: "t5", surface: "Bien", context: "", panel: surfacePanel("t5", "Bien") },
+      t6: { tokenId: "t6", surface: "eh", context: "", panel: surfacePanel("t6", "eh") },
+    },
+  };
+  const result = withQuickGloss(model, source);
+  const bien = result.surfaceEntries.t5.panel;
+  assert.equal(bien.kind, "SURFACE");
+  assert.equal(bien.contextTranslation, "okay", "the occurrence-specific quick gloss reaches the panel");
+  assert.equal(bien.translation, undefined, "quick gloss never becomes the dictionary translation");
+  assert.equal(bien.canSave, false, "no lexical identity was created by receiving a translation");
+  assert.equal("senseId" in bien, false);
+  // "eh" has no source in the fixture: no gloss, so no contextTranslation is invented either.
+  assert.equal(result.surfaceEntries.t6.panel.contextTranslation, undefined);
 });
 
 test("every published story has quick-gloss coverage for every word", async () => {

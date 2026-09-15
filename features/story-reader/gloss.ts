@@ -82,20 +82,35 @@ export function buildGlossUnits(input: {
   return units;
 }
 
-/** Adjunta la traducción rápida a cada frase. La fuente editorial solo llega a las etiquetas, nunca a la ficha. */
+/**
+ * Adjunta la traducción rápida a cada frase. La fuente editorial solo llega a las
+ * etiquetas de la frase, nunca a la ficha léxica: una entrada LEXICAL nunca recibe esta
+ * traducción. Una entrada SURFACE sin traducción publicada sí recibe la misma
+ * traducción de esta aparición como `contextTranslation`, para que su ficha no quede
+ * vacía mientras no exista anotación léxica — nunca sustituye a `translation`.
+ */
 export function withQuickGloss(model: StoryReaderViewModel, source?: QuickGlossSource): StoryReaderViewModel {
   const publishedTranslation = (segment: WordSegment) => {
     if (segment.kind === "SURFACE") return model.surfaceEntries[segment.tokenId]?.panel.translation;
     const entry = model.lexicalEntries[segment.occurrenceId];
     return entry?.reference?.translation ?? entry?.panel.translation;
   };
-  return {
-    ...model,
-    sentences: model.sentences.map((sentence, sentenceIndex) => ({
-      ...sentence,
-      glossUnits: buildGlossUnits({ sentenceId: sentence.id, sentenceIndex, segments: sentence.segments, source, publishedTranslation }),
-    })),
-  };
+  const sentences = model.sentences.map((sentence, sentenceIndex) => ({
+    ...sentence,
+    glossUnits: buildGlossUnits({ sentenceId: sentence.id, sentenceIndex, segments: sentence.segments, source, publishedTranslation }),
+  }));
+  const surfaceEntries = { ...model.surfaceEntries };
+  for (const sentence of sentences) {
+    for (const unit of sentence.glossUnits ?? []) {
+      for (const word of unit.words) {
+        if (word.gloss.kind !== "TRANSLATION") continue;
+        const entry = surfaceEntries[word.id];
+        if (entry === undefined || entry.panel.translation !== undefined || entry.panel.contextTranslation !== undefined) continue;
+        surfaceEntries[word.id] = { ...entry, panel: { ...entry.panel, contextTranslation: word.gloss.text } };
+      }
+    }
+  }
+  return { ...model, sentences, surfaceEntries };
 }
 
 /** Una etiqueta visible: sobre una palabra, o sobre una expresión entera cuando todas sus palabras están tocadas. */

@@ -94,6 +94,8 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   const usageNotes = reference?.usageNotes ?? [];
   const relatedWords = reference?.relatedWords ?? [];
   const translation = reference?.translation ?? panel.translation ?? fallbackTranslation;
+  const contextTranslation = translation === undefined ? panel.contextTranslation : undefined;
+  const canSave = panel.canSave !== false;
   const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
   const usage = reference?.shortUsage ?? panel.shortUsage;
   const imageEligible = partOfSpeech === "Sustantivo" || partOfSpeech === "Verbo";
@@ -120,7 +122,11 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
     <header className={panelStyles.topBar}><span>Palabra seleccionada</span><button aria-label="Cerrar la ficha" className={panelStyles.closeButton} onClick={onClose} ref={closeButtonRef} type="button"><CloseIcon /></button></header>
     <div className={panelStyles.body}>
       <section className={`${panelStyles.summary} ${imageEligible ? panelStyles.summaryWithImage : ""}`}>
-        <div><div className={panelStyles.wordLine}><h2 lang="es" ref={titleRef} style={{ "--word-length": Array.from(panel.surface).length } as CSSProperties}>{panel.surface}</h2><AudioButton label={`Escuchar «${panel.surface}»`} text={panel.surface} />{practice === null ? null : <button aria-label={saved ? "Quitar de palabras guardadas" : "Guardar palabra"} aria-pressed={saved} className={`${panelStyles.favoriteButton} ${saved ? panelStyles.favoriteActive : ""}`} onClick={() => void togglePracticeWord(practice)} type="button">☆</button>}</div>{translation === undefined ? <p className={panelStyles.translation}>—</p> : <p className={panelStyles.translation} lang="en">{translation}</p>}<ul aria-label="Datos de la palabra" className={panelStyles.tags}>{partOfSpeech === undefined ? <li>Sin clasificar</li> : <li>{partOfSpeech}</li>}<li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel ?? "—"}</li></ul></div>
+        <div><div className={panelStyles.wordLine}><h2 lang="es" ref={titleRef} style={{ "--word-length": Array.from(panel.surface).length } as CSSProperties}>{panel.surface}</h2><AudioButton label={`Escuchar «${panel.surface}»`} text={panel.surface} />{practice === null ? null : <button aria-label={saved ? "Quitar de palabras guardadas" : "Guardar palabra"} aria-pressed={saved} className={`${panelStyles.favoriteButton} ${saved ? panelStyles.favoriteActive : ""}`} disabled={!canSave} onClick={() => void togglePracticeWord(practice)} type="button">☆</button>}</div>{translation !== undefined
+                ? <p className={panelStyles.translation} lang="en">{translation}</p>
+                : contextTranslation !== undefined
+                  ? <p className={panelStyles.translation} lang="en">{contextTranslation}<span className={panelStyles.srOnly}> (traducción de esta frase)</span></p>
+                  : <p className={panelStyles.translation}>—</p>}<ul aria-label="Datos de la palabra" className={panelStyles.tags}>{partOfSpeech === undefined ? <li>Sin clasificar</li> : <li>{partOfSpeech}</li>}<li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel ?? "—"}</li></ul></div>
         {imageEligible ? panel.image === undefined ? <div className={panelStyles.imagePlaceholder}><ImageIcon /><span>Imagen pendiente</span></div> : <div><img alt={panel.image.alt} className={panelStyles.summaryImage} src={panel.image.src} />{reference?.imageCaption === undefined ? null : <p className={panelStyles.imageCaption}>{reference.imageCaption}</p>}</div> : null}
       </section>
       <button aria-expanded={detailsOpen} className={panelStyles.detailsToggle} onClick={() => setDetailsOpen((open) => !open)} type="button">Detalles<ChevronIcon expanded={detailsOpen} /></button>
@@ -131,7 +137,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
       {eventError ? <p className={panelStyles.error} role="status">La palabra se abrió, pero la interacción no pudo guardarse.</p> : null}
     </div>
     <footer className={panelStyles.actions}>
-      {practice === null ? null : <button aria-pressed={saved} className={panelStyles.saveButton} onClick={() => void togglePracticeWord(practice)} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>}
+      {practice === null ? null : <button aria-pressed={saved} className={panelStyles.saveButton} disabled={!canSave} onClick={() => void togglePracticeWord(practice)} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>}
       {practice === null || !saved ? null : <button className={panelStyles.knownButton} onClick={() => void togglePracticeWord(practice)} type="button">Marcar como conocida</button>}
       <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar frase</button>
     </footer>
