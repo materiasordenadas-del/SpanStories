@@ -38,6 +38,11 @@ export type WordPanelExample = {
   readonly audioSrc?: string;
 };
 
+export type WordPanelSource = {
+  readonly label: string;
+  readonly reference: string;
+};
+
 export type WordPanelViewModel = {
   readonly id: string;
   /** `SURFACE` is a selectable token without a published lexical identity. */
@@ -54,6 +59,7 @@ export type WordPanelViewModel = {
   readonly usageNotes?: readonly string[];
   readonly frequency?: string;
   readonly relatedWords?: readonly string[];
+  readonly sources?: readonly WordPanelSource[];
   /** Other occurrences of the same Sense (or Lexeme, when unresolved) in this StoryVersion. */
   readonly storyContexts?: readonly WordPanelContext[];
   /** Occurrences in other published stories. */
@@ -230,6 +236,7 @@ export function buildLexicalWordPanel(input: {
     ...(enrichment?.usageNotes === undefined ? {} : { usageNotes: enrichment.usageNotes }),
     ...(enrichment?.frequency === undefined ? {} : { frequency: enrichment.frequency }),
     ...(enrichment?.relatedWords === undefined ? {} : { relatedWords: enrichment.relatedWords }),
+    ...(enrichment?.sources.length ? { sources: enrichment.sources.map(({ label, reference }) => ({ label, reference })) } : {}),
     currentContext: { ...occurrenceContext(occurrence, index), highlightedSurface: occurrence.surface },
     ...(storyContexts.length > 0 ? { storyContexts } : {}),
   };
