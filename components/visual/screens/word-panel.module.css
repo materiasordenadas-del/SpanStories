@@ -170,3 +170,8 @@
 .handle { background:var(--accent-ink); }
 .handle:hover { background:var(--accent-deep); }
 .sourceHeading button,.error { color:var(--accent-ink); }
+
+/* ── Ficha SURFACE · guardar deshabilitado sin identidad léxica estable ── */
+.saveButton:disabled,.favoriteButton:disabled { opacity:.4; cursor:not-allowed; }
+.saveButton:disabled:hover { background:var(--accent); }
+.favoriteButton:disabled:hover { color:var(--panel-muted); }
