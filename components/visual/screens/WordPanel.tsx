@@ -91,8 +91,9 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   const [activeTab, setActiveTab] = useState<"summary" | "examples" | "usage" | "context" | "more">("summary");
   const examples = reference?.examples ?? panel.examples ?? [];
   const otherStories = reference?.otherStories ?? [];
-  const usageNotes = reference?.usageNotes ?? [];
-  const relatedWords = reference?.relatedWords ?? [];
+  const usageNotes = reference?.usageNotes ?? panel.usageNotes ?? [];
+  const relatedWords = reference?.relatedWords ?? panel.relatedWords ?? [];
+  const frequency = reference?.frequency ?? panel.frequency;
   const translation = reference?.translation ?? panel.translation ?? fallbackTranslation;
   const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
   const usage = reference?.shortUsage ?? panel.shortUsage;
@@ -115,7 +116,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   </> : activeTab === "examples" ? <section><h3>Ejemplos</h3>{renderExamples(examples)}</section>
     : activeTab === "usage" ? <><section><h3>Uso</h3>{usageBlock}</section>{usageNotes.length === 0 ? <p className={panelStyles.emptyState}>No hay notas adicionales publicadas.</p> : <ul className={panelStyles.usageNotes}>{usageNotes.map((note) => <li key={note}>{note}</li>)}</ul>}</>
     : activeTab === "context" ? <><section><h3>En esta historia</h3>{contextBlock}</section><section><h3>En otras historias</h3>{renderOtherStories()}</section></>
-    : <dl className={panelStyles.dataList}><div><dt>Frecuencia</dt><dd>{reference?.frequency ?? "Pendiente de publicación"}</dd></div><div><dt>Palabras relacionadas</dt><dd className={panelStyles.related} lang="es">{relatedWords.length === 0 ? "Pendiente de publicación" : relatedWords.map((word) => <span key={word}>{word}</span>)}</dd></div></dl>;
+    : <dl className={panelStyles.dataList}><div><dt>Frecuencia</dt><dd>{frequency ?? "Pendiente de publicación"}</dd></div><div><dt>Palabras relacionadas</dt><dd className={panelStyles.related} lang="es">{relatedWords.length === 0 ? "Pendiente de publicación" : relatedWords.map((word) => <span key={word}>{word}</span>)}</dd></div></dl>;
   return <div className={panelStyles.panel} id="lexical-detail-content">
     <header className={panelStyles.topBar}><span>Palabra seleccionada</span><button aria-label="Cerrar la ficha" className={panelStyles.closeButton} onClick={onClose} ref={closeButtonRef} type="button"><CloseIcon /></button></header>
     <div className={panelStyles.body}>
