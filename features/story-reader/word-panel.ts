@@ -38,6 +38,24 @@ export type WordPanelExample = {
   readonly audioSrc?: string;
 };
 
+/**
+ * A Sense-level reference image resolved by `lib/adapters/word-panel-image.ts`
+ * from `features/lexical-media`, never fetched or looked up here. Distinct
+ * from `WordPanelViewModel.image` (the story's own scene illustration): this
+ * is a generic, reusable dictionary photo for the word's meaning, sourced
+ * externally and always attributable.
+ */
+export type WordPanelDictionaryImage = {
+  readonly src: string;
+  readonly thumbnailSrc?: string;
+  readonly alt: string;
+  readonly creator?: string;
+  readonly license?: string;
+  readonly licenseUrl?: string;
+  readonly sourcePageUrl?: string;
+  readonly provider?: string;
+};
+
 export type WordPanelViewModel = {
   readonly id: string;
   /** `SURFACE` is a selectable token without a published lexical identity. */
@@ -55,6 +73,8 @@ export type WordPanelViewModel = {
   readonly cefrLevel?: string;
   readonly pronunciation?: { readonly audioSrc?: string };
   readonly image?: { readonly src: string; readonly alt: string };
+  /** Pilot-gated (see `lib/adapters/word-panel-image.ts`); absent outside Story 1/2 even when the Sense has a binding. */
+  readonly dictionaryImage?: WordPanelDictionaryImage;
   readonly shortUsage?: string;
   readonly currentContext: WordPanelContext & { readonly highlightedSurface: string };
   readonly examples?: readonly WordPanelExample[];

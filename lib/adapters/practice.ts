@@ -1,10 +1,12 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useCallback, useSyncExternalStore } from "react";
+import { useAuth } from "@/features/accounts/AuthProvider";
+import { currentLearner, recordKnowledge } from "./lexical-knowledge";
+import { learnerPracticeStorageKey as storageKey } from "@/features/practice/repository/learner-storage-key";
 import {
   InMemoryPracticeItemRepository,
   LocalStoragePracticeItemRepository,
-  PRACTICE_STORAGE_KEY,
   createPracticeItem,
   practiceItemKey,
   practiceTargetKey,
@@ -66,52 +68,58 @@ export type PracticeItemsSnapshot = { readonly ready: boolean; readonly items: r
 
 const LOADING: PracticeItemsSnapshot = { ready: false, items: [] };
 const listeners = new Set<() => void>();
-let snapshot = LOADING;
-let loading: Promise<void> | null = null;
-let repository: PracticeItemRepository | null = null;
-
-function getRepository(): PracticeItemRepository {
-  if (repository === null) {
-    try {
-      repository = new LocalStoragePracticeItemRepository(window.localStorage);
-    } catch {
-      // Sin acceso a localStorage (bloqueado por el navegador): las palabras duran lo que dure la visita.
-      repository = new InMemoryPracticeItemRepository();
-    }
-  }
-  return repository;
+type OwnerStore = { snapshot: PracticeItemsSnapshot; loading: Promise<void> | null; repository: PracticeItemRepository | null };
+const stores = new Map<string, OwnerStore>();
+function storeFor(owner: string): OwnerStore {
+  if (!stores.has(owner)) stores.set(owner, { snapshot: LOADING, loading: null, repository: null });
+  return stores.get(owner)!;
 }
 
-function publish(items: readonly PracticeItem[]) {
-  snapshot = { ready: true, items };
+function getRepository(owner: string): PracticeItemRepository {
+  const store = storeFor(owner);
+  if (store.repository === null) {
+    try {
+      store.repository = new LocalStoragePracticeItemRepository(window.localStorage, storageKey(owner));
+    } catch {
+      // Sin acceso a localStorage (bloqueado por el navegador): las palabras duran lo que dure la visita.
+      store.repository = new InMemoryPracticeItemRepository();
+    }
+  }
+  return store.repository;
+}
+
+function publish(owner: string, items: readonly PracticeItem[]) {
+  storeFor(owner).snapshot = { ready: true, items };
   listeners.forEach((listener) => listener());
 }
 
-function reload(): Promise<void> {
-  loading ??= getRepository().list()
-    .then(publish, () => publish(snapshot.items))
-    .finally(() => { loading = null; });
-  return loading;
+function reload(owner: string): Promise<void> {
+  const store = storeFor(owner);
+  store.loading ??= getRepository(owner).list()
+    .then(items => publish(owner, items), () => publish(owner, store.snapshot.items))
+    .finally(() => { store.loading = null; });
+  return store.loading;
 }
 
-async function change(action: (target: PracticeItemRepository) => Promise<unknown>) {
+async function change(owner: string, action: (target: PracticeItemRepository) => Promise<unknown>) {
+  const store = storeFor(owner);
   try {
-    await action(getRepository());
+    await action(getRepository(owner));
   } catch {
     // El almacenamiento falló al escribir (cuota, modo privado): se sigue en memoria con lo que ya había.
     const memory = new InMemoryPracticeItemRepository();
-    for (const item of snapshot.items) await memory.save(item);
-    repository = memory;
+    for (const item of store.snapshot.items) await memory.save(item);
+    store.repository = memory;
     await action(memory);
   }
-  await reload();
+  await reload(owner);
 }
 
-function subscribe(listener: () => void) {
+function subscribe(owner: string, listener: () => void) {
   listeners.add(listener);
-  if (!snapshot.ready) void reload();
+  if (!storeFor(owner).snapshot.ready) void reload(owner);
   const onStorage = (event: StorageEvent) => {
-    if (event.key === PRACTICE_STORAGE_KEY) void reload();
+    if (event.key === storageKey(owner) || event.key === null) void reload(owner);
   };
   window.addEventListener("storage", onStorage);
   return () => {
@@ -120,11 +128,14 @@ function subscribe(listener: () => void) {
   };
 }
 
-const getSnapshot = () => snapshot;
 const getServerSnapshot = () => LOADING;
 
 export function usePracticeItems(): PracticeItemsSnapshot {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const { user, loading } = useAuth();
+  const owner = user ? `user:${user.uid}` : "guest";
+  const subscribeOwner = useCallback((listener: () => void) => loading ? () => {} : subscribe(owner, listener), [owner, loading]);
+  const getSnapshot = useCallback(() => loading ? LOADING : storeFor(owner).snapshot, [owner, loading]);
+  return useSyncExternalStore(subscribeOwner, getSnapshot, getServerSnapshot);
 }
 
 const isSaved = (items: readonly PracticeItem[], word: ReaderWordPractice) => {
@@ -138,8 +149,12 @@ export function useIsPracticeWordSaved(word: ReaderWordPractice | null): boolean
 }
 
 /** Guarda la palabra (su Sense o Lexeme) o la quita si ya estaba guardada. */
-export function togglePracticeWord(word: ReaderWordPractice): Promise<void> {
-  return change((target) => isSaved(snapshot.items, word)
+export async function togglePracticeWord(word: ReaderWordPractice): Promise<void> {
+  const owner = currentLearner();
+  await reload(owner);
+  const saved = isSaved(storeFor(owner).snapshot.items, word);
+  await change(owner, (target) => saved
     ? target.remove(word.target)
     : target.save(createPracticeItem({ target: word.target, savedAt: new Date(), savedFrom: word.savedFrom })));
+  if (!saved) recordKnowledge({ kind: "SAVED", targetKey: practiceTargetKey(word.target), storyVersionId: word.savedFrom.storyVersionId, occurrenceId: word.savedFrom.occurrenceId }, owner);
 }

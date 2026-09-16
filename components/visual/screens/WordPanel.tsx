@@ -6,6 +6,9 @@ import { speakSpanish } from "@/features/story-reader/browser-speech";
 import { readerWordPractice, togglePracticeWord, useIsPracticeWordSaved, type ReaderWordPractice } from "@/lib/adapters/practice";
 import styles from "./baseline.module.css";
 import panelStyles from "./word-panel.module.css";
+import { LexicalProgress } from "./LexicalProgress";
+import { recordKnowledge } from "@/lib/adapters/lexical-knowledge";
+import { practiceTargetKey } from "@/features/practice/domain/target";
 
 function ContextText({ parts }: { parts: readonly WordPanelTextPart[] }) {
   return <>{parts.map((part, index) => part.highlighted
@@ -33,12 +36,85 @@ function ImageIcon() {
   return <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.7" /><circle cx="9" cy="9" r="2" fill="none" stroke="currentColor" strokeWidth="1.7" /><path d="m5 18 5-5 3 3 2-2 4 4" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.7" /></svg>;
 }
 
+function MagnifierIcon() {
+  return <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20-4.3-4.3" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" /></svg>;
+}
+
+/** Icono de lupa sobre la imagen: abre un pop ampliado x4 que queda contenido dentro del panel
+ * (nunca centrado en pantalla) y se cierra al hacer scroll, tocar fuera o pulsar Escape. */
+function ZoomableImage({ alt, className, onError, src }: { alt: string; className: string; onError?: () => void; src: string }) {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [rect, setRect] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
+  const close = () => setRect(null);
+  const open = () => {
+    const img = imgRef.current;
+    const panel = img?.closest<HTMLElement>(`.${panelStyles.panel}`);
+    if (!img || !panel) return;
+    const imgRect = img.getBoundingClientRect();
+    const panelRect = panel.getBoundingClientRect();
+    const margin = 12;
+    const maxWidth = panelRect.width - margin * 2;
+    const maxHeight = panelRect.height - margin * 2;
+    let width = Math.min(imgRect.width * 4, maxWidth);
+    let height = width * (imgRect.height / imgRect.width);
+    if (height > maxHeight) {
+      height = maxHeight;
+      width = height * (imgRect.width / imgRect.height);
+    }
+    const left = Math.min(Math.max(imgRect.left + imgRect.width / 2 - width / 2, panelRect.left + margin), panelRect.right - margin - width);
+    const top = Math.min(Math.max(imgRect.top + imgRect.height / 2 - height / 2, panelRect.top + margin), panelRect.bottom - margin - height);
+    setRect({ top, left, width, height });
+  };
+  useEffect(() => {
+    if (rect === null) return;
+    const handleClose = () => close();
+    const handleKey = (event: KeyboardEvent) => { if (event.key === "Escape") close(); };
+    document.addEventListener("pointerdown", handleClose, true);
+    document.addEventListener("scroll", handleClose, true);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("pointerdown", handleClose, true);
+      document.removeEventListener("scroll", handleClose, true);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [rect]);
+  return <span className={panelStyles.zoomWrap}>
+    <img alt={alt} className={className} loading="lazy" onError={onError} ref={imgRef} src={src} />
+    <button aria-label={`Ampliar imagen de «${alt}»`} className={panelStyles.zoomButton} onClick={open} type="button"><MagnifierIcon /></button>
+    {rect === null ? null : <img alt={alt} className={panelStyles.zoomedImage} src={src} style={{ top: rect.top, left: rect.left, width: rect.width, height: rect.height }} />}
+  </span>;
+}
+
 function BookmarkIcon({ filled }: { filled: boolean }) {
   return <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24"><path d="M6.5 4h11v16l-5.5-4-5.5 4V4Z" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeLinejoin="round" strokeWidth="1.8" /></svg>;
 }
 
 function AudioButton({ label, text }: { label: string; text: string }) {
   return <button aria-label={label} className={panelStyles.audioButton} onClick={() => speakSpanish(text)} title={label} type="button"><SpeakerIcon /></button>;
+}
+
+const PROVIDER_LABELS: Readonly<Record<string, string>> = { wikimedia: "Wikimedia Commons", openverse: "Openverse" };
+
+/** Enriquecimiento opcional: si la imagen remota falla, se oculta y el resto del panel sigue igual. */
+function DictionaryImage({ image }: { image: NonNullable<WordPanelViewModel["dictionaryImage"]> }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+  const providerLabel = image.provider === undefined ? undefined : PROVIDER_LABELS[image.provider] ?? image.provider;
+  const hasSource = image.creator !== undefined || providerLabel !== undefined || image.license !== undefined || image.sourcePageUrl !== undefined;
+  return <figure className={panelStyles.dictionaryImage}>
+    <ZoomableImage alt={image.alt} className={panelStyles.dictionaryImagePicture} onError={() => setFailed(true)} src={image.src} />
+    {hasSource ? <details className={panelStyles.dictionaryImageSource}>
+      <summary>ⓘ Fuente</summary>
+      <p>
+        {image.creator === undefined ? null : `${image.creator}. `}
+        {providerLabel === undefined ? null : `${providerLabel}. `}
+        {image.license === undefined ? null : image.licenseUrl === undefined
+          ? image.license
+          : <a href={image.licenseUrl} rel="noopener noreferrer" target="_blank">{image.license}</a>}
+        {image.sourcePageUrl === undefined ? null : <> · <a href={image.sourcePageUrl} rel="noopener noreferrer" target="_blank">Ver origen</a></>}
+      </p>
+    </details> : null}
+  </figure>;
 }
 
 /** Ajusta --word-fit para que la palabra del panel quepa en una línea con el espacio real que deja la fila. */
@@ -98,7 +174,9 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
   const canSave = panel.canSave !== false;
   const partOfSpeech = reference?.partOfSpeechLabel ?? panel.partOfSpeechLabel;
   const usage = reference?.shortUsage ?? panel.shortUsage;
-  const imageEligible = partOfSpeech === "Sustantivo" || partOfSpeech === "Verbo";
+  // Un país (bandera) nunca queda etiquetado "Sustantivo" por el heurístico de POS, pero sigue
+  // siendo una imagen resuelta y lista para mostrar: su presencia basta para reservar el hueco.
+  const imageEligible = partOfSpeech === "Sustantivo" || partOfSpeech === "Verbo" || panel.dictionaryImage !== undefined;
   const renderExamples = (items: typeof examples) => items.length === 0
     ? <p className={panelStyles.emptyState}>Todavía no hay ejemplos publicados para esta palabra.</p>
     : <div className={panelStyles.sourceList}>{items.map((example, index) => <div className={panelStyles.sourceRow} key={index}><strong lang="es">{example.text}</strong>{example.translation === undefined ? null : <span lang="en">{example.translation}</span>}</div>)}</div>;
@@ -127,8 +205,14 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
                 : contextTranslation !== undefined
                   ? <p className={panelStyles.translation} lang="en">{contextTranslation}<span className={panelStyles.srOnly}> (traducción de esta frase)</span></p>
                   : <p className={panelStyles.translation}>—</p>}<ul aria-label="Datos de la palabra" className={panelStyles.tags}>{partOfSpeech === undefined ? <li>Sin clasificar</li> : <li>{partOfSpeech}</li>}<li className={panelStyles.levelTag}><span className={panelStyles.srOnly}>Nivel </span>{panel.cefrLevel ?? "—"}</li></ul></div>
-        {imageEligible ? panel.image === undefined ? <div className={panelStyles.imagePlaceholder}><ImageIcon /><span>Imagen pendiente</span></div> : <div><img alt={panel.image.alt} className={panelStyles.summaryImage} src={panel.image.src} />{reference?.imageCaption === undefined ? null : <p className={panelStyles.imageCaption}>{reference.imageCaption}</p>}</div> : null}
+        {imageEligible ? panel.image !== undefined
+          ? <div><ZoomableImage alt={panel.image.alt} className={panelStyles.summaryImage} src={panel.image.src} />{reference?.imageCaption === undefined ? null : <p className={panelStyles.imageCaption}>{reference.imageCaption}</p>}</div>
+          : panel.dictionaryImage !== undefined
+            ? <DictionaryImage image={panel.dictionaryImage} key={panel.id} />
+            : <div className={panelStyles.imagePlaceholder}><ImageIcon /><span>Imagen pendiente</span></div>
+          : null}
       </section>
+      {practice !== null ? <LexicalProgress word={practice} revealed={translation !== undefined || contextTranslation !== undefined} /> : null}
       <button aria-expanded={detailsOpen} className={panelStyles.detailsToggle} onClick={() => setDetailsOpen((open) => !open)} type="button">Detalles<ChevronIcon expanded={detailsOpen} /></button>
       <div className={detailsOpen ? panelStyles.detailsOpen : panelStyles.details}><div className={panelStyles.detailsInner}>
         <nav aria-label="Secciones de la palabra" className={panelStyles.sectionNav}>{[["summary", "Resumen"], ["examples", "Ejemplos"], ["usage", "Uso"], ["context", "En contexto"], ["more", "Más"]].map(([id, label]) => <button aria-current={activeTab === id ? "page" : undefined} className={activeTab === id ? panelStyles.activeTab : undefined} key={id} onClick={() => setActiveTab(id as typeof activeTab)} type="button">{label}</button>)}</nav>
@@ -138,7 +222,7 @@ function WordPanel({ panel, reference, practice, eventError, closeButtonRef, onC
     </div>
     <footer className={panelStyles.actions}>
       {practice === null ? null : <button aria-pressed={saved} className={panelStyles.saveButton} disabled={!canSave} onClick={() => void togglePracticeWord(practice)} type="button"><BookmarkIcon filled={saved} />{saved ? "Guardada" : "Guardar palabra"}</button>}
-      {practice === null || !saved ? null : <button className={panelStyles.knownButton} onClick={() => void togglePracticeWord(practice)} type="button">Marcar como conocida</button>}
+      {practice === null || !saved ? null : <button className={panelStyles.knownButton} onClick={() => recordKnowledge({ kind: "STATE_DECLARED", targetKey: practiceTargetKey(practice.target), storyVersionId: practice.savedFrom.storyVersionId, occurrenceId: practice.savedFrom.occurrenceId, declaredState: "KNOWN" })} type="button">Marcar como conocida</button>}
       <button className={panelStyles.practiceButton} onClick={() => speakSpanish(panel.currentContext.text)} type="button"><SpeakerIcon />Escuchar frase</button>
     </footer>
   </div>;

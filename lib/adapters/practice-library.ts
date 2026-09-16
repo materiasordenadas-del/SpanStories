@@ -1,6 +1,7 @@
 import { collectPracticeOccurrences, type PracticeOccurrence } from "@/features/practice";
 import { getStoryReaderViewModel } from "@/features/story-reader/reader";
 import { getA1Catalog } from "./a1-catalog";
+import targets from "@/generated/curriculum/a1/targets.json";
 
 /**
  * Contenido que la práctica puede usar: las apariciones léxicas de todas las historias publicadas,
@@ -9,5 +10,9 @@ import { getA1Catalog } from "./a1-catalog";
 export async function getPracticeOccurrences(): Promise<readonly PracticeOccurrence[]> {
   const stories = getA1Catalog().islands.filter((island) => island.published).flatMap((island) => island.stories);
   const models = await Promise.all(stories.map((story) => getStoryReaderViewModel(story.island, story.story)));
-  return models.flatMap((model) => collectPracticeOccurrences(model));
+  return models.flatMap((model) => collectPracticeOccurrences(model)).map(occurrence => {
+    const target = occurrence.target;
+    const curriculum = target.type === "SENSE" ? targets.find(t => t.targetType === "SENSE" && t.senseId === target.senseId) : undefined;
+    return { ...occurrence, productive: curriculum ? !["NOT_REQUIRED", "NONE", "RECEPTIVE_ONLY"].includes(curriculum.expectedProductive) : true };
+  });
 }

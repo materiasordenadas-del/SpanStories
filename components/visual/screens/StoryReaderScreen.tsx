@@ -22,7 +22,11 @@ function keepWordAboveSheet(word: HTMLElement) {
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const sheet = document.getElementById("lexical-detail");
     if (sheet === null || getComputedStyle(sheet).position !== "fixed") return;
-    const covered = word.getBoundingClientRect().bottom + 24 - (window.innerHeight - sheet.offsetHeight);
+    const sheetRect = sheet.getBoundingClientRect();
+    // Solo es una hoja inferior si toca el borde de abajo del viewport; el panel lateral de escritorio
+    // también es "fixed" pero no tapa la palabra desde abajo, así que no debe mover el scroll.
+    if (Math.round(sheetRect.bottom) < window.innerHeight) return;
+    const covered = word.getBoundingClientRect().bottom + 24 - sheetRect.top;
     if (covered <= 0) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollBy({ top: covered, behavior: reduceMotion ? "auto" : "smooth" });

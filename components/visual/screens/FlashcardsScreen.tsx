@@ -21,6 +21,8 @@ import {
 } from "@/lib/adapters/practice";
 import styles from "./baseline.module.css";
 import cards from "./flashcards.module.css";
+import { recordKnowledge, useKnowledge } from "@/lib/adapters/lexical-knowledge";
+import { practiceTargetKey } from "@/features/practice/domain/target";
 
 const PRACTICE_HREF = "/progreso/practica";
 const END_HEADING_ID = "flashcards-fin";
@@ -114,6 +116,14 @@ function recordFlashcardSession(session: FlashcardSession) {
 }
 
 export function FlashcardsScreen({ occurrences }: { occurrences: readonly PracticeOccurrence[] }) {
+  const { owner } = useKnowledge();
+  return <OwnedFlashcardsScreen key={owner} occurrences={occurrences} />;
+}
+
+function OwnedFlashcardsScreen({ occurrences }: { occurrences: readonly PracticeOccurrence[] }) {
+  const { owner, error } = useKnowledge();
+  const sessionId = useRef<string | null>(null);
+  const recordedAttempts = useRef(new Set<number>());
   const { ready, items } = usePracticeItems();
   const deck = useMemo(() => buildFlashcardDeck(items, occurrences), [items, occurrences]);
   // La sesión queda fijada con la primera respuesta: guardar o quitar palabras en otra pestaña no cambia la tarjeta en curso.
@@ -138,7 +148,22 @@ export function FlashcardsScreen({ occurrences }: { occurrences: readonly Practi
     event.preventDefault();
     const answered = submitFlashcardAnswer(session, response);
     if (answered === session) inputRef.current?.focus();
-    else setStarted(answered);
+    else if (recordAttempt(answered)) setStarted(answered);
+  };
+  const recordAttempt = (answered: FlashcardSession) => {
+    const result = currentFlashcardAttempt(answered);
+    if (!card || !result || recordedAttempts.current.has(session.index)) return false;
+    const item = items.find(i => practiceTargetKey(i.target) === card.key);
+    const candidates = occurrences.filter(o => practiceTargetKey(o.target) === card.key);
+    const source = candidates.find(o => o.storyVersionId === item?.savedFrom?.storyVersionId && o.occurrenceId === item.savedFrom.occurrenceId) ?? candidates[0];
+    if (!source) return false;
+    sessionId.current ??= crypto.randomUUID();
+    const base = { targetKey: card.key, storyVersionId: source.storyVersionId, occurrenceId: source.occurrenceId };
+    if (!recordKnowledge({ ...base, kind: "PRACTICE", evidence: "FORM_RECALL", outcome: result.outcome === "CORRECT" ? "correct" : result.outcome === "REVEALED" ? "revealed" : "incorrect",
+      practiceSessionId: sessionId.current, attemptId: `${sessionId.current}:${session.index}`, targetProductive: source.productive ?? true }, owner)) return false;
+    recordedAttempts.current.add(session.index);
+    if (result.outcome === "INCORRECT") recordKnowledge({ ...base, kind: "MEANING_REVEALED" }, owner);
+    return true;
   };
   const next = () => {
     setResponse("");
@@ -147,6 +172,8 @@ export function FlashcardsScreen({ occurrences }: { occurrences: readonly Practi
     setStarted(moved);
   };
   const restart = () => {
+    sessionId.current = null;
+    recordedAttempts.current.clear();
     setResponse("");
     setStarted(startFlashcardSession(deck));
   };
@@ -170,7 +197,7 @@ export function FlashcardsScreen({ occurrences }: { occurrences: readonly Practi
             <input autoCapitalize="none" autoComplete="off" autoCorrect="off" className={cards.input} enterKeyHint="go" id="flashcard-answer" lang="es" onChange={(event) => setResponse(event.target.value)} placeholder="Escribe en español…" ref={inputRef} spellCheck={false} type="text" value={response} />
             <button className={cards.check} type="submit">Comprobar</button>
           </div>
-          <button className={cards.dontKnow} onClick={() => setStarted(revealFlashcardAnswer(session))} type="button">No lo sé</button>
+          <button className={cards.dontKnow} onClick={() => { const revealed = revealFlashcardAnswer(session); if (recordAttempt(revealed)) setStarted(revealed); }} type="button">No lo sé</button>
         </form>
         : <div className={cards.feedback}>
           <div className={cards.answerLine}>
@@ -189,6 +216,6 @@ export function FlashcardsScreen({ occurrences }: { occurrences: readonly Practi
 
   return <div className={`${styles.page} ${cards.screen}`}>
     <TopBar session={playing ? session : null} />
-    <main aria-busy={!ready} className={cards.stage}>{content}</main>
+    <main aria-busy={!ready} className={cards.stage}>{error && <p role="alert">{error}</p>}{content}</main>
   </div>;
 }

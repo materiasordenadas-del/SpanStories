@@ -358,6 +358,7 @@ export async function getStoryOneReaderViewModel(): Promise<StoryReaderViewModel
       context: sentence.text,
       lemma: lexeme.lemma,
       senseItem: sense.item,
+      senseId: sense.id,
       lexicalCategory: lexeme.lexicalCategory,
       panel: buildLexicalWordPanel({ occurrence, lexeme, sense, levelCode: LEVEL_CODE, index: panelIndex }),
       ...(reference === undefined ? {} : { reference }),

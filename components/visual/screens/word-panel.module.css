@@ -20,6 +20,17 @@
 .imageCaption { margin:5px 0 0; color:var(--panel-muted); font-size:11px; line-height:1.3; text-align:center; }
 .imagePlaceholder { display:flex; width:144px; height:117px; flex-direction:column; align-items:center; justify-content:center; gap:8px; border:1px dashed var(--panel-line); color:var(--panel-muted); background:#faf9f8; font-size:13px; line-height:1.3; text-align:center; }
 .imagePlaceholder svg { flex:0 0 auto; }
+/* Imagen de diccionario (lexical-media, piloto Historia 1/2): usa el mismo hueco de imagen que ya
+   tiene el panel (arriba, junto al título) — nunca uno nuevo. Solo aparece cuando esa palabra no
+   tiene ilustración de escena propia. */
+.dictionaryImage { margin:0; text-align:center; }
+.dictionaryImagePicture { display:block; width:144px; height:117px; margin:0; border-radius:10px; background:var(--panel-soft); object-fit:contain; }
+.dictionaryImageSource { margin-top:5px; color:var(--panel-muted); font-size:11px; line-height:1.3; }
+.dictionaryImageSource summary { display:inline-block; list-style:none; cursor:pointer; color:var(--panel-muted); }
+.dictionaryImageSource summary::-webkit-details-marker { display:none; }
+.dictionaryImageSource summary:hover { color:var(--ink); }
+.dictionaryImageSource p { margin:4px 0 0; }
+.dictionaryImageSource a { color:inherit; }
 /* La palabra siempre ocupa una sola línea. --word-fit lo mide el componente (useFitWord) con el ancho real;
    antes de medir se usa una estimación: ancho del contenedor (cqi) / número de letras (--word-length).
    --word-controls = audio + favorita + gaps. Solo si ni con --word-min cabe, se permite partir (data-wrap). */
@@ -175,3 +186,10 @@
 .saveButton:disabled,.favoriteButton:disabled { opacity:.4; cursor:not-allowed; }
 .saveButton:disabled:hover { background:var(--accent); }
 .favoriteButton:disabled:hover { color:var(--panel-muted); }
+
+/* ── Lupa · ampliar imagen de palabra en un pop contenido en el panel ── */
+.zoomWrap { position:relative; display:block; }
+.zoomButton { position:absolute; right:4px; bottom:4px; display:grid; place-items:center; width:24px; height:24px; border:1px solid rgba(0,0,0,.15); border-radius:50%; padding:0; color:var(--ink); background:rgba(255,255,255,.88); cursor:zoom-in; }
+.zoomButton:hover { background:#fff; }
+.zoomButton:focus-visible { outline:2px solid var(--interaction); outline-offset:2px; }
+.zoomedImage { position:fixed; z-index:60; border-radius:10px; background:var(--panel-soft); box-shadow:0 10px 30px rgba(0,0,0,.35); object-fit:contain; cursor:zoom-out; }

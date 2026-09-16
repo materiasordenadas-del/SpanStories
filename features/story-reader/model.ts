@@ -93,6 +93,8 @@ export type StoryReaderLexicalEntry = {
   readonly context: string;
   readonly lemma: string;
   readonly senseItem: string | null;
+  /** The published Sense id this occurrence resolves to, when resolved. Not the same as `senseItem` (its text). */
+  readonly senseId?: string;
   readonly lexicalCategory: string | null;
   readonly panel: WordPanelViewModel;
   /** Bound to this entry's occurrenceId, never to its surface text. */
@@ -103,6 +105,8 @@ export type StoryReaderSurfaceEntry = {
   readonly tokenId: string;
   readonly surface: string;
   readonly context: string;
+  /** Editorial: set only where a story-specific surface→Sense table names this exact token. */
+  readonly senseId?: string;
   readonly panel: WordPanelViewModel;
 };
 

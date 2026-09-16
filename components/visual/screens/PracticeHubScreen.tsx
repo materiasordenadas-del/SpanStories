@@ -5,6 +5,7 @@ import { A1_VERBS, PRACTICE_MODES, usePracticeItems, type PracticeModeId, type P
 import { BaselineNav } from "../layouts/BaselineNav";
 import styles from "./baseline.module.css";
 import practice from "./practice.module.css";
+import { KnowledgeHub } from "./KnowledgeHub";
 
 type ModeCopy = {
   readonly name: string;
@@ -39,6 +40,7 @@ export function PracticeHubScreen({ occurrences }: { occurrences: readonly Pract
         <p className={practice.lead}>Repasa las palabras que guardaste mientras lees.</p>
       </header>
 
+      <KnowledgeHub occurrences={occurrences} />
       <section aria-labelledby="tipos-de-practica" className={practice.modes}>
         <h2 className={practice.modesTitle} id="tipos-de-practica">Tipos de práctica</h2>
         <ul className={practice.modeList}>

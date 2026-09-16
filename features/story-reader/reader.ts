@@ -27,8 +27,50 @@ const TITLES: Readonly<Record<string, string>> = {
   "01/04": "No entiendo",
 };
 
-const STORY_NOUNS = new Set(["apellido", "apellidos", "años", "carné", "chico", "clase", "día", "días", "edad", "español", "final", "lista", "mapa", "número", "profesor", "señor", "teléfono"]);
-const STORY_VERBS = new Set(["detiene", "dice", "entender", "entiendes", "entiendo", "eres", "es", "escucha", "está", "estás", "empieza", "hablar", "hablas", "hablo", "llamo", "mira", "puedes", "puedo", "pregunta", "repite", "repetir", "responde", "ríe", "sonríe", "sonríen", "soy", "tengo", "termina", "tiene", "tienes"]);
+const STORY_NOUNS = new Set(["apellido", "apellidos", "años", "carné", "chico", "clase", "día", "días", "edad", "escuela", "español", "final", "lista", "mapa", "número", "profesor", "señor", "teléfono"]);
+const STORY_VERBS = new Set(["detiene", "dice", "entender", "entiendes", "entiendo", "eres", "es", "escucha", "está", "estás", "empieza", "habla", "hablar", "hablas", "hablo", "llamo", "mira", "puedes", "puedo", "pregunta", "repite", "repetir", "responde", "ríe", "sonríe", "sonríen", "soy", "tengo", "termina", "tiene", "tienes"]);
+
+/**
+ * Editorial pilot only, scoped to Story 2 (route "01/02"): the real published
+ * senseId for each surface word this story actually uses that lexical-media
+ * has an image for. Not a live search — this is curated data naming exactly
+ * which Sense a specific word in this specific story realizes, the same kind
+ * of editorial fact `LEXICAL_SPECS` records for Story 1 in story-one.ts, just
+ * without the full StoryOccurrence/TextAnchor machinery this surface-only
+ * reader doesn't build. `decir`, `mirar`, `sonreír`, `responder`, `repetir`,
+ * `lista`, `final` and country/demonym words have no entry here even though
+ * some appear in this story: see `SURFACE_ONLY_IMAGES_BY_SURFACE` and its
+ * comment in lib/adapters/word-panel-image.ts for the ones that still get an
+ * image, and for why `repetir` does not.
+ */
+const STORY_TWO_SENSE_IDS_BY_SURFACE: ReadonlyMap<string, string> = new Map([
+  ["clase", "SENSE-A1-000140"],
+  ["profesor", "SENSE-A1-000476"],
+  ["chico", "SENSE-A1-000134"],
+  ["mapa", "SENSE-A1-000353"],
+  ["escucha", "SENSE-A1-000228"],
+  ["habla", "SENSE-A1-000285"],
+  ["años", "SENSE-A1-000040"],
+  ["edad", "SENSE-A1-000206"],
+  ["tengo", "SENSE-A1-000556"],
+  ["tienes", "SENSE-A1-000556"],
+  ["rápido", "SENSE-A1-000493"],
+  ["mañana", "SENSE-A1-000350"],
+]);
+
+/**
+ * Editorial pilot only, scoped to Story 1 (route "01/01"): a real published
+ * senseId for surface words this story's own text uses that `story-one.ts`'s
+ * `LEXICAL_SPECS` does not annotate (that file records canonical
+ * StoryOccurrences for phase-2 validation; this is only the lighter,
+ * pilot-only surface mapping `lexical-media` needs). Same rules as
+ * `STORY_TWO_SENSE_IDS_BY_SURFACE`.
+ */
+const STORY_ONE_EXTRA_SENSE_IDS_BY_SURFACE: ReadonlyMap<string, string> = new Map([
+  ["mañana", "SENSE-A1-000350"],
+  ["encantado", "SENSE-A1-000217"],
+]);
+
 const curriculum = loadCurriculumRegistry();
 
 function storyPartOfSpeech(surface: string): string | undefined {
@@ -209,7 +251,7 @@ function tokenize(sentence: StorySentence, routeKey: string): readonly SurfaceTo
  * General reader fallback: every Unicode word receives a surface panel and
  * browser pronunciation, even before editorial lexical annotation exists.
  */
-export function createSurfaceStoryReader(source: StoryReaderSource, scenes: readonly StoryReaderScene[] = []): StoryReaderViewModel {
+export function createSurfaceStoryReader(source: StoryReaderSource, scenes: readonly StoryReaderScene[] = [], senseIdsBySurface: ReadonlyMap<string, string> = new Map()): StoryReaderViewModel {
   const routeKey = `${Number(source.island) || 0}-${Number(source.story) || 0}`;
   const storyVersionId = asId("StoryVersionId", `storyver-reader-${routeKey}`);
   const sentences: StorySentence[] = source.paragraphs.map((text, index) => {
@@ -227,10 +269,12 @@ export function createSurfaceStoryReader(source: StoryReaderSource, scenes: read
     for (const token of sentence.tokens) {
       const panel = buildSurfaceWordPanel(token, sentence);
       const inferredPartOfSpeech = storyPartOfSpeech(token.surface);
+      const senseId = senseIdsBySurface.get(token.surface.toLocaleLowerCase("es"));
       surfaceEntries[token.id] = {
         tokenId: token.id,
         surface: token.surface,
         context: sentence.text,
+        ...(senseId === undefined ? {} : { senseId }),
         panel: inferredPartOfSpeech === undefined ? panel : { ...panel, partOfSpeechLabel: inferredPartOfSpeech },
       };
     }
@@ -310,7 +354,12 @@ export async function getStoryReaderViewModel(island: string, story: string) {
           },
         }))
       : [];
-    const model = createSurfaceStoryReader({ island, story, title: publishedStory.title, paragraphs: publishedStory.paragraphs }, scenes);
+    const senseIdsBySurface = key === "01/02"
+      ? STORY_TWO_SENSE_IDS_BY_SURFACE
+      : key === "01/01"
+        ? STORY_ONE_EXTRA_SENSE_IDS_BY_SURFACE
+        : new Map<string, string>();
+    const model = createSurfaceStoryReader({ island, story, title: publishedStory.title, paragraphs: publishedStory.paragraphs }, scenes, senseIdsBySurface);
     const enrichedModel = key === "01/01" ? await enrichStoryOne(model) : model;
     return withQuickGloss({
       ...enrichedModel,

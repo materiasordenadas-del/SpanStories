@@ -21,6 +21,8 @@ export type PracticeOccurrence = {
   readonly translation?: string;
   readonly partOfSpeechLabel?: string;
   readonly cefrLevel?: string;
+  /** Current curricular expectation, supplied by the server content adapter. */
+  readonly productive?: boolean;
   /** The story sentence, with the occurrence highlighted by code point range. */
   readonly context: { readonly text: string; readonly parts: readonly WordPanelTextPart[] };
   /** Reserved for a per-word image. No source publishes one yet: story scene illustrations are not word images. */
