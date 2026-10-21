@@ -1,0 +1,80 @@
+:root{font:14px/1.5 system-ui,sans-serif;color:#e9e1d3;background:#1d1511;color-scheme:dark;
+  --papel:#f7f0e1;--tinta:#3b2a1e;--rojo:#9e2b25;--verde:#2f5a42;--oro:#c9973b}
+*{box-sizing:border-box}body{margin:0;overflow:hidden}
+header{height:56px;padding:14px 22px;display:flex;justify-content:space-between;border-bottom:1px solid #4a372a;background:#241913}
+header span{color:#bfa98f}
+main{display:block;position:relative;height:calc(100vh - 56px);overflow:hidden}
+#viewport{position:relative;width:100%;height:100%;background:#2a1f18}
+canvas{display:block;width:100%;height:100%;cursor:grab}canvas:active{cursor:grabbing}
+#zone-tag{position:absolute;left:18px;top:16px;padding:7px 14px;border-radius:6px;background:#2f5a42e6;color:#fff;font-weight:700;letter-spacing:.02em;box-shadow:0 4px 16px #0006}
+#toast{position:absolute;left:50%;top:18px;transform:translateX(-50%);padding:8px 18px;border-radius:22px;background:#f7f0e1f2;color:#3b2a1e;font:italic 600 17px Georgia,serif;box-shadow:0 6px 22px #0007;pointer-events:none;white-space:nowrap}
+#help-overlay[hidden]{display:none}
+#help-overlay{position:absolute;left:18px;bottom:16px;padding:7px 12px;border-radius:5px;background:#241913cc;color:#f1e7d6;font-size:12px;pointer-events:none;max-width:70%}
+#cover{position:absolute;inset:0;background:#241913;z-index:5;display:grid;place-content:center;text-align:center;font:italic 24px Georgia,serif;color:#e0b24f}
+#cover[hidden]{display:none}
+button,select,input{font:inherit}
+button,select{padding:8px 11px;border:1px solid #6b5140;border-radius:6px;background:#3a2a20;color:#fff;cursor:pointer}
+button:hover{background:#51392b}button:disabled{opacity:.45;cursor:not-allowed}
+#panel-toggle{position:absolute;z-index:4;top:15px;right:18px;background:#2f5a42ee;border-color:#4b7a5f;box-shadow:0 4px 16px #0006}
+#levantarse{position:absolute;z-index:4;left:50%;bottom:18px;transform:translateX(-50%);background:#2f5a42;border-color:#4b7a5f}
+#acciones[hidden],#levantarse[hidden]{display:none}
+#acciones{position:absolute;z-index:4;right:18px;bottom:16px;display:flex;gap:8px}
+#acciones button{background:#9e2b25;border-color:#c1473f;font-weight:700;box-shadow:0 4px 14px #0006}
+#trip-panel{position:absolute;z-index:3;right:0;top:0;bottom:0;width:min(340px,100%);padding:64px 22px 22px;background:#241913f2;box-shadow:-12px 0 35px #0008;overflow:auto}
+#trip-panel[hidden]{display:none}
+aside h1{font:italic 700 26px Georgia,serif;margin:0;color:#e0b24f}aside h2{font-size:18px;color:#f1d8a4;margin:10px 0}aside p{color:#c8b7a2}
+.vistas{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0 16px}
+.vistas button{font-size:13px}.vistas button.activa{background:#2f5a42;border-color:#4b7a5f}
+label{display:block;margin:10px 0}
+fieldset.light{margin:14px 0;padding:4px 12px 2px;border:1px solid #4a372a;border-radius:6px}
+fieldset.light legend{padding:0 6px;color:#e0b24f;font-weight:700}#grosor{vertical-align:middle;width:120px}#grosor-valor{font-size:12px;color:#c8b7a2}
+.vocab{margin:12px 0;border:1px solid #4a372a;border-radius:6px;padding:8px 10px}.vocab summary{cursor:pointer;color:#e0b24f;font-weight:700}
+#vocab-lista{list-style:none;padding:0;margin:6px 0;display:flex;flex-wrap:wrap;gap:5px}
+#vocab-lista li{padding:2px 9px;border-radius:12px;background:#3a2a20;border:1px solid #6b5140;font:italic 13px Georgia,serif;cursor:pointer}
+#vocab-lista li:hover{background:#51392b}.mini{padding:3px 8px;font-size:12px}
+.dev{margin-top:18px;border-top:1px solid #4a372a;padding-top:10px}.dev summary{cursor:pointer;color:#c8b7a2}.hint{font-size:12px}
+pre{font:11px/1.5 Consolas,monospace;white-space:pre-wrap;padding:8px;background:#140e0b;border-radius:5px;max-height:160px;overflow:auto}
+code{font-size:11px;color:#f1d8a4}
+
+/* ── Modales con aspecto de papel ───────────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#120c09a8;backdrop-filter:blur(3px);padding:16px}
+.modal[hidden]{display:none}
+.papel{position:relative;width:min(980px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--papel);color:var(--tinta);border-radius:10px;padding:26px 30px;
+  box-shadow:0 20px 60px #000a;border:1px solid #d8c7a5;background-image:radial-gradient(circle at 20% 10%,#fffaf0 0,#f7f0e1 40%,#efe3c8 100%)}
+.papel.pequeno{width:min(460px,100%)}.papel.ticket{width:min(380px,100%);font-family:'Courier New',monospace;border-radius:4px;background:#fdfcf8}
+.papel h2{font:italic 700 30px Georgia,serif;margin:0;color:var(--rojo)}.papel h3{font:italic 700 20px Georgia,serif;margin:0 0 8px;color:var(--verde)}
+.cerrar{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;padding:0;font-size:22px;line-height:1;background:#3b2a1e;border:none}
+.carta-cabecera{text-align:center;border-bottom:2px double var(--oro);padding-bottom:10px;margin-bottom:12px}
+.logo{font:italic 700 16px Georgia,serif;color:var(--verde);letter-spacing:.2em;text-transform:uppercase}
+#carta-mesa{margin:2px 0 0;color:#7b6450;font-style:italic}
+.secciones{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:14px}
+.secciones button{background:transparent;color:var(--tinta);border:1px solid #cbb690;border-radius:20px;padding:5px 14px;font:600 14px Georgia,serif}
+.secciones button:hover{background:#efe1c4}.secciones button.activa{background:var(--verde);color:#fff;border-color:var(--verde)}
+.secciones small{font-weight:400;opacity:.8}
+.carta-cuerpo{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr);gap:22px}
+.platos{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.platos li button{width:100%;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;text-align:left;background:#fffaf0;color:var(--tinta);border:1px solid #e1d1b0;border-radius:8px;padding:10px 12px}
+.platos li button:hover{background:#fbeccf;border-color:var(--oro)}.platos li button.elegido{border-color:var(--verde);box-shadow:inset 4px 0 0 var(--verde)}
+.platos .ico{font-size:24px;text-align:center}.platos .it{font:italic 700 16px Georgia,serif;display:block}.platos .es{font-size:13px;color:#6f5a47}
+.platos .pr{font:700 16px Georgia,serif;color:var(--rojo)}.platos .n{display:inline-block;min-width:22px;margin-left:6px;padding:0 6px;border-radius:10px;background:var(--verde);color:#fff;font:700 12px system-ui;text-align:center}
+.pedido{background:#fffaf0;border:1px dashed #cbb690;border-radius:10px;padding:14px;align-self:start;position:sticky;top:0}
+#pedido-lista{list-style:none;margin:0 0 8px;padding:0}#pedido-lista li{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dotted #d9c8a6}
+#pedido-lista li span{flex:1}#pedido-lista .vacio{color:#8d7863;font-style:italic;border:none}
+#pedido-lista button{padding:0 8px;height:26px;background:#efe1c4;color:var(--tinta);border:1px solid #cbb690}
+.total{text-align:right;font:600 16px Georgia,serif;margin:6px 0}
+.frase{background:#2f5a420f;border-left:4px solid var(--verde);border-radius:6px;padding:8px 10px;margin:10px 0}
+.frase .etiqueta{font-size:12px;color:#6f5a47;text-transform:uppercase;letter-spacing:.06em}
+.frase p{margin:4px 0 6px;font:italic 600 17px Georgia,serif;color:var(--tinta)}
+.frase button{padding:4px 10px;font-size:13px;background:var(--verde);border-color:var(--verde)}
+.botones{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.primario{background:var(--rojo);border-color:var(--rojo);font-weight:700}.primario:hover{background:#b8352c}
+.secundario{background:#efe1c4;color:var(--tinta);border-color:#cbb690}.secundario:hover{background:#e5d2ad}
+.camarero{font:italic 17px Georgia,serif;background:#fffaf0;border-radius:8px;padding:10px 12px;border:1px solid #e1d1b0}
+.papel label{color:var(--tinta);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.papel input,.papel select{background:#fffaf0;color:var(--tinta);border:1px solid #cbb690;border-radius:6px;padding:6px 8px}
+.ticket h2{font:700 20px 'Courier New',monospace;color:var(--tinta);text-align:center}.centro{text-align:center;font-size:12px;margin:2px 0 12px}
+#cuenta-lineas{list-style:none;padding:0;margin:0 0 8px;border-top:1px dashed #999;border-bottom:1px dashed #999}
+#cuenta-lineas li,.linea{display:flex;justify-content:space-between;margin:4px 0;font-size:14px}.linea.total{font-weight:700;font-size:17px;border-top:2px solid var(--tinta);padding-top:6px}
+.ticket .frase p{font-family:Georgia,serif}
+@media(max-width:760px){.carta-cuerpo{grid-template-columns:1fr}.papel{padding:20px 16px}.pedido{position:static}header span{display:none}#help-overlay[hidden]{display:none}
+#help-overlay{font-size:11px;max-width:60%}}

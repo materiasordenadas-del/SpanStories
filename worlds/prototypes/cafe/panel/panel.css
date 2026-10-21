@@ -1,0 +1,25 @@
+/* Panel SpanStories: mismo aspecto y orden en todos los proyectos. */
+:root{font:14px/1.5 system-ui,sans-serif;color:#dbe5ec;background:#12202d;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0}
+header{height:60px;padding:16px 24px;display:flex;justify-content:space-between;border-bottom:1px solid #344555}
+header span{color:#a4bac8}
+main{position:relative;height:calc(100vh - 60px);overflow:hidden}
+#viewport{position:relative;width:100%;height:100%;background:#c9d6dc}
+canvas{display:block;width:100%;height:100%}
+button,select{padding:9px 11px;border:1px solid #557089;border-radius:6px;background:#20394f;color:#fff;cursor:pointer}
+button:hover{background:#315875}button:disabled{opacity:.45;cursor:wait}
+#panel-toggle{position:absolute;z-index:4;top:17px;right:20px;background:#173552ee;box-shadow:0 4px 16px #14212b55}
+#panel{position:absolute;z-index:3;right:0;top:0;bottom:0;width:min(350px,100%);padding:66px 24px 24px;overflow:auto;background:#122435ee;box-shadow:-12px 0 35px #08142077;backdrop-filter:blur(10px)}
+#panel[hidden]{display:none}
+#panel h1{font-size:26px;margin:0}
+#panel h2{font-size:19px;color:#efd29a;margin:10px 0}
+#panel p{color:#afc0ce}
+/* Cada sección del panel es un <section> con un h3 dorado y un borde superior. */
+#panel section{margin:14px 0;padding-top:12px;border-top:1px solid #344555}
+#panel section h3{margin:0 0 6px;font-size:14px;color:#efd29a}
+#panel label{display:block;margin:10px 0}
+#panel input[type=range]{vertical-align:middle;width:130px}
+#panel output{font-size:12px;color:#a9bfce}
+#panel .row{display:flex;gap:8px}#panel .row button{flex:1}
+#panel pre{font:12px/1.6 Consolas,monospace;white-space:pre-wrap;padding:10px;background:#0b1722;border-radius:5px}
+#panel summary{cursor:pointer;color:#a9bfce}

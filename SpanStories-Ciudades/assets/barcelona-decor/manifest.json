@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "usage": {
+    "threejs": "Load once with GLTFLoader, keep the library scene hidden, find any node with userData.spanstoriesAsset === true by name, clone it, then set clone.position/rotation/scale for the city. Reuse the loaded geometries/materials; do not reload the GLB per prop.",
+    "naming": "SS_<CATEGORY>_<ASSET_NAME>. Source groups are SS_SRC_*. Category groups are SS_CAT_*.",
+    "performance": "For repeated props, clone from the loaded library. For very high repetition, convert repeated meshes to InstancedMesh in the city layer."
+  },
+  "sources": [
+    {
+      "source": "D:\\Espa\u00f1ol\\imagen para animaci\u00f3n\\Ambiente\\vegetacion\\Arboles\\anime_nature_tree_01.glb",
+      "sourceSha256": "607714fdf22246611ea7e92235f31eed1d1ac0bbaf1a358bf2e7c23bea1a5261",
+      "file": "anime_nature_tree_01.glb",
+      "bytes": 229100,
+      "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4"
+    },
+    {
+      "source": "D:\\Espa\u00f1ol\\imagen para animaci\u00f3n\\Ambiente\\vegetacion\\Arboles\\anime_tree_2.glb",
+      "sourceSha256": "c793a00e1ac5f528e3026b25e0892d9420d80fe9c0e516047b1629e8283a4f47",
+      "file": "anime_tree_2.glb",
+      "bytes": 189812,
+      "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7"
+    },
+    {
+      "source": "D:\\Espa\u00f1ol\\imagen para animaci\u00f3n\\Ambiente\\vegetacion\\Arboles\\jabami_anime_tree_v1.glb",
+      "sourceSha256": "fe77d87f55203002f647d637123c170b91f058fad207f5db077626ec4f570a5e",
+      "file": "jabami_anime_tree_v1.glb",
+      "bytes": 723780,
+      "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4"
+    },
+    {
+      "source": "D:\\Espa\u00f1ol\\imagen para animaci\u00f3n\\Ambiente\\Objetos optimizados\\spanstories_city_props_library.glb",
+      "sourceSha256": "2d4d8e3e230602ce016bcf5e5b7cd0245d57a7c76bcd8902c97d3a765a694155",
+      "file": "props.glb",
+      "bytes": 97432,
+      "sha256": "95f2ac28628113ee0a705ee5ef121fd2667a18ea184e5f39aa7ab2497d993f18"
+    }
+  ]
+}

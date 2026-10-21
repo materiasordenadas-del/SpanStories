@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Farmacia</title>
+<link rel="stylesheet" href="app.css">
+<header><strong><span class="cruz" aria-hidden="true">✚</span> SpanStories / Farmacia del Barrio</strong><span>Entrada, piso de venta y mostrador · 1 unidad = 1 metro</span></header>
+<main>
+  <section id="visor" aria-label="Farmacia 3D">
+    <div id="ayuda">WASD o flechas para caminar · arrastra para mirar · pulsa un objeto para ver su nombre</div>
+    <div id="etiqueta" hidden></div>
+    <div id="pad" aria-label="Caminar"><button id="avanzar" aria-label="Avanzar">▲</button><button id="retroceder" aria-label="Retroceder">▼</button></div>
+    <button id="panel-boton" aria-controls="panel" aria-expanded="false">Recorrido y luz ☰</button>
+  </section>
+  <aside id="panel" hidden>
+    <h1>Recorrido</h1>
+    <div id="vistas" class="vistas"></div>
+    <fieldset>
+      <legend>Luz y estilo</legend>
+      <label>Ambiente <select id="ambiente"></select></label>
+      <label><input type="checkbox" id="contorno" checked> Contorno cartoon</label>
+      <label>Grosor del trazo <input type="range" id="grosor" min="0.6" max="3" step="0.1" value="1.4"> <output id="grosor-valor">1.4 px</output></label>
+      <label><input type="checkbox" id="reflejos" checked> Reflejo del piso</label>
+    </fieldset>
+    <p class="nota">Escala humana: ojo a 1,62 m · mostrador a 1,00 m · góndolas de 1,40 m · anaqueles de pared de 2,10 m.</p>
+    <p id="estado" role="status">Construyendo…</p>
+  </aside>
+</main>
+<script type="module" src="app.js"></script>
+</html>

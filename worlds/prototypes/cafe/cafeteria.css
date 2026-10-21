@@ -1,0 +1,40 @@
+/* Capa propia de la Cafetería sobre panel/panel.css (el panel no se reestiliza). */
+#cover{position:absolute;inset:0;z-index:6;display:grid;place-items:center;background:#1e3932;color:#cba258;font-size:18px}
+#cover[hidden]{display:none}
+#zone-tag{position:absolute;z-index:2;left:18px;top:16px;padding:6px 12px;border-radius:20px;background:#1e3932e6;color:#fff;font-weight:600}
+#nombre{position:absolute;z-index:2;left:50%;bottom:64px;transform:translateX(-50%);max-width:min(560px,calc(100% - 32px));padding:10px 16px;border-radius:10px;background:#fffdf6;color:#2a2c2f;font-size:17px;box-shadow:0 6px 20px #0005;text-align:center}
+#nombre b{color:#00704a}
+#nombre[hidden]{display:none}
+#help-overlay{position:absolute;z-index:2;left:50%;bottom:14px;transform:translateX(-50%);max-width:calc(100% - 32px);padding:6px 12px;border-radius:8px;background:#0b1722aa;color:#dbe5ec;font-size:12.5px;text-align:center}
+.vistas{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.vistas button{padding:7px 8px;font-size:12.5px;text-align:left}
+.vistas button.activa{background:#00704a;border-color:#efd29a}
+#panel select{max-width:100%}
+#cruceta{position:absolute;z-index:3;left:16px;bottom:60px;display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px);gap:6px}
+#cruceta[hidden]{display:none}
+#cruceta button{font-size:20px;padding:0}
+#cruceta [data-tecla=KeyW]{grid-column:2}
+#cruceta [data-tecla=ArrowLeft]{grid-column:1;grid-row:2}
+#cruceta [data-tecla=KeyS]{grid-column:2;grid-row:2}
+#cruceta [data-tecla=ArrowRight]{grid-column:3;grid-row:2}
+body.tactil #help-overlay{display:none}
+@media (max-width:600px){header span{display:none}header{padding:16px}}
+#dialogo{position:absolute;z-index:2;left:18px;top:60px;width:min(380px,calc(100% - 36px));max-height:calc(100% - 150px);overflow:auto;padding:10px 12px;border-radius:12px;background:#fffdf6f0;color:#2a2c2f;box-shadow:0 6px 20px #0004;font-size:14.5px}
+#dialogo[hidden]{display:none}
+#dialogo .linea{margin:4px 0;padding:6px 10px;border-radius:10px;max-width:92%}
+#dialogo .barista{background:#d4e9e2}
+#dialogo .barista b{color:#00704a}
+#dialogo .tu{background:#f1e6d2;margin-left:auto;text-align:right}
+#dialogo .fuerte{background:#00704a;color:#fff}#dialogo .fuerte b{color:#cba258}
+#dialogo .llamada{font-weight:700;font-size:16px}
+#dialogo button{margin-left:6px;padding:4px 8px;background:#1e3932;font-size:13px}
+#pedido{border:1px solid #344555;border-radius:8px;padding:6px 12px 12px;margin:12px 0}
+#pedido legend{color:#cba258;padding:0 6px}
+#pedido label{margin:6px 0}
+#pedido select,#pedido input{width:100%;margin-top:2px}
+#pedido input{padding:8px 10px;border:1px solid #557089;border-radius:6px;background:#0b1722;color:#fff}
+#p-precio{font-size:13px;color:#d4e9e2!important}
+#p-pedir{width:100%;background:#00704a;border-color:#cba258}
+@media (max-width:600px){#dialogo{top:auto;bottom:110px;max-height:40%}}
+#dialogo{padding-top:26px}
+#dialogo .cerrar{position:absolute;top:4px;right:6px;margin:0;padding:0 8px;font-size:16px;line-height:20px;background:#1e3932}

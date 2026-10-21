@@ -1,0 +1,19 @@
+{
+  "version": 1, "id": "spanstories-historias-vinculos",
+  "storyEngine": {
+    "project": "D:/Español/SpanStories",
+    "entry": "features/story-engine/index.ts",
+    "repository": "features/story-engine/repository/story-repository.ts",
+    "curriculumRegistry": "features/curriculum/index.ts",
+    "generatedCurriculum": "generated/curriculum/a1/story-blueprints.json",
+    "curriculumRelease": "A1-CURRICULUM-v1.51"
+  },
+  "bindings": [],
+  "contract": {
+    "storyId": "StoryId existente (story-...)",
+    "storyVersionId": "StoryVersionId existente (storyver-...)",
+    "storyBlueprintId": "StoryBlueprintId curricular existente; no igual a StoryId",
+    "scenarios": [{"countryId": "es", "cityId": "barcelona", "zoneId": "barcelona-passeig-gracia", "objectIds": []}],
+    "characterIds": ["samuel"]
+  }
+}

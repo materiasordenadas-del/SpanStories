@@ -138,3 +138,9 @@ La rama experimental valida progresivamente:
 - la apariencia aprobada no debe cambiar como efecto colateral de una integración técnica;
 - el código priorizará arquitectura mantenible y tipada;
 - el MVP no dependerá de servicios de pago obligatorios.
+
+## Escenarios, países y personajes
+
+La organización 3D y sus reglas para colaboradores e IA están en
+[worlds/README.md](worlds/README.md). Incluye servicios compartidos, paquetes por país,
+biblioteca de personajes sin copias por país y comandos de verificación.

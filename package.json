@@ -7,6 +7,9 @@
   },
   "scripts": {
     "dev": "next dev",
+    "worlds:serve": "python scripts/worlds/serve.py",
+    "worlds:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/worlds/check.ts",
+    "worlds:test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/worlds/__tests__/*.test.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

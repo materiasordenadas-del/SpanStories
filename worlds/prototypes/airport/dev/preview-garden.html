@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>preview · jardín del pórtico</title>
+<style>body{margin:0}</style>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<body>
+<script type="module">
+import * as T from '../engine/three.js';
+import { buildPorticoGarden } from '../engine/PorticoGarden.js';
+
+const renderer = new T.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+const scene = new T.Scene();
+scene.background = new T.Color(0x9ecdeb);
+const camera = new T.PerspectiveCamera(50, innerWidth / innerHeight, .1, 300);
+const params = new URLSearchParams(location.search);
+const angle = params.get('angle') || 'front';
+if (angle === 'front') camera.position.set(2, 3, 12);
+else if (angle === 'side') camera.position.set(-10, 3, 16);
+else camera.position.set(-24, 4, 6);
+camera.lookAt(-17, 2.6, -5);
+
+scene.add(new T.AmbientLight(0xffffff, 1.2));
+const sun = new T.DirectionalLight(0xffffff, 1.4); sun.position.set(6, 10, 8); scene.add(sun);
+
+const scope = { own: r => r, defer: () => {} };
+const kit = { box: new T.BoxGeometry(1, 1, 1), materials: { trim: new T.MeshBasicMaterial({ color: 0xcfd6da }) } };
+const group = new T.Group(); scene.add(group);
+const garden = buildPorticoGarden({ scope, kit, group, movable: (o, l) => (o.userData.movable = { label: l }, o) });
+
+const ground = new T.Mesh(new T.PlaneGeometry(140, 140), new T.MeshBasicMaterial({ color: 0x62a444 }));
+ground.rotation.x = -Math.PI / 2; scene.add(ground);
+
+let n = 0;
+(function loop() {
+  garden.update(1 / 60, camera, new T.Vector3());
+  renderer.render(scene, camera);
+  if (++n < 12) requestAnimationFrame(loop);
+})();
+</script>
+</body>

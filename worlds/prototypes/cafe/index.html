@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · STARBACK · Cafetería</title>
+<link rel="stylesheet" href="panel/panel.css">
+<link rel="stylesheet" href="cafeteria.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>☕ SpanStories / Cafetería STARBACK</strong><span>Español neutro · 1 unidad = 1 metro</span></header>
+<main>
+  <section id="viewport" aria-label="Cafetería 3D">
+    <div id="cover">Preparando el café…</div>
+    <div id="zone-tag" aria-hidden="true"></div>
+    <div id="nombre" role="status" hidden></div>
+    <div id="dialogo" aria-live="polite" hidden></div>
+    <div id="help-overlay">WASD o flechas para caminar · arrastra para mirar · pulsa un objeto para saber cómo se llama</div>
+    <div id="cruceta" aria-label="Caminar" hidden><button data-tecla="KeyW" aria-label="Adelante">▲</button><button data-tecla="ArrowLeft" aria-label="Girar a la izquierda">⟲</button><button data-tecla="KeyS" aria-label="Atrás">▼</button><button data-tecla="ArrowRight" aria-label="Girar a la derecha">⟳</button></div>
+    <button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button>
+  </section>
+  <!-- Orden fijo del panel en TODOS los proyectos (PANEL.md): 1 Escena · 2 Luz y estilo · 3 Calidad · 4 Diagnóstico -->
+  <aside id="panel" hidden>
+    <h1>STARBACK</h1>
+    <section id="panel-escena">
+      <h3>Escena</h3>
+      <label>Moneda de los precios <select id="moneda"></select></label>
+      <h2 id="zona">Preparando…</h2>
+      <div id="vistas" class="vistas" aria-label="Ir a"></div>
+      <fieldset id="pedido">
+        <legend>Tu pedido</legend>
+        <label>Bebida <select id="p-bebida"></select></label>
+        <label>Tamaño <select id="p-tamano"></select></label>
+        <label>Leche <select id="p-leche"></select></label>
+        <label>¿Aquí o para llevar? <select id="p-para"><option value="llevar">Para llevar</option><option value="aqui">Para tomar aquí</option></select></label>
+        <label>Tu nombre <input id="p-nombre" maxlength="16" placeholder="Ana" autocomplete="off"></label>
+        <p id="p-precio">—</p>
+        <button id="p-pedir">Pedir en caja</button>
+      </fieldset>
+      <p id="status" role="status">Iniciando WebGL…</p>
+    </section>
+    <section id="panel-estilo"></section>
+    <section id="panel-calidad">
+      <h3>Calidad</h3>
+      <label>Calidad <select id="quality"><option>HIGH</option><option selected>STANDARD</option><option>ECO</option></select></label>
+    </section>
+    <section id="panel-diagnostico"><details><summary>Diagnóstico y mediciones</summary><pre id="metrics">—</pre>
+      <p>Eventos: <code>cafeteria:pedido</code>, <code>cafeteria:listo</code>, <code>cafeteria:recogido</code>, <code>cafeteria:moneda</code>, <code>cafeteria:objeto</code>. API: <code>window.cafeteria</code> (ir, moneda, pedir, recoger, limpiar). URL: <code>?moneda=MXN&amp;vista=caja</code>.</p></details></section>
+  </aside>
+</main>
+<script type="module" src="main.js"></script>
+</html>

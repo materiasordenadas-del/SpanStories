@@ -1,0 +1,25 @@
+{
+  "catalogoId": "glb-9514bbcb9eb64786",
+  "nombre": "hotel room",
+  "rutaOrigen": "hotel/hotel_room.glb",
+  "sha256Origen": "93a95097db6ceccb8b5c0a346949f9aef3654a2290a5327386e7c229d3ee2acf",
+  "modelo": "modulos.glb",
+  "formatoOrigen": "glb",
+  "autor": "desconocido",
+  "licencia": "desconocida",
+  "extensiones": [],
+  "animaciones": 0,
+  "adaptacionEstilo": "pendiente",
+  "seleccionSemantica": "pendiente",
+  "verificacionVisual": "pendiente",
+  "nodosSemanticos": [
+    "bed",
+    "bed_2",
+    "bedsidetable",
+    "bedsidetable (2)",
+    "tv"
+  ],
+  "preparacion": "Solo subconjunto semántico; sin texturas, cámaras o luces",
+  "bytesOriginal": 3965420,
+  "bytesDerivado": 75024
+}

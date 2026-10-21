@@ -1,0 +1,61 @@
+{
+  "source": "D:\\Español\\imagen para animación\\Animación 3D\\personajes\\samuel\\Samuel_con_rostro_manos.glb",
+  "sourceSha256": "14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f",
+  "sourceUnchanged": true,
+  "output": "D:\\Español\\SpanStories-Ciudades\\assets\\avatar\\Samuel.glb",
+  "outputSha256": "66ba6c60d96fd6fd0815c0f6313e012c19f6d74bea3080e093822bd80ff7dbe2",
+  "sourceBytes": 40391656,
+  "bytes": 22404100,
+  "nodes": 71,
+  "meshes": 4,
+  "skins": 1,
+  "animations": [
+    "restpose",
+    "Walking",
+    "Samuel_Juan_Facial_Eyebrows",
+    "Samuel_Juan_Facial_Eyes",
+    "Samuel_Juan_Facial_Mouth"
+  ],
+  "images": [
+    {
+      "name": "texture_0_normal",
+      "sourceSize": [
+        4096,
+        4096
+      ],
+      "size": [
+        2048,
+        2048
+      ],
+      "sourceBytes": 8770089,
+      "bytes": 3423532,
+      "mimeType": "image/png"
+    },
+    {
+      "name": "texture_0",
+      "sourceSize": [
+        4096,
+        4096
+      ],
+      "size": [
+        2048,
+        2048
+      ],
+      "sourceBytes": 8468246,
+      "bytes": 1178706,
+      "mimeType": "image/jpeg"
+    }
+  ],
+  "estimatedTextureRgbaMipBytesBefore": 268435456.0,
+  "estimatedTextureRgbaMipBytesAfter": 44739242.666666664,
+  "changes": [
+    "unused animation buffers omitted",
+    "albedo/normal max 2048",
+    "matte materials omit metallic/specular texture",
+    "albedo JPEG quality 95; normal/alpha PNG"
+  ],
+  "limitations": [
+    "texture estimate excludes geometry/renderer, not a measured GPU allocation",
+    "visual integration must be checked in browser"
+  ]
+}

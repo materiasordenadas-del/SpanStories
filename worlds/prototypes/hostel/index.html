@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Hostal Santa Marta</title>
+<link rel="stylesheet" href="panel/panel.css">
+<link rel="stylesheet" href="hostal.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>HOSTAL SANTA MARTA <small>HOSTAL · HOSTEL · COLOMBIA</small></strong><span>SpanStories · casa colonial con patio</span></header>
+<main>
+  <section id="viewport" aria-label="Escena 3D"><button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button>
+    <nav id="zonas" aria-label="Zonas del hostal"></nav>
+    <div id="zona-titulo"><small>HOSTAL SANTA MARTA</small><h1>La calle</h1><p></p></div>
+    <p id="nombre" role="status" aria-live="polite" hidden></p>
+    <div id="acciones" aria-label="Acciones de la zona"></div>
+    <p id="mensaje" role="status" aria-live="polite">Toca un objeto para oír su nombre.</p>
+    <div id="caminar-controles" hidden aria-label="Caminar"><button data-walk="forward" aria-label="Caminar adelante">↑</button><button data-walk="left" aria-label="Caminar a la izquierda">←</button><button data-walk="back" aria-label="Caminar atrás">↓</button><button data-walk="right" aria-label="Caminar a la derecha">→</button></div>
+    <div id="vista-controles"><button id="first-person" aria-pressed="false">Primera persona</button><button id="overview">Vista general</button><button id="zoom-in" aria-label="Acercar">＋</button><button id="zoom-out" aria-label="Alejar">−</button><button id="rotate" aria-label="Girar vista">↻</button></div>
+  </section>
+  <!-- Orden fijo del panel en TODOS los proyectos (ver PANEL.md):
+       1 Escena · 2 Luz y estilo · 3 Calidad · 4 Diagnóstico -->
+  <aside id="panel" hidden>
+    <h1>Panel</h1>
+    <section id="panel-escena"><h3>Escena</h3><p id="status" role="status">Iniciando WebGL…</p>
+      <label>Moneda de los precios <select id="moneda"></select></label>
+      <label><input type="checkbox" id="voz" checked> Decir el nombre en voz alta</label>
+      <label>Objeto <select id="objeto-seleccionado" aria-label="Seleccionar objeto"></select></label>
+      <p id="seleccion-status" role="status" aria-live="polite">Sin selección.</p>
+      <button id="accion-objeto" disabled>Usar objeto</button>
+      <label><input type="checkbox" id="ocultar-objeto"> Ocultar objeto seleccionado</label>
+    </section>
+    <section id="panel-estilo"></section>
+    <section id="panel-calidad">
+      <h3>Calidad</h3>
+      <label>Detalle <select id="quality"><option value="HIGH" selected>LOD 1 · Completo</option><option value="STANDARD">LOD 2 · Equilibrado</option><option value="ECO">LOD 3 · Ligero</option></select></label>
+    </section>
+    <section id="panel-diagnostico"><details><summary>Diagnóstico y mediciones</summary><pre id="metrics">—</pre></details></section>
+  </aside>
+</main>
+<footer>SpanStories · Hostal ficticio · Casa colonial del Caribe colombiano · Precios de ejemplo en pesos colombianos</footer>
+<script type="module" src="main.js"></script>
+</html>

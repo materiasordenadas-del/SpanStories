@@ -1,0 +1,16 @@
+{
+ "version": 1,
+ "id": "madrid",
+ "countryId": "es",
+ "label": "Madrid",
+ "zones": [
+  {
+   "id": "madrid-centro",
+   "label": "Centro (Sol · Gran Vía · Cibeles · Prado)",
+   "manifest": "Zonas/Centro/zona.json"
+  }
+ ],
+ "expansion": {
+  "norte": "AZCA y Castellana por el Paseo de Recoletos (pendiente)"
+ }
+}

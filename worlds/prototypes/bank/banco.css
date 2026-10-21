@@ -1,0 +1,112 @@
+:root{font:14px/1.5 system-ui,sans-serif;color:#e4eeec;background:#0c1b1d;color-scheme:dark;
+  --papel:#fbfaf6;--tinta:#1f2b2d;--teal:#0f5f66;--teal2:#2a8a8f;--oro:#e2a93b;--azul:#2f6fb0}
+*{box-sizing:border-box}body{margin:0;overflow:hidden}
+header{height:56px;padding:14px 22px;display:flex;justify-content:space-between;border-bottom:1px solid #1f3d40;background:#0f2427}
+header span{color:#9dbcb8}
+main{display:block;position:relative;height:calc(100vh - 56px);overflow:hidden}
+#viewport{position:relative;width:100%;height:100%;background:#15292b}
+canvas{display:block;width:100%;height:100%;cursor:grab}canvas:active{cursor:grabbing}
+#zone-tag{position:absolute;left:18px;top:16px;padding:7px 14px;border-radius:6px;background:#0f5f66e6;color:#fff;font-weight:700;letter-spacing:.02em;box-shadow:0 4px 16px #0006}
+#toast{position:absolute;left:50%;top:18px;transform:translateX(-50%);padding:9px 20px;border-radius:22px;background:#fbfaf6f2;color:#1f2b2d;font:600 16px system-ui,sans-serif;box-shadow:0 6px 22px #0007;pointer-events:none;max-width:80%;text-align:center}
+#toast.llamada{background:#1f9d55;color:#fff;font-size:19px}
+#nombre{position:absolute;left:50%;bottom:74px;transform:translateX(-50%);padding:6px 16px;border-radius:18px;background:#0f2427e8;color:#fff;font:600 18px Georgia,serif;pointer-events:none;border:1px solid #2a8a8f}
+#nombre small{display:block;text-align:center;font:12px system-ui;color:#9dbcb8}
+#help-overlay{position:absolute;left:18px;bottom:16px;padding:7px 12px;border-radius:5px;background:#0f2427cc;color:#e4eeec;font-size:12px;pointer-events:none;max-width:60%}
+#cover{position:absolute;inset:0;background:#0f2427;z-index:5;display:grid;place-content:center;text-align:center;font:600 24px system-ui;color:#e2a93b}
+#cover[hidden],#mi-turno[hidden],#accion[hidden],#nombre[hidden],#toast[hidden]{display:none}
+#mi-turno{position:absolute;left:18px;top:60px;display:grid;padding:8px 14px;border-radius:8px;background:#fbfaf6;color:#1f2b2d;box-shadow:0 6px 18px #0007;min-width:150px;border-top:5px solid #0f5f66}
+#mi-turno .etq{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#6b7075}
+#mi-turno b{font:800 30px system-ui;color:#0f5f66;line-height:1.1}#mi-turno span:last-child{font-size:12px;color:#445}
+#mi-turno.llamado{border-top-color:#1f9d55;animation:latido 1s ease-in-out infinite}
+@keyframes latido{50%{transform:scale(1.05)}}
+button,select,input{font:inherit}
+button,select{padding:8px 11px;border:1px solid #2c5558;border-radius:6px;background:#173336;color:#fff;cursor:pointer}
+button:hover{background:#21474b}button:disabled{opacity:.45;cursor:not-allowed}
+#panel-toggle{position:absolute;z-index:4;top:15px;right:18px;background:#0f5f66ee;border-color:#2a8a8f;box-shadow:0 4px 16px #0006}
+#accion{position:absolute;z-index:4;left:50%;bottom:18px;transform:translateX(-50%);background:#e2a93b;border-color:#f3cf7a;color:#1f2b2d;font-weight:800;font-size:16px;padding:10px 20px;box-shadow:0 6px 18px #0008}
+#accion:hover{background:#f3cf7a}
+#trip-panel{position:absolute;z-index:3;right:0;top:0;bottom:0;width:min(340px,100%);padding:64px 22px 22px;background:#0f2427f2;box-shadow:-12px 0 35px #0008;overflow:auto}
+#trip-panel[hidden]{display:none}
+aside h1{font:700 26px system-ui;margin:0;color:#e2a93b}aside h2{font-size:18px;color:#bfe0da;margin:10px 0}aside p{color:#9dbcb8}
+.saldo b{color:#f3cf7a}
+.vistas{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0 16px}
+.vistas button{font-size:13px;text-align:left}.vistas button.activa{background:#0f5f66;border-color:#2a8a8f}
+label{display:block;margin:10px 0}
+fieldset.light{margin:14px 0;padding:4px 12px 2px;border:1px solid #1f3d40;border-radius:6px}
+fieldset.light legend{padding:0 6px;color:#e2a93b;font-weight:700}#grosor{vertical-align:middle;width:120px}#grosor-valor{font-size:12px;color:#9dbcb8}
+.dev{margin-top:18px;border-top:1px solid #1f3d40;padding-top:10px}.dev summary{cursor:pointer;color:#9dbcb8}.hint{font-size:12px}
+pre{font:11px/1.5 Consolas,monospace;white-space:pre-wrap;padding:8px;background:#081416;border-radius:5px;max-height:160px;overflow:auto}
+code{font-size:11px;color:#bfe0da}
+
+.misiones{margin:6px 0 14px;padding:8px 12px;border:1px solid #1f3d40;border-radius:6px}
+.misiones h3{margin:0 0 4px;font-size:15px;color:#e2a93b;display:flex;justify-content:space-between}
+.misiones ol{margin:0;padding-left:20px;color:#cfe0dd;font-size:13px}.misiones li{margin:3px 0}
+.misiones li.hecha{color:#6fd39a;text-decoration:line-through}.misiones li.hecha::marker{content:'✓  '}
+button.mini{font-size:12px;padding:3px 8px;margin-top:6px}
+#cruceta{position:absolute;z-index:4;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px);gap:6px}
+#cruceta[hidden]{display:none}
+body.tactil #help-overlay{display:none}body.tactil #accion{bottom:132px;max-width:calc(100% - 36px)}
+#cruceta button{font-size:22px;background:#0f2427cc;border-color:#2a8a8f;touch-action:none;user-select:none}
+#cruceta [data-tecla=KeyW]{grid-column:2}#cruceta [data-tecla=ArrowLeft]{grid-column:1;grid-row:2}#cruceta [data-tecla=KeyS]{grid-column:2;grid-row:2}#cruceta [data-tecla=ArrowRight]{grid-column:3;grid-row:2}
+/* ── Modales ─────────────────────────────────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#06100fa8;backdrop-filter:blur(3px);padding:16px}
+.modal[hidden]{display:none}
+.papel{position:relative;width:min(640px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--papel);color:var(--tinta);border-radius:12px;padding:24px 28px;box-shadow:0 20px 60px #000a;border-top:6px solid var(--teal)}
+.papel.pequeno{width:min(460px,100%)}
+.papel h2{font:700 24px system-ui;margin:0;color:var(--teal)}
+.papel .sub{margin:2px 0 12px;color:#6b7075}
+.cerrar{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;padding:0;font-size:22px;line-height:1;background:#1f2b2d;border:none;z-index:2}
+.pantalla-kiosco{font-weight:600}
+.servicios{display:grid;gap:10px;margin:12px 0}
+.servicio{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center;text-align:left;background:var(--teal);border:none;padding:12px 16px;border-radius:10px}
+.servicio.pref{background:var(--azul)}.servicio b{font:800 34px system-ui;text-align:center}
+.servicio span{font:700 17px system-ui}.servicio small{display:block;font:400 13px system-ui;opacity:.88}
+.servicio:hover{filter:brightness(1.12)}
+.nota{font-size:13px;color:#445;background:#e8f1ef;padding:8px 10px;border-radius:6px}
+/* conversación */
+.conversacion{display:flex;flex-direction:column;gap:10px;margin:8px 0 14px;max-height:46vh;overflow:auto;padding-right:4px}
+.burbuja{max-width:86%;padding:9px 13px;border-radius:14px;font-size:16px;line-height:1.4;position:relative}
+.burbuja.ellos{align-self:flex-start;background:#e3efed;border-bottom-left-radius:4px}
+.burbuja.yo{align-self:flex-end;background:var(--teal);color:#fff;border-bottom-right-radius:4px}
+.burbuja .quien{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:2px}
+.burbuja button{margin-left:6px;padding:1px 7px;font-size:12px;background:#ffffff22;border-color:#ffffff55;vertical-align:middle}
+.burbuja.ellos button{background:#0f5f6618;border-color:#0f5f6655;color:var(--teal)}
+.opciones{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.opciones .frase{flex-basis:100%;background:#0f5f660f;border-left:4px solid var(--teal);border-radius:6px;padding:8px 10px;margin:0}
+.frase .etiqueta{font-size:12px;color:#6b7075;text-transform:uppercase;letter-spacing:.06em}
+.frase p{margin:4px 0 6px;font:italic 600 17px Georgia,serif;color:var(--tinta)}
+.opciones button{background:#fff;color:var(--tinta);border:1px solid #b8cfcc}
+.opciones button:hover{background:#e8f1ef}
+.opciones button.primario{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:700}
+.opciones button.primario:hover{background:var(--teal2)}
+.opciones button.monto{min-width:88px;font-weight:700}
+/* ficha de depósito */
+.ficha{flex-basis:100%;display:grid;gap:8px;background:#fff;border:1px solid #b8cfcc;border-radius:8px;padding:12px 14px;border-top:5px solid var(--teal)}
+.ficha label{display:grid;gap:3px;margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#6b7075}
+.ficha input{font:16px Georgia,serif;color:var(--tinta);background:#fbfaf6;border:none;border-bottom:1px solid #9fb3b2;padding:4px 2px;text-transform:none;letter-spacing:0}
+.ficha input[readonly]{color:#6b7075}.ficha .pesos{display:flex;align-items:center;gap:4px;font:16px Georgia,serif;color:var(--tinta)}
+.ficha .aviso{margin:0;font-size:14px;color:#9e2b25;min-height:1.2em}
+.ficha .botones{display:flex;gap:8px;justify-content:flex-end}
+/* cajero automático */
+.atm-carcasa{position:relative;width:min(560px,100%);background:linear-gradient(#d7dadc,#b8bec3);border-radius:18px;padding:22px;box-shadow:0 20px 60px #000b;color:#fff}
+.atm-pantalla{background:linear-gradient(#12707a,#0a434a);border-radius:8px;border:10px solid #25272a;min-height:300px;display:flex;flex-direction:column}
+.atm-cabecera{display:flex;gap:8px;align-items:center;padding:8px 12px;background:#0a4349;font-size:13px;color:#bfe0da}
+.atm-logo{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 50% 70%,#e2a93b 38%,#0f5f66 40%)}
+#atm-cuerpo{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:14px;gap:10px;text-align:center}
+#atm-cuerpo h3{margin:0;font:700 22px system-ui}#atm-cuerpo p{margin:0;color:#bfe0da}
+.atm-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.atm-menu button{background:#ffffff1a;border:1px solid #ffffff55;padding:10px;font-weight:700}
+.atm-menu button:hover{background:#e2a93b;color:#1f2b2d}
+.nip{font:700 30px Consolas,monospace;letter-spacing:.4em;background:#06282c;padding:4px 16px;border-radius:6px;min-width:150px}
+.atm-teclado{display:grid;grid-template-columns:repeat(3,60px) 90px;gap:6px;justify-content:center;margin-top:14px}
+.atm-teclado button{background:#3a3d41;border:1px solid #25272a;font:700 18px system-ui;padding:8px 0}
+.atm-teclado .cancelar{background:#c2393a}.atm-teclado .borrar{background:#e2a93b;color:#1f2b2d}.atm-teclado .aceptar{background:#1f9d55}
+.vocab{margin:12px 0 0;font-size:13px;color:#1f2b2d;background:#ffffffaa;border-radius:6px;padding:6px 10px;min-height:1em}
+.vocab:empty{display:none}
+/* comprobante */
+.papel.ticket{width:min(360px,100%);font-family:'Courier New',monospace;border-radius:4px;border-top:none;background:#fdfcf8}
+.ticket h2{font:700 20px 'Courier New',monospace;color:var(--tinta);text-align:center}.centro{text-align:center;font-size:12px;margin:2px 0 12px}
+#comp-lineas{list-style:none;padding:0;margin:0 0 8px;border-top:1px dashed #999;border-bottom:1px dashed #999}
+#comp-lineas li{display:flex;justify-content:space-between;gap:10px;margin:5px 0;font-size:14px}#comp-lineas li.total{font-weight:700;font-size:16px;border-top:1px solid var(--tinta);padding-top:5px}
+.pie{font-style:italic}
+@media(max-width:760px){.papel{padding:20px 16px}header span{display:none}#help-overlay{font-size:11px;max-width:55%}.atm-teclado{grid-template-columns:repeat(3,48px) 70px}}

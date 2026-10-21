@@ -1,0 +1,4 @@
+{
+  "version": 1, "id": "es", "label": "España", "code": "ES",
+  "cities": [{"id": "barcelona", "manifest": "Ciudades/Barcelona/ciudad.json"}, {"id": "madrid", "manifest": "Ciudades/Madrid/ciudad.json"}]
+}

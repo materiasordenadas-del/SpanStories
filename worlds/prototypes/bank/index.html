@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Banco</title>
+<link rel="stylesheet" href="banco.css">
+<header><strong>🏦 SpanStories / Banco Horizonte</strong><span>Explora la sucursal · 1 unidad = 1 metro</span></header>
+<main>
+  <section id="viewport" aria-label="Banco 3D">
+    <div id="cover">Abriendo la sucursal…</div>
+    <div id="zone-tag" aria-hidden="true"></div>
+    <div id="toast" role="status" hidden></div>
+    <div id="nombre" role="status" hidden></div>
+    <div id="help-overlay">WASD para caminar · arrastra para mirar · pulsa un objeto para saber cómo se llama · saca turno en el kiosco o haz la fila para las cajas</div>
+    <div id="mi-turno" hidden><span class="etq">Tu turno</span><b id="mi-turno-codigo">—</b><span id="mi-turno-estado"></span></div>
+    <button id="accion" hidden></button>
+    <div id="cruceta" aria-label="Caminar" hidden><button data-tecla="KeyW" aria-label="Adelante">▲</button><button data-tecla="ArrowLeft" aria-label="Girar a la izquierda">⟲</button><button data-tecla="KeyS" aria-label="Atrás">▼</button><button data-tecla="ArrowRight" aria-label="Girar a la derecha">⟳</button></div>
+    <button id="panel-toggle" aria-controls="trip-panel" aria-expanded="false">Recorrido y opciones ☰</button>
+  </section>
+  <aside id="trip-panel" hidden>
+    <h1>Banco Horizonte</h1><p>Una sucursal bancaria típica: cajeros automáticos, turnos, la fila y las ventanillas.</p>
+    <h2 id="zone">Preparando…</h2>
+    <div id="vistas" class="vistas" aria-label="Ir a"></div>
+    <p class="saldo">Tu cuenta: <b id="saldo">—</b></p>
+    <section class="misiones"><h3>Misiones <span id="misiones-cuenta"></span></h3><ol id="misiones"></ol><button id="misiones-reiniciar" class="mini">Empezar de nuevo</button></section>
+    <fieldset class="light">
+      <legend>Luz y estilo</legend>
+      <label>Ambiente <select id="ambiente"></select></label>
+      <label><input type="checkbox" id="contorno" checked> Contorno cartoon</label>
+      <label><input type="checkbox" id="reflejos" checked> Suelo encerado</label>
+      <label><input type="checkbox" id="sonido" checked> Timbre y voz de los turnos</label>
+      <label>Grosor del trazo <input type="range" id="grosor" min="0.6" max="3" step="0.1" value="1.4"> <output id="grosor-valor">1.4 px</output></label>
+    </fieldset>
+    <label>Calidad <select id="calidad"><option value="1.75">Alta</option><option value="1.25" selected>Estándar</option><option value="0.85">Ligera</option></select></label>
+    <p id="status" role="status">Iniciando WebGL…</p>
+    <details class="dev"><summary>Para las historias</summary>
+      <p class="hint">Eventos del documento: <code>banco:turno</code>, <code>banco:llamada</code>, <code>banco:operacion</code>, <code>banco:cajero</code>, <code>banco:objeto</code>. API: <code>window.banco</code> (ir, sacarTurno, llamar, ventanilla, cajero, saldo).</p>
+      <pre id="eventos"></pre>
+    </details>
+  </aside>
+</main>
+
+<!-- Tique del kiosco -->
+<div id="kiosco" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="kiosco-titulo">
+  <div class="papel pequeno">
+    <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+    <h2 id="kiosco-titulo">Kiosco de turnos</h2>
+    <p class="pantalla-kiosco">Bienvenido. Elija un servicio:</p>
+    <div class="servicios">
+      <button data-servicio="A" class="servicio"><b>A</b><span>Atención al cliente<small>Cuentas, tarjetas y préstamos</small></span></button>
+      <button data-servicio="P" class="servicio pref"><b>P</b><span>Caja preferencial<small>Embarazadas, adultos mayores, personas con discapacidad</small></span></button>
+    </div>
+    <p class="nota">Para depósitos, retiros y pagos en caja no hace falta turno: <b>haga la fila única</b>.</p>
+  </div>
+</div>
+
+<!-- Diálogo (ventanilla, información, módulo) -->
+<div id="dialogo" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="dialogo-titulo">
+  <div class="papel dialogo">
+    <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+    <h2 id="dialogo-titulo">Ventanilla</h2>
+    <p id="dialogo-sub" class="sub"></p>
+    <div id="conversacion" class="conversacion" aria-live="polite"></div>
+    <div id="opciones" class="opciones"></div>
+  </div>
+</div>
+
+<!-- Cajero automático -->
+<div id="atm" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="atm-titulo">
+  <div class="atm-carcasa">
+    <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+    <div class="atm-pantalla"><div class="atm-cabecera"><span class="atm-logo"></span><span id="atm-titulo">Banco Horizonte · Cajero automático</span></div>
+      <div id="atm-cuerpo"></div></div>
+    <div class="atm-teclado" id="atm-teclado"></div>
+    <p class="vocab" id="atm-vocab"></p>
+  </div>
+</div>
+
+<!-- Comprobante -->
+<div id="comprobante" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="comp-titulo">
+  <div class="papel ticket">
+    <button class="cerrar" data-cerrar aria-label="Cerrar">×</button>
+    <h2 id="comp-titulo">Banco Horizonte</h2>
+    <p class="centro" id="comp-sub"></p>
+    <ul id="comp-lineas"></ul>
+    <p class="centro pie" id="comp-pie"></p>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</html>

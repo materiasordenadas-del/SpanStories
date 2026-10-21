@@ -1,0 +1,1571 @@
+{
+  "sourceRoot": "D:\\Español\\imagen para animación",
+  "places": [
+    {
+      "id": "airport",
+      "source": "D:\\Español\\imagen para animación\\Aeropuerto_v2",
+      "destination": "worlds/prototypes/airport",
+      "files": [
+        {
+          "path": "assets/animales/paloma.glb",
+          "sha256": "d456b9407dad21185f844de24d2efcd87f51a7ad786dd0073fea105b8e1f5227",
+          "bytes": 7809124
+        },
+        {
+          "path": "assets/animales/rabbit_rigged.glb",
+          "sha256": "6fa69d096723b407bc59e1474b805de7c1dc6461fdc14b4dbc3b3bd5b3a0d4bd",
+          "bytes": 324608
+        },
+        {
+          "path": "assets/animales/running_tiger.glb",
+          "sha256": "6e152d1d98c6149d4241c292bf21cbc9e8ab16f81a456ea1515d174f7f7d1e40",
+          "bytes": 1996448
+        },
+        {
+          "path": "assets/bromelia.glb",
+          "sha256": "f442b082507afb4475f75f4b8255c18a77a837b863651e69d22705afac044a2d",
+          "bytes": 2416116
+        },
+        {
+          "path": "assets/clouds/cloud-a.png",
+          "sha256": "9c8ad8ca7b7776534eee450edcc0d51e4a921e06487a0de4a12c8e24059545af",
+          "bytes": 488301
+        },
+        {
+          "path": "assets/clouds/cloud-b.png",
+          "sha256": "e4a87e0ef63089e35a4b7348cb5319ba7f03394ce7e5d35a3ee0e8b34201c069",
+          "bytes": 963295
+        },
+        {
+          "path": "assets/d05/far.webp",
+          "sha256": "4c85e971591e7cfd446d27a23efae61040a2f6eab57cfcecbe2a4196b600bd78",
+          "bytes": 77680
+        },
+        {
+          "path": "assets/d05/mid.webp",
+          "sha256": "d53a1269bddd62ba553076505ae27650c5e4a93cb8508bab0635c1dd9e4ffc36",
+          "bytes": 40694
+        },
+        {
+          "path": "assets/d05/near.webp",
+          "sha256": "c8e56e3eca5bcbbb80bf6842e5fda51e1391209f593835692c03510b6bfa2e3f",
+          "bytes": 10328
+        },
+        {
+          "path": "assets/d05/plane_ground.webp",
+          "sha256": "544942a251378bf3ae31e576407453017903df332cd4af64ada5e7b8bf7ecadb",
+          "bytes": 13870
+        },
+        {
+          "path": "assets/d05/plane_side.webp",
+          "sha256": "a1ecf859e436ba8ba3e2ff5fbbe14b3507da0427f3b2f94d52901ed9bf431612",
+          "bytes": 14394
+        },
+        {
+          "path": "assets/entrance-bush-flat.svg",
+          "sha256": "5c7de171a96e9571dc01ecade40b28546f24a017f43bcc8f513cb53f15c962c4",
+          "bytes": 1251
+        },
+        {
+          "path": "assets/entrance-bush-toon.png",
+          "sha256": "df63f2bd814d14c5a160817d9205ec496935d0eaa295462edd64227f09eddda2",
+          "bytes": 1167525
+        },
+        {
+          "path": "assets/entrance-bush.png",
+          "sha256": "64db74885da2ae6beccda1a4ee2479d6ede48727953bf819c85ce2dc1525f337",
+          "bytes": 2293427
+        },
+        {
+          "path": "assets/entrance-palm-frond-toon.png",
+          "sha256": "a92f4bb772e3ec77979ee40fa9035a3041539495c7bf8af1ed87253b009e9846",
+          "bytes": 770591
+        },
+        {
+          "path": "assets/entrance-palm-toon.png",
+          "sha256": "b712f8bb9fbd548ef6ab40e7c9d49b78ed9aa05068211c989b2965cff9fd5915",
+          "bytes": 1456730
+        },
+        {
+          "path": "assets/entrance-palm.png",
+          "sha256": "54ddd290f8d5c49c4faa92d26659ec473c3be9f83b6deabd65696dc0c2b03e12",
+          "bytes": 2061920
+        },
+        {
+          "path": "assets/entrance-shrub-atlas.png",
+          "sha256": "2dbf9591624bd64eec9e075545c346d651f347e49179068c4334091f605dc2fa",
+          "bytes": 1801246
+        },
+        {
+          "path": "assets/palm-tree-3d.glb",
+          "sha256": "ff175eeffadf509a8a1a1f6793049adf95b6c55b9f778ab5a0da3ed2bdf9ef03",
+          "bytes": 1875976
+        },
+        {
+          "path": "assets/palma-frontal.glb",
+          "sha256": "5db9cd786f268c62a731af6a370434de73e11673a7c1b3336eecd3640c9d05e7",
+          "bytes": 1614860
+        },
+        {
+          "path": "assets/planta-tropical.glb",
+          "sha256": "a74b8f45604fbf3e3015189aedc710c10f900c741675741db660c97589d72974",
+          "bytes": 2086588
+        },
+        {
+          "path": "assets/portales/A00-A01.webp",
+          "sha256": "61f9c570c5baeef74f1a3712cacaa7b4a8fcf85307326cd601d9a2bf782196f4",
+          "bytes": 38042
+        },
+        {
+          "path": "assets/portales/A01-A00.webp",
+          "sha256": "9a8129805be447e8c50a1a073a2b4df03e987d1fd1371398df918ccf7f0eca24",
+          "bytes": 23502
+        },
+        {
+          "path": "assets/portales/A01-A02.webp",
+          "sha256": "8f3188b0c05f07380422f858ff8881fa623d68a7e5b0638719150fb493208e79",
+          "bytes": 40596
+        },
+        {
+          "path": "assets/portales/A02-A01.webp",
+          "sha256": "ccf3f37d7f6b476b8403dfb6f36eba1cc713cf63c6583bdf1386e86825d34199",
+          "bytes": 40876
+        },
+        {
+          "path": "assets/portales/A02-A03.webp",
+          "sha256": "3aabb70430f7e2bcfda8ca841ffc3a79ec92713e21eb84d76186b0f6fe6fee64",
+          "bytes": 40368
+        },
+        {
+          "path": "assets/portales/A03-A02.webp",
+          "sha256": "df89d1095d01e8798e9ff632ead045f01cd2c736ac22569fcb5b2dad71cc4f35",
+          "bytes": 41402
+        },
+        {
+          "path": "assets/portales/A03-A04.webp",
+          "sha256": "f54979773e990915224076c90cf11825602d9bf89c5db555f0a7660d5d6606fb",
+          "bytes": 43918
+        },
+        {
+          "path": "assets/portales/A04-A03.webp",
+          "sha256": "2069a5fc9439c26f97e40886258217c526ecdffd6f0f48c819e9ae94c982bcdb",
+          "bytes": 30792
+        },
+        {
+          "path": "assets/portales/A04-A05.webp",
+          "sha256": "c54893e5d6eae3e2cf298dede14aead087d00adadbd6ec0b29941169a5ce09cb",
+          "bytes": 37374
+        },
+        {
+          "path": "assets/portales/A05-A04.webp",
+          "sha256": "7f0a587ae6455c6d74bc6643141ccc865b70c1e67758f910641cb2d5cdbc537c",
+          "bytes": 44768
+        },
+        {
+          "path": "assets/portales/D00-D01.webp",
+          "sha256": "96d9e314956ed45b9b6fceb802a4fc2477bfe6b0c2f216c28a866619b41d4efe",
+          "bytes": 56974
+        },
+        {
+          "path": "assets/portales/D01-D00.webp",
+          "sha256": "361454da34731bb47cf9a5d5b3b050e4f7f5072f782ee8667c3c44b7bb3a27c6",
+          "bytes": 55692
+        },
+        {
+          "path": "assets/portales/D01-D02.webp",
+          "sha256": "e49f0fca7c583614114af52c459082967762bb78542a11124e194b58b3dc2b59",
+          "bytes": 48760
+        },
+        {
+          "path": "assets/portales/D02-D01.webp",
+          "sha256": "9f87bce61547f17345476fa7358cd6924d5f03049fec93f8880a2a91891dcf48",
+          "bytes": 61824
+        },
+        {
+          "path": "assets/portales/D02-D03.webp",
+          "sha256": "8edcad2bd6e05fa1e6cf2afffaf4e3fd41a6ef9165891ed4182024ce3ca0aa82",
+          "bytes": 27864
+        },
+        {
+          "path": "assets/portales/D03-D02.webp",
+          "sha256": "b5c6f305cffa9e9b91d14d65c59ad1bead482dfac3b8f61937dc9070e49c9d06",
+          "bytes": 46624
+        },
+        {
+          "path": "assets/portales/D03-D04.webp",
+          "sha256": "f18fc094047f2fcf588746ef0ef310d46782b42ea1e3ec49db276c16919ce39c",
+          "bytes": 53026
+        },
+        {
+          "path": "assets/portales/D04-D03.webp",
+          "sha256": "a142b09422bb48998cacb9c8520d3376739d8ad225e85aaf046e31cee1b47f72",
+          "bytes": 37480
+        },
+        {
+          "path": "assets/portales/D04-D05.webp",
+          "sha256": "42646262487c3f19b96fc02f78583d926370156205798bdc83deb5ece31f0525",
+          "bytes": 58456
+        },
+        {
+          "path": "assets/portales/D05-D04.webp",
+          "sha256": "7e99639b158ff6d5e5c04d58f19deee46f6f4bffedb0e395448e2fa91657faf9",
+          "bytes": 53022
+        },
+        {
+          "path": "assets/portales/D05-D06.webp",
+          "sha256": "35f67e4e62a31f123b8da7e884cfdf237c3312b52ec135e8d211c9defb6270be",
+          "bytes": 25000
+        },
+        {
+          "path": "assets/portales/D06-D05.webp",
+          "sha256": "b866ccee8d50fcd5685d3357bba5a802d02eaaa08a6f5409d8e35bef16de692c",
+          "bytes": 53886
+        },
+        {
+          "path": "assets/trees/bush-1.png",
+          "sha256": "bbe88a5915a24af0f81d4fefbe4e350467d93363fb201383bb810cd681ccda17",
+          "bytes": 240683
+        },
+        {
+          "path": "assets/trees/bush-2.png",
+          "sha256": "8b72af3868e9c8f2d6872e94d13a8cec48ffb0f236fa4849103b95683524d55d",
+          "bytes": 161917
+        },
+        {
+          "path": "assets/trees/bush-3.png",
+          "sha256": "17dd570bb4807eeb71f584e7f0a2fd115146cd79f6d8d87a422588131e4f48ef",
+          "bytes": 109729
+        },
+        {
+          "path": "assets/trees/bush-4.png",
+          "sha256": "91c7972f60c8f66253db5ffb399feca923ee86deb9ac017eb4be8915b672b0f6",
+          "bytes": 292360
+        },
+        {
+          "path": "assets/trees/bush-5.png",
+          "sha256": "1ae302fe7286293b8b7518d917bb5a997497dc2ca70fcf1623c079e88ba14d8e",
+          "bytes": 133203
+        },
+        {
+          "path": "assets/trees/fuente-atlas.png",
+          "sha256": "14a6bdeb470ac49a6614cb3e29e965470e9d5bcaa7039e179fb5c5ecf2d7e574",
+          "bytes": 1913536
+        },
+        {
+          "path": "assets/trees/manifest.json",
+          "sha256": "4ac01d7d103bc5ad57ad09fbeac53e400dba274f94a1eb31483e1cc60bb27ca4",
+          "bytes": 689
+        },
+        {
+          "path": "assets/trees/tree-1-layers.png",
+          "sha256": "766a43f774337690097b688c8f3e9a1d2f39e5abe6e2bf26db87de0428efc7d3",
+          "bytes": 60404
+        },
+        {
+          "path": "assets/trees/tree-1.png",
+          "sha256": "45dda08a57cbc5d44147af9fa8ff0ea63b15104a756497d5f877361c6675cc84",
+          "bytes": 327747
+        },
+        {
+          "path": "assets/trees/tree-2-layers.png",
+          "sha256": "d6a8f4f81cc66a98b1cbcaa4f9e5708762494e91dec142165aa8d73ddd9d657f",
+          "bytes": 60253
+        },
+        {
+          "path": "assets/trees/tree-2.png",
+          "sha256": "92c1a7abcaec33292d0744f6bfeee321691b0787cf59f7dabed4265ce1eebf7a",
+          "bytes": 335537
+        },
+        {
+          "path": "assets/trees/tree-3-layers.png",
+          "sha256": "dfcea6ec4cd44e24d84e68ddd176cfa73955155b49f2ce2ed2ea22878654b261",
+          "bytes": 57922
+        },
+        {
+          "path": "assets/trees/tree-3.png",
+          "sha256": "dd2e36b01a8c810287965f6caa5bc8564fa2bfeb6f9f2dcac316b1d669e8ff94",
+          "bytes": 337755
+        },
+        {
+          "path": "assets/trees/tree-4-layers.png",
+          "sha256": "c30672befcf3be5b0264d15b7e7deed09f9714033f5bd088a7155777fb588e0c",
+          "bytes": 830260
+        },
+        {
+          "path": "assets/trees/tree-4.png",
+          "sha256": "8606ebced23ca169809c41a1b43a60fbe25450d1f3025d28ce1a51825a6386f6",
+          "bytes": 289336
+        },
+        {
+          "path": "assets/trees/tree-manifest.js",
+          "sha256": "f1d93c9b075ee1d08ff4bcda03c0c0d514c42a3682a7ae4e97f75c5db70ea04a",
+          "bytes": 475
+        },
+        {
+          "path": "capture.html",
+          "sha256": "78224ac3bcc997dc99a2b346b7fdbbf519d51228f79022b48f1ddd4803897ea0",
+          "bytes": 18747
+        },
+        {
+          "path": "dev/capturar-portales.js",
+          "sha256": "294c9204313115ac18df8f83270b83edff39a4c1424eb89728483ecfe191c39d",
+          "bytes": 2410
+        },
+        {
+          "path": "dev/preview-d01.html",
+          "sha256": "e306911eb6aa68d61893ec238f0b32d14fb60d6d80df6ce2133f8b91ec7bb4d1",
+          "bytes": 7363
+        },
+        {
+          "path": "dev/preview-garden.html",
+          "sha256": "00f2121808e22dc6067c8d07eb0e8072ff24ff527fa73bc13321cf53e30e4a2e",
+          "bytes": 1729
+        },
+        {
+          "path": "engine/.backups/F0-index.html",
+          "sha256": "0c4547b789a0508692ddd29554ee8c800d1ec0db2cd097b21d79526b93cdcc45",
+          "bytes": 3664
+        },
+        {
+          "path": "engine/.backups/F0-lab.css",
+          "sha256": "e8120a5b329a513c20d18ead6a53db805c5558b6d955b0c799793d2edae4cf4d",
+          "bytes": 4423
+        },
+        {
+          "path": "engine/.backups/F0-lab.js",
+          "sha256": "a4d66a5d5766c8ceeaca90b8e1dd268892d00f2a222752f5a3e648d6dda0bad0",
+          "bytes": 30339
+        },
+        {
+          "path": "engine/.backups/F1-AirportChunk.js",
+          "sha256": "127aeed3d54e95007fa90ff578b7828ea321bed1589d72ecd24523b718c558bb",
+          "bytes": 25089
+        },
+        {
+          "path": "engine/.backups/F1-EntranceHall.js",
+          "sha256": "8d42a54e3619c56aac7b0711945143c95a9d7be3c960177359112d879b0a9764",
+          "bytes": 23224
+        },
+        {
+          "path": "engine/.backups/F2-AirportComponents.js",
+          "sha256": "70dd05ba4e19f701bf3f926ed8b402888c85a4bfdf46e90a09405bd3646a6391",
+          "bytes": 25156
+        },
+        {
+          "path": "engine/.backups/F2-EntranceHall.js",
+          "sha256": "028f66d6026746dec7ad5ad775c432a4ac7c62fa8181a8429a30b3baae18f4fc",
+          "bytes": 25519
+        },
+        {
+          "path": "engine/.backups/F2-lab.js",
+          "sha256": "a4d66a5d5766c8ceeaca90b8e1dd268892d00f2a222752f5a3e648d6dda0bad0",
+          "bytes": 30339
+        },
+        {
+          "path": "engine/.backups/F3-EntranceHall.js",
+          "sha256": "0403f60cac76b84ce00831c083b5c5d3257c6366f810783f11877134d3aaaa01",
+          "bytes": 31849
+        },
+        {
+          "path": "engine/.backups/F4-AirportChunk.js",
+          "sha256": "a7171acd27f3cad7f88f6031fed7bec55e4b0d212de55ead6af9e7b1ac1e655a",
+          "bytes": 25586
+        },
+        {
+          "path": "engine/.backups/F4-EntranceHall.js",
+          "sha256": "8d092af6495e42e03877a59825f0570243759f131553e26118d8921c65099f16",
+          "bytes": 37422
+        },
+        {
+          "path": "engine/.backups/F4-Luz25D.js",
+          "sha256": "f08ad070ef29d4960623af592292199ef9bf910b73109d4cceb881f064ada194",
+          "bytes": 27231
+        },
+        {
+          "path": "engine/AirportAudioSystem.js",
+          "sha256": "651fad9b67c070a4f4442f9376e2d713ba4e4d7b14784255e52d1d38a5bbdab5",
+          "bytes": 2149
+        },
+        {
+          "path": "engine/AirportChunk.js",
+          "sha256": "1df3f0d97cf7145c4e6013c95449f31c4aad9ce87b124daab1575a8c08dba6af",
+          "bytes": 27453
+        },
+        {
+          "path": "engine/AirportComponents.js",
+          "sha256": "1ec94711f5a7a67af4d95a93a4b7be27e139c95165543a8836936d3985d8322b",
+          "bytes": 21582
+        },
+        {
+          "path": "engine/AirportWorld.js",
+          "sha256": "92c017f6b338d1975c0e52ace05a17a701345119c44a17b4e51041c5bb5554ab",
+          "bytes": 1194
+        },
+        {
+          "path": "engine/ArrivalHalls.js",
+          "sha256": "9f994b5075b72d2193b3b295e1c7e65e346a932bde8adaf405eccb24d969053b",
+          "bytes": 15690
+        },
+        {
+          "path": "engine/AssetRegistry.js",
+          "sha256": "f6cfc13cdf2ff4abed863b041b61104dec8276064a3bb653df607070a4659371",
+          "bytes": 2296
+        },
+        {
+          "path": "engine/CheckinHall.js",
+          "sha256": "cbcdc564393422c0da1ccf2659850fea499e4b2132425ae9e947b430b022575b",
+          "bytes": 26548
+        },
+        {
+          "path": "engine/ConcourseHalls.js",
+          "sha256": "9586147cba8470797140af841d4fe3be75e36b1f7e75cdb80f37f3669139eb88",
+          "bytes": 20923
+        },
+        {
+          "path": "engine/EditorObjetos.js",
+          "sha256": "cdcfe20a95c95e7796de95125b75edf93c8f336475c43ac886a6970d796b4c34",
+          "bytes": 10185
+        },
+        {
+          "path": "engine/EntranceHall.js",
+          "sha256": "16bf95f98825bde576286fc81c0e054fc90c523dd307d1ee3a2bc6eaf5520620",
+          "bytes": 39339
+        },
+        {
+          "path": "engine/EntrancePalms.js",
+          "sha256": "b7e4cca794d6469306f12acef8264471fcffb4518726b5a30de6b190831aeb89",
+          "bytes": 4341
+        },
+        {
+          "path": "engine/ExteriorAnimals.js",
+          "sha256": "c364935678c44df5111ac4cf760f6ff0930ab4d3811c771a6538ee013b41339a",
+          "bytes": 8244
+        },
+        {
+          "path": "engine/ExteriorIllusion.js",
+          "sha256": "059e888baba590539382ab1b7ff0cc3d0fdacd89243017ad6b815a76634018b5",
+          "bytes": 62553
+        },
+        {
+          "path": "engine/GateApron.js",
+          "sha256": "2be2210bcd81375da6a5ace5f9db49938d682723035fdbbd191cfc2148d80771",
+          "bytes": 11636
+        },
+        {
+          "path": "engine/GLBAssetSource.js",
+          "sha256": "53667fab246d03176131abf293bc77407e3f5edf2a2bec2da36933b329807a3b",
+          "bytes": 2639
+        },
+        {
+          "path": "engine/GlossyFloor.js",
+          "sha256": "f7b5c5a25c4bbcc07c873c61f702b8920569089e219f3443953d2c6f3ececdd9",
+          "bytes": 5880
+        },
+        {
+          "path": "engine/GroundedBillboard.js",
+          "sha256": "c12fe48e61e523e339d68294b5f41a85090dbeba02dad930db223b83bb352d24",
+          "bytes": 5143
+        },
+        {
+          "path": "engine/HallKit.js",
+          "sha256": "6fe37f844615cddc1492dede3c0c940d303c87907bc797303215a96ddde89884",
+          "bytes": 16370
+        },
+        {
+          "path": "engine/LODController.js",
+          "sha256": "3686f520b5b46150b3e362e84b13f724b53064bdb2ba62ccd33738c3ff4d70cd",
+          "bytes": 621
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "0e3ec5818c84be0b09de6e4486128547612d374924c0a017c6786466c2d412ac",
+          "bytes": 28172
+        },
+        {
+          "path": "engine/PassportHall.js",
+          "sha256": "1828f794c2e192b74ef08c7a159fc89259152927ba97c660fd3e979e2f7c1888",
+          "bytes": 4123
+        },
+        {
+          "path": "engine/PerformanceController.js",
+          "sha256": "8b33234c177ec25acc044cd55c2bef232a2c01b5feb33eb49b59b65227b00afb",
+          "bytes": 1635
+        },
+        {
+          "path": "engine/PlayerController.js",
+          "sha256": "5992113540260a572e36cb5fb2dcdd5ed3f5b8a978c5f966107a8dd5041a2365",
+          "bytes": 3466
+        },
+        {
+          "path": "engine/PortalGate.js",
+          "sha256": "bfb9f5fd49f5a0f683b4844ea7a91b0c0044979c83bdf04891f97d499a919d5b",
+          "bytes": 1117
+        },
+        {
+          "path": "engine/PortalPreview.js",
+          "sha256": "a8ffda1f6700481f504d3abddc84894395ad34c037be48ab9932e28591cc6158",
+          "bytes": 4521
+        },
+        {
+          "path": "engine/PorticoGarden.js",
+          "sha256": "abf6d52754e43761875b9955a6f3427fba8af76c60245a0c85d458cfd8ae5855",
+          "bytes": 10623
+        },
+        {
+          "path": "engine/routes.js",
+          "sha256": "5cb64cbecfe498eddb90c4ccef2eeda3fef774f76feb27737b623f078d91a4df",
+          "bytes": 13305
+        },
+        {
+          "path": "engine/SecurityHall.js",
+          "sha256": "96cb2966c198f5307029e7ef830fe76096b583ca32cc66f65d7997b355abe940",
+          "bytes": 7920
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "ba371607b1b7768c1941e9155f673b9ac328974e4a3a2316412b6c4c973d19ed",
+          "bytes": 201
+        },
+        {
+          "path": "engine/ThreeResources.js",
+          "sha256": "26effd1aac215633887965b0e7f5e5a8c68e993a94611ebf42d95a24534bd77f",
+          "bytes": 13168
+        },
+        {
+          "path": "engine/TropicalPlants.js",
+          "sha256": "28f40985598f948572a8a898c3fc48510577e9b1ce34aa9b04e9bd424b47015e",
+          "bytes": 5576
+        },
+        {
+          "path": "engine/ZoneManager.js",
+          "sha256": "e88facc7e9f32b6bf8f124d40e6c3e10fcb1e939b5e389bd2637876e9b14a97a",
+          "bytes": 4891
+        },
+        {
+          "path": "ESTILO.md",
+          "sha256": "3b1ab4333e144892dc94c4e092e235c414a2ee6df4cf44d7b24dc042887885c3",
+          "bytes": 6666
+        },
+        {
+          "path": "HANDOFF_SOL.md",
+          "sha256": "599b8479f4d26564105f551c54697ce4f917629a90ecc3b6bd14716daf21bc25",
+          "bytes": 2810
+        },
+        {
+          "path": "herramientas/generar-arboles.py",
+          "sha256": "562ba7093c9995624a1df59fe219a0e29d34c5129adbd79f52d568949eff5e6e",
+          "bytes": 7799
+        },
+        {
+          "path": "herramientas/recibir-portales.py",
+          "sha256": "d628813d16403d57db90b61438fe90ed710257ba7f5bbbf2741edd481e1e9812",
+          "bytes": 1182
+        },
+        {
+          "path": "herramientas/recortar-arboles.py",
+          "sha256": "c8ae1fef6b7272d35bf3ec8af0bb711c8244d7e251cfb340ebcbe569ac42ac48",
+          "bytes": 5510
+        },
+        {
+          "path": "index.html",
+          "sha256": "a2de622e1642ad7cb4af4c56dd77cec401b256f63f04e09f96e5dd72ac86493b",
+          "bytes": 3554
+        },
+        {
+          "path": "lab.css",
+          "sha256": "b9f4a73e253a0f98298cb2488a40e7ccc13752495462b5ed16081ac126c059fb",
+          "bytes": 3491
+        },
+        {
+          "path": "lab.js",
+          "sha256": "24283bd4fae125285a2a49a603adc1dcbdd9dbd8e180ee0fd2fcb8d7d2ea8637",
+          "bytes": 33063
+        },
+        {
+          "path": "Modelos/Maletas.glb",
+          "sha256": "bc9c1143b97e8e27d900760208f9fa27a9e0b2af3acd8ca1752054c7ab195c33",
+          "bytes": 2525028
+        },
+        {
+          "path": "Modelos/Meshy_AI_Crear_un_avión_comer_0923021642_texture.glb",
+          "sha256": "a836aa94c56a3f467c11ecb0a0bdaf30419b1ac4b1cf5fb15fc0a10a17690476",
+          "bytes": 15372192
+        },
+        {
+          "path": "package.json",
+          "sha256": "284397b16d95689f6f9bb476c88bbda73698252cef21c3bfe8e0673861f2230b",
+          "bytes": 243
+        },
+        {
+          "path": "posiciones.json",
+          "sha256": "d5b5983cd7db075bb48c5a81ddadaa751de7ebe127b196d54de13a57bcd73006",
+          "bytes": 2309
+        },
+        {
+          "path": "README.md",
+          "sha256": "6810b83204a8321d16502808cae4f6b386c935847b66045ba6822125d1708bb9",
+          "bytes": 18788
+        },
+        {
+          "path": "serve.log",
+          "sha256": "cb5d689ec7877360604670162a69781601e032e22e835f9256f0e268d4364051",
+          "bytes": 97037
+        },
+        {
+          "path": "serve.py",
+          "sha256": "26187c5b334fc159c57c26e7ae92f9aae36b53527ade6a140eb73752946e62fb",
+          "bytes": 2570
+        },
+        {
+          "path": "SpanStories_Airport_Architecture.md",
+          "sha256": "9a8ffeef1f74d8514ab88860c066add10fa75bd7b5e29b26ea70bb93b7e288ae",
+          "bytes": 46934
+        },
+        {
+          "path": "tests/engine.test.js",
+          "sha256": "e0011624e2abf8887ba86fb5e1a3e2fc71100b8410292346fe03dc078f2f7a68",
+          "bytes": 14635
+        },
+        {
+          "path": "validation/eco-security.txt",
+          "sha256": "798935a306db3379a3e0dfc1156ee6909e3736f99f7e0dd96bc39764bc5f54a3",
+          "bytes": 208
+        },
+        {
+          "path": "validation/RESULTADOS.md",
+          "sha256": "e11f345af37e6171cc95159c47afc04bfa7a05b6f4420790f998870688634273",
+          "bytes": 3171
+        },
+        {
+          "path": "validation/samuel-reference.png",
+          "sha256": "a43d128f5c87d4826dd48a673b37dbd915fa6b2e5378fbe763725956612ebb9e",
+          "bytes": 67881
+        },
+        {
+          "path": "validation/samuel-scale.json",
+          "sha256": "426f6739a440d5e2ac60ce9c5e85d3385fa916bbb6a8a1c44e225523237913c8",
+          "bytes": 1998
+        },
+        {
+          "path": "validation/samuel-unloaded.txt",
+          "sha256": "a4366192c60734382e1290c864110fd13d0c9ad49b89abf1def24875e23fbb0a",
+          "bytes": 204
+        },
+        {
+          "path": "validation/transitions-webgl.json",
+          "sha256": "fbef8bdf3cf2a1bedb7048eee7b23ee0d79138cc835dcb07a2c558d15c1c6978",
+          "bytes": 16180
+        },
+        {
+          "path": "validation/world-switch.json",
+          "sha256": "50a970e245c0640485e3d9d7a72426085d48e101b0f2507f0d1278d3cae758ea",
+          "bytes": 1711
+        },
+        {
+          "path": "vendor/BufferGeometryUtils.js",
+          "sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+          "bytes": 35539
+        },
+        {
+          "path": "vendor/GLTFLoader.js",
+          "sha256": "adbbafe8ce40416525b6be0ee5cac0d3782482bcf0122c8ca8ec1ffa77d3440b",
+          "bytes": 114732
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "bank",
+      "source": "D:\\Español\\imagen para animación\\Banco",
+      "destination": "worlds/prototypes/bank",
+      "files": [
+        {
+          "path": "app.js",
+          "sha256": "23293167f9e2231d3bd36b22fcbd93582f894a0310095963f705f2844e63cc06",
+          "bytes": 16682
+        },
+        {
+          "path": "banco.css",
+          "sha256": "caaed5650959f9e80040c288fc9c2efb8660aac0b686fabbf20874779968e35d",
+          "bytes": 11515
+        },
+        {
+          "path": "engine/Arquitectura.js",
+          "sha256": "1cdfe92b844f32b8fe8ae2c2dbb34e71c34b8fd55f4d1cab0e8dec147ca1153c",
+          "bytes": 12499
+        },
+        {
+          "path": "engine/config.js",
+          "sha256": "96c2cd85377b1a664ac832c5f0b8a406ca7eee01dd26466b9bb4fdcd4af792f9",
+          "bytes": 3866
+        },
+        {
+          "path": "engine/Exterior.js",
+          "sha256": "b28cdbf687589dcce7eab80299656380f4084962c07b12ce134880f594b2c79a",
+          "bytes": 17049
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "cc77cca1e63b0091019d0b424fe00cb9270b6d1d9dbd70a949d03022a00ca09b",
+          "bytes": 16536
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "60b5216bd9430f6485793c4bed806dd31b6873d627c0bd987bfee5683074de39",
+          "bytes": 29086
+        },
+        {
+          "path": "engine/Mostrador.js",
+          "sha256": "8c666dfebd7995950bdf930774bce9dd06ecab543a5030faa871e0e7350f75a2",
+          "bytes": 15289
+        },
+        {
+          "path": "engine/Planos.js",
+          "sha256": "40b346d8a717b5dd0dfbd35daf9f3ff481ed87f97c739e69de7849352a1a3562",
+          "bytes": 1773
+        },
+        {
+          "path": "engine/Reflejos.js",
+          "sha256": "8f23d00de645d839812723cfa386d02ba59397c0e51327955536cabea8b88b7d",
+          "bytes": 15510
+        },
+        {
+          "path": "engine/Rotulos.js",
+          "sha256": "61b32945af7ef14dee98773b73ad7d7a353e6a11d76e009f570e18706897576c",
+          "bytes": 33083
+        },
+        {
+          "path": "engine/Sala.js",
+          "sha256": "b300753c8da85f8d2e6e1c9fb82c886972e1acd9df297bdecd18a8bd83e0fec9",
+          "bytes": 28529
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "cc6be77efda0f9787665ff103c7c1d551bb800ed0da446d04432770d17fbd3be",
+          "bytes": 102
+        },
+        {
+          "path": "engine/Vestibulo.js",
+          "sha256": "087b78518a0a4a8acd22968b5d8dad0677e98b7b4dd42e1872d771add76d9356",
+          "bytes": 8276
+        },
+        {
+          "path": "index.html",
+          "sha256": "2164224356d39fbb317b0e27b113a1611effeb33252b67fd2c3920e8947170fe",
+          "bytes": 5465
+        },
+        {
+          "path": "PLAN.md",
+          "sha256": "9ce05b93c65f8579b7e2e8c6a1a085de9addd465a9f6b271ce6cd5fe96145071",
+          "bytes": 10979
+        },
+        {
+          "path": "serve.py",
+          "sha256": "071a85d0fccb122dde127c2b5279f937f77c3a5b1359e348f6eae801c5499123",
+          "bytes": 1573
+        },
+        {
+          "path": "ui.js",
+          "sha256": "0368051bf2cd2f09bcce3e0cd1210b1ba75e2db021b121e1212a918bde0c50a3",
+          "bytes": 46141
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "cafe",
+      "source": "D:\\Español\\imagen para animación\\Cafeteria",
+      "destination": "worlds/prototypes/cafe",
+      "files": [
+        {
+          "path": "cafeteria.css",
+          "sha256": "83c3af733ad49100878c4c1f4272e923de8695837ad47af641b326dc4b8e213c",
+          "bytes": 3113
+        },
+        {
+          "path": "engine/Barra.js",
+          "sha256": "a0e2273bef9b57b7f17d6025f39c9c62c4cb646fbc6c0d5e15edc1797cf66542",
+          "bytes": 26579
+        },
+        {
+          "path": "engine/Carta.js",
+          "sha256": "bbcc62473dc3b97538423fa6a8aa355b0a2698f7dc6c22045057a196e9eb3b1a",
+          "bytes": 4747
+        },
+        {
+          "path": "engine/config.js",
+          "sha256": "10bd118d9413040d0b973fbf9e283aa5b2eb50ecb82586c7284afa27d0f04965",
+          "bytes": 7238
+        },
+        {
+          "path": "engine/dimensions.js",
+          "sha256": "1db454078beea85681c8aa93a8c859105b61facd0052b01f6ec3224478a70918",
+          "bytes": 343
+        },
+        {
+          "path": "engine/GlossyFloor.js",
+          "sha256": "f7b5c5a25c4bbcc07c873c61f702b8920569089e219f3443953d2c6f3ececdd9",
+          "bytes": 5880
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "9657bba7545fb04d4fe0ee2f6c80c44c140c043a1893d3e4cbecf4f402ee639b",
+          "bytes": 14486
+        },
+        {
+          "path": "engine/layout.js",
+          "sha256": "c73805ba257e9cf1906a61d04b7b836b819616a286f9ccf4a7268943a002f3ce",
+          "bytes": 2070
+        },
+        {
+          "path": "engine/Local.js",
+          "sha256": "943963382f12c9dc01632c43ffa993ff1a403c31880506aae78ffaf06b657a06",
+          "bytes": 20563
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "66363a98cff8465f904e16408e6cce63abf9e125978b59eeae049ab2e1394a3d",
+          "bytes": 27685
+        },
+        {
+          "path": "engine/Marca.js",
+          "sha256": "04a7239f20ece26ab78a639dc6ee9d04f737f9e088433273560e2b062203e11b",
+          "bytes": 2313
+        },
+        {
+          "path": "engine/Moneda.js",
+          "sha256": "7accaae162ed57cf101925855a412a026f41dd0627a4d4afc9f35f65a4f44e05",
+          "bytes": 1846
+        },
+        {
+          "path": "engine/Salon.js",
+          "sha256": "507034aa0c16b6b97893dc972f39044193360a2125f8d5433669d92ef59725d5",
+          "bytes": 22772
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "86629102601155e8aac0d3d96dc06877689c791e8a4966e02079194201a4a9c1",
+          "bytes": 124
+        },
+        {
+          "path": "ESTILO.md",
+          "sha256": "699c1f9163171fcae9c9e3971ba0af4c18ac8c230003233c389d9dab50a2fa57",
+          "bytes": 6195
+        },
+        {
+          "path": "index.html",
+          "sha256": "35810b285dd355592f0db65a6aa5cd0067d0eadef746863a21c2949981c9f0c9",
+          "bytes": 3209
+        },
+        {
+          "path": "main.js",
+          "sha256": "407979501f652dc229a2cc276972a90b0e2729af5a6e2107a4da8de841d86fd2",
+          "bytes": 22816
+        },
+        {
+          "path": "package.json",
+          "sha256": "9c77eeac5fcb0fae35ac4e0f41e7822aed2296815d357abaa540bcdf7f87ab89",
+          "bytes": 181
+        },
+        {
+          "path": "panel/panel.css",
+          "sha256": "7bba360d7cb538aca67c54b92b0a48fc4e86abd800e93b09e689071585f6d307",
+          "bytes": 1766
+        },
+        {
+          "path": "panel/PanelEstilo.js",
+          "sha256": "c1ed560120ee6d66a2fd331263c1f84a5d670f37091dbbbe12001346cc86ebd0",
+          "bytes": 2479
+        },
+        {
+          "path": "PLAN.md",
+          "sha256": "13279c9e317326ec95fe9f6e15bc465ce8131d5f795145dab9b03e4fe06737a8",
+          "bytes": 9148
+        },
+        {
+          "path": "serve.py",
+          "sha256": "b86ddea79581b2cafa5e36249a2238890bc7ef98f426b8467bd1c987b91046fc",
+          "bytes": 1618
+        },
+        {
+          "path": "tests/luz.test.js",
+          "sha256": "cdf5ca6c632a7ea2e835339c35018af39eda71ccba87f4d55085d6b9385c633a",
+          "bytes": 734
+        },
+        {
+          "path": "tests/moneda.test.js",
+          "sha256": "aac1950d6adc563a3d399cd5416574e3bc8f23d77f2b9208d6d38413bd432713",
+          "bytes": 1338
+        },
+        {
+          "path": "tests/planta.test.js",
+          "sha256": "86211137241b381d84be765175f833608a7be322545ae71d9035598446160346",
+          "bytes": 3071
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "shop",
+      "source": "D:\\Español\\imagen para animación\\Comercio",
+      "destination": "worlds/prototypes/shop",
+      "files": [
+        {
+          "path": "comercio.css",
+          "sha256": "b20048f536270e89e17130384d16c57eeedd0145a1e0d7d199e99331667f7ce1",
+          "bytes": 1691
+        },
+        {
+          "path": "engine/config.js",
+          "sha256": "1865ee3acd854d441f5aade8be5cc62e6cafd6236e4cf80ad26bc86fc9466c76",
+          "bytes": 7020
+        },
+        {
+          "path": "engine/dimensions.js",
+          "sha256": "347f84685ffe4910aa8e31751ead243403511fd0050b0f42b58d1f1c15c12ff1",
+          "bytes": 275
+        },
+        {
+          "path": "engine/GlossyFloor.js",
+          "sha256": "f7b5c5a25c4bbcc07c873c61f702b8920569089e219f3443953d2c6f3ececdd9",
+          "bytes": 5880
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "785e89490349ec2bf36ac6666d15a7c8f120354563a6e92457f616c51b046001",
+          "bytes": 13849
+        },
+        {
+          "path": "engine/layout.js",
+          "sha256": "c73805ba257e9cf1906a61d04b7b836b819616a286f9ccf4a7268943a002f3ce",
+          "bytes": 2070
+        },
+        {
+          "path": "engine/Local.js",
+          "sha256": "db64c54bf5e053d814121ffd0523cfcb59f7c96870d18bfbcbe7ec499d03c90b",
+          "bytes": 15612
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "66363a98cff8465f904e16408e6cce63abf9e125978b59eeae049ab2e1394a3d",
+          "bytes": 27685
+        },
+        {
+          "path": "engine/Mobiliario.js",
+          "sha256": "09c6c66ec391fa30317137f5ab1c00e198c9ed06581aeb2f456aa9fd327e1f40",
+          "bytes": 21563
+        },
+        {
+          "path": "engine/Modo.js",
+          "sha256": "42e95d9a0b4ae42a6717a93f8b5905ac1297b2251edf88ce2d1bdeb9e05b243a",
+          "bytes": 11464
+        },
+        {
+          "path": "engine/Moneda.js",
+          "sha256": "6c8196e3d5ba7d05201f9f84a355fb1ecf1de1f6d3885f8ca40992dfcd984544",
+          "bytes": 2007
+        },
+        {
+          "path": "engine/Productos.js",
+          "sha256": "f57c268bf8dd1ca90ac55175224a94efd856bdc985c5ddd9426d88e54771eadf",
+          "bytes": 9025
+        },
+        {
+          "path": "engine/Rotulos.js",
+          "sha256": "3aeef40cc5af72a8fee3f80e49965d9aea275042212e45784341b28902736c4a",
+          "bytes": 10486
+        },
+        {
+          "path": "engine/Surtido.js",
+          "sha256": "f0981bd2976ca159955cf5c7169bf11b7f046f76cc5b684d7f92a6725655c10f",
+          "bytes": 15688
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "86629102601155e8aac0d3d96dc06877689c791e8a4966e02079194201a4a9c1",
+          "bytes": 124
+        },
+        {
+          "path": "ESTILO.md",
+          "sha256": "0190c37c8f298db328ccf1f3cba487a9491cef699f32de5e725c093f4fd15ee0",
+          "bytes": 6308
+        },
+        {
+          "path": "index.html",
+          "sha256": "f400df816676923f09a3a9f509a241b0f108da68c27ee3d133b3c4a21e668596",
+          "bytes": 2522
+        },
+        {
+          "path": "main.js",
+          "sha256": "89b9ac8afad5a8f087c123bdf97b6ba8f36f2b617e51fd3cbe0f9e7949a3dac0",
+          "bytes": 13864
+        },
+        {
+          "path": "package.json",
+          "sha256": "5b36664c5670cfdcb911ac6fc8e8ba812a1d2df52323e6defa525daf50e13326",
+          "bytes": 187
+        },
+        {
+          "path": "panel/panel.css",
+          "sha256": "7bba360d7cb538aca67c54b92b0a48fc4e86abd800e93b09e689071585f6d307",
+          "bytes": 1766
+        },
+        {
+          "path": "panel/PanelEstilo.js",
+          "sha256": "c1ed560120ee6d66a2fd331263c1f84a5d670f37091dbbbe12001346cc86ebd0",
+          "bytes": 2479
+        },
+        {
+          "path": "PLAN.md",
+          "sha256": "a9aa580a3a938b65815ba50fc33950da9a35899a621b8f86afb04afb1fff98e5",
+          "bytes": 8696
+        },
+        {
+          "path": "serve.py",
+          "sha256": "46de5b073507b062fb445b5514aa792a4103d68a318a10baf2e7d882d6a22f13",
+          "bytes": 1640
+        },
+        {
+          "path": "tests/luz.test.js",
+          "sha256": "cdf5ca6c632a7ea2e835339c35018af39eda71ccba87f4d55085d6b9385c633a",
+          "bytes": 734
+        },
+        {
+          "path": "tests/moneda.test.js",
+          "sha256": "4210d846b63c665661ed3ed12164f8665a1d0d70304d282b6951ae604e057e0b",
+          "bytes": 900
+        },
+        {
+          "path": "tests/planta.test.js",
+          "sha256": "03f6224a32280996ae92644cdc15283646e50d3ed9b8895c766166e3c7457ad4",
+          "bytes": 3181
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "pharmacy",
+      "source": "D:\\Español\\imagen para animación\\Farmacia",
+      "destination": "worlds/prototypes/pharmacy",
+      "files": [
+        {
+          "path": "app.css",
+          "sha256": "f2576b9624d166f3c43eff101c4b836a549af386cf865c357899617b9fdbba26",
+          "bytes": 3044
+        },
+        {
+          "path": "app.js",
+          "sha256": "739f0eb88acf9c32803578ea927959794d895ce143f32cef92be349bda360840",
+          "bytes": 10795
+        },
+        {
+          "path": "engine/Casco.js",
+          "sha256": "6f4cd70a06c646085672270fe08b55515a9e08e56f97437380773cf26abe4403",
+          "bytes": 21368
+        },
+        {
+          "path": "engine/config.js",
+          "sha256": "18822509df0ee643280ed4446b7e42f5bea4b20d791ae5aadc4a98ae85213fa1",
+          "bytes": 4493
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "4cc5ba8e77b032cb73ed4b804d9d13b00cac2b65b260929caf827e7139189c20",
+          "bytes": 17278
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "e8896620ac462be1da9a89d6e881a4cd009fb32d500cae56296d72732296a75a",
+          "bytes": 31131
+        },
+        {
+          "path": "engine/Mobiliario.js",
+          "sha256": "9d23b91ecbf806daf611bf5eb73b86008ae4ce859869a4ab4c6ca9d6d387c4d6",
+          "bytes": 33900
+        },
+        {
+          "path": "engine/Productos.js",
+          "sha256": "406dd4c23ee7e26e002a5b1f933d29811c37eddf7874cdbc58ef173f49761c90",
+          "bytes": 18079
+        },
+        {
+          "path": "engine/Reflejos.js",
+          "sha256": "8f23d00de645d839812723cfa386d02ba59397c0e51327955536cabea8b88b7d",
+          "bytes": 15510
+        },
+        {
+          "path": "engine/Rotulos.js",
+          "sha256": "e6389b854c801e1e2e1dddba59019bb482618071e99b2b8c78f2d610d3d8c2c5",
+          "bytes": 20668
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "cc6be77efda0f9787665ff103c7c1d551bb800ed0da446d04432770d17fbd3be",
+          "bytes": 102
+        },
+        {
+          "path": "index.html",
+          "sha256": "7e9c8eaab1dcfac81a9c966096c443b90c668dcf4de05a43b2877125e7199cb9",
+          "bytes": 1700
+        },
+        {
+          "path": "PLAN.md",
+          "sha256": "7cf50c1f1bdfea0e5c0d3b361e5be28c251352154dd8a15d54792999c66b5e4f",
+          "bytes": 9555
+        },
+        {
+          "path": "README.md",
+          "sha256": "b99782f34af0fa01ca07290fed167ae8f3f699db2f5ba512b7af6c7e886aed36",
+          "bytes": 1608
+        },
+        {
+          "path": "serve.py",
+          "sha256": "70148e8a9e79e8763aa13e850657673763003cecae7af1f52ea2dac386d283fa",
+          "bytes": 1587
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "bus-stop",
+      "source": "D:\\Español\\imagen para animación\\Parada",
+      "destination": "worlds/prototypes/bus-stop",
+      "files": [
+        {
+          "path": ".claude/launch.json",
+          "sha256": "39b0f993329c62b007ff0a6da0de8541021cad0b403b608b97e5ed650e3f3b15",
+          "bytes": 158
+        },
+        {
+          "path": "engine/Calle.js",
+          "sha256": "8e8ed36258c122a721d47dd105e7773d30f5fdc6e4e4ad6db08f46f46d9ec938",
+          "bytes": 7245
+        },
+        {
+          "path": "engine/dimensions.js",
+          "sha256": "e3ec13b1bc7c311d7eda91a0be9522e49e2a0caebd703bd44af9b6478a8c093d",
+          "bytes": 5355
+        },
+        {
+          "path": "engine/farmacia/Casco.js",
+          "sha256": "c31a8836a78c55e88b34602e982ced6c9133427927b2d01ef20c5273ce206376",
+          "bytes": 19248
+        },
+        {
+          "path": "engine/farmacia/config.js",
+          "sha256": "6eb3ccaec798878607515b6b39ad3f28e9d0d497f9ae67640810a043f59438e5",
+          "bytes": 4426
+        },
+        {
+          "path": "engine/farmacia/Rotulos.js",
+          "sha256": "c530c3a504e4ad58cb5b1247e4b58c98d35e81523f1537d2e4fe0b09509fd230",
+          "bytes": 20337
+        },
+        {
+          "path": "engine/GlossyFloor.js",
+          "sha256": "f7b5c5a25c4bbcc07c873c61f702b8920569089e219f3443953d2c6f3ececdd9",
+          "bytes": 5880
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "4cc5ba8e77b032cb73ed4b804d9d13b00cac2b65b260929caf827e7139189c20",
+          "bytes": 17278
+        },
+        {
+          "path": "engine/layout.js",
+          "sha256": "c73805ba257e9cf1906a61d04b7b836b819616a286f9ccf4a7268943a002f3ce",
+          "bytes": 2070
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "5b322a241f8c059ecf65c87a4ab037e971d113354bfca3b25bee157bccd2c71d",
+          "bytes": 30585
+        },
+        {
+          "path": "engine/Manzana.js",
+          "sha256": "37b37f97e32e26d42156f0c68a3bead151387a0caf84470fa5dccba0ff196a25",
+          "bytes": 7296
+        },
+        {
+          "path": "engine/Paradero.js",
+          "sha256": "20d2cba9586314f6b005e83df47a991557a6642ad1e9ffc3c56786d53f7e9cbc",
+          "bytes": 11035
+        },
+        {
+          "path": "engine/Reflejos.js",
+          "sha256": "8f23d00de645d839812723cfa386d02ba59397c0e51327955536cabea8b88b7d",
+          "bytes": 15510
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "86629102601155e8aac0d3d96dc06877689c791e8a4966e02079194201a4a9c1",
+          "bytes": 124
+        },
+        {
+          "path": "ESTILO.md",
+          "sha256": "3a92ef1514811d6e8c509daaaa0668d90ddc2f75b1b9dd8477e2fef69bc59f6e",
+          "bytes": 5828
+        },
+        {
+          "path": "index.html",
+          "sha256": "b752c0a60c9448ba8a9983983036baef6190a363d7fb27b157637b92cfa0aff0",
+          "bytes": 1301
+        },
+        {
+          "path": "main.js",
+          "sha256": "b1e709eac89a01145e1c54f747eaae78ac55eda1ba52d4387253e10a45c2df09",
+          "bytes": 4791
+        },
+        {
+          "path": "package.json",
+          "sha256": "b22f60432dcd74c503450b700613e3adf1f103e88cb89f68ad4593820a308158",
+          "bytes": 189
+        },
+        {
+          "path": "panel/panel.css",
+          "sha256": "7bba360d7cb538aca67c54b92b0a48fc4e86abd800e93b09e689071585f6d307",
+          "bytes": 1766
+        },
+        {
+          "path": "panel/PanelEstilo.js",
+          "sha256": "c1ed560120ee6d66a2fd331263c1f84a5d670f37091dbbbe12001346cc86ebd0",
+          "bytes": 2479
+        },
+        {
+          "path": "PLAN.md",
+          "sha256": "11739317402439c613a46d65e4740121a9709eff8784f5aada5c443b2eea7aa4",
+          "bytes": 2034
+        },
+        {
+          "path": "tests/luz.test.js",
+          "sha256": "7b670e5441d34f82677e5e83db8a03fcbce4a0be043cebacb0a0a9c98f500839",
+          "bytes": 950
+        },
+        {
+          "path": "tests/parada.test.js",
+          "sha256": "65c531e8b4c3d27d8e93eb7fff87bd487dbc1f910da0ea91244137c63f47645d",
+          "bytes": 2019
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    },
+    {
+      "id": "restaurant",
+      "source": "D:\\Español\\imagen para animación\\Restaurante",
+      "destination": "worlds/prototypes/restaurant",
+      "files": [
+        {
+          "path": "engine/Arquitectura.js",
+          "sha256": "25706b11d9e79a398cb1db9eba3957af79f12a9a900890029a743022ad3f5432",
+          "bytes": 13114
+        },
+        {
+          "path": "engine/Banos.js",
+          "sha256": "6fb6e862b72484fc09a3033c74f2f2eb151c9c1c2b94fd6fe60a24f33cbf166e",
+          "bytes": 11190
+        },
+        {
+          "path": "engine/Comedor.js",
+          "sha256": "406cc613d14ca02aa21d07c3bd63bd7c7c02a9d7caa5d50bc48b67fe8b34d92b",
+          "bytes": 29891
+        },
+        {
+          "path": "engine/Comida.js",
+          "sha256": "efd7ea7d211f7aa90937c5f713367d0c1e1a735429882a73304dbc3f47a3bde5",
+          "bytes": 7704
+        },
+        {
+          "path": "engine/config.js",
+          "sha256": "725a038127f606bf92dc862960eeb71731a570db45c38c41fc254bd9bd78bf47",
+          "bytes": 3121
+        },
+        {
+          "path": "engine/Decor.js",
+          "sha256": "ed9deef6a48318945083d05cb429597500d2b6bf067e0afa325006e9eba13624",
+          "bytes": 17260
+        },
+        {
+          "path": "engine/Exterior.js",
+          "sha256": "c4223046b0598676d476a1722ac492d0975fcf2d5051e89b117530266c7e17ce",
+          "bytes": 29470
+        },
+        {
+          "path": "engine/Kit.js",
+          "sha256": "66d839db427e994d027157ae2edfd16e41bae791b61d2d7e0467ea3ada89a061",
+          "bytes": 17470
+        },
+        {
+          "path": "engine/Luz25D.js",
+          "sha256": "b6a5a3d67b95b1cde9493720a39d3460d9f3d7a99eb50336a7a5334445340c82",
+          "bytes": 29296
+        },
+        {
+          "path": "engine/menu.js",
+          "sha256": "3e9ed0b1f8eedf9a145fa8684b87b5cb8be110c9867bdb84597d195b4d0b477b",
+          "bytes": 5686
+        },
+        {
+          "path": "engine/Puertas.js",
+          "sha256": "ae417099e2c8d85f12e267b9fa78497d957d1b9236ef043c3772dbdb77614fb2",
+          "bytes": 1295
+        },
+        {
+          "path": "engine/Recepcion.js",
+          "sha256": "a3c2e32d99adde0ccb90c2a21a80d2961a4e5a4f0a03efcfb8ec787acb593c07",
+          "bytes": 16294
+        },
+        {
+          "path": "engine/Reflejos.js",
+          "sha256": "8f23d00de645d839812723cfa386d02ba59397c0e51327955536cabea8b88b7d",
+          "bytes": 15510
+        },
+        {
+          "path": "engine/three.js",
+          "sha256": "cc6be77efda0f9787665ff103c7c1d551bb800ed0da446d04432770d17fbd3be",
+          "bytes": 102
+        },
+        {
+          "path": "index.html",
+          "sha256": "45b684866a256e62a721238aebe95490a7eb4adefa414570168d24a1ef8501a9",
+          "bytes": 6543
+        },
+        {
+          "path": "lab.css",
+          "sha256": "4c9e025ffdb99c93f7ad4202937704475c7344f4a404a0e664e1723eea8bdf1b",
+          "bytes": 8818
+        },
+        {
+          "path": "lab.js",
+          "sha256": "5c7fa16060f1279e29eeaa7a01b5a8be1caab850c222348ec94f3abe10745778",
+          "bytes": 17210
+        },
+        {
+          "path": "README.md",
+          "sha256": "26afd3aa7bc3ecb2c22f63d576416c2c292e098448fa3c63e4f4fc336a0a588d",
+          "bytes": 3675
+        },
+        {
+          "path": "serve.py",
+          "sha256": "be510f8f134059fe9cd79f4b46d0543944f969e3b53eb2a6fae1fcbc23b99896",
+          "bytes": 1597
+        },
+        {
+          "path": "ui.js",
+          "sha256": "17e882943f258e4d4f74b65e42cb0ba879d57de866046265ad5d3d0b34ec9f96",
+          "bytes": 16090
+        },
+        {
+          "path": "vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "bytes": 1403455
+        },
+        {
+          "path": "vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "bytes": 603113
+        }
+      ]
+    }
+  ],
+  "characterSources": [
+    {
+      "source": "D:\\Español\\imagen para animación\\directora\\Meshy_AI_Blonde_Commander_Port_0926211209_generate.glb",
+      "assetId": "sha256:474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918",
+      "sha256": "474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\directora\\traje marron .glb",
+      "assetId": "sha256:6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af",
+      "sha256": "6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\directora\\traje verde .glb",
+      "assetId": "sha256:7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8",
+      "sha256": "7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Gomez\\gomez con cara.glb",
+      "assetId": "sha256:0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022",
+      "sha256": "0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Gomez\\Meshy_AI_Welcoming_Grandpa_0922001233_texture.glb",
+      "assetId": "sha256:e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3",
+      "sha256": "e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D\\personajes\\gomez\\Gomez_con_cara_rig.glb",
+      "assetId": "sha256:071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6",
+      "sha256": "071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Kakashi\\Meshy_AI_Open_Armed_Oliver_0922210822_generate.glb",
+      "assetId": "sha256:6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c",
+      "sha256": "6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Hi3D_Modelo 3D de Cabeza de Anime Pastel Segmentada_allparts_20260924_142728.glb",
+      "assetId": "sha256:8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d",
+      "sha256": "8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Hi3D_Modelo 3D de personaje de caricatura estilizado con bloques de color_allparts_20260923_152343.glb",
+      "assetId": "sha256:782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db",
+      "sha256": "782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Hi3D_Untitled_allparts_20260924_210654.glb",
+      "assetId": "sha256:05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630",
+      "sha256": "05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Iam_para_meshy.glb",
+      "assetId": "sha256:d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73",
+      "sha256": "d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Iam_V3_optimizado_Sin_TEXTURA .glb",
+      "assetId": "sha256:292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623",
+      "sha256": "292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Meshy_AI_export_1790093384_part-segmentation.glb",
+      "assetId": "sha256:e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7",
+      "sha256": "e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\New link\\Iam+post+procesado+tripo.glb",
+      "assetId": "sha256:661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea",
+      "sha256": "661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\New link\\Iam_una_malla_sin_texturas (2).glb",
+      "assetId": "sha256:ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd",
+      "sha256": "ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\remesh\\Iam_personaje_optimizado.glb",
+      "assetId": "sha256:eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23",
+      "sha256": "eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Link\\Untitled.glb",
+      "assetId": "sha256:ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0",
+      "sha256": "ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D\\Iam_solo_malla.glb",
+      "assetId": "sha256:e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824",
+      "sha256": "e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D\\Iam_una_malla.glb",
+      "assetId": "sha256:9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176",
+      "sha256": "9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D\\Iam_una_malla_sin_texturas.glb",
+      "assetId": "sha256:207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761",
+      "sha256": "207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\meseros\\1.glb",
+      "assetId": "sha256:fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521",
+      "sha256": "fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\meseros\\3.glb",
+      "assetId": "sha256:c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61",
+      "sha256": "c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\meseros\\5.glb",
+      "assetId": "sha256:09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8",
+      "sha256": "09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\meseros\\Mesero bien\\Meshy_AI_Little_Waiter_All_Animations.glb",
+      "assetId": "sha256:cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562",
+      "sha256": "cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\meseros\\Mesero bien\\Meshy_AI_Little_Waiter_texturizadp.glb",
+      "assetId": "sha256:e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd",
+      "sha256": "e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Samu para Meshy\\Meshy_AI_Open_Arms_Avatar_All_Animations.glb",
+      "assetId": "sha256:9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882",
+      "sha256": "9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D\\personajes\\samuel\\Samuel_con_rostro_manos.glb",
+      "assetId": "sha256:14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f",
+      "sha256": "14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\Animación 3D2\\Meshy_AI_Open_Arms_Avatar_All_Animations.glb",
+      "assetId": "sha256:9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882",
+      "sha256": "9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882"
+    },
+    {
+      "source": "D:\\Español\\imagen para animación\\animación 3D3\\Meshy_AI_Open_Arms_Boy_0919163033_texture.glb",
+      "assetId": "sha256:a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8",
+      "sha256": "a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8"
+    }
+  ]
+}

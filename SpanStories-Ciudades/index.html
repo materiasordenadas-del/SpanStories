@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Mundo · Barcelona</title>
+<link rel="stylesheet" href="panel/panel.css"><link rel="stylesheet" href="city.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script></head>
+<body>
+<header><strong>SpanStories <span>/ Mundo</span></strong><span>España · Barcelona · Passeig de Gràcia</span></header>
+<main><section id="viewport" aria-label="Escena de Barcelona">
+<div class="toolbar" aria-label="Modo de navegación">
+<button data-mode="editor" aria-pressed="true">Editor</button><button data-mode="first" aria-pressed="false">Primera persona</button><button data-mode="third" aria-pressed="false">Tercera persona</button><button id="overview">Vista general</button>
+</div><button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button>
+<div class="scene-caption"><span id="hud-status" role="status">Cargando Mundo…</span><small id="selected-label">Selecciona un edificio o una pieza</small></div>
+<div class="scene-footer"><span id="help">Clic: seleccionar · derecho: girar · central: desplazar · rueda: acercar</span><span id="hud-metrics">Midiendo…</span></div>
+</section>
+<aside id="panel" hidden><h1>Opciones</h1>
+<section id="panel-escena"><h3>Escena</h3><label>Zona <select id="zone" aria-label="Zona del Mundo"></select></label><p id="status" role="status">Iniciando…</p><button id="reset-player">Volver al inicio del recorrido</button><div id="city-editor"></div></section>
+<section id="panel-estilo"></section>
+<section id="panel-calidad"><h3>Calidad</h3><label>Calidad <select id="quality"><option>HIGH</option><option selected>STANDARD</option><option>ECO</option></select></label><label><input id="auto-quality" type="checkbox"> Ajuste automático</label><label><input id="batching" type="checkbox" checked> Repetidos con instancias editables</label></section>
+<section id="panel-diagnostico"><h3>Diagnóstico</h3><details><summary>Mediciones de esta vista</summary><button id="export-metrics">Descargar métricas</button><pre id="metrics">—</pre></details></section>
+</aside></main><script type="module" src="main.js"></script></body></html>
