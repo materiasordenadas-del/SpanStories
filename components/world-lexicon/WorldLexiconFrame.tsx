@@ -22,7 +22,7 @@ export function WorldLexiconFrame({ viewerUrl, service, title, development=false
   const viewer = new URL(viewerUrl);
   // Conservar zona, sala y diagnóstico de los antiguos accesos directos.
   const entryQuery=new URLSearchParams(query);
-  for(const key of ['zone','room','dev','unbatched','revision'])if(entryQuery.has(key))viewer.searchParams.set(key,entryQuery.get(key)!);
+  for(const key of ['zone','room','dev','unbatched','revision','estacion','clima'])if(entryQuery.has(key))viewer.searchParams.set(key,entryQuery.get(key)!);
   if(!development)viewer.searchParams.set("aprendizaje", "");
   else viewer.searchParams.delete('aprendizaje');
   if(localTest)viewer.searchParams.set('dev','');

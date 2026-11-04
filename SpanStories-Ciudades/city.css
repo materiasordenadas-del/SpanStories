@@ -58,3 +58,20 @@ body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:po
 .lexico-barra .lexico-guardar{background:#ff8a1f;color:#1b1206;border-color:#ff8a1f;font-weight:600}
 .lexico-barra .lexico-guardar[data-estado=guardada]{opacity:1;background:#2f4a33;border-color:#7fc47a;color:#d8f0d2}
 .lexico-barra .lexico-cancelar{background:transparent}
+/* Estaciones y clima: capa sin eventos de puntero sobre la escena y control flotante. */
+.estaciones-capa{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.estaciones-capa>*{position:absolute;inset:0;width:100%;height:100%}
+.estaciones-velo.estacion{mix-blend-mode:soft-light}.estaciones-velo.clima{mix-blend-mode:multiply}
+.estaciones-niebla{opacity:0;background:linear-gradient(to top,#e6eaedf2 0%,#e6eaedb0 35%,#e6eaed40 70%,#e6eaed00 100%);transition:opacity .6s}
+.estaciones-rayo{opacity:0;background:#f4f7ff;mix-blend-mode:screen}
+.estaciones-velo{transition:opacity .6s,background-color .6s}
+.estaciones-control{position:absolute;top:64px;right:20px;z-index:3;max-width:min(340px,calc(100% - 32px));background:#122435e6;border:1px solid #42576b;border-radius:8px;color:#eff5f7;font:13px system-ui;box-shadow:0 3px 12px #12202d33}
+.estaciones-control summary{cursor:pointer;padding:8px 12px;list-style:none;user-select:none}
+.estaciones-control summary::-webkit-details-marker{display:none}
+.estaciones-control fieldset{border:0;margin:0;padding:4px 10px 10px;display:flex;flex-wrap:wrap;gap:6px}
+.estaciones-control legend{padding:0 0 4px;color:#b7cad6;font-size:12px}
+.estaciones-control button{background:#173552;border:1px solid #42576b;color:#eff5f7;border-radius:6px;padding:5px 8px;font:12px system-ui;cursor:pointer}
+.estaciones-control button[aria-pressed=true]{border-color:#efd29a;color:#efd29a}
+body[data-modo=aprendizaje] .estaciones-control{top:8px;right:12px}
+body[data-studio=true] .estaciones-control{display:none}
+@media(max-width:650px){.estaciones-control{top:52px;right:10px}}

@@ -21,6 +21,7 @@ import { CITY } from './routes.js';
 import { montarLexico } from './engine/LexicoMontaje.js';
 import { crearCargaInicial } from './engine/CargaInicial.js';
 import {generatedZones,AtlasAssets,atlasGround,atlasSourcePanel} from './engine/AtlasPlaces.js';
+import { montarEstacionesClima } from './engine/EstacionesClima.js';
 
 const $ = selector => document.querySelector(selector), viewport = $('#viewport');
 // Modo aprendizaje: la historia controla la cámara; el estudiante solo toca objetos. Sin editor ni navegación.
@@ -105,6 +106,7 @@ const observer = new ResizeObserver(resize); observer.observe(viewport);
 const stopResolutionWatch=watchCityResolution(window,resize);
 luz.salas([]); const lightListener=luz.alCambiar(A=>{scene.background=new T.Color(A.cielo[1]);});
 const estilos=new EstilosCompartidos({luz,scene,renderer});
+const estacionesClima=montarEstacionesClima({anfitrion:viewport,lienzo:renderer.domElement,luz,estilos});
 if(!aprendizaje) montarPanelEstilo({luz,estilos,contenedor:$('#panel-estilo'),clave:'spanstories.ciudades.luz.v1'});
 if(!aprendizaje)$('#panel-toggle').onclick=()=>{const p=$('#panel');p.hidden=!p.hidden;if(!p.hidden)editor?.refresh();$('#panel-toggle').setAttribute('aria-expanded',String(!p.hidden));};
 const quality = new PerformanceController((profile,name)=>{requestedDpr=profile.dpr;allowAdaptiveResolution=name!=='ECO';resize();metrics.reset();});
@@ -279,7 +281,7 @@ async function initialize() {
   if(!aprendizaje&&!studioMode)multiplayer=new CityMultiplayer({scene,navigation,zone:zone.id,room:new URLSearchParams(location.search).get('room')||'principal',
     template:async()=>{const gltf=await avatar();return {root:avatarTemplate.root,animations:gltf.animations};},
     prepare:root=>prepareCityGpu(root,{renderer,camera,scene})});
-  if(!aprendizaje||new URLSearchParams(location.search).has('dev'))window.__escena={scene,renderer,camera,target,luz,estilos,objetos,assets,decorations,editor,navigation,multiplayer,manifest,world,metrics,snapshot,ready:loadPromise,lexico,narrativa,capturarObjeto,ground,loadAll,loadNearby,loadAvatar:avatar};
+  if(!aprendizaje||new URLSearchParams(location.search).has('dev'))window.__escena={scene,renderer,camera,target,luz,estilos,objetos,assets,decorations,editor,navigation,multiplayer,manifest,world,metrics,snapshot,ready:loadPromise,lexico,narrativa,estacionesClima,capturarObjeto,ground,loadAll,loadNearby,loadAvatar:avatar};
 }
 let narrativa=null;
 let previous=performance.now(),lastHud=0,lastStreaming=0;
@@ -291,13 +293,13 @@ function visibilityChanged(){previous=performance.now();metrics.reset();}
 document.addEventListener('visibilitychange',visibilityChanged);
 renderer.setAnimationLoop(now=>{
   if(destroyed)return;if(document.hidden){previous=now;return;}const dt=Math.min((now-previous)/1000,.1),frameMs=now-previous;previous=now;
-  navigation?.update(dt);studioBridge?.update(dt);multiplayer?.update(now,dt);decorations?.update(now);style?.update();estilos.update(camera);renderer.info.reset();const started=performance.now();decorations?.renderShadows();estilos.render(scene,camera);lexico?.renderizarResaltado();metrics.presented();metrics.sample(frameMs,performance.now()-started);quality.sample(frameMs/1000,renderer.info);
+  navigation?.update(dt);studioBridge?.update(dt);estacionesClima.update(dt);multiplayer?.update(now,dt);decorations?.update(now);style?.update();estilos.update(camera);renderer.info.reset();const started=performance.now();decorations?.renderShadows();estilos.render(scene,camera);lexico?.renderizarResaltado();metrics.presented();metrics.sample(frameMs,performance.now()-started);quality.sample(frameMs/1000,renderer.info);
   if(now-lastStreaming>1000){lastStreaming=now;loadNearby();}
   if(now-lastHud>250){lastHud=now;const data=metrics.timing(),network=multiplayer?.client.networkTiming(),ms=value=>Number.isFinite(value)?value.toFixed(0)+' ms':'—';
     if(!$('#panel').hidden&&$('#panel-diagnostico details').open)$('#metrics').textContent=JSON.stringify(snapshot(),null,2);
     $('#hud-metrics').textContent=data.fps.toFixed(0)+' FPS · mín '+data.minFps.toFixed(0)+' (5 s) · p95 '+data.p95Ms.toFixed(1)+' ms · pico '+ms(data.maxMs)+'\nPing '+ms(network?.pingMs)+' · lat. red ≈ '+ms(network?.latencyEstimateMs)+(multiplayer?.client.simulation?.rttMs?' · red simulada':'')+'\nEntrada→envío de frame '+ms(data.inputLatencyMs)+' · '+renderer.info.render.calls+' calls';}
 });
-function dispose(){destroyed=true;renderer.setAnimationLoop(null);document.removeEventListener('visibilitychange',visibilityChanged);observer.disconnect();stopResolutionWatch();studioBridge?.destroy();multiplayer?.dispose();avatarTemplate?.dispose();lexico?.destruir();navigation?.dispose();editor?.dispose();decorations?.dispose();assets?.dispose();estilos.dispose();lightListener();selections.geometry.dispose();selections.material.dispose();renderer.dispose();}
+function dispose(){destroyed=true;renderer.setAnimationLoop(null);document.removeEventListener('visibilitychange',visibilityChanged);observer.disconnect();stopResolutionWatch();studioBridge?.destroy();multiplayer?.dispose();avatarTemplate?.dispose();lexico?.destruir();navigation?.dispose();editor?.dispose();decorations?.dispose();assets?.dispose();estilos.dispose();estacionesClima.destruir();lightListener();selections.geometry.dispose();selections.material.dispose();renderer.dispose();}
 window.addEventListener('pagehide',dispose,{once:true});
 window.addEventListener('pagehide',()=>disposeAtlasPanel?.(),{once:true});
 initialize().catch(e=>{carga.fallar(e.message);status('No se pudo iniciar: '+e.message);console.error(e);document.body.dataset.error=e.message;});
