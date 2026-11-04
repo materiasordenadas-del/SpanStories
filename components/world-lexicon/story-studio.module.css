@@ -92,3 +92,4 @@
 .scriptActions button{font-size:10px;min-height:26px;padding:3px 7px}
 .scriptEmpty{padding:20px;text-align:center;color:#8ea4b8;font-size:12px}
 @media(max-width:850px){.scriptRowHead,.scriptRow{grid-template-columns:28px 1fr;}.scriptUses,.scriptActions{grid-column:2}.scriptActions{justify-content:flex-start}.scriptRowHead span:nth-child(n+3){display:none}}
+.inlineButtons button[aria-pressed=true]{background:#243f5c;border-color:#4f86c2;color:#e4effb}
