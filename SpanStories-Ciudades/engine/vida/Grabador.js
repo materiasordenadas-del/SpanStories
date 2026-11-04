@@ -46,7 +46,9 @@ function avisosAnimacion(cast, clipsPorPersonaje, usadas) {
   const avisos = [];
   for (const characterId of new Set(cast.map(c => c.characterId))) {
     const clips = clipsPorPersonaje?.[characterId]; if (!clips) continue;
-    for (const anim of usadas) if (!ANIMACIONES[anim].some(r => clips.some(c => r.test(c))))
+    // Sin clip de hablar, el reproductor mueve la boca con el canal facial si existe.
+    const boca = clips.some(c => /facial.*mouth/i.test(c));
+    for (const anim of usadas) if (!(anim === 'talk' && boca) && !ANIMACIONES[anim].some(r => clips.some(c => r.test(c))))
       avisos.push(`El personaje ${characterId} no tiene animación para «${NOMBRES[anim]}»; se mostrará ${anim === 'walk' ? 'sin animación' : 'en espera'}.`);
   }
   return avisos;

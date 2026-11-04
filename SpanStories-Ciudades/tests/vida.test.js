@@ -62,6 +62,9 @@ test('avisos explícitos: puntos inaccesibles, puesto vacío y animaciones ausen
   const r=grabarAmbiente({ambiente:a,zoneId:'zona',centro:[0,0,0],navegacion:navegacion(),clipsPorPersonaje:{samuel:['Walking','restpose']}});
   assert(r.warnings.some(w=>/nadie atiende/.test(w)));
   assert(r.warnings.some(w=>/fuera del área caminable/.test(w)));
+  const conBoca=grabarAmbiente({ambiente:cafeteria(),zoneId:'zona',centro:[0,0,0],navegacion:navegacion(),clipsPorPersonaje:{samuel:['Walking','restpose','Samuel_Juan_Facial_Mouth']}});
+  assert(!conBoca.warnings.some(w=>/hablar/.test(w)),'la boca facial cubre «hablar»');
+  assert(conBoca.warnings.some(w=>/sentarse/.test(w)));
   assert(validarConfiguracion(a));assert(!validarConfiguracion({...a,cast:[{id:'x',roleId:'pirata',characterId:'s',height:1.7}]}));
 });
 
