@@ -131,7 +131,7 @@ export function crearInteraccionLexica({
     return saved;
   }
 
-  function tocar(clientX, clientY) {
+  function impacto(clientX, clientY, filtro) {
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return null;
     const punto = new Vector2((clientX - rect.left) / rect.width * 2 - 1, -(clientY - rect.top) / rect.height * 2 + 1);
@@ -141,11 +141,17 @@ export function crearInteraccionLexica({
     // Gana el primer objeto visible del registro (mallas hijas e instancias incluidas). Lo que está delante tapa lo que hay detrás.
     const registro = objetos.elegirImpacto(rayo.intersectObjects(scene.children, true));
     if (!registro) return null;
-    const entrada = resolutor.entradaPara(registro, habilitadas);
-    if (!entrada) return null;
-    abrir(entrada, registro);
-    return entrada;
+    const entrada = resolutor.entradaPara(registro, filtro);
+    return entrada ? { entrada, registro } : null;
   }
+  function tocar(clientX, clientY) {
+    const hit = impacto(clientX, clientY, habilitadas);
+    if (!hit) return null;
+    abrir(hit.entrada, hit.registro);
+    return hit.entrada;
+  }
+  // Autoría: qué entrada del mapa reclama el objeto bajo el cursor, sin abrir la barra ni exigir que esté habilitada.
+  function identificar(clientX, clientY) { return impacto(clientX, clientY, null)?.entrada ?? null; }
 
   const invalidar = () => { if (gesto) gesto.valido = false; };
   const alBajar = e => {
@@ -171,7 +177,7 @@ export function crearInteraccionLexica({
   canvas.addEventListener('pointercancel', alCancelar);
 
   return {
-    tocar, enviar, escuchar, cerrar, guardar,
+    tocar, identificar, enviar, escuchar, cerrar, guardar,
     // La historia indica qué entradas del mapa están disponibles en la escena actual.
     habilitar(ids) {
       habilitadas = new Set(ids.filter(id => mapa.entries.some(e => e.id === id)));

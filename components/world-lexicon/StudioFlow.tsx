@@ -5,22 +5,23 @@ import '@xyflow/react/dist/style.css';
 import { sequenceDuration, sequenceList, type StudioProject, type StudioSource } from '@/features/story-studio/model';
 import styles from './story-studio.module.css';
 import {useState} from 'react';
+import type { FlowIssue } from '@/features/story-studio/editing';
 
-type BeatNode = Node<{ title: string; text: string; kind: string; options: { id: string; label: string }[]; active: boolean }, 'beat'>;
+type BeatNode = Node<{ title: string; text: string; kind: string; options: { id: string; label: string }[]; active: boolean; issues?: FlowIssue[] }, 'beat'>;
 const gateNames = { auto: 'Al terminar', continue: 'Esperar al estudiante', choice: 'Elegir un camino', answer: 'Responder', object: 'Tocar un objeto' };
 function Beat({ data }: NodeProps<BeatNode>) {
   return <div className={`${styles.flowNode} ${data.active ? styles.activeNode : ''}`} data-kind={data.kind}>
     <Handle type="target" position={Position.Left} />
-    <div className={styles.nodeTitle}><span>{data.kind === 'gate' ? '◇' : '▤'}</span>{data.title}</div>
+    <div className={styles.nodeTitle}><span>{data.kind === 'gate' ? '◇' : data.kind === 'ghost' ? '↗' : '▤'}</span>{data.title}{data.issues?.length ? <span className={styles.nodeIssue} data-severe={data.issues.some(i => i.code === 'unreachable' || i.code === 'trapped' || i.code === 'auto-loop')} title={data.issues.map(i => i.message).join('\n')} aria-label={`Avisos: ${data.issues.map(i => i.message).join(' ')}`}>!</span> : null}</div>
     <p>{data.text}</p>
     {data.options.length ? data.options.map((o, i) => <div key={o.id} className={styles.nodeOption}>{o.label}<Handle id={o.id} type="source" position={Position.Right} style={{ top: `${70 + i * 28}px` }} /></div>) : <Handle type="source" position={Position.Right} />}
   </div>;
 }
 const nodeTypes = { beat: Beat };
 
-export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId, detail=false, onSelect, onCueSelect, onChange }: {
+export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId, detail=false, issues, onSelect, onCueSelect, onChange }: {
   project: StudioProject; source: StudioSource; sceneId: string; selectedId: string;
-  selectedCueId?:string|null;detail?:boolean;onSelect: (id: string,gate?:boolean) => void;onCueSelect?:(id:string)=>void; onChange: (project: StudioProject) => void;
+  selectedCueId?:string|null;detail?:boolean;issues?:Map<string,FlowIssue[]>;onSelect: (id: string,gate?:boolean) => void;onCueSelect?:(id:string)=>void; onChange: (project: StudioProject) => void;
 }) {
   const scene = project.scenes.find(s => s.id === sceneId)!;
   const [dragPositions,setDragPositions]=useState<Record<string,{x:number;y:number}>>({});
@@ -32,7 +33,7 @@ export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId
     const dialogue = sequence.cues.find(c => c.kind === 'dialogue');
     const text = dialogue?.kind === 'dialogue' ? source.sentences.find(s => s.id === dialogue.sentenceId)?.text ?? '' : `${sequence.cues.length} acciones · ${sequenceDuration(sequence).toFixed(1)} s`;
     const position = project.nodeLayout?.[sequence.id] ?? { x: i * 270, y: i % 2 ? 170 : 30 };
-    nodes.push({ id: sequence.id, type: 'beat', position, selected: sequence.id === selectedId, data: { title: sequence.name, text, kind: 'sequence', options: [], active: sequence.id === selectedId } });
+    nodes.push({ id: sequence.id, type: 'beat', position, selected: sequence.id === selectedId, data: { title: sequence.name, text, kind: 'sequence', options: [], active: sequence.id === selectedId, issues: issues?.get(sequence.id) } });
     const gateId = `${sequence.id}:gate`, gate = sequence.gate;
     const next = gate.nextSequenceId ?? all[all.findIndex(x => x.sequence.id === sequence.id) + 1]?.sequence.id;
     if (gate.kind !== 'auto') {
@@ -41,6 +42,15 @@ export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId
       if (gate.kind === 'choice') gate.options.forEach(o => { if (o.nextSequenceId ?? next) edge(`${gateId}:${o.id}`, gateId, (o.nextSequenceId ?? next)!, o.label, o.id); });
       else if (next) edge(`${gateId}:next`, gateId, next, 'Resuelto');
     } else if (next) edge(`${sequence.id}:next`, sequence.id, next, 'Al terminar');
+  });
+  // Paths that leave this scene end in a ghost node naming the destination scene and moment.
+  const local=new Set(scene.sequences.map(s=>s.id));
+  const ghosts=[...new Set(edges.map(e=>e.target).filter(t=>!local.has(t)&&!t.endsWith(':gate')))];
+  ghosts.forEach((target,i)=>{
+    const where=project.scenes.findIndex(s=>s.sequences.some(q=>q.id===target)),targetScene=project.scenes[where],targetSequence=targetScene?.sequences.find(q=>q.id===target);
+    if(!targetScene||!targetSequence)return;
+    const right=Math.max(0,...nodes.map(n=>n.position.x))+270;
+    nodes.push({id:target,type:'beat',position:project.nodeLayout?.[`ghost:${sceneId}:${target}`]??{x:right,y:30+i*120},data:{title:`Escena ${where+1} · ${targetScene.name}`,text:`→ ${targetSequence.name}`,kind:'ghost',options:[],active:false}});
   });
   if(detail){
     nodes.length=0;edges.length=0;
@@ -68,6 +78,7 @@ export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId
     }
     if (!connection.source || !connection.target || connection.target.endsWith(':gate')) return;
     const id = connection.source.replace(/:gate$/, ''), copy = structuredClone(project);
+    if (!local.has(id)) return; // ghost nodes only show destinations in other scenes
     const sequence = sequenceList(copy).find(x => x.sequence.id === id)?.sequence;
     if (!sequence || id === connection.target) return;
     if (sequence.gate.kind === 'choice' && connection.sourceHandle) {
@@ -78,7 +89,7 @@ export function StudioFlow({ project, source, sceneId, selectedId, selectedCueId
   return <ReactFlow<BeatNode> key={`${sceneId}:${detail?selectedId:'overview'}`} nodes={nodes.map(node=>dragPositions[node.id]?{...node,position:dragPositions[node.id]}:node)} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{ padding: .15 }} minZoom={.25} maxZoom={1.4} colorMode="dark"
     deleteKeyCode={null} onConnect={connect} nodesConnectable onNodeClick={(_, node) => {if(detail&&!node.id.endsWith(':gate')){if(node.id!=='start')onCueSelect?.(node.id);}else onSelect(node.id.replace(/:gate$/, ''),node.id.endsWith(':gate'));}}
     onNodesChange={changes=>{const moving=changes.filter(change=>change.type==='position'&&change.dragging&&change.position);if(moving.length)setDragPositions(previous=>{const next={...previous};for(const change of moving)if(change.type==='position'&&change.position)next[change.id]=change.position;return next;});}}
-    onNodeDragStop={(_, node) => {setDragPositions({});onChange({ ...project, nodeLayout: { ...project.nodeLayout, [node.id]: node.position } });}}>
+    onNodeDragStop={(_, node) => {setDragPositions({});const key=node.data.kind==='ghost'?`ghost:${sceneId}:${node.id}`:node.id;onChange({ ...project, nodeLayout: { ...project.nodeLayout, [key]: node.position } });}}>
     <Background color="#2b4255" gap={18} size={1} /><Controls showInteractive={false} />
   </ReactFlow>;
 }

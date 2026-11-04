@@ -18,8 +18,11 @@ export class EstilosCompartidos{
   aplicar(state){
     this.aplicando=true;
     try{
-      this.activo=state.active;this.pipeline.setAmbient(state.ambient);
-      if(this.luz.ambiente!==state.ambient)this.luz.usarAmbiente(state.ambient);
+      this.activo=state.active;this.ambienteCompartido=state.ambient;
+      // A Story scene may light the city locally; the shared pool keeps its own value.
+      const ambiente=this.ambienteDeEscena||state.ambient;
+      this.pipeline.setAmbient(ambiente);
+      if(this.luz.ambiente!==ambiente)this.luz.usarAmbiente(ambiente);
       for(const [id,values]of Object.entries(state.styles))for(const [key,value]of Object.entries(values))if(this.registro.get(id)?.uniformes[key])this.registro.get(id).uniformes[key].value=value;
       Object.assign(this.pipeline.params,state.styles[state.active],{mode:STYLE_CATALOG.find(s=>s.id===state.active).mode});
       for(const fn of this.oyentes)fn(this.actual);
@@ -30,6 +33,14 @@ export class EstilosCompartidos{
   listar(){return [...this.registro.values()];}
   seleccionar(id){if(!STYLE_CATALOG.some(s=>s.id===id))return false;this.pool.change({active:id});return true;}
   usarAmbiente(id){this.pool.change({ambient:id});return true;}
+  /** Story Studio: light for the active scene without writing the shared style pool. null restores the shared light. */
+  ambienteEscena(id){
+    this.ambienteDeEscena=id||null;
+    const ambiente=this.ambienteDeEscena||this.ambienteCompartido||this.luz.ambiente;
+    this.aplicando=true;
+    try{this.pipeline.setAmbient(ambiente);if(this.luz.ambiente!==ambiente)this.luz.usarAmbiente(ambiente);}
+    finally{this.aplicando=false;}
+  }
   ajustar(key,value){if(!this.actual.controles.some(c=>c.clave===key))return false;this.pool.change({styles:{[this.activo]:{[key]:value}}});return true;}
   componer(shader,material){return fragmentoGBuffer(shader,material.userData);}
   componerVertice(shader){return verticeGBuffer(shader);}

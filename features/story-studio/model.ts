@@ -16,12 +16,15 @@ export type Cue = {
 export type Gate = (
   | { kind: 'auto' }
   | { kind: 'continue'; prompt: string }
-  | { kind: 'choice'; prompt: string; options: { id: string; label: string; nextSequenceId?: string }[] }
+  | { kind: 'choice'; prompt: string; options: { id: string; label: string; nextSequenceId?: string; sentenceId?: string }[] }
   | { kind: 'answer'; prompt: string; answers: string[] }
   | { kind: 'object'; prompt: string; entryIds: string[] }
 ) & { nextSequenceId?: string };
 export type Sequence = { id: string; name: string; cues: Cue[]; gate: Gate };
-export type StudioScene = { id: string; name: string; zoneId: string; actors: Actor[]; shot: Shot; entryIds: string[]; sequences: Sequence[] };
+/** Lighting presets understood by the shared city light (Luz25D). Absent = keep the viewer's current light. */
+export const SCENE_AMBIENTS = ['manana', 'mediodia', 'tarde', 'nublado', 'noche'] as const;
+export type SceneAmbient = typeof SCENE_AMBIENTS[number];
+export type StudioScene = { id: string; name: string; zoneId: string; actors: Actor[]; shot: Shot; entryIds: string[]; sequences: Sequence[]; ambient?: SceneAmbient };
 export type StudioProject = {
   schema: 1; id: string; name: string; storyId: string; storyVersionId: string;
   revision: number; scenes: StudioScene[];
@@ -67,6 +70,7 @@ export function validateProject(raw: unknown, source: StudioSource): asserts raw
     if (!obj(scene)) fail('Escena inválida.');
     unique(scene.id);
     if (!id(scene.name) || !id(scene.zoneId) || !shot(scene.shot) || !strings(scene.entryIds) || !Array.isArray(scene.actors) || scene.actors.length > 20 || !Array.isArray(scene.sequences) || !scene.sequences.length) fail('Escenario, cámara o secuencias inválidos.');
+    if (scene.ambient !== undefined && !(SCENE_AMBIENTS as readonly string[]).includes(scene.ambient)) fail('Ambiente de luz desconocido.');
     const actors = new Set<string>();
     for (const actor of scene.actors) {
       if (!obj(actor) || !id(actor.id) || actors.has(actor.id) || !id(actor.characterId) || !id(actor.name) || !vec(actor.position) || !number(actor.rotation, -1000, 1000) || !number(actor.height, .2, 5)) fail('Personaje inválido.');
@@ -90,7 +94,7 @@ export function validateProject(raw: unknown, source: StudioSource): asserts raw
       const gate = sequence.gate;
       if (!['auto', 'continue', 'choice', 'answer', 'object'].includes(gate.kind)) fail('Interacción desconocida.');
       if (gate.kind !== 'auto' && !id(gate.prompt)) fail('La interacción necesita una instrucción.');
-      if (gate.kind === 'choice' && (!Array.isArray(gate.options) || gate.options.length < 2 || gate.options.length > 8 || new Set(gate.options.map(o => o.id)).size !== gate.options.length || !gate.options.every(o => id(o.id) && id(o.label) && (o.nextSequenceId === undefined || id(o.nextSequenceId))))) fail('Opciones inválidas.');
+      if (gate.kind === 'choice' && (!Array.isArray(gate.options) || gate.options.length < 2 || gate.options.length > 8 || new Set(gate.options.map(o => o.id)).size !== gate.options.length || !gate.options.every(o => id(o.id) && id(o.label) && (o.nextSequenceId === undefined || id(o.nextSequenceId)) && (o.sentenceId === undefined || source.sentences.some(s => s.id === o.sentenceId))))) fail('Opciones inválidas.');
       if (gate.kind === 'answer' && (!strings(gate.answers) || !gate.answers.length)) fail('Faltan respuestas esperadas.');
       if (gate.kind === 'object' && (!strings(gate.entryIds) || !gate.entryIds.length || !gate.entryIds.every(entry => scene.entryIds.includes(entry)))) fail('Objeto fuera de los elementos de la escena.');
     }

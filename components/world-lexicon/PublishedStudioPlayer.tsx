@@ -33,7 +33,11 @@ function ReleasedPerformance({content,viewerUrl,service,owner}:{content:ReturnTy
   },[owner,release.id,source.storyVersionId,director]);
   useEffect(()=>{latest.current=playback;},[playback]);
   const audio=useStudioAudio('published',playback);
-  const url=new URL(viewerUrl);url.searchParams.set('aprendizaje','');url.searchParams.set('estudio','1');const origin=url.origin;
+  // The viewer loads one zone per page: a scene elsewhere reloads it on that zone.
+  const zoneId=(project.scenes.find(s=>s.id===playback.stage.sceneId)??project.scenes[0]).zoneId;
+  const url=new URL(viewerUrl);url.searchParams.set('aprendizaje','');url.searchParams.set('estudio','1');url.searchParams.set('zone',zoneId);const origin=url.origin;
+  const loadedZone=useRef(zoneId);
+  useEffect(()=>{if(loadedZone.current===zoneId)return;loadedZone.current=zoneId;Promise.resolve().then(()=>{setConnected(false);setReady(false);});},[zoneId]);
   useEffect(()=>{
     const post=(type:string,data:Record<string,unknown>={})=>frame.current?.contentWindow?.postMessage({channel:'spanstories.studio',version:1,type,...data},origin);
     const bridge=createHostBridge({service,expectedOrigin:origin,expectedSource:()=>frame.current?.contentWindow??null,postToViewer:(m,target)=>frame.current?.contentWindow?.postMessage(m,target)});
@@ -42,7 +46,7 @@ function ReleasedPerformance({content,viewerUrl,service,owner}:{content:ReturnTy
       if(event.origin!==origin||event.source!==frame.current?.contentWindow)return;
       const m=event.data;
       if(m?.channel!=='spanstories.studio'||m.version!==1){void bridge.handle({origin:event.origin,source:event.source,data:m});return;}
-      if(m.type==='READY'){window.clearInterval(hello);setConnected(true);const stage=latest.current.stage,scene=project.scenes.find(s=>s.id===stage.sceneId)!;post('STAGE',{requestId:crypto.randomUUID(),stage:{...stage,zoneId:scene.zoneId,entryIds:scene.entryIds},student:true,allowLook:project.navigation.allowLook});}
+      if(m.type==='READY'){window.clearInterval(hello);setConnected(true);const stage=latest.current.stage,scene=project.scenes.find(s=>s.id===stage.sceneId)!;post('STAGE',{requestId:crypto.randomUUID(),stage:{...stage,zoneId:scene.zoneId,entryIds:scene.entryIds,ambient:scene.ambient},student:true,allowLook:project.navigation.allowLook});}
       if(m.type==='STAGE_READY'&&m.sequenceId===latest.current.stage.sequenceId)setReady(true);
       if(m.type==='ERROR'){setError(typeof m.message==='string'?m.message:'No se pudo preparar el escenario.');setReady(false);commit(director.pause());}
       if(m.type==='OBJECT_TOUCHED'){setObjectOpen(true);const snapshot=director.snapshot();if(snapshot.gate.kind==='object'&&snapshot.gate.entryIds.includes(m.entryId))setTouch({sequenceId:snapshot.stage.sequenceId,entryId:m.entryId});}
@@ -55,7 +59,7 @@ function ReleasedPerformance({content,viewerUrl,service,owner}:{content:ReturnTy
     if(!connected)return;
     const scene=project.scenes.find(s=>s.id===playback.stage.sceneId)!;
     service.setScene?.(scene.entryIds,source.storyVersionId);
-    frame.current?.contentWindow?.postMessage({channel:'spanstories.studio',version:1,type:'STAGE',requestId:crypto.randomUUID(),stage:{...playback.stage,zoneId:scene.zoneId,entryIds:scene.entryIds},student:true,playing:playback.state==='playing',waiting:playback.state==='waiting',allowLook:project.navigation.allowLook},origin);
+    frame.current?.contentWindow?.postMessage({channel:'spanstories.studio',version:1,type:'STAGE',requestId:crypto.randomUUID(),stage:{...playback.stage,zoneId:scene.zoneId,entryIds:scene.entryIds,ambient:scene.ambient},student:true,playing:playback.state==='playing',waiting:playback.state==='waiting',allowLook:project.navigation.allowLook},origin);
   },[connected,origin,playback,project,service,source]);
   useEffect(()=>{
     if(playback.state!=='playing'||!ready)return;
@@ -70,7 +74,7 @@ function ReleasedPerformance({content,viewerUrl,service,owner}:{content:ReturnTy
     <iframe ref={frame} src={url.href} title={source.title} sandbox="allow-scripts allow-same-origin" allow="autoplay"/>
     <div className={styles.controls}><button disabled={!ready} onClick={()=>{startedRef.current=true;setStarted(true);commit(playback.state==='playing'?director.pause():director.play());}}>{!started?(initial.resumed?'Retomar':'Comenzar'):playback.state==='playing'?'Pausar':'Reproducir'}</button><span>Momento {playback.index+1} de {list.length}</span><button disabled={!ready||!playback.canGoBack} onClick={()=>commit(director.back())}>Anterior</button>{caption?.audioUrl&&<button onClick={()=>{if(playback.state==='playing')commit(director.pause());void audio.preview(caption.audioUrl!).catch(e=>setError(e instanceof Error?e.message:'No se pudo escuchar la intervención.'));}}>Escuchar otra vez</button>}</div>
     <div className={styles.caption} data-object-open={objectOpen}><small>{caption?.speakerId?current.scene.actors.find(a=>a.id===caption.speakerId)?.name:'Narrador'}</small><div className={styles.words}>{sentence&&<StudioReading source={source} sentenceId={sentence.id} owner={owner} recordProgress onPause={()=>{if(playback.state==='playing')commit(director.pause());}}/>}</div>
-      {playback.state==='waiting'&&<><p>{gate.kind!=='auto'?gate.prompt:''}</p>{gate.kind==='continue'&&<button onClick={()=>respond('continue')}>Continuar →</button>}{gate.kind==='choice'&&gate.options.map(option=><button key={option.id} onClick={()=>respond('choice',option.id)}>{option.label}</button>)}{gate.kind==='answer'&&<form onSubmit={e=>{e.preventDefault();respond('answer',answer);}}><input aria-label="Tu respuesta" value={answer} onChange={e=>setAnswer(e.target.value)} required/><button>Responder</button></form>}{gate.kind==='object'&&observed&&<button onClick={()=>respond('object',observed)}>Objeto observado · Continuar →</button>}</>}
+      {playback.state==='waiting'&&<><p>{gate.kind!=='auto'?gate.prompt:''}</p>{gate.kind==='continue'&&<button onClick={()=>respond('continue')}>Continuar →</button>}{gate.kind==='choice'&&gate.options.map(option=><button key={option.id} onClick={()=>respond('choice',option.id)}>{(option.sentenceId&&source.sentences.find(s=>s.id===option.sentenceId)?.text)||option.label}</button>)}{gate.kind==='answer'&&<form onSubmit={e=>{e.preventDefault();respond('answer',answer);}}><input aria-label="Tu respuesta" value={answer} onChange={e=>setAnswer(e.target.value)} required/><button>Responder</button></form>}{gate.kind==='object'&&observed&&<button onClick={()=>respond('object',observed)}>Objeto observado · Continuar →</button>}</>}
       {playback.state==='finished'&&<><p>Has terminado la historia.</p><button onClick={()=>{startedRef.current=true;setStarted(true);commit(director.play());}}>Volver a empezar</button></>}
     </div><p className={styles.status} role="status">{error??audio.error??(!ready?'Preparando el escenario…':project.navigation.allowLook?'Puedes mirar alrededor y tocar los objetos de la escena.':'Toca los objetos de la escena.')}</p>
   </section></main>;

@@ -11,18 +11,22 @@ export function validStudioStage(s,zoneId){
     vector(s.shot?.position)&&vector(s.shot?.target)&&Number.isFinite(s.shot.fov)&&s.shot.fov>=10&&s.shot.fov<=100&&
     Array.isArray(s.actors)&&s.actors.length<=20&&s.actors.every(a=>typeof a.id==='string'&&typeof a.characterId==='string'&&vector(a.position)&&Number.isFinite(a.rotation)&&Number.isFinite(a.height)&&a.height>=.2&&a.height<=5)&&
     Array.isArray(s.performances)&&s.performances.every(p=>s.actors.some(a=>a.id===p.actorId)&&typeof p.action==='string')&&
-    Array.isArray(s.entryIds)&&s.entryIds.every(v=>typeof v==='string');
+    Array.isArray(s.entryIds)&&s.entryIds.every(v=>typeof v==='string')&&
+    (s.ambient===undefined||s.ambient===null||STUDIO_AMBIENTS.includes(s.ambient));
 }
+export const STUDIO_AMBIENTS=['manana','mediodia','tarde','nublado','noche'];
+/** Story Studio only stages zones that carry a lexicon (atlas previews do not). */
+export const studioZones=zones=>zones.filter(z=>!z.atlas).map(z=>({id:z.id,label:z.label,cityLabel:z.cityLabel,countryLabel:z.countryLabel}));
 
 /** The same city/canvas renders both direction and playback. No new scene or renderer. */
-export async function createStoryStudioBridge({scene,camera,target,renderer,assets,style,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned,win=window,fetcher=fetch}){
+export async function createStoryStudioBridge({scene,camera,target,renderer,assets,style,estilos=null,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned,win=window,fetcher=fetch}){
   const origin=origenDelAnfitrion({win,permitidos:LEXICO.hostOrigins});
   if(!origin)throw new Error('Story Studio necesita el anfitrión de SpanStories.');
   const response=await fetcher(new URL('Personajes/personajes.json',world.world.manifestUrl));
   if(!response.ok)throw new Error('No se pudo leer la biblioteca de personajes.');
   const catalog=(await response.json()).characters,templates=new Map(),actors=new Map(),templateRoots=new Set();
   let revision=0,disposed=false,playing=false,waiting=false,student=false,allowLook=true,gesture=null,lastStage=null;
-  let lookYaw=0,lookPitch=0,placement=null;
+  let lookYaw=0,lookPitch=0,placement=null,picking=null,press=null;
   const send=(type,data={})=>win.parent.postMessage({channel:CHANNEL,version:1,type,...data},origin);
   const canvas=renderer.domElement;
   function applyLook(){
@@ -95,7 +99,10 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
       const position=new T.Vector3(target.x,ground(target.x,target.z),target.z);
       send('CAPTURED',{requestId:m.requestId,shot:{position:camera.position.toArray(),target:target.toArray(),fov:camera.fov,transition:0},position:position.toArray()});return;
     }
-    if(m.type==='PLACE'&&!student){placement=m.actorId;send('PLACING',{actorId:placement});return;}
+    if(m.type==='PLACE'&&!student){picking=null;placement=m.actorId;send('PLACING',{actorId:placement});return;}
+    // One-shot authoring pick: a ground point (walk destinations) or the lexical object under the cursor.
+    if(m.type==='PICK'&&!student&&typeof m.requestId==='string'&&(m.mode==='point'||m.mode==='entry')){placement=null;if(picking)send('PICKED',{requestId:picking.requestId,cancelled:true});picking={requestId:m.requestId,mode:m.mode};send('PICKING',{requestId:m.requestId,mode:m.mode});return;}
+    if(m.type==='PICK_CANCEL'){if(picking)send('PICKED',{requestId:picking.requestId,cancelled:true});picking=null;placement=null;return;}
     if(m.type!=='STAGE'||!validStudioStage(m.stage,zone.id))return;
     const current=++revision,s=m.stage;
     win.clearInterval(readyTimer);
@@ -103,6 +110,7 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
     navigation?.setEditorEnabled(!student);
     if(lastStage?.sequenceId!==s.sequenceId){lookYaw=0;lookPitch=0;lexico?.interaccion.cerrar('momento');}
     lastStage=s;
+    estilos?.ambienteEscena?.(s.ambient||null);
     camera.position.fromArray(s.shot.position);target.fromArray(s.shot.target);camera.fov=s.shot.fov;camera.updateProjectionMatrix();camera.lookAt(target);if(student)applyLook();
     lexico?.interaccion.habilitar(student?s.entryIds:[]);
     try{
@@ -119,16 +127,24 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
       if(!disposed&&current===revision)send('STAGE_READY',{requestId:m.requestId,sequenceId:s.sequenceId});
     }catch(error){if(!disposed&&current===revision)send('ERROR',{message:error.message});}
   }
-  function down(e){if(!student)return;gesture={x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,id:e.pointerId};canvas.setPointerCapture?.(e.pointerId);}
+  function down(e){press={x:e.clientX,y:e.clientY};if(!student)return;gesture={x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,id:e.pointerId};canvas.setPointerCapture?.(e.pointerId);}
   function move(e){if(!gesture||!student||!allowLook)return;lookYaw-=(e.clientX-gesture.lastX)*.003;lookPitch-=(e.clientY-gesture.lastY)*.003;gesture.lastX=e.clientX;gesture.lastY=e.clientY;applyLook();}
+  const rayAt=e=>{const rect=canvas.getBoundingClientRect(),ray=new T.Raycaster();ray.setFromCamera(new T.Vector2((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1),camera);return ray;};
   function up(e){
-    if(placement&&!student){const rect=canvas.getBoundingClientRect(),ray=new T.Raycaster();ray.setFromCamera(new T.Vector2((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1),camera);const hits=ray.intersectObjects(scene.children,true);const hit=hits.find(h=>!h.object.userData.ignorarSeleccion);if(hit){const point=hit.point;send('PLACED',{actorId:placement,position:[point.x,ground(point.x,point.z),point.z]});placement=null;}}
+    // Orbit drags in direction mode must not be mistaken for a pick.
+    const tap=!press||Math.hypot(e.clientX-press.x,e.clientY-press.y)<6;press=null;
+    if(placement&&!student){const hits=rayAt(e).intersectObjects(scene.children,true);const hit=hits.find(h=>!h.object.userData.ignorarSeleccion);if(hit){const point=hit.point;send('PLACED',{actorId:placement,position:[point.x,ground(point.x,point.z),point.z]});placement=null;}}
+    else if(picking&&!student&&tap){
+      const request=picking;
+      if(request.mode==='point'){const hit=rayAt(e).intersectObjects(scene.children,true).find(h=>!h.object.userData.ignorarSeleccion);if(hit){picking=null;send('PICKED',{requestId:request.requestId,position:[hit.point.x,ground(hit.point.x,hit.point.z),hit.point.z]});}}
+      else{const entrada=lexico?.interaccion.identificar?.(e.clientX,e.clientY);picking=null;send('PICKED',{requestId:request.requestId,entryId:entrada?.id??null,label:entrada?.speech?.text??null});}
+    }
     gesture=null;
   }
   // Disabling navigation removes WASD and orbit in student mode; only the look gesture above remains.
   navigation?.setEditorEnabled(false);
   win.addEventListener('message',receive);canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);
-  const ready=()=>send('READY',{zoneId:zone.id,characters:catalog.map(c=>({id:c.id,label:c.label})),entries:lexico?.mapa.entries.map(e=>({id:e.id,label:e.speech.text}))||[]});
+  const ready=()=>send('READY',{zoneId:zone.id,zones:studioZones(world.zones||[]),ambients:STUDIO_AMBIENTS,characters:catalog.map(c=>({id:c.id,label:c.label})),entries:lexico?.mapa.entries.map(e=>({id:e.id,label:e.speech.text}))||[]});
   const readyTimer=win.setInterval(ready,1500);ready();
-  return {update(dt){if(playing||waiting)for(const actor of actors.values())if(actor.root.visible)actor.mixer.update(dt);},retainedRoots(){return [...templateRoots,...[...actors.values()].map(a=>a.root)];},destroy(){disposed=true;revision++;win.clearInterval(readyTimer);win.removeEventListener('message',receive);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);for(const actor of actors.values()){actor.mixer.stopAllAction();actor.mixer.uncacheRoot(actor.clone.root);actor.root.removeFromParent();actor.clone.dispose();}pinned.clear();},setLexicalEvent(event){if(event.tipo==='abierta')send('OBJECT_TOUCHED',{entryId:event.entryId});if(event.tipo==='cerrada')send('OBJECT_CLOSED',{entryId:event.entryId});}};
+  return {update(dt){if(playing||waiting)for(const actor of actors.values())if(actor.root.visible)actor.mixer.update(dt);},retainedRoots(){return [...templateRoots,...[...actors.values()].map(a=>a.root)];},destroy(){disposed=true;revision++;estilos?.ambienteEscena?.(null);win.clearInterval(readyTimer);win.removeEventListener('message',receive);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);for(const actor of actors.values()){actor.mixer.stopAllAction();actor.mixer.uncacheRoot(actor.clone.root);actor.root.removeFromParent();actor.clone.dispose();}pinned.clear();},setLexicalEvent(event){if(event.tipo==='abierta')send('OBJECT_TOUCHED',{entryId:event.entryId});if(event.tipo==='cerrada')send('OBJECT_CLOSED',{entryId:event.entryId});}};
 }
