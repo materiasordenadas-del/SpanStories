@@ -19,7 +19,9 @@ const MENSAJES = Object.freeze({
 
 export function crearInteraccionLexica({
   canvas, camera, scene, objetos, mapa, resolutor, resaltador, audio, barra, puerto,
-  config = LEXICO, Raycaster = T.Raycaster, Vector2 = T.Vector2, nuevoId = crearId, programar = setTimeout, cancelar = clearTimeout, ahora = () => performance.now(), alEstado = null
+  config = LEXICO, Raycaster = T.Raycaster, Vector2 = T.Vector2, nuevoId = crearId, programar = setTimeout, cancelar = clearTimeout, ahora = () => performance.now(), alEstado = null,
+  // Visor Web del estudiante: la palabra solo se guarda con «Guardar»; acertar no la guarda.
+  guardadoManual = false
 }) {
   if (!puerto) throw new Error('La interacción léxica necesita un puerto hacia el anfitrión.');
   let habilitadas = new Set();
@@ -56,7 +58,7 @@ export function crearInteraccionLexica({
     resaltador.mostrar(raices);
     sesion = { entrada, sector:registro.sector??registro.raiz?.userData.sector, interactionId: nuevoId(), intentos: 0, pendiente: false, resuelta: false, fallo: null };
     puerto.registrarExposicion?.({entryId:entrada.id,interactionId:sesion.interactionId,exposure:'OBJECT'});
-    barra.abrir(); barra.mostrar('info', 'Escucha y escribe la palabra.');
+    barra.abrir(); barra.mostrar('info', guardadoManual ? 'Escucha la palabra. Puedes escribirla o guardarla en Práctica.' : 'Escucha y escribe la palabra.');
     barra.enfocar();
     void escuchar();
     emitir('abierta', { entryId: entrada.id, interactionId: sesion.interactionId });
@@ -95,7 +97,7 @@ export function crearInteraccionLexica({
       if (respuesta.reason === 'WRONG_WORD' || respuesta.reason === 'WRONG_ARTICLE' || respuesta.reason === 'ARTICLE_NOT_ACCEPTED') void escuchar();
       return respuesta;
     }
-    if(!respuesta.saved){
+    if(!respuesta.saved&&!guardadoManual){
       actual.fallo={typed:texto,attemptNo:numero};
       barra.mostrar('aviso','La respuesta es correcta, pero no pudimos guardarla. Pulsa Comprobar para reintentar el guardado.');
       return respuesta;
@@ -104,11 +106,29 @@ export function crearInteraccionLexica({
     const palabra = respuesta.display ?? '';
     const partes = [`¡Correcto! ${palabra}`.trim()];
     if (respuesta.outcome === 'CORRECT_ACCENT_MISSING') partes.push('Cuidado con la tilde: se escribe así.');
-    partes.push(respuesta.saved === 'NEWLY_SAVED' ? 'Guardada en tus palabras.' : respuesta.saved === 'ALREADY_SAVED' ? 'Ya la tenías guardada.' : 'No pudimos guardarla ahora.');
-    barra.mostrar(respuesta.saved ? 'ok' : 'aviso', partes.join(' '));
+    if (!guardadoManual) partes.push(respuesta.saved === 'NEWLY_SAVED' ? 'Guardada en tus palabras.' : respuesta.saved === 'ALREADY_SAVED' ? 'Ya la tenías guardada.' : 'No pudimos guardarla ahora.');
+    barra.mostrar(respuesta.saved || guardadoManual ? 'ok' : 'aviso', partes.join(' '));
     emitir('correcta', { entryId: actual.entrada.id, saved: respuesta.saved, intento: numero });
-    temporizadorCierre = programar(() => { temporizadorCierre = null; if (sesion === actual) cerrar('completada'); }, config.autoCloseMs);
+    // En el Visor Web la barra sigue abierta: el estudiante decide si guarda o cancela.
+    if (!guardadoManual) temporizadorCierre = programar(() => { temporizadorCierre = null; if (sesion === actual) cerrar('completada'); }, config.autoCloseMs);
     return respuesta;
+  }
+
+  async function guardar() {
+    const actual = sesion;
+    if (!actual || actual.guardando || actual.guardada || !puerto.guardarPalabra) return null;
+    detenerCierre();
+    actual.guardando = true; barra.guardadoEstado?.('guardando');
+    let saved = null;
+    try { saved = await puerto.guardarPalabra({ entryId: actual.entrada.id, interactionId: actual.interactionId }); } catch { saved = null; }
+    if (sesion !== actual) return saved;
+    actual.guardando = false;
+    if (!saved) { barra.guardadoEstado?.('listo'); barra.mostrar('error', 'No pudimos guardar la palabra. Inténtalo otra vez.'); return null; }
+    actual.guardada = true; barra.guardadoEstado?.('guardada');
+    barra.mostrar('ok', saved === 'NEWLY_SAVED' ? 'Guardada en Práctica.' : 'Ya la tenías guardada en Práctica.');
+    emitir('guardada', { entryId: actual.entrada.id, saved });
+    temporizadorCierre = programar(() => { temporizadorCierre = null; if (sesion === actual) cerrar('guardada'); }, config.autoCloseMs);
+    return saved;
   }
 
   function tocar(clientX, clientY) {
@@ -151,7 +171,7 @@ export function crearInteraccionLexica({
   canvas.addEventListener('pointercancel', alCancelar);
 
   return {
-    tocar, enviar, escuchar, cerrar,
+    tocar, enviar, escuchar, cerrar, guardar,
     // La historia indica qué entradas del mapa están disponibles en la escena actual.
     habilitar(ids) {
       habilitadas = new Set(ids.filter(id => mapa.entries.some(e => e.id === id)));

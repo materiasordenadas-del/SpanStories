@@ -16,7 +16,7 @@ const VIEWER_URL = process.env.NODE_ENV==='development' ? "http://127.0.0.1:8877
 export function PilotWorldLexicon({development=false,localTest=false,draft=false,narrative=false,query='',studio=false,studioSources=[],releaseId}:{development?:boolean;localTest?:boolean;draft?:boolean;narrative?:boolean;query?:string;studio?:boolean;studioSources?:StudioSource[];releaseId?:string}) {
   const {user,loading}=useAuth();
   const owner=user?`user:${user.uid}`:'guest';
-  const service = useMemo(() => studio?createPreviewWorldLexiconService():createBrowserWorldLexiconService(undefined,owner), [owner,studio]);
+  const service = useMemo(() => studio?createPreviewWorldLexiconService():createBrowserWorldLexiconService(undefined,owner,{saveOnCorrect:!!releaseId}), [owner,studio,releaseId]);
   const alternate=new URLSearchParams(query);
   alternate.set('modo',development?'visor':'desarrollo');
   if(loading)return <main className={styles.page}>Preparando tu sesión…</main>;

@@ -65,6 +65,8 @@ export function crearPuertoPostMessage({ win = window, objetivo = win.parent, or
       const respuesta = leerRespuesta(m.response);
       if (!respuesta) return;
       pendientes.delete(m.id); cancelar(espera.temporizador); espera.resolver(respuesta);
+    } else if (m.type === 'SAVED' && mismasClaves(m, ['channel', 'version', 'id', 'type', 'saved']) && (m.saved === null || GUARDADO.has(m.saved))) {
+      pendientes.delete(m.id); cancelar(espera.temporizador); espera.resolver(m.saved);
     } else if (m.type === 'ERROR' && mismasClaves(m, ['channel', 'version', 'id', 'type', 'code']) && typeof m.code === 'string' && m.code.length <= 32) {
       pendientes.delete(m.id); cancelar(espera.temporizador); espera.rechazar(new Error('El anfitrión rechazó el intento: ' + m.code));
     }
@@ -74,6 +76,15 @@ export function crearPuertoPostMessage({ win = window, objetivo = win.parent, or
   return {
     registrarExposicion({entryId,interactionId,exposure}){
       objetivo.postMessage({channel:config.canal,version:config.version,type:'EXPOSURE',entryId,interactionId,exposure},origenAnfitrion);
+    },
+    // «Guardar» del estudiante. Resuelve con 'NEWLY_SAVED' | 'ALREADY_SAVED' | null.
+    guardarPalabra({ entryId, interactionId }) {
+      const id = nuevoId();
+      return new Promise((resolver, rechazar) => {
+        const temporizador = programar(() => { pendientes.delete(id); rechazar(new Error('El anfitrión no respondió a tiempo.')); }, config.replyTimeoutMs);
+        pendientes.set(id, { resolver, rechazar, temporizador });
+        objetivo.postMessage({ channel: config.canal, version: config.version, id, type: 'SAVE', entryId, interactionId }, origenAnfitrion);
+      });
     },
     enviarIntento({ entryId, interactionId, attemptNo, typed }) {
       const id = nuevoId();

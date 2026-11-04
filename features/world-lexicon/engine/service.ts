@@ -81,6 +81,8 @@ export interface WorldLexiconService {
   entryIds(): readonly string[];
   setScene?(entryIds:readonly string[],storyVersionId:string|null):void;
   recordExposure?(request:{entryId:string;interactionId:string;exposure:'OBJECT'|'AUDIO'}):boolean;
+  /** El estudiante pulsó «Guardar» en el visor: guarda la palabra en Práctica. null = no se pudo guardar. */
+  saveWord?(request:{entryId:string;interactionId:string}):Promise<SavedStatus|null>;
 }
 
 export function createSavedWordsPort(repository: PracticeItemRepository, now: () => Date = () => new Date()): WorldSavedWordsPort {
@@ -117,8 +119,11 @@ export function createWorldLexiconService(input: {
   readonly annotations: NounAnnotationIndex;
   readonly knowledge: WorldKnowledgePort;
   readonly savedWords: WorldSavedWordsPort;
+  /** false: acertar no guarda; la palabra solo se guarda con «Guardar» (saveWord). */
+  readonly saveOnCorrect?: boolean;
 }): WorldLexiconService {
   const { map, lookup, annotations, knowledge, savedWords } = input;
+  const saveOnCorrect = input.saveOnCorrect ?? true;
   if (map.curriculumReleaseId !== lookup.curriculumReleaseId || map.lexiconReleaseId !== lookup.lexiconReleaseId) {
     throw new WorldLexiconError("UNPUBLISHED_ENTRY", "El mapa no corresponde a la versión publicada del currículo.");
   }
@@ -190,7 +195,7 @@ export function createWorldLexiconService(input: {
     }
     remember(recordedOutcomes,key,{verdict,storyContext});
     let saved: SavedStatus | null = null;
-    if (accepted) {
+    if (accepted && saveOnCorrect) {
       saved = await saveOnce(item.target);
       if (saved === "NEWLY_SAVED") {
         knowledge.record({
@@ -209,8 +214,8 @@ export function createWorldLexiconService(input: {
       saved,
       recorded: true,
     };
-    if(!accepted||saved)remember(done, key, response);
-    if (accepted&&saved) remember(closed, request.interactionId, { entryId: item.entry.id, response });
+    if(!accepted||saved||!saveOnCorrect)remember(done, key, response);
+    if (accepted&&(saved||!saveOnCorrect)) remember(closed, request.interactionId, { entryId: item.entry.id, response });
     return response;
   }
 
@@ -223,6 +228,13 @@ export function createWorldLexiconService(input: {
       if(exposures.has(eventId))return true;
       const recorded=knowledge.record({eventId,kind:request.exposure==='OBJECT'?'OCCURRENCE_ENCOUNTERED':'OCCURRENCE_OPENED',exposure:request.exposure,targetKey:item.targetKey,storyVersionId,occurrenceId:null});
       if(recorded)exposures.add(eventId);return recorded;
+    },
+    async saveWord(request){
+      const item=prepared.get(request?.entryId);
+      if(!item||typeof request.interactionId!=='string'||!INTERACTION_ID.test(request.interactionId)||(enabled&&!enabled.has(request.entryId)))throw new WorldLexiconError('INVALID_REQUEST','Solicitud de guardado inválida.');
+      const saved=await saveOnce(item.target);
+      if(saved==='NEWLY_SAVED')knowledge.record({eventId:`world-saved:${request.interactionId}`,kind:'SAVED',targetKey:item.targetKey,storyVersionId,occurrenceId:null});
+      return saved;
     },
     setScene(ids,version){
       if(ids.some(id=>!prepared.has(id)))throw new WorldLexiconError('UNKNOWN_ENTRY','Entrada narrativa desconocida.');

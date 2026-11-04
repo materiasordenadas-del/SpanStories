@@ -244,7 +244,7 @@ async function initialize() {
   // Keep the first visible piece ahead of speculative downloads on slow connections.
   await fase(.25,.55,assets.load(first,zone.manifestUrl));firstSectorReady=true;performance.mark('city-first-sector-ready');
   if((aprendizaje||studioMode)&&!manifest.atlas){
-    lexico=await fase(.55,.6,montarLexico({zone,manifest,scene,camera,renderer,canvas:renderer.domElement,objetos,anfitrion:viewport,estado:status,alEstado:event=>studioBridge?.setLexicalEvent(event)}));
+    lexico=await fase(.55,.6,montarLexico({zone,manifest,scene,camera,renderer,canvas:renderer.domElement,objetos,anfitrion:viewport,estado:status,alEstado:event=>studioBridge?.setLexicalEvent(event),guardado:!studioMode}));
     if(studioMode){
       const {createStoryStudioBridge}=await import('./engine/StoryStudioBridge.js');
       studioBridge=await createStoryStudioBridge({scene,camera,target,renderer,assets,style,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned:studioPinned});

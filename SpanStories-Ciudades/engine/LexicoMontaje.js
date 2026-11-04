@@ -10,7 +10,7 @@ import { crearPuertoPostMessage, origenDelAnfitrion } from './LexicoPuertos.js';
 
 // `puerto` permite inyectar un adaptador por callbacks cuando el visor comparte la aplicación.
 // Sin puerto, se usa postMessage con el origen del anfitrión que incrusta el visor (lista cerrada en routes.js).
-export async function montarLexico({ zone, manifest, scene, camera, renderer, canvas, objetos, anfitrion, puerto = null, win = window, fetcher = fetch, estado = () => {}, alEstado = null }) {
+export async function montarLexico({ zone, manifest, scene, camera, renderer, canvas, objetos, anfitrion, puerto = null, win = window, fetcher = fetch, estado = () => {}, alEstado = null, guardado = false }) {
   if (!zone.lexiconUrl) return null;
   const respuesta = await fetcher(zone.lexiconUrl);
   if (!respuesta.ok) throw new Error('No se pudo cargar el vocabulario de la zona.');
@@ -33,8 +33,9 @@ export async function montarLexico({ zone, manifest, scene, camera, renderer, ca
   const resaltador = crearResaltador({ renderer,camera });
   const audio = crearAudioLexico({ baseUrl: zone.lexiconUrl });
   let interaccion = null;
-  const barra = crearBarraLexica({ anfitrion, alEnviar: texto => interaccion?.enviar(texto), alEscuchar: () => interaccion?.escuchar(), alCerrar: () => interaccion?.cerrar('usuario') });
-  interaccion = crearInteraccionLexica({ canvas, camera, scene, objetos, mapa, resolutor, resaltador, audio, barra, puerto: puertoActivo, alEstado });
+  const barra = crearBarraLexica({ anfitrion, alEnviar: texto => interaccion?.enviar(texto), alEscuchar: () => interaccion?.escuchar(), alCerrar: () => interaccion?.cerrar('usuario'),
+    guardado, alGuardar: () => interaccion?.guardar(), alCancelar: () => interaccion?.cerrar('cancelada') });
+  interaccion = crearInteraccionLexica({ canvas, camera, scene, objetos, mapa, resolutor, resaltador, audio, barra, puerto: puertoActivo, alEstado, guardadoManual: guardado });
 
   return {
     mapa, interaccion,

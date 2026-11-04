@@ -78,3 +78,20 @@ test("el puente no se crea con un origen comodín o inválido", () => {
     assert.throws(() => createHostBridge({ service: { submitAttempt: async () => verdict }, expectedOrigin, expectedSource: () => viewerWindow, postToViewer: () => {} }), expectedOrigin);
   }
 });
+
+test("«Guardar» del visor: guarda y responde SAVED solo al origen esperado; mensajes mal formados se ignoran", async () => {
+  const sent: { message: HostReplyMessage; origin: string }[] = [];
+  const saves: unknown[] = [];
+  const bridge = createHostBridge({
+    service: { submitAttempt: async () => verdict, saveWord: async (r) => { saves.push(r); return "NEWLY_SAVED"; } },
+    expectedOrigin: ORIGIN, expectedSource: () => viewerWindow, postToViewer: (message, origin) => sent.push({ message, origin }),
+  });
+  const save = { channel: WORLD_LEXICON_CHANNEL, version: 1, id: "mensaje-0002", type: "SAVE", entryId: "casa", interactionId: "interaccion-0001" };
+  assert.equal(await bridge.handle({ origin: ORIGIN, source: viewerWindow, data: save }), true);
+  assert.deepEqual(saves, [{ entryId: "casa", interactionId: "interaccion-0001" }]);
+  assert.deepEqual(sent, [{ origin: ORIGIN, message: { channel: WORLD_LEXICON_CHANNEL, version: 1, id: "mensaje-0002", type: "SAVED", saved: "NEWLY_SAVED" } }]);
+  assert.equal(await bridge.handle({ origin: "https://evil.example", source: viewerWindow, data: save }), false);
+  assert.equal(await bridge.handle({ origin: ORIGIN, source: viewerWindow, data: { ...save, extra: 1 } }), false);
+  assert.equal(await bridge.handle({ origin: ORIGIN, source: viewerWindow, data: { ...save, id: "x" } }), false);
+  assert.equal(saves.length, 1);
+});

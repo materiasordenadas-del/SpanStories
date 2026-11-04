@@ -52,3 +52,9 @@ body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:po
 .carga-inicial[data-error=true] .carga-barra{display:none}
 .carga-inicial[data-error=true] .carga-cifra{color:#ffb4a2}
 @media(prefers-reduced-motion:reduce){.carga-inicial,.carga-barra span{transition:none}}
+
+/* Visor Web del estudiante: guardar la palabra en Práctica o cancelar. */
+.lexico-fila-guardado{justify-content:flex-end;margin-top:8px}
+.lexico-barra .lexico-guardar{background:#ff8a1f;color:#1b1206;border-color:#ff8a1f;font-weight:600}
+.lexico-barra .lexico-guardar[data-estado=guardada]{opacity:1;background:#2f4a33;border-color:#7fc47a;color:#d8f0d2}
+.lexico-barra .lexico-cancelar{background:transparent}

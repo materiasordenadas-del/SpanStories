@@ -25,7 +25,7 @@ const annotations = createNounAnnotationIndex(PILOT_NOUN_ANNOTATIONS, lookup);
 const LEARNER = "guest";
 const T0 = Date.parse("2026-10-21T10:00:00Z");
 
-function setup(options: { failRecord?: () => boolean; failSave?: boolean } = {}) {
+function setup(options: { failRecord?: () => boolean; failSave?: boolean; saveOnCorrect?: boolean } = {}) {
   const events = new InMemoryKnowledgeEventRepository();
   const items = new InMemoryPracticeItemRepository();
   let clock = T0;
@@ -41,7 +41,7 @@ function setup(options: { failRecord?: () => boolean; failSave?: boolean } = {})
   };
   const real = createSavedWordsPort(items, () => new Date(clock));
   const savedWords = { saveIfAbsent: async (target: Parameters<typeof real.saveIfAbsent>[0]) => { saveCalls++; if (options.failSave) throw new Error("storage"); return real.saveIfAbsent(target); } };
-  const service = createWorldLexiconService({ map, lookup, annotations, knowledge, savedWords });
+  const service = createWorldLexiconService({ map, lookup, annotations, knowledge, savedWords, saveOnCorrect: options.saveOnCorrect });
   return { service, events, items, saveCalls: () => saveCalls, advance: (ms: number) => { clock += ms; } };
 }
 const req = (entryId: string, typed: string, attemptNo = 1, interactionId = "interaccion-0001"): AttemptRequest => ({ entryId, interactionId, attemptNo, typed });
@@ -206,4 +206,24 @@ test('reintentar un guardado fallido no duplica el intento ni exige escribir otr
   assert.equal((await state.service.submitAttempt(request)).saved,'NEWLY_SAVED');
   assert.equal(state.events.listForLearner(LEARNER).filter(e=>e.kind==='PRACTICE').length,1);
   assert.equal((await state.items.list()).length,1);
+});
+
+test('Visor Web: acertar no guarda; solo «Guardar» añade la palabra a Práctica',async()=>{
+  const {service,events,items}=setup({saveOnCorrect:false});
+  const r=await service.submitAttempt(req('arbol','árbol'));
+  assert.equal(r.outcome,'CORRECT');assert.equal(r.saved,null);assert.equal(r.recorded,true);
+  assert.equal((await items.list()).length,0,'acertar no guarda');
+  assert.equal(await service.saveWord!({entryId:'arbol',interactionId:'interaccion-0001'}),'NEWLY_SAVED');
+  assert.equal((await items.list()).length,1);
+  assert.equal(await service.saveWord!({entryId:'arbol',interactionId:'interaccion-0002'}),'ALREADY_SAVED');
+  assert.equal(events.listForLearner(LEARNER).filter(e=>e.kind==='SAVED').length,1);
+});
+test('Cancelar: seleccionar sin pulsar «Guardar» no guarda nada',async()=>{
+  const {service,items}=setup({saveOnCorrect:false});
+  assert.ok(service.recordExposure!({entryId:'arbol',interactionId:'interaccion-0003',exposure:'OBJECT'}));
+  assert.equal((await items.list()).length,0);
+});
+test('guardar una entrada desconocida se rechaza',async()=>{
+  const {service}=setup({saveOnCorrect:false});
+  await assert.rejects(service.saveWord!({entryId:'nada',interactionId:'interaccion-0004'}),WorldLexiconError);
 });

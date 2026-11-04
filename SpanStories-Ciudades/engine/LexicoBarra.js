@@ -2,7 +2,8 @@
 // ni en el texto, ni en el placeholder, ni en atributos ARIA, ni en la longitud del campo.
 import { LEXICO } from '../routes.js';
 
-export function crearBarraLexica({ doc = document, anfitrion, config = LEXICO, alEnviar, alEscuchar, alCerrar }) {
+// `guardado`: solo en el Visor Web del estudiante; añade «Guardar» y «Cancelar» (la parte de edición no los muestra).
+export function crearBarraLexica({ doc = document, anfitrion, config = LEXICO, alEnviar, alEscuchar, alCerrar, guardado = false, alGuardar, alCancelar }) {
   const el = (tag, props = {}, hijos = []) => {
     const nodo = doc.createElement(tag);
     for (const [clave, valor] of Object.entries(props)) {
@@ -23,8 +24,11 @@ export function crearBarraLexica({ doc = document, anfitrion, config = LEXICO, a
   const cerrar = el('button', { type: 'button', className: 'lexico-cerrar', 'aria-label': 'Cerrar', text: '✕' });
   const estado = el('p', { className: 'lexico-estado', role: 'status', 'aria-live': 'polite' });
   const fila = el('div', { className: 'lexico-fila' }, [escuchar, campo, enviar, cerrar]);
+  const guardar = el('button', { type: 'button', className: 'lexico-guardar', text: 'Guardar' });
+  const cancelar = el('button', { type: 'button', className: 'lexico-cancelar', text: 'Cancelar' });
+  const filaGuardado = el('div', { className: 'lexico-fila lexico-fila-guardado' }, [guardar, cancelar]);
   // No es un <form>: dentro de un iframe con sandbox sin «allow-forms» el navegador bloquea el envío nativo.
-  const raiz = el('div', { className: 'lexico-barra', role: 'group', 'aria-label': 'Escribe la palabra del objeto' }, [fila, estado]);
+  const raiz = el('div', { className: 'lexico-barra', role: 'group', 'aria-label': 'Escribe la palabra del objeto' }, guardado ? [fila, filaGuardado, estado] : [fila, estado]);
   raiz.hidden = true;
   raiz.dataset.estado = 'cerrada';
   anfitrion.append(raiz);
@@ -36,10 +40,14 @@ export function crearBarraLexica({ doc = document, anfitrion, config = LEXICO, a
   enviar.addEventListener('click', lanzar);
   escuchar.addEventListener('click', () => alEscuchar?.());
   cerrar.addEventListener('click', () => alCerrar?.());
+  guardar.addEventListener('click', () => { if (!guardar.disabled) alGuardar?.(); });
+  cancelar.addEventListener('click', () => alCancelar?.());
 
   return {
-    raiz, campo, estado, enviar,
-    abrir() { raiz.hidden = false; raiz.dataset.estado = 'abierta'; campo.disabled = false; enviar.disabled = false; campo.value = ''; estado.textContent = ''; estado.dataset.tipo = 'info'; },
+    raiz, campo, estado, enviar, guardar, cancelar,
+    abrir() { raiz.hidden = false; raiz.dataset.estado = 'abierta'; campo.disabled = false; enviar.disabled = false; guardar.disabled = false; guardar.textContent = 'Guardar'; campo.value = ''; estado.textContent = ''; estado.dataset.tipo = 'info'; },
+    // Estado del botón «Guardar»: 'listo' | 'guardando' | 'guardada'.
+    guardadoEstado(valor) { guardar.disabled = valor !== 'listo'; guardar.dataset.estado = valor; guardar.textContent = valor === 'guardando' ? 'Guardando…' : valor === 'guardada' ? 'Guardada ✓' : 'Guardar'; },
     cerrar() { raiz.hidden = true; raiz.dataset.estado = 'cerrada'; campo.value = ''; estado.textContent = ''; campo.blur(); },
     enfocar() { campo.focus({ preventScroll: true }); },
     mostrar(tipo, texto) { estado.dataset.tipo = tipo; estado.textContent = texto; raiz.dataset.resultado = tipo; },

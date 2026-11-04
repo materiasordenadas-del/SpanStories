@@ -54,7 +54,8 @@ export function createBrowserSavedWordsPort(owner=currentLearner()): WorldSavedW
   return { saveIfAbsent: (target) => savePracticeTargetIfAbsent(target,owner) };
 }
 
-export function createBrowserWorldLexiconService(map: WorldLexiconMap = pilotWorldLexiconMap(),owner=currentLearner()): WorldLexiconService {
+/** `saveOnCorrect:false` (Visor Web del estudiante): solo el botón «Guardar» añade la palabra a Práctica. */
+export function createBrowserWorldLexiconService(map: WorldLexiconMap = pilotWorldLexiconMap(),owner=currentLearner(),{saveOnCorrect=true}:{saveOnCorrect?:boolean}={}): WorldLexiconService {
   const lookup = browserLexiconLookup();
   return createWorldLexiconService({
     map,
@@ -62,6 +63,7 @@ export function createBrowserWorldLexiconService(map: WorldLexiconMap = pilotWor
     annotations: createNounAnnotationIndex(PILOT_NOUN_ANNOTATIONS, lookup),
     knowledge: createBrowserKnowledgePort(owner),
     savedWords: createBrowserSavedWordsPort(owner),
+    saveOnCorrect,
   });
 }
 

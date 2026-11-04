@@ -1,4 +1,4 @@
-import { WorldLexiconError, type AttemptRequest, type AttemptResponse, type WorldLexiconService } from "../engine/service.ts";
+import { WorldLexiconError, type AttemptRequest, type AttemptResponse, type SavedStatus, type WorldLexiconService } from "../engine/service.ts";
 
 /**
  * Protocolo visor ⇄ anfitrión para cuando el visor 3D vive en un iframe.
@@ -43,6 +43,13 @@ export type HostReplyMessage =
       readonly id: string;
       readonly type: "ERROR";
       readonly code: string;
+    }
+  | {
+      readonly channel: typeof WORLD_LEXICON_CHANNEL;
+      readonly version: typeof WORLD_LEXICON_PROTOCOL_VERSION;
+      readonly id: string;
+      readonly type: "SAVED";
+      readonly saved: SavedStatus | null;
     };
 
 const MESSAGE_ID = /^[A-Za-z0-9-]{8,64}$/;
@@ -83,7 +90,7 @@ function isConcreteOrigin(origin: string): boolean {
 }
 
 export function createHostBridge(input: {
-  readonly service: Pick<WorldLexiconService, "submitAttempt"|"recordExposure">;
+  readonly service: Pick<WorldLexiconService, "submitAttempt"|"recordExposure"|"saveWord">;
   readonly expectedOrigin: string;
   /** Ventana del iframe del visor; se consulta en cada mensaje porque el iframe puede recargarse. */
   readonly expectedSource: () => unknown;
@@ -100,6 +107,19 @@ export function createHostBridge(input: {
       if(exposure?.channel===WORLD_LEXICON_CHANNEL&&exposure.version===1&&exposure.type==='EXPOSURE'){
         if(Object.keys(exposure).length!==6||typeof exposure.entryId!=='string'||exposure.entryId.length>64||typeof exposure.interactionId!=='string'||!MESSAGE_ID.test(exposure.interactionId)||!['OBJECT','AUDIO'].includes(exposure.exposure as string))return false;
         return input.service.recordExposure?.({entryId:exposure.entryId,interactionId:exposure.interactionId,exposure:exposure.exposure as 'OBJECT'|'AUDIO'})??false;
+      }
+      // «Guardar» del estudiante: {channel, version, id, type:'SAVE', entryId, interactionId}.
+      if(exposure?.channel===WORLD_LEXICON_CHANNEL&&exposure.version===1&&exposure.type==='SAVE'){
+        if(Object.keys(exposure).length!==6||typeof exposure.id!=='string'||!MESSAGE_ID.test(exposure.id)||typeof exposure.entryId!=='string'||exposure.entryId.length===0||exposure.entryId.length>64||typeof exposure.interactionId!=='string'||!MESSAGE_ID.test(exposure.interactionId))return false;
+        const id=exposure.id;
+        if(!input.service.saveWord){reply({channel:WORLD_LEXICON_CHANNEL,version:WORLD_LEXICON_PROTOCOL_VERSION,id,type:'ERROR',code:'UNSUPPORTED'});return true;}
+        try{
+          const saved=await input.service.saveWord({entryId:exposure.entryId,interactionId:exposure.interactionId});
+          reply({channel:WORLD_LEXICON_CHANNEL,version:WORLD_LEXICON_PROTOCOL_VERSION,id,type:'SAVED',saved});
+        }catch(error){
+          reply({channel:WORLD_LEXICON_CHANNEL,version:WORLD_LEXICON_PROTOCOL_VERSION,id,type:'ERROR',code:error instanceof WorldLexiconError?error.code:'INTERNAL'});
+        }
+        return true;
       }
       const message = parseAttemptMessage(event.data);
       if (message === null) return false;
