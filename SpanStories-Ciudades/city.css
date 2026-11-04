@@ -11,20 +11,32 @@ body[data-studio=true] .toolbar,body[data-studio=true] #panel-toggle,body[data-s
 @media(max-width:650px){header{height:54px;padding:14px}header>span{display:none}main{height:calc(100dvh - 54px)}.toolbar{left:10px;max-width:calc(100% - 110px);top:10px}.toolbar button{padding:7px;font-size:11px}#panel-toggle{top:10px;right:10px;padding:7px}.scene-caption{left:12px;bottom:80px;max-width:80%;padding:8px}.scene-footer{flex-direction:column;gap:4px;padding:9px 12px}#panel{width:100%}}
 
 /* Modo aprendizaje: sin controles de editor ni de navegación; solo la escena y la barra de vocabulario. */
-.lexico-ayuda{position:absolute;left:12px;top:8px;max-width:calc(100% - 48px);padding:8px 12px;border-radius:8px;background:#122435de;color:#eff5f7;font:13px system-ui;pointer-events:none;z-index:2}
+.lexico-ayuda{position:absolute;left:12px;top:10px;max-width:calc(100% - 48px);padding:9px 14px;border-radius:999px;background:#122435e6;border:1px solid #42576b;box-shadow:0 4px 16px #0006;color:#eff5f7;font:14px/1.35 system-ui;pointer-events:none;z-index:2;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 body[data-modo=aprendizaje] .toolbar,body[data-modo=aprendizaje] #panel-toggle,body[data-modo=aprendizaje] #panel,
 body[data-modo=aprendizaje] .scene-footer,body[data-modo=aprendizaje] .scene-caption{display:none!important}
 body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:pointer}
-.lexico-barra{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;width:min(560px,calc(100% - 24px));box-sizing:border-box;padding:10px;display:flex;flex-direction:column;gap:6px;background:#122435f2;border:1px solid #42576b;border-radius:14px;box-shadow:0 8px 28px #0008;color:#eff5f7}
+.lexico-barra{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;width:min(580px,calc(100% - 24px));box-sizing:border-box;padding:12px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(180deg,#183149f5,#0f2031f5);border:1px solid #4a6178;border-radius:18px;box-shadow:0 12px 34px #0009,inset 0 1px 0 #ffffff14;color:#eff5f7;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .2s,box-shadow .2s}
 .lexico-barra[hidden]{display:none}
+.lexico-barra[data-resultado=ok]{border-color:#7fc47a;box-shadow:0 12px 34px #0009,0 0 0 3px #7fc47a33}
+.lexico-barra[data-resultado=error]{border-color:#e58f7c}
 .lexico-fila{display:flex;gap:8px;align-items:stretch}
-.lexico-barra button,.lexico-campo{min-height:48px;border-radius:10px;font:inherit}
-.lexico-barra button{min-width:48px;padding:0 14px;background:#173552;color:#eff5f7;border:1px solid #526c82;cursor:pointer}
+.lexico-barra button,.lexico-campo{min-height:52px;border-radius:12px;font:inherit}
+.lexico-barra button{min-width:52px;padding:0 16px;background:#1d405f;color:#eff5f7;border:1px solid #5b768d;cursor:pointer;transition:background .15s,transform .1s,border-color .15s}
+.lexico-barra button:hover:not(:disabled){background:#27537a;border-color:#8fa8bc}
+.lexico-barra button:active:not(:disabled){transform:translateY(1px)}
 .lexico-barra button:focus-visible,.lexico-campo:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
-.lexico-barra .lexico-enviar{background:#efd29a;color:#122435;border-color:#efd29a;font-weight:600}
+.lexico-barra .lexico-escuchar{font-size:20px}
+.lexico-barra .lexico-enviar{background:#efd29a;color:#122435;border-color:#efd29a;font-weight:700;letter-spacing:.01em}
+.lexico-barra .lexico-enviar:hover:not(:disabled){background:#f6dfae;border-color:#f6dfae}
+.lexico-barra .lexico-cerrar{background:transparent;border-color:transparent;color:#b7cad6;min-width:44px;padding:0 10px}
+.lexico-barra .lexico-cerrar:hover:not(:disabled){background:#ffffff14;border-color:transparent;color:#eff5f7}
 .lexico-barra button:disabled{opacity:.55;cursor:default}
-.lexico-campo{flex:1;min-width:0;padding:0 14px;background:#102538;color:#eff5f7;border:1px solid #526c82;font-size:16px}
-.lexico-estado{margin:0;min-height:1.4em;padding:0 4px;font-size:14px;color:#b7cad6}
-.lexico-estado[data-tipo=error]{color:#ffb4a2}.lexico-estado[data-tipo=ok]{color:#b7e4a8}.lexico-estado[data-tipo=aviso]{color:#efd29a}
-@media(max-width:650px){.lexico-enviar{padding:0 10px}.lexico-barra{bottom:max(8px,env(safe-area-inset-bottom))}}
-@media(prefers-reduced-motion:no-preference){.lexico-barra{animation:lexico-sube .18s ease-out}@keyframes lexico-sube{from{opacity:0;transform:translate(-50%,8px)}}}
+.lexico-campo{flex:1;min-width:0;padding:0 16px;background:#0c1c2b;color:#eff5f7;border:1px solid #5b768d;font-size:18px;transition:border-color .15s,background .15s}
+.lexico-campo::placeholder{color:#8ea5b6}
+.lexico-campo:focus{border-color:#efd29a;background:#0f2436}
+.lexico-campo:disabled{color:#b7e4a8;border-color:#7fc47a;opacity:1}
+.lexico-estado{margin:0;min-height:1.5em;padding:0 6px;font-size:15px;line-height:1.4;color:#b7cad6}
+.lexico-estado:empty{min-height:0}
+.lexico-estado[data-tipo=error]{color:#ffb4a2}.lexico-estado[data-tipo=ok]{color:#b7e4a8;font-weight:600}.lexico-estado[data-tipo=aviso]{color:#efd29a}
+@media(max-width:650px){.lexico-enviar{padding:0 12px}.lexico-barra{bottom:max(8px,env(safe-area-inset-bottom));padding:10px;border-radius:16px}.lexico-barra .lexico-cerrar{min-width:40px;padding:0 6px}}
+@media(prefers-reduced-motion:no-preference){.lexico-barra{animation:lexico-sube .22s ease-out}@keyframes lexico-sube{from{opacity:0;transform:translate(-50%,10px)}}.lexico-barra[data-resultado=error] .lexico-campo{animation:lexico-sacude .3s}@keyframes lexico-sacude{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}}
