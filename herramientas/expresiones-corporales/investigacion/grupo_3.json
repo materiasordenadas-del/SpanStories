@@ -1,0 +1,934 @@
+{
+ "grupo": 3,
+ "expresiones": {
+  "miedo_M": {
+   "gesto": "miedo",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Miedo (estilo masculino)",
+   "nota": "Congela y retrocede: el peso va atrás, el torso se gira un poco lejos de la amenaza y el brazo derecho sube en guardia con la palma fuera; el izquierdo queda bajo y pegado al cuerpo, listo para irse. La cabeza sale de golpe y mira de reojo, el cuello se retrae y respira corto.",
+   "referencia": "Las fuentes de animación describen el miedo como retirada y protección, con manos hacia la cara o el pecho, y avisan de que esos gestos se vuelven cliché si no encajan con el personaje. La lectura de la postura como señal de actitud viene de una fuente secundaria; no pude comprobar el trabajo original de Ekman y Friesen.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay",
+    "https://www.ugr.es/~aula_psi/EL_COMPORTAMIENTO_NO_VERBAL.htm"
+   ],
+   "params": {
+    "torso_inclinar": -6,
+    "torso_girar": -6,
+    "pecho_abrir": -4,
+    "hombro_subir": 9,
+    "hombro_adelante": 3,
+    "codo_direccion": 8,
+    "mano_objetivo_R": [-0.15, 0.42, -0.05],
+    "muneca_doblar_R": -20,
+    "mano_objetivo_L": [-0.05, 0.25, -0.45],
+    "dedos_cerrar": 0.2,
+    "dedos_abrir": 0.55,
+    "cabeza_inclinar": 4,
+    "cabeza_girar": -10,
+    "cabeza_lateral": -2,
+    "cuello_adelantar": -6
+   },
+   "vida": {
+    "respiracion": 1.8,
+    "respiracion_periodo": 1.8,
+    "temblor": 0.35,
+    "temblor_frecuencia": 8
+   },
+   "tiempos": {
+    "entrada": 5,
+    "asentar": 8,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   }
+  },
+  "miedo_F": {
+   "gesto": "miedo",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Miedo (estilo femenino)",
+   "nota": "Se encoge hacia dentro en lugar de huir: los hombros suben y se cierran hacia delante, los codos se pegan al cuerpo y las manos quedan recogidas junto al pecho con los dedos tensos. La cabeza baja y se aparta de lado con la barbilla recogida; el temblor sale en las manos y los hombros.",
+   "referencia": "Las fuentes de animación describen el miedo como un cuerpo que se protege y se repliega, con las manos cerca del rostro o del pecho. Que F se recoja en lugar de retroceder es decisión propia para diferenciarla de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_girar": -4,
+    "torso_encorvar": 7,
+    "pecho_abrir": -7,
+    "hombro_subir": 12,
+    "hombro_adelante": 8,
+    "codo_direccion": -8,
+    "mano_objetivo_L": [-0.22, 0.3, -0.25],
+    "mano_objetivo_R": [-0.25, 0.33, -0.2],
+    "muneca_doblar": 10,
+    "dedos_cerrar": 0.45,
+    "pulgar_cerrar": 0.35,
+    "cabeza_inclinar": 8,
+    "cabeza_lateral": 4,
+    "cabeza_girar": -8,
+    "cuello_adelantar": -4
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 2.0,
+    "temblor": 0.45,
+    "temblor_frecuencia": 9
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 12,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   }
+  },
+  "terror_M": {
+   "gesto": "terror",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Terror (estilo masculino)",
+   "nota": "Salto atrás con escudo: el torso se echa hacia atrás y se gira, los hombros saltan arriba y los antebrazos se levantan delante de la cara con las palmas fuera y los codos afuera. La cabeza se hunde y se vuelve, el cuello se recoge, el temblor es fuerte y la respiración sale a golpes.",
+   "referencia": "Las fuentes de animación describen el terror súbito con señales corporales y faciales extremas, frente al miedo lento con gestos contenidos. El escudo con los antebrazos es decisión de diseño sobre esa base.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ],
+   "params": {
+    "torso_inclinar": -11,
+    "torso_girar": -10,
+    "pecho_abrir": -6,
+    "hombro_subir": 14,
+    "hombro_adelante": 6,
+    "codo_direccion": 12,
+    "mano_objetivo_L": [-0.12, 0.36, 0.1],
+    "mano_objetivo_R": [-0.2, 0.34, 0.08],
+    "muneca_doblar": -25,
+    "dedos_cerrar": 0.1,
+    "dedos_abrir": 0.6,
+    "cabeza_inclinar": 6,
+    "cabeza_girar": -14,
+    "cabeza_lateral": -3,
+    "cuello_adelantar": -10
+   },
+   "pico": {
+    "torso_inclinar": -12,
+    "hombro_subir": 15,
+    "cabeza_girar": -16,
+    "cuello_adelantar": -12
+   },
+   "vida": {
+    "respiracion": 2.4,
+    "respiracion_periodo": 1.2,
+    "temblor": 0.7,
+    "temblor_frecuencia": 12
+   },
+   "tiempos": {
+    "entrada": 4,
+    "asentar": 8,
+    "mantener": 36,
+    "salida": 14,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.3,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 0.5,
+    "orden": "cabeza_primero"
+   }
+  },
+  "terror_F": {
+   "gesto": "terror",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Terror (estilo femenino)",
+   "nota": "Se echa atrás y se pliega sobre sí misma: la espalda se encorva, el pecho se hunde, una mano queda junto a la barbilla con los dedos cerrados y la otra se aprieta al pecho. La cabeza se baja y se gira de lado, los hombros suben y la respiración es entrecortada.",
+   "referencia": "Las fuentes de animación indican que en el susto las manos suben hacia la boca o la cara como protección. La forma de plegarse y la mano junto a la barbilla son decisiones de diseño para distinguirla del escudo de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_encorvar": 9,
+    "torso_lateral": 4,
+    "pecho_abrir": -10,
+    "hombro_subir": 14,
+    "hombro_adelante": 10,
+    "codo_direccion": -6,
+    "mano_objetivo_R": [-0.22, 0.24, -0.02],
+    "mano_objetivo_L": [-0.15, 0.3, -0.2],
+    "muneca_doblar": 14,
+    "dedos_cerrar": 0.6,
+    "pulgar_cerrar": 0.4,
+    "cabeza_inclinar": 10,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -8,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 2.0,
+    "respiracion_periodo": 1.3,
+    "temblor": 0.6,
+    "temblor_frecuencia": 10
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 12,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.2,
+    "orden": "torso_primero"
+   }
+  },
+  "desorientado_M": {
+   "gesto": "desorientado",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Desorientado (estilo masculino)",
+   "nota": "Pierde el rumbo y busca: el cuerpo casi no se mueve, la cabeza va a un lado y a otro en miradas rápidas, y los brazos caen sueltos con las palmas hacia arriba, como si no supiera dónde apoyarse. No hay peso fijo; las miradas se repiten cada poco.",
+   "referencia": "Una guía de animación describe el giro de cabeza en tres tiempos: arranque brusco, giro y asentamiento, lo que sirve para la búsqueda con la cabeza. El ritmo de las miradas es decisión de diseño sobre ese patrón.",
+   "fuentes": [
+    "https://brianlemay.com/Pages/animationschool/animation/2ndsemesteranimation/05Take/taketips.html"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 1,
+    "pecho_abrir": -2,
+    "hombro_subir": 2,
+    "brazo_abrir": 8,
+    "brazo_adelantar": 6,
+    "codo": 20,
+    "antebrazo_girar": -10,
+    "dedos_abrir": 0.3,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 3,
+    "cabeza_girar": -6
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_girar": 8,
+     "cabeza_inclinar": -2
+    },
+    "periodo": 1.6,
+    "forma": "golpe"
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2,
+    "balanceo": 0.4,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   }
+  },
+  "desorientado_F": {
+   "gesto": "desorientado",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Desorientado (estilo femenino)",
+   "nota": "Se mece sin saber dónde está: el torso oscila despacio de un lado a otro, la cabeza se ladea y gira en oleadas suaves, la mano derecha sube un poco como si tanteara el aire y la izquierda cuelga. Los movimientos son lentos, sin brusquedad.",
+   "referencia": "No encontré una guía específica para el mareo; las fuentes de animación solo tratan de forma general el desfase entre cuerpo y cabeza. El balanceo lento y la mano que tantea son decisión de diseño para distinguirla de la búsqueda rápida de M.",
+   "fuentes": [
+    "https://brianlemay.com/Pages/animationschool/animation/2ndsemesteranimation/05Take/taketips.html"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 4,
+    "torso_girar": -3,
+    "pecho_abrir": -2,
+    "hombro_subir": 3,
+    "hombro_adelante": 2,
+    "mano_objetivo_R": [0.12, 0.25, -0.45],
+    "mano_objetivo_L": [0.08, 0.12, -0.75],
+    "dedos_abrir": 0.3,
+    "cabeza_inclinar": -3,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -4
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_lateral": 4,
+     "cabeza_lateral": 3,
+     "cabeza_girar": 6
+    },
+    "periodo": 3.0,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 3.6,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 12,
+    "mantener": 64,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   }
+  },
+  "sorpresa_M": {
+   "gesto": "sorpresa",
+   "familia": "sorpresa",
+   "estilo": "M",
+   "titulo": "Sorpresa (estilo masculino)",
+   "nota": "Sobresalto que sube y se asienta: el torso salta atrás, los hombros se disparan arriba, los brazos se abren a la altura de los hombros con las palmas hacia arriba y la cabeza se echa atrás. Tras el pico baja la intensidad y se queda con los brazos abiertos.",
+   "referencia": "La revisión de reconocimiento de gestos (arXiv) lista para la sorpresa el retroceso brusco, las manos hacia la cabeza o la cara y el paso atrás. Wikipedia indica que la cabeza va atrás o ladeada, y que el sobresalto en sí es un reflejo más que una emoción.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1801.07481",
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)",
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-surprise-with-dreamworks-animator-chadd-ferron"
+   ],
+   "params": {
+    "torso_inclinar": -7,
+    "pecho_abrir": 6,
+    "hombro_subir": 12,
+    "hombro_adelante": -4,
+    "mano_objetivo_L": [0.3, 0.35, 0.05],
+    "mano_objetivo_R": [0.32, 0.33, 0.08],
+    "antebrazo_girar": -15,
+    "dedos_abrir": 0.7,
+    "dedos_cerrar": 0.05,
+    "cabeza_inclinar": -9,
+    "cabeza_lateral": 3,
+    "cuello_adelantar": -6
+   },
+   "pico": {
+    "torso_inclinar": -10,
+    "hombro_subir": 15,
+    "cabeza_inclinar": -13,
+    "dedos_abrir": 0.85
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 2.4,
+    "balanceo": 0.4,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 4,
+    "asentar": 14,
+    "mantener": 30,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.18,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 0.5,
+    "orden": "cabeza_primero"
+   }
+  },
+  "sorpresa_F": {
+   "gesto": "sorpresa",
+   "familia": "sorpresa",
+   "estilo": "F",
+   "titulo": "Sorpresa (estilo femenino)",
+   "nota": "Un respingo pequeño y las manos al pecho: el torso se echa un poco atrás y se levanta, los hombros suben, las dos manos se juntan cerca del esternón con las palmas hacia dentro y la cabeza se ladea y se queda un momento mirando. Se asienta despacio.",
+   "referencia": "Las fuentes describen la sorpresa con manos hacia el pecho o la cara y la cabeza echada atrás o ladeada. El respingo lento de F es decisión propia para distinguirla del salto de M.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1801.07481",
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)"
+   ],
+   "params": {
+    "torso_inclinar": -4,
+    "torso_lateral": 2,
+    "pecho_abrir": 5,
+    "hombro_subir": 9,
+    "hombro_adelante": 3,
+    "mano_objetivo_L": [-0.12, 0.32, -0.2],
+    "mano_objetivo_R": [-0.2, 0.3, -0.05],
+    "codo_direccion": -6,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.25,
+    "pulgar_cerrar": 0.15,
+    "cabeza_inclinar": -5,
+    "cabeza_lateral": 8,
+    "cabeza_girar": 3,
+    "cuello_adelantar": -4
+   },
+   "pico": {
+    "torso_inclinar": -6,
+    "hombro_subir": 12,
+    "cabeza_inclinar": -9
+   },
+   "vida": {
+    "respiracion": 1.5,
+    "respiracion_periodo": 2.6,
+    "balanceo": 0.5,
+    "balanceo_periodo": 4.0
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 16,
+    "mantener": 30,
+    "salida": 18,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   }
+  },
+  "incredulo_M": {
+   "gesto": "incredulo",
+   "familia": "sorpresa",
+   "estilo": "M",
+   "titulo": "Incredulidad (estilo masculino)",
+   "nota": "No se lo cree: el torso se echa un poco atrás, el mentón se recoge y la cabeza se queda un instante hacia atrás y ladeada. Los brazos se abren a la altura de la cintura con las palmas hacia arriba, como preguntando en serio.",
+   "referencia": "La revisión de sorpresa (Wikipedia) indica que subir las cejas se asocia más a la incredulidad que al sobresalto. El resto de la postura (palmas arriba, cabeza atrás) viene de lenguaje corporal popular, no de evidencia de laboratorio.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)",
+    "https://arxiv.org/pdf/1801.07481"
+   ],
+   "params": {
+    "torso_inclinar": -4,
+    "pecho_abrir": 2,
+    "hombro_subir": 5,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": -6,
+    "cuello_adelantar": -10,
+    "mano_objetivo_L": [0.25, 0.3, -0.5],
+    "mano_objetivo_R": [0.27, 0.3, -0.45],
+    "antebrazo_girar": -15,
+    "dedos_abrir": 0.35
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.0
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 12,
+    "mantener": 44,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "cabeza_primero"
+   }
+  },
+  "incredulo_F": {
+   "gesto": "incredulo",
+   "familia": "sorpresa",
+   "estilo": "F",
+   "titulo": "Incredulidad (estilo femenino)",
+   "nota": "Una mano en la cadera y la otra en el aire con la palma arriba: se echa un poco atrás y mira de arriba abajo con la cabeza ladeada y la barbilla alzada, como quien no se fía de lo que oye. El peso se queda en un pie y el gesto se sostiene.",
+   "referencia": "Las fuentes de sorpresa atribuyen a la incredulidad las cejas levantadas y la cabeza atrás o ladeada. La mano en la cadera es decisión de diseño para diferenciarla de la de M, no un dato verificado en las fuentes.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "pecho_abrir": 3,
+    "hombro_subir": 4,
+    "mano_objetivo_R": [0.3, 0.05, -0.6],
+    "codo_direccion_R": 14,
+    "mano_objetivo_L": [0.18, 0.35, -0.2],
+    "antebrazo_girar_L": -12,
+    "dedos_abrir_L": 0.4,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 8,
+    "cabeza_girar": -4,
+    "cuello_adelantar": -4
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.6,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 14,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0.02,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "torso_primero"
+   }
+  },
+  "asco_M": {
+   "gesto": "asco",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Asco (estilo masculino)",
+   "nota": "Empuja lo que tiene delante: el torso se aparta girando hacia el lado contrario al objeto, y la mano izquierda, del lado del objeto, sale hacia delante con la palma fuera como si frenara; la derecha queda pegada al cuerpo. La cabeza se vuelve y se mete la barbilla, y los ojos miran de lado.",
+   "referencia": "Animation Mentor (Jay Davis) dice que ante algo asqueroso el personaje se aparta girando el cuerpo o la cara, y avisa de no exagerar. La semiótica de gestos franceses agrupa el empuje con la palma hacia fuera como rechazo.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -4,
+    "torso_girar": -10,
+    "pecho_abrir": -3,
+    "hombro_subir": 4,
+    "hombro_adelante": 2,
+    "mano_objetivo_L": [0.1, 0.42, -0.12],
+    "muneca_doblar_L": -25,
+    "dedos_abrir_L": 0.5,
+    "mano_objetivo_R": [-0.05, 0.2, -0.55],
+    "dedos_cerrar_R": 0.3,
+    "cabeza_inclinar": 4,
+    "cabeza_girar": -14,
+    "cabeza_lateral": -3,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.2
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "cabeza_primero"
+   }
+  },
+  "asco_F": {
+   "gesto": "asco",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Asco (estilo femenino)",
+   "nota": "Se aparta de lado con el pecho cerrado: la mano derecha se recoge contra el pecho y la izquierda hace un gesto corto de espantar hacia el objeto. Los hombros suben, el torso se gira y se encoge, y la cabeza se vuelve bastante hacia el lado contrario.",
+   "referencia": "Las fuentes describen el asco con una cara apretada y un cuerpo que se aparta, y la mano que empuja hacia fuera aparece como rechazo en la semiótica de gestos. La mano al pecho es decisión de diseño, no dato de la fuente.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_girar": -8,
+    "pecho_abrir": -5,
+    "hombro_subir": 6,
+    "hombro_adelante": 5,
+    "mano_objetivo_R": [-0.2, 0.36, -0.2],
+    "codo_direccion_R": -4,
+    "dedos_cerrar_R": 0.35,
+    "mano_objetivo_L": [0.35, 0.25, -0.2],
+    "dedos_abrir_L": 0.3,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -16,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.6
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 12,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0.08,
+    "sobrepaso": 0.06,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "manos_primero"
+   }
+  },
+  "disgusto_M": {
+   "gesto": "disgusto",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Disgusto (estilo masculino)",
+   "nota": "Desagrado seco: el torso se aparta un poco y se hunde, los hombros suben, y la mano izquierda hace un gesto corto de apartar hacia fuera con la palma abajo. La derecha queda floja junto al cuerpo, y la cabeza se baja y se gira apenas, sin llegar al giro completo del asco.",
+   "referencia": "Animation Mentor (Jay Davis) distingue el asco moral del asco primario y dice que el primario se busca imaginando un olor horrible. El apartarse de forma breve es la lectura que da esa fuente; el gesto de apartar con la mano es decisión de diseño.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_girar": -6,
+    "pecho_abrir": -2,
+    "hombro_subir": 6,
+    "hombro_adelante": 3,
+    "mano_objetivo_L": [0.25, 0.3, -0.3],
+    "mano_objetivo_R": [-0.05, 0.12, -0.8],
+    "cabeza_inclinar": 3,
+    "cabeza_girar": -8,
+    "cabeza_lateral": -2,
+    "cuello_adelantar": -4
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 12,
+    "mantener": 44,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   }
+  },
+  "disgusto_F": {
+   "gesto": "disgusto",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Disgusto (estilo femenino)",
+   "nota": "Se cierra hacia dentro, como si oliera algo malo: los hombros suben y se acercan, el torso se hunde un poco y se aparta hacia su derecha. La mano derecha queda recogida junto a la clavícula sin llegar a la cara, la cabeza se ladea y baja, y la izquierda cuelga algo doblada con la mano floja.",
+   "referencia": "Animation Mentor (Jay Davis) sugiere que el asco primario se busca con un olor imaginado y que el cuerpo se aparta. La mano a la clavícula y el cierre hacia dentro son decisiones de diseño para distinguir F de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis"
+   ],
+   "params": {
+    "torso_inclinar": -1,
+    "torso_lateral": -3,
+    "pecho_abrir": -4,
+    "hombro_subir": 8,
+    "hombro_adelante": 5,
+    "mano_objetivo_R": [-0.14, 0.28, -0.05],
+    "mano_objetivo_L": [0.1, 0.18, -0.6],
+    "dedos_cerrar": 0.4,
+    "pulgar_cerrar": 0.2,
+    "cabeza_inclinar": 5,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -4,
+    "cuello_adelantar": -6
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.6
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 14,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   }
+  },
+  "repulsion_M": {
+   "gesto": "repulsion",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Repulsión (estilo masculino)",
+   "nota": "Rechazo entero: el torso se echa atrás y el pecho se cierra, las dos manos salen hacia delante con las palmas fuera como si empujaran algo, y los codos se doblan. La cabeza se aparta de lado con el cuello retraído y la pose queda tensa.",
+   "referencia": "Animation Mentor (Jay Davis) dice que el asco se resuelve con el cuerpo que se aparta, y la semiótica de gestos franceses incluye el empuje con la palma hacia fuera como rechazo. Empujar con los dos brazos es decisión de diseño para la repulsión.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -8,
+    "torso_girar": -5,
+    "pecho_abrir": -4,
+    "hombro_subir": 8,
+    "hombro_adelante": 6,
+    "mano_objetivo_L": [0.12, 0.45, -0.1],
+    "mano_objetivo_R": [0.12, 0.45, -0.1],
+    "muneca_doblar": -25,
+    "dedos_abrir": 0.55,
+    "dedos_cerrar": 0.1,
+    "cabeza_inclinar": 5,
+    "cabeza_girar": -10,
+    "cuello_adelantar": -10
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 2.8
+   },
+   "tiempos": {
+    "entrada": 5,
+    "asentar": 10,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   }
+  },
+  "repulsion_F": {
+   "gesto": "repulsion",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Repulsión (estilo femenino)",
+   "nota": "Se aparta con el torso y la cabeza hacia su derecha; la mano izquierda se estira hacia el objeto con la palma fuera y la derecha queda pegada al vientre. Los hombros se suben y la barbilla se retrae.",
+   "referencia": "Las fuentes de animación piden no exagerar el asco, y citan el cuerpo que se aleja y la palma hacia fuera como rasgos del rechazo. Un brazo estirado y la otra mano pegada al cuerpo son decisión propia para distinguirla de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -6,
+    "torso_lateral": -5,
+    "torso_girar": -6,
+    "pecho_abrir": -6,
+    "hombro_subir": 6,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [0.1, 0.5, -0.15],
+    "muneca_doblar_L": -28,
+    "dedos_abrir_L": 0.5,
+    "mano_objetivo_R": [-0.1, 0.2, -0.6],
+    "dedos_cerrar_R": 0.4,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -12,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 1.3,
+    "respiracion_periodo": 3.0
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 12,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.06,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   }
+  },
+  "confundido_M": {
+   "gesto": "confundido",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Confundido (estilo masculino)",
+   "nota": "Ladea la cabeza a su izquierda y la deja ir y volver, como un péndulo lento; un hombro sube un poco con la palma izquierda hacia arriba, y la derecha cuelga suelta. El torso casi no se mueve y las cejas hacen el resto.",
+   "referencia": "Las fuentes de lenguaje corporal asocian la cabeza ladeada y el encogimiento de hombros con la duda o la falta de saber, y la animación usa el ladeo como señal de perplejidad. La lectura del encogimiento depende de la cultura, según un artículo académico sueco.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt",
+    "https://gup.ub.gu.se/file/112018"
+   ],
+   "params": {
+    "hombro_subir_L": 6,
+    "mano_objetivo_L": [0.15, 0.28, -0.45],
+    "antebrazo_girar_L": -12,
+    "dedos_abrir_L": 0.25,
+    "mano_objetivo_R": [0.05, 0.1, -0.85],
+    "cabeza_inclinar": -3,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 4
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 4,
+     "cabeza_girar": 2
+    },
+    "periodo": 2.4,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.4,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   }
+  },
+  "confundido_F": {
+   "gesto": "confundido",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Confundido (estilo femenino)",
+   "nota": "Se adelanta un poco para ver mejor: el torso se inclina hacia delante, la cabeza se ladea a su izquierda con el cuello estirado y las manos quedan juntas delante del vientre, con los dedos casi entrelazados. Cuando la cabeza vuelve al centro, el cuerpo se queda un instante.",
+   "referencia": "Las fuentes de lenguaje corporal describen la confusión como una cabeza ladeada con poca seguridad y la mirada de lado. La inclinación hacia delante y las manos juntas son decisión de diseño para diferenciarla de la duda y de M.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "mano_objetivo_L": [-0.2, 0.3, -0.45],
+    "mano_objetivo_R": [-0.15, 0.32, -0.42],
+    "dedos_cerrar": 0.3,
+    "cabeza_inclinar": -2,
+    "cabeza_lateral": 7,
+    "cabeza_girar": 2,
+    "cuello_adelantar": 5
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 3,
+     "torso_lateral": 2
+    },
+    "periodo": 3.4,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.8,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 14,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.03,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   }
+  },
+  "dudoso_M": {
+   "gesto": "dudoso",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Dudoso (estilo masculino)",
+   "nota": "Sube un hombro a un lado con la palma derecha hacia arriba, la cabeza se ladea a su derecha y la mirada se va de lado. El torso se queda casi quieto y levemente atrás; no está convencido y lo deja en el aire.",
+   "referencia": "Las guías de lenguaje corporal asocian la duda con la cabeza ladeada y la mirada que se desvía, y con el encogimiento de hombros como señal de incertidumbre, aunque son fuentes populares. La lectura del encogimiento depende de la cultura, según un artículo académico sueco.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt",
+    "https://gup.ub.gu.se/file/112018"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": -2,
+    "hombro_subir_R": 8,
+    "cabeza_inclinar": 2,
+    "cabeza_lateral": -8,
+    "cabeza_girar": -4,
+    "cuello_adelantar": 2,
+    "mano_objetivo_R": [0.2, 0.25, -0.6],
+    "antebrazo_girar_R": -15,
+    "dedos_abrir_R": 0.25,
+    "mano_objetivo_L": [0.08, 0.12, -0.78]
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   }
+  },
+  "dudoso_F": {
+   "gesto": "dudoso",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Dudoso (estilo femenino)",
+   "nota": "Ladea la cabeza a su derecha y se adelanta un poco con el cuello; la mano derecha queda junto al cuello sin llegar a la cara, y la izquierda cuelga suelta. El peso se corre despacio hacia ese lado y la respiración se pausa.",
+   "referencia": "Las guías de lenguaje corporal describen la duda con la cabeza ladeada y la mirada que se desvía a un lado. La mano junto al cuello y el peso que se corre son decisión de diseño para distinguirla de M, que encoge un hombro.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": -3,
+    "torso_girar": -2,
+    "hombro_subir": 3,
+    "hombro_subir_R": 6,
+    "hombro_adelante": 2,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": -7,
+    "cabeza_girar": -5,
+    "cuello_adelantar": 6,
+    "mano_objetivo_R": [-0.15, 0.3, -0.1],
+    "muneca_doblar_R": 6,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.1,
+    "mano_objetivo_L": [0.12, 0.2, -0.7]
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.8,
+    "balanceo": 0.6,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 14,
+    "mantener": 64,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   }
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "8ea6eeee-3488-4be7-9c6a-38a14f640596",
+  "timestamp": "2026-10-28T17:56:31.555583+00:00",
+  "status": "verificado",
+  "character": "General",
+  "topic": "panel parpados visualizacion",
+  "problem": "Interruptores lejos de Parpados, handler ausente y registro de UI de pesos incompleto",
+  "action": "Mostrar puntos y Mostrar pesos en Parpados; callbacks recuperan dibujo y arrastre, registro de pesos idempotente y sin seleccion invisible",
+  "result": "Cuatro combinaciones comprobadas en Blender; panel completo sin excepcion; hashes de mallas y valores/accion intactos; recuperacion de RNA probada en Blender de fondo. Instalacion 0.8.30 coincidente con fuente y cache.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\visualizacion_0830.json",
+      "sha256": "d2c21d2fcd8b2a2cd20e478865b758c3b3651759c9540d9e861589ea40d5ca0a"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\instalacion_0830.json",
+      "sha256": "4ab251a0696b23ad0843b6eaed651ee10b49fc5b7ad171159e557a0515985e4f"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.30",
+  "plugin_version": "0.8.30"
+}

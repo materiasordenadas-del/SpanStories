@@ -1,0 +1,33 @@
+:root{font:14px/1.5 system-ui,sans-serif;color:#dbe5ec;background:#12202d;color-scheme:dark}*{box-sizing:border-box}body{margin:0}header{height:60px;padding:16px 24px;display:flex;justify-content:space-between;border-bottom:1px solid #344555}header span{color:#a4bac8}main{display:grid;grid-template-columns:minmax(0,1fr) 350px;height:calc(100vh - 60px)}#viewport{position:relative;min-width:0;background:#c9d6dc}canvas{display:block;width:100%;height:100%}#zone-tag{position:absolute;left:20px;top:18px;padding:7px 14px;border-radius:6px;background:#173552e3;color:#fff;font-weight:700;letter-spacing:.02em}aside{padding:24px;overflow:auto}h1{font-size:26px;margin:0}h2{font-size:19px;color:#efd29a;margin:10px 0}p{color:#afc0ce}button,select{padding:9px 11px;border:1px solid #557089;border-radius:6px;background:#20394f;color:#fff;cursor:pointer}button:hover{background:#315875}button:disabled{opacity:.45;cursor:wait}aside>button,.dev>button{width:100%;margin:5px 0}.row{display:flex;gap:8px}.row button{flex:1}label{display:block;margin:12px 0}pre{font:12px/1.6 Consolas,monospace;white-space:pre-wrap;padding:10px;background:#0b1722;border-radius:5px}#progress{display:flex;gap:5px;margin:12px 0 20px}#progress span{flex:1;border-radius:5px;background:#314c64;text-align:center;color:#adc0d0;font-size:12px;padding:4px 0}#progress .done{background:#497c84;color:#fff}#progress .active{background:#e5af60;color:#102333;font-weight:800}.dev{margin-top:24px;border-top:1px solid #344555;padding-top:12px}.dev summary{cursor:pointer;color:#a9bfce}.hint{font-size:12px}#cover{position:absolute;inset:0;background:#142839;z-index:2;place-content:center;text-align:center;font-size:22px}#cover:not([hidden]){display:grid}@media(max-width:850px){main{grid-template-columns:1fr;height:auto}#viewport{height:65vh}header span{display:none}}
+main{display:block;position:relative;height:calc(100vh - 60px);overflow:hidden}
+#viewport{width:100%;height:100%}
+#trip-panel{position:absolute;z-index:3;right:0;top:0;bottom:0;width:min(350px,100%);padding:66px 24px 24px;background:#122435ee;box-shadow:-12px 0 35px #08142077;backdrop-filter:blur(10px)}
+#trip-panel[hidden]{display:none}
+#panel-toggle{position:absolute;z-index:4;top:17px;right:20px;background:#173552ee;box-shadow:0 4px 16px #14212b55}
+#help-overlay{position:absolute;left:20px;bottom:18px;padding:7px 12px;border-radius:5px;background:#173552cc;color:#eef5f5;font-size:12px;pointer-events:none}
+#zone-tag{box-shadow:0 4px 16px #14212b55}
+@media(max-width:850px){main,#viewport{height:calc(100vh - 60px)}#help-overlay{max-width:60%;font-size:11px}}
+fieldset.light{margin:14px 0;padding:4px 12px 2px;border:1px solid #344555;border-radius:6px}fieldset.light legend{padding:0 6px;color:#efd29a;font-weight:700}fieldset.light label{margin:8px 0}#grosor{vertical-align:middle;width:130px}#grosor-valor{font-size:12px;color:#a9bfce}
+
+/* ── Popup de aprobación por fases (no bloquea el movimiento) ────────────── */
+#phase-pop{position:fixed;inset:0;z-index:20;pointer-events:none}
+#phase-pop[hidden]{display:none}
+.pp-card{position:absolute;right:14px;bottom:14px;width:290px;pointer-events:auto;background:#0e1c29f2;border:1px solid #3c5a75;border-radius:10px;padding:12px 14px;box-shadow:0 10px 34px #06101acc;backdrop-filter:blur(8px)}
+.pp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pp-head strong{color:#efd29a;font-size:15px}
+#pp-collapse{padding:1px 9px;line-height:1.4}
+#pp-text{margin:4px 0 10px;font-size:13px;color:#c6d6e2}
+.pp-views{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pp-views button{padding:5px 9px;font-size:12px;background:#1d3a54;border-color:#46688a}
+.pp-actions{display:flex;gap:8px}
+.pp-actions button{flex:1;font-weight:700}
+.pp-ok{background:#1d6b46;border-color:#35a06c}
+.pp-ok:hover{background:#27925e}
+.pp-no{background:#7c2d33;border-color:#b05056}
+.pp-no:hover{background:#a03b42}
+.pp-note{font-size:11px;color:#8fa6b8;margin:9px 0 0}
+.pp-votes{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.pp-votes span{font-size:11px;padding:2px 8px;border-radius:20px;background:#314c64;color:#adc0d0}
+.pp-votes span.ok{background:#1d6b46;color:#dff5e8}
+.pp-votes span.no{background:#7c2d33;color:#f6dede}
+#pp-chip{position:fixed;right:14px;bottom:14px;z-index:20;padding:7px 13px;border-radius:20px;background:#173552f0;box-shadow:0 6px 18px #14212b66}

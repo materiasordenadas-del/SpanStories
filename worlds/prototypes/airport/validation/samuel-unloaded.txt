@@ -1,0 +1,11 @@
+STANDARD · Three r180
+FPS — · frame — ms
+P95 — ms
+Draw calls 7 / 90
+Triángulos 396
+Geometrías 1 · Texturas 1
+Actual D01
+Cargados D01, D02
+NPC completos 0 · fondo 0
+Samuel referencia 0
+Leases 2

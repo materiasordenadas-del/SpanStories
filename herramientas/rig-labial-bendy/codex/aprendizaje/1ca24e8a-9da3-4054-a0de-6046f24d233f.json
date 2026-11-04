@@ -1,0 +1,23 @@
+{
+  "id": "1ca24e8a-9da3-4054-a0de-6046f24d233f",
+  "timestamp": "2026-11-01T17:58:30.186614+00:00",
+  "status": "verificado",
+  "character": "Camila",
+  "topic": "comparacion",
+  "problem": "Comparativa de rig facial contra BlenRig 6 al primer intento en la misma malla Tripo",
+  "action": "ojos_tripo + auto_iniciar sin retoques; 13 poses medidas por geometria",
+  "result": "Parpadeo 0 % de abertura y sin desgarros; quedan forro asomando al abrir, arco en parpado superior y 258 vertices netos menos",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\comparacion_blenrig\\hoja_1_boca_y_parpadeo.png",
+      "sha256": "ee62ad2e93acacf4c84f30850c44b4cd8c6dc74e4007cae2dd930b0d42dadae7"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\comparacion_blenrig\\medidas_final.json",
+      "sha256": "73dd3f868797cea39a72768ce6dc4f73e31993a79e89e361951c37aac663f1d9"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.50",
+  "plugin_version": "0.8.50"
+}

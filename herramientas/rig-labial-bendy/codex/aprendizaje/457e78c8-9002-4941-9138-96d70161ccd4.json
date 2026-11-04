@@ -1,0 +1,23 @@
+{
+  "id": "457e78c8-9002-4941-9138-96d70161ccd4",
+  "timestamp": "2026-10-27T22:10:10.137275+00:00",
+  "status": "verificado",
+  "character": "Generico y Tom Holland",
+  "topic": "jaula y superficie en seleccion labial 0.8.18",
+  "problem": "El modelo parecia doble al mostrar una jaula sin los mismos deformadores que la superficie",
+  "action": "Durante la seleccion temporal activar Edit y jaula para modificadores visibles; restaurar todas las opciones originales al salir",
+  "result": "Prueba de regresion manual paso con restauracion de modificadores y coordenadas intactas. En Tom se revisaron vista frontal y perfil con contorno coincidente; la referencia no se cambio y no se guardo blend.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\labios_jaula_0818\\verificacion.json",
+      "sha256": "35ec4881a467f43a11d41b7204652855750814f341bcae9993808b46f527b0d1"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\labios_jaula_0818\\perfil_verificado.png",
+      "sha256": "0a462f26d2fb3b308718f5ae3f83e5a2578daa97ef8dac064bd3efd87d47a895"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.18",
+  "plugin_version": "0.8.18"
+}

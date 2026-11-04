@@ -1,0 +1,10 @@
+schema_version = "1.0.0"
+id = "cara_viva"
+version = "0.2.0"
+name = "Cara Viva"
+tagline = "Rig facial estándar, expresiones portables y habla en español"
+maintainer = "SpanStories"
+type = "add-on"
+blender_version_min = "4.2.0"
+license = ["SPDX:MIT"]
+tags = ["Rigging", "Animation"]

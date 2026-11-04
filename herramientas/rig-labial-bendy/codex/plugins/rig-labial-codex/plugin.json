@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "rig-labial-codex",
+  "version": "0.8.50",
+  "description": "Rig facial Bendy compartido por Codex y Claude Code desde una única fuente local.",
+  "author": {
+    "name": "Adriel Pereira"
+  },
+  "keywords": [
+    "blender",
+    "rig",
+    "labios",
+    "bendy",
+    "aprendizaje"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Rig Labial Bendy Codex",
+        "shortDescription": "Rig facial con aprendizaje",
+        "longDescription": "Rig facial compartido por Codex y Claude Code desde una única fuente: labios, ojos, párpados, expresiones y aprendizaje persistente.",
+        "developerName": "Adriel Pereira",
+        "category": "Design",
+        "capabilities": [],
+        "defaultPrompt": "Trabaja con mi rig labial Bendy, consulta los aprendizajes y modifica únicamente lo solicitado."
+      }
+    }
+  }
+}

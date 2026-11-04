@@ -1,0 +1,8 @@
+{
+  "name": "spanstories-texture-painter",
+  "version": "0.2.7",
+  "description": "Cuatro herramientas para pintar regiones de Blender por nombre y exportar PNG/GLB para Three.js",
+  "author": {"name": "SpanStories"},
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

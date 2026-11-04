@@ -1,0 +1,32 @@
+[
+  {
+    "file": "anime_nature_tree_01.glb",
+    "source": "D:\\Español\\SpanStories-worktrees\\visor-mundo-20261021\\SpanStories-Ciudades\\assets\\barcelona-decor\\anime_nature_tree_01.glb",
+    "sha256": "1200CDD47EBEBDC2CB2D53298379245818CB9D630AA3E04772F972634F2408C4",
+    "matches": true
+  },
+  {
+    "file": "jabami_anime_tree_v1.glb",
+    "source": "D:\\Español\\SpanStories-worktrees\\visor-mundo-20261021\\SpanStories-Ciudades\\assets\\barcelona-decor\\jabami_anime_tree_v1.glb",
+    "sha256": "73C2BA4DD47E87BB7038FE20CF69CF27D8893E40BE8C0709850B7137BCAF4FF4",
+    "matches": true
+  },
+  {
+    "file": "sakura_tree_01.glb",
+    "source": "D:\\Español\\SpanStories-worktrees\\visor-mundo-20261021\\SpanStories-Ciudades\\assets\\barcelona-decor\\sakura_tree_01.glb",
+    "sha256": "D45F8D9441565F111E675EE01DE7C4BD95E3C3D7F78F7862F3CCC59BA32BAC47",
+    "matches": true
+  },
+  {
+    "file": "anime_tree_2.glb",
+    "source": "D:\\Español\\SpanStories-worktrees\\visor-mundo-20261021\\SpanStories-Ciudades\\assets\\barcelona-decor\\anime_tree_2.glb",
+    "sha256": "B25A288D45C78BEAAC2873F63556F746F74144721B1AA2CEFB4ABE0A75564AF7",
+    "matches": true
+  },
+  {
+    "file": "tree-lods.json",
+    "source": "D:\\Español\\SpanStories-worktrees\\visor-mundo-20261021\\SpanStories-Ciudades\\assets\\barcelona-decor\\tree-lods.json",
+    "sha256": "CE2C60E382338D16832F3B5DEF9BC9AFC07536D54FECBBFEC3F2F2B6E4571A08",
+    "matches": true
+  }
+]

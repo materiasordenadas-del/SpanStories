@@ -1,0 +1,19 @@
+{
+  "id": "98237d99-bc67-4753-b623-e8e199bb26c7",
+  "timestamp": "2026-10-30T04:34:53.991624+00:00",
+  "status": "verificado",
+  "character": "Pegazo",
+  "topic": "parpados",
+  "problem": "Borde L (rlb_borde_parpado) y anclas L con índices desfasados tras borrar vértices; seguimiento fallaba con 'Falta la posición anterior de parpado_sup_1_L'; cierre L en zigzag con rendija 0,19 %",
+  "action": "Borde L reconstruido desde el lazo real de la piel (formato con rabillos), anclas L por defecto de plan(), ganancias = mediana del R, AO.actualizar + SP.preparar; eyeBlink_L/mid alisados por Taubin ponderado por |delta| (borde solo por aristas de borde) con colisión al globo",
+  "result": "ojo visible 0,19→0 %, sep3d 1,09→0,52 mm, cruce 0,95→0,24 mm; invertidos 2→11 (no visibles en render). Respaldos NPZ en RLB_revision/Pegazo",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\AppData\\Local\\Temp\\claude\\D--Espa-ol-imagen-para-animaci-n-Animaci-n-3D\\dbbe0c3e-4f7c-48c4-a798-4769993db87e\\scratchpad\\hoja_L34.png",
+      "sha256": "15c75495aee49c1652b4621b88c761ffaefb88b05d3e17cf6ba73aa094a128cd"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.44",
+  "plugin_version": "0.8.44"
+}

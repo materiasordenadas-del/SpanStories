@@ -1,0 +1,27 @@
+{
+  "id": "cf026244-a5e0-4de9-b1bf-91b25b5a699f",
+  "timestamp": "2026-11-01T14:51:54.358544+00:00",
+  "status": "verificado",
+  "character": "Ojos y textura",
+  "topic": "ojos_tripo orbita labios forro",
+  "problem": "Globos de Tripo reutilizados; labio superior bajaba con la mandibula; forro tapaba dientes; sonrisa giraba el parpado 23 mm; expresiones no eran las de Tom",
+  "action": "0.8.50: ojos_tripo, reconocimiento, cerca_piel, vaciar_forro, _frac_suave sin rabillos, biblioteca base tom",
+  "result": "Parpadeo: visible 0,56/0 % frente a 33 % de Hama; 0 dentro y 0 invertidos frente a 6 y 6 en 32 poses; orbita con desvio medio 0,04 mm. Solo probado en este personaje; sin regresion en otros.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Ojos y textura\\hoja_resumen.png",
+      "sha256": "768f980e1054d3f56dc86bcd417b06f76d68066ef84714ba9fb3961af9a430dc"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Ojos y textura\\hoja_habla.png",
+      "sha256": "eaac882bc957079d37cec34748fd78c051fa2b2f5ae26fb44e23cb162f5ea990"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Ojos y textura\\parpadeo_0_50_100.jpg",
+      "sha256": "d2c9726dfe1ecc2dc7d62eb2261544f6fa19a598114bc749c57cca8dc2d86e6b"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.50",
+  "plugin_version": "0.8.50"
+}

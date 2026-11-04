@@ -1,0 +1,19 @@
+{
+  "id": "7afb9596-6794-489c-aa11-a370b0c7732f",
+  "timestamp": "2026-10-23T01:54:36.017811+00:00",
+  "status": "propuesta",
+  "character": "Tronchatoro",
+  "topic": "parpados",
+  "problem": "Franjas vecinas con movimientos desiguales al abrir y cerrar",
+  "action": "Diagnostico de solo lectura: comparar keys con Giro y objetivos fijos ARAP, exportar datos y secciones",
+  "result": "Apertura coincide con generador 0.7.2; frontera bajo_ceja congela vecino 26942 frente a 8893 que se mueve 1.545 mm. Objetivos de cierre ya cambian orientacion radial en 16 triangulos L y 2 R completamente fijados. Correccion pendiente; estos recuentos son indicadores y no certifican autointerseccion.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\diagnostico_tronchatoro_20261022\\DIAGNOSTICO.md",
+      "sha256": "8e8ffdf0ba60bd76986117882ae012c3500f6c247f69806d8bb34a923dc8571f"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.7.2",
+  "plugin_version": "0.7.2"
+}

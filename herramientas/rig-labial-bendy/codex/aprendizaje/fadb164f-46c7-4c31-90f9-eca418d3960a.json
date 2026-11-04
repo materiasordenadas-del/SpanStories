@@ -1,0 +1,19 @@
+{
+  "id": "fadb164f-46c7-4c31-90f9-eca418d3960a",
+  "timestamp": "2026-10-28T11:46:23.605443+00:00",
+  "status": "verificado",
+  "character": "Tom Holland detallado",
+  "topic": "influencias editables parpados 0.8.27",
+  "problem": "Con eyeBlink 1 la compensacion anulaba el descenso superior; faltaban intensidad y extension por punto",
+  "action": "Recorrido independiente, parametros por punto y puente de pintura EasyWeight con preferencias protegidas; instalada version 0.8.27",
+  "result": "Descenso central real 0.967/0.972 mm, accion y keys ajenas conservadas; pintura entra y sale restaurando preferencias. Cero contactos en pruebas centro intensidad 1/3/5; cierre completo sigue sin certificarse",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\RESULTADO_0827.md",
+      "sha256": "a635c298d7f7832e12004fae0c02db45962463e750631e764a3ae6f0cdf788bb"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.27",
+  "plugin_version": "0.8.27"
+}

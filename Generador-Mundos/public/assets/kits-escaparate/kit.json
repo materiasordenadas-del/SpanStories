@@ -1,0 +1,4929 @@
+{
+  "formato": "spanstories-kit-escaparate",
+  "version": 1,
+  "unidades": "metros",
+  "ejes": "X a lo largo de la fachada, Y arriba, +Z hacia la calle; origen centro inferior del hueco sobre el muro",
+  "medidas": {
+    "vano": 3.6,
+    "alto_vano": 3,
+    "caja_fondo": 1.4,
+    "remetido": 0.25,
+    "profundidad_min": 1,
+    "profundidad_max": 1.8,
+    "capas_z": [
+      0.3,
+      0.7,
+      1
+    ],
+    "capas_fraccion": [
+      0.22,
+      0.5,
+      0.78
+    ],
+    "zocalo": 0.5,
+    "puerta": [
+      1.1,
+      2.3
+    ],
+    "rotulo_alto": 0.55,
+    "rayas_toldo": 12,
+    "ancho_perfil": {
+      "aluminio": 0.09,
+      "madera": 0.12,
+      "forja": 0.05,
+      "piedra": 0.24
+    }
+  },
+  "reglas": [
+    "Sin muebles ni productos 3D: lo pintado va en el atlas.",
+    "Los barridos solo se escalan a lo largo de su eje.",
+    "Sin matrices de escala negativa: el espejado lo da el módulo _izq/_der o el UV.",
+    "El cierre (vidrio, marco) queda a z=-remetido; la caja somera arranca ahí.",
+    "Capas y caja llevan UV 0-1 por cara: el generador las remapea a la celda del atlas."
+  ],
+  "materiales": {
+    "ss_marco": {
+      "rol": "marco",
+      "tinte": 1,
+      "color": [
+        0.86,
+        0.86,
+        0.84
+      ]
+    },
+    "ss_tinte2": {
+      "rol": "piedra",
+      "tinte": 2,
+      "color": [
+        0.8,
+        0.74,
+        0.64
+      ]
+    },
+    "ss_metal": {
+      "rol": "metal",
+      "metal": 0.6,
+      "color": [
+        0.18,
+        0.19,
+        0.21
+      ]
+    },
+    "ss_vidrio_escaparate": {
+      "rol": "vidrio_escaparate",
+      "alfa": 0.11,
+      "modo": "BLEND",
+      "doble": true,
+      "color": [
+        0.71,
+        0.85,
+        0.9
+      ]
+    },
+    "ss_int_fondo": {
+      "rol": "luz_interior",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.28,
+      "slot": "tile.fondo",
+      "color": [
+        0.9,
+        0.84,
+        0.7
+      ]
+    },
+    "ss_int_capa": {
+      "rol": "luz_interior",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.28,
+      "slot": "tile.capa",
+      "color": [
+        0.75,
+        0.55,
+        0.35
+      ]
+    },
+    "ss_int_suelo": {
+      "rol": "luz_interior",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.28,
+      "slot": "tira.suelo",
+      "color": [
+        0.78,
+        0.66,
+        0.46
+      ]
+    },
+    "ss_int_techo": {
+      "rol": "luz_interior",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.28,
+      "slot": "tira.techo",
+      "color": [
+        0.82,
+        0.76,
+        0.66
+      ]
+    },
+    "ss_int_lateral": {
+      "rol": "luz_interior",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.28,
+      "slot": "tira.lateral",
+      "color": [
+        0.7,
+        0.62,
+        0.5
+      ]
+    },
+    "ss_letrero": {
+      "rol": "letrero_luminoso",
+      "modo": "MASK",
+      "doble": true,
+      "emisivo": 0.12,
+      "slot": "rotulo.celda",
+      "color": [
+        0.95,
+        0.9,
+        0.75
+      ]
+    },
+    "ss_persiana": {
+      "rol": "persiana",
+      "modo": "MASK",
+      "doble": true,
+      "slot": "tira.persiana",
+      "color": [
+        0.57,
+        0.59,
+        0.6
+      ]
+    },
+    "ss_toldo_a": {
+      "rol": "toldo",
+      "tinte": 1,
+      "doble": true,
+      "color": [
+        0.7,
+        0.2,
+        0.18
+      ]
+    },
+    "ss_toldo_b": {
+      "rol": "toldo",
+      "doble": true,
+      "color": [
+        0.95,
+        0.93,
+        0.88
+      ]
+    },
+    "ss_luz_franja": {
+      "rol": "luz_interior",
+      "emisivo": 1,
+      "color": [
+        1,
+        0.86,
+        0.6
+      ]
+    },
+    "ss_neon": {
+      "rol": "letrero_luminoso",
+      "emisivo": 0.8,
+      "color": [
+        0.3,
+        0.85,
+        0.45
+      ]
+    },
+    "ss_vinilo_lema": {
+      "rol": "vinilo",
+      "modo": "MASK",
+      "doble": true,
+      "slot": "rotulo.lema",
+      "color": [
+        0.95,
+        0.95,
+        0.9
+      ]
+    },
+    "ss_vinilo_estado": {
+      "rol": "vinilo",
+      "modo": "MASK",
+      "doble": true,
+      "slot": "rotulo.estado",
+      "color": [
+        0.3,
+        0.55,
+        0.4
+      ]
+    },
+    "ss_vinilo_banda": {
+      "rol": "vinilo",
+      "alfa": 0.55,
+      "modo": "BLEND",
+      "doble": true,
+      "color": [
+        0.92,
+        0.94,
+        0.95
+      ]
+    },
+    "ss_in": {
+      "rol": "interior",
+      "vcol": true,
+      "doble": true,
+      "color": [
+        1,
+        1,
+        1
+      ]
+    },
+    "ss_in_luz": {
+      "rol": "luz_interior",
+      "emisivo": 1,
+      "color": [
+        1,
+        0.84,
+        0.55
+      ]
+    },
+    "ss_in_brasa": {
+      "rol": "luz_interior",
+      "emisivo": 1.6,
+      "color": [
+        1,
+        0.45,
+        0.12
+      ]
+    },
+    "ss_in_pantalla": {
+      "rol": "luz_interior",
+      "emisivo": 1.1,
+      "color": [
+        0.35,
+        0.8,
+        0.95
+      ]
+    },
+    "ss_in_vidrio": {
+      "rol": "vidrio_vitrina",
+      "alfa": 0.22,
+      "modo": "BLEND",
+      "doble": true,
+      "color": [
+        0.75,
+        0.9,
+        0.95
+      ]
+    },
+    "ss_in_espejo": {
+      "rol": "espejo",
+      "metal": 0.4,
+      "color": [
+        0.7,
+        0.82,
+        0.86
+      ]
+    }
+  },
+  "modulos": [
+    {
+      "id": "marco.aluminio.jamba",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "perfil fino de aluminio/hierro · jamba vertical",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.045,
+          0,
+          -0.045
+        ],
+        "max": [
+          0.045,
+          1,
+          0.065
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.aluminio.dintel",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "perfil fino de aluminio/hierro · dintel horizontal",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.045,
+          -0.045
+        ],
+        "max": [
+          0.5,
+          0.045,
+          0.065
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.aluminio.montante",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "perfil fino de aluminio/hierro · montante intermedio",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.0315,
+          0,
+          -0.0315
+        ],
+        "max": [
+          0.0315,
+          1,
+          0.0455
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.aluminio.travesano",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "perfil fino de aluminio/hierro · travesaño/imposta",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.0315,
+          -0.0315
+        ],
+        "max": [
+          0.5,
+          0.0315,
+          0.0455
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.madera.jamba",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "carpintería de madera con moldura · jamba vertical",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.06,
+          0,
+          -0.05
+        ],
+        "max": [
+          0.06,
+          1,
+          0.06
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.madera.dintel",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "carpintería de madera con moldura · dintel horizontal",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.06,
+          -0.05
+        ],
+        "max": [
+          0.5,
+          0.06,
+          0.06
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.madera.montante",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "carpintería de madera con moldura · montante intermedio",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.042,
+          0,
+          -0.035
+        ],
+        "max": [
+          0.042,
+          1,
+          0.042
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.madera.travesano",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "carpintería de madera con moldura · travesaño/imposta",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.042,
+          -0.035
+        ],
+        "max": [
+          0.5,
+          0.042,
+          0.042
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.forja.jamba",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "ventanal metálico de despiece fino · jamba vertical",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.025,
+          0,
+          -0.03
+        ],
+        "max": [
+          0.025,
+          1,
+          0.03
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.forja.dintel",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "ventanal metálico de despiece fino · dintel horizontal",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.025,
+          -0.03
+        ],
+        "max": [
+          0.5,
+          0.025,
+          0.03
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.forja.montante",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "ventanal metálico de despiece fino · montante intermedio",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.0175,
+          0,
+          -0.021
+        ],
+        "max": [
+          0.0175,
+          1,
+          0.021
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.forja.travesano",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "ventanal metálico de despiece fino · travesaño/imposta",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.0175,
+          -0.021
+        ],
+        "max": [
+          0.5,
+          0.0175,
+          0.021
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.piedra.jamba",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "recercado de piedra proyectado sobre el muro (z=0) · jamba vertical",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.12,
+          0,
+          0
+        ],
+        "max": [
+          0.12,
+          1,
+          0.1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.piedra.dintel",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "recercado de piedra proyectado sobre el muro (z=0) · dintel horizontal",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.12,
+          0
+        ],
+        "max": [
+          0.5,
+          0.12,
+          0.1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.piedra.montante",
+      "familia": "marco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "recercado de piedra proyectado sobre el muro (z=0) · montante intermedio",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.084,
+          0,
+          0
+        ],
+        "max": [
+          0.084,
+          1,
+          0.07
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.piedra.travesano",
+      "familia": "marco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "recercado de piedra proyectado sobre el muro (z=0) · travesaño/imposta",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.084,
+          0
+        ],
+        "max": [
+          0.5,
+          0.084,
+          0.07
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "marco.piedra.clave",
+      "familia": "marco",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "clave/ménsula del dintel de piedra: 0,24×0,24, sale 0,14; origen en la arista inferior del dintel",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.12,
+          0,
+          0
+        ],
+        "max": [
+          0.12,
+          0.24,
+          0.14
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "hueco.jamba_izq",
+      "familia": "hueco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "jamba izquierda del hueco: cara hacia +x, profundidad 0.25 m",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          0,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "hueco.jamba_der",
+      "familia": "hueco",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "jamba derecha del hueco: cara hacia -x",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          0,
+          0,
+          -0.25
+        ],
+        "max": [
+          0,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "hueco.dintel",
+      "familia": "hueco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "intradós del dintel (cara hacia abajo)",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.25
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "hueco.alfeizar",
+      "familia": "hueco",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "plano inferior del hueco (cara hacia arriba)",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.25
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "zocalo.liso",
+      "familia": "zocalo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "zócalo liso 0,50 m",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.06
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.05
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "zocalo.panel",
+      "familia": "zocalo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "zócalo con panel remetido entre rodapié y cornisilla",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.06
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.05
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "zocalo.piedra",
+      "familia": "zocalo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "zócalo de piedra en tres hiladas con junta marcada",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 24,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.06
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.05
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "zocalo.bisel",
+      "familia": "zocalo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "zócalo biselado (cantonera inclinada)",
+      "materiales": [
+        "ss_marco"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.06
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.06
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "puerta.cristal",
+      "familia": "puerta",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "hoja de cristal con marco fino, barra tirador y zócalo metálico (1,10×2,30)",
+      "materiales": [
+        "ss_marco",
+        "ss_vidrio_escaparate",
+        "ss_metal"
+      ],
+      "triangulos": 62,
+      "caja": {
+        "min": [
+          -0.55,
+          0,
+          -0.025
+        ],
+        "max": [
+          0.55,
+          2.3,
+          0.06
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "puerta.madera_vidrio",
+      "familia": "puerta",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "hoja de madera con panel inferior moldurado y vidrio superior",
+      "materiales": [
+        "ss_marco",
+        "ss_vidrio_escaparate",
+        "ss_metal"
+      ],
+      "triangulos": 98,
+      "caja": {
+        "min": [
+          -0.55,
+          0,
+          -0.03
+        ],
+        "max": [
+          0.55,
+          2.3,
+          0.07
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "puerta.doble",
+      "familia": "puerta",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "puerta doble de cristal, 1,80×2,30, montante central",
+      "materiales": [
+        "ss_marco",
+        "ss_vidrio_escaparate",
+        "ss_metal"
+      ],
+      "triangulos": 100,
+      "caja": {
+        "min": [
+          -0.9,
+          0,
+          -0.025
+        ],
+        "max": [
+          0.9,
+          2.3,
+          0.06
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "puerta.metal_ciega",
+      "familia": "puerta",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "puerta de servicio: hoja metálica ciega con mirilla y zócalo (1,00×2,10)",
+      "materiales": [
+        "ss_marco",
+        "ss_metal",
+        "ss_vidrio_escaparate"
+      ],
+      "triangulos": 48,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.03
+        ],
+        "max": [
+          0.5,
+          2.1,
+          0.065
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "vidrio.pano",
+      "familia": "vidrio",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "paño de vidrio unidad (escala X=ancho, Y=alto); material BLEND compartido",
+      "materiales": [
+        "ss_vidrio_escaparate"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "rotulo.fascia",
+      "familia": "rotulo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "banda de rótulo 0.55 m con filetes; frente UV 0-1 sobre la celda del atlas de rótulos",
+      "materiales": [
+        "ss_marco",
+        "ss_letrero"
+      ],
+      "triangulos": 18,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.55,
+          0.09
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "rotulo.cajon",
+      "familia": "rotulo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "rótulo de cajón 0,60 m con cantos de 0,18 m; frente UV 0-1",
+      "materiales": [
+        "ss_marco",
+        "ss_letrero"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.6,
+          0.18
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "cornisa.simple",
+      "familia": "cornisa",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "cornisa escalonada de 0,20 m de vuelo",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.18,
+          0.18
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "cornisa.dentada",
+      "familia": "cornisa",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "cornisa con friso de 18 dentículos",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 160,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.24,
+          0.18
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "bandera.cuadrada",
+      "familia": "bandera",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "rótulo de bandera cuadrado 0,55 m con ménsula (cuelga bajo el brazo)",
+      "materiales": [
+        "ss_metal",
+        "ss_letrero",
+        "ss_marco"
+      ],
+      "triangulos": 36,
+      "caja": {
+        "min": [
+          -0.05,
+          -0.62,
+          0
+        ],
+        "max": [
+          0.05,
+          0.05,
+          0.75
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "bandera.circulo",
+      "familia": "bandera",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "rótulo de bandera circular Ø0,55 m con ménsula",
+      "materiales": [
+        "ss_metal",
+        "ss_letrero",
+        "ss_marco"
+      ],
+      "triangulos": 100,
+      "caja": {
+        "min": [
+          -0.05,
+          -0.62,
+          0
+        ],
+        "max": [
+          0.05,
+          0.05,
+          0.75
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "bandera.cartela",
+      "familia": "bandera",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "rótulo de bandera con cartela de esquinas cortadas 0,50×0,70",
+      "materiales": [
+        "ss_metal",
+        "ss_letrero",
+        "ss_marco"
+      ],
+      "triangulos": 52,
+      "caja": {
+        "min": [
+          -0.05,
+          -0.7,
+          0
+        ],
+        "max": [
+          0.05,
+          0.05,
+          0.75
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "bandera.cruz",
+      "familia": "bandera",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cruz luminosa de 0,60 m (verde neón, sin marca)",
+      "materiales": [
+        "ss_metal",
+        "ss_neon"
+      ],
+      "triangulos": 68,
+      "caja": {
+        "min": [
+          -0.05,
+          -0.7,
+          0
+        ],
+        "max": [
+          0.05,
+          0.05,
+          0.75
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "toldo.recto",
+      "familia": "toldo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "toldo recto inclinado: vuelo 1,10 m, caída 0,55 m y volante 0,25 m",
+      "materiales": [
+        "ss_toldo_a",
+        "ss_toldo_b",
+        "ss_metal"
+      ],
+      "triangulos": 58,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.8,
+          0
+        ],
+        "max": [
+          0.5,
+          0.04,
+          1.1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "toldo.capota",
+      "familia": "toldo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "toldo de capota en cuarto de círculo: vuelo 1,0 m, caída 0,80 m (sombreado suave)",
+      "materiales": [
+        "ss_toldo_a",
+        "ss_toldo_b",
+        "ss_metal"
+      ],
+      "triangulos": 162,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.8,
+          0
+        ],
+        "max": [
+          0.5,
+          0.04,
+          1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "toldo.cajon",
+      "familia": "toldo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "toldo retráctil con cofre 0,14×0,12: vuelo 1,70 m, caída 0,66 m, brazos metálicos",
+      "materiales": [
+        "ss_marco",
+        "ss_toldo_a",
+        "ss_toldo_b",
+        "ss_metal"
+      ],
+      "triangulos": 64,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.94,
+          0
+        ],
+        "max": [
+          0.5,
+          0,
+          1.72
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "toldo.festoneado",
+      "familia": "toldo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "toldo recto con volante festoneado (12 medias lunas)",
+      "materiales": [
+        "ss_toldo_a",
+        "ss_toldo_b",
+        "ss_metal"
+      ],
+      "triangulos": 94,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.8,
+          0
+        ],
+        "max": [
+          0.5,
+          0.04,
+          1.1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "toldo.marquesina",
+      "familia": "toldo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "marquesina plana de vidrio sobre perfil de acero: vuelo 1,0 m, canto 0,10 m",
+      "materiales": [
+        "ss_vidrio_escaparate",
+        "ss_metal"
+      ],
+      "triangulos": 14,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.15,
+          0
+        ],
+        "max": [
+          0.5,
+          0,
+          1
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "persiana.panel",
+      "familia": "persiana",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "persiana cerrada: quad unidad con la tira de persiana del atlas (escala Y = lo bajada que esté)",
+      "materiales": [
+        "ss_persiana"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "persiana.cajon",
+      "familia": "persiana",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "cajón del rollo 0,30×0,24 sobre el dintel",
+      "materiales": [
+        "ss_metal"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.3,
+          0.24
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "persiana.guia",
+      "familia": "persiana",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        3,
+        1
+      ],
+      "nota": "guía lateral en U (0,08×0,05)",
+      "materiales": [
+        "ss_metal"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.04,
+          0,
+          0
+        ],
+        "max": [
+          0.04,
+          1,
+          0.05
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "caja.recta",
+      "familia": "caja",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1.4
+      ],
+      "nota": "caja somera de cinco caras: ancho×alto×fondo unidad (0,5/-0,5; 0/1; 0/-1)",
+      "materiales": [
+        "ss_int_suelo",
+        "ss_int_techo",
+        "ss_int_lateral",
+        "ss_int_fondo"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "caja.biselada",
+      "familia": "caja",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1.4
+      ],
+      "nota": "esquinas del fondo achaflanadas (evita la costura dura del rincón)",
+      "materiales": [
+        "ss_int_suelo",
+        "ss_int_techo",
+        "ss_int_lateral",
+        "ss_int_fondo"
+      ],
+      "triangulos": 18,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "caja.fondo_curvo",
+      "familia": "caja",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1.4
+      ],
+      "nota": "fondo en tres facetas (aspecto de ábside suave)",
+      "materiales": [
+        "ss_int_suelo",
+        "ss_int_techo",
+        "ss_int_lateral",
+        "ss_int_fondo"
+      ],
+      "triangulos": 18,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "caja.nicho_central",
+      "familia": "caja",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1.4
+      ],
+      "nota": "fondo con alcoba central de 0,16 m de hondo (almacén/trastienda sugerida, cerrada)",
+      "materiales": [
+        "ss_int_suelo",
+        "ss_int_techo",
+        "ss_int_lateral",
+        "ss_int_fondo"
+      ],
+      "triangulos": 26,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1.12
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "caja.cenefa",
+      "familia": "caja",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "cenefa frontal de 0,36 m con franja de luz de 0,05 m (oculta la unión techo/vidrio); origen en su arista inferior",
+      "materiales": [
+        "ss_marco",
+        "ss_luz_franja"
+      ],
+      "triangulos": 4,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.02
+        ],
+        "max": [
+          0.5,
+          0.41,
+          -0.02
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "capa.plana",
+      "familia": "capa",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "capa recortada plana (MASK); es la de commerce-scene.js",
+      "materiales": [
+        "ss_int_capa"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "capa.curva",
+      "familia": "capa",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "capa cóncava de 8 tramos (bordes adelantados 0,12·Z); quita el aspecto de cartulina",
+      "materiales": [
+        "ss_int_capa"
+      ],
+      "triangulos": 16,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.12
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "capa.quebrada",
+      "familia": "capa",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "capa de tres facetas con alas atrás 0,15·Z (cierra el borde visto en oblicuo)",
+      "materiales": [
+        "ss_int_capa"
+      ],
+      "triangulos": 6,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.15
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "capa.con_pie",
+      "familia": "capa",
+      "estira": "xyz",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "capa plana con zócalo de sombra de 0,18 m en el suelo (asienta la capa)",
+      "materiales": [
+        "ss_int_capa",
+        "ss_int_suelo"
+      ],
+      "triangulos": 4,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.18
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "nicho.liso",
+      "familia": "nicho",
+      "estira": "xyz",
+      "escala_nominal": [
+        1.2,
+        2,
+        1
+      ],
+      "nota": "hornacina empotrada de 0,22·Z con fondo pintado (cuerpo cerrado: 5 caras)",
+      "materiales": [
+        "ss_int_capa",
+        "ss_int_lateral",
+        "ss_int_suelo",
+        "ss_int_techo"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.22
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "nicho.estantes",
+      "familia": "nicho",
+      "estira": "xyz",
+      "escala_nominal": [
+        1.2,
+        2,
+        1
+      ],
+      "nota": "hornacina empotrada con 3 baldas de obra (paralaje real entre baldas)",
+      "materiales": [
+        "ss_int_capa",
+        "ss_int_lateral",
+        "ss_int_suelo",
+        "ss_int_techo",
+        "ss_marco"
+      ],
+      "triangulos": 28,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.22
+        ],
+        "max": [
+          0.5,
+          1,
+          0
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "vinilo.cartel",
+      "familia": "vinilo",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cartel de lema 0,45×0,30 (celda de lema del atlas)",
+      "materiales": [
+        "ss_vinilo_lema"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.225,
+          0,
+          0.004
+        ],
+        "max": [
+          0.225,
+          0.3,
+          0.004
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "vinilo.estado",
+      "familia": "vinilo",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cartel Abierto/Cerrado 0,28×0,16",
+      "materiales": [
+        "ss_vinilo_estado"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.14,
+          0,
+          0.004
+        ],
+        "max": [
+          0.14,
+          0.16,
+          0.004
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "vinilo.esquina",
+      "familia": "vinilo",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "vinilo de esquina 0,50×0,50",
+      "materiales": [
+        "ss_vinilo_lema"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.25,
+          0,
+          0.004
+        ],
+        "max": [
+          0.25,
+          0.5,
+          0.004
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "vinilo.banda",
+      "familia": "vinilo",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "banda esmerilada 0,30 m (privacidad, a la altura de los ojos)",
+      "materiales": [
+        "ss_vinilo_banda"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0.004
+        ],
+        "max": [
+          0.5,
+          0.3,
+          0.004
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "umbral.escalon",
+      "familia": "detalle",
+      "estira": "x",
+      "escala_nominal": [
+        1.4000000000000001,
+        1,
+        1
+      ],
+      "nota": "peldaño de umbral 0,05 m (sale 0,20 m, entra 0,35 m)",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 8,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.35
+        ],
+        "max": [
+          0.5,
+          0.05,
+          0.2
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "repisa.alfeizar",
+      "familia": "detalle",
+      "estira": "x",
+      "escala_nominal": [
+        3.6,
+        1,
+        1
+      ],
+      "nota": "alféizar de piedra bajo el vidrio con goterón",
+      "materiales": [
+        "ss_tinte2"
+      ],
+      "triangulos": 10,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.1
+        ],
+        "max": [
+          0.5,
+          0.07,
+          0.12
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "rejilla.ventilacion",
+      "familia": "detalle",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "rejilla de ventilación 0,50×0,14 con 5 lamas",
+      "materiales": [
+        "ss_metal",
+        "ss_marco"
+      ],
+      "triangulos": 58,
+      "caja": {
+        "min": [
+          -0.25,
+          0,
+          0
+        ],
+        "max": [
+          0.25,
+          0.14,
+          0.03
+        ]
+      },
+      "archivo": "fachada"
+    },
+    {
+      "id": "suelo.damero_crema",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "damero de baldosa crema y salvia 8×4",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 64,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.damero_negro",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "damero blanco y negro 8×4 (bar, café)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 64,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.baldosa_roja",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "baldosa de barro cocido con juntas 8×4",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 64,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.terrazo",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "terrazo claro con tonos",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 64,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.tablones_roble",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "tablones de roble a lo largo (10)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 20,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.tablones_oscuro",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "tablones de nogal oscuro (10)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 20,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.hidraulico_turquesa",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "baldosa hidráulica turquesa/crema con rombos",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 252,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0.003,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "suelo.hidraulico_terracota",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "baldosa hidráulica terracota/azul",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 252,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0.003,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.azulejo_blanco",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "azulejo metro blanco hasta 1,26 m, remate salvia, enlucido crema",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 202,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.002
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.azulejo_verde",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "azulejo metro verde botella, remate crema, enlucido ocre",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 202,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.002
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.ladrillo_visto",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "ladrillo visto en 24 hiladas con juntas y remate claro",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 506,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.002
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.listones_madera",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "listones verticales de madera tostada con rodapié",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 50,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.01
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.empapelado_rayas",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "papel pintado a rayas con dado de madera ciruela",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 56,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.006
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.enlucido_dado",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "enlucido crema con dado de madera moldurado y moldura de cuadros",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 24,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.008
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.piedra_sillar",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "sillares de arenisca en 8 hiladas",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 80,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.001
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fondo.pintura_petroleo",
+      "familia": "piel",
+      "estira": "xy",
+      "escala_nominal": [
+        3.6,
+        3,
+        1
+      ],
+      "nota": "pintura petróleo con friso dorado y rodapié",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 6,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          1,
+          0.004
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "techo.liso",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "techo liso claro",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 2,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "techo.vigas",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "cinco vigas de madera vistas de 0,15 m",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 22,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.15,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "techo.casetones",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "casetones 6×3 de escayola con marco",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 146,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.03,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "techo.estano",
+      "familia": "piel",
+      "estira": "xz",
+      "escala_nominal": [
+        3.6,
+        1,
+        1.4
+      ],
+      "nota": "techo de chapa estampada a cuadros (12×6)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 144,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -1
+        ],
+        "max": [
+          0.5,
+          0,
+          0
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.pan.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con pan (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 954,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.pan.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con pan (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 1054,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.libros.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con libros (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 592,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.libros.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con libros (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 600,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.botellas.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con botellas (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 1136,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.botellas.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con botellas (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 1136,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.cajas.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con cajas (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 686,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.cajas.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con cajas (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 716,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.ropa_plegada.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con ropa_plegada (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 646,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.ropa_plegada.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con ropa_plegada (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 598,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.zapatos.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con zapatos (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 626,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.zapatos.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con zapatos (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 626,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.frascos.a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con frascos (5 baldas, variante a)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 911,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "estanteria.frascos.b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "estantería 1,20×2,20×0,34 con frascos (5 baldas, variante b)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 911,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.62,
+          2.25,
+          0.19
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.madera",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mostrador de madera con cuarterones",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 88,
+      "caja": {
+        "min": [
+          -0.93,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.93,
+          0.92,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.marmol",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mostrador de mármol blanco sobre base verde botella",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 96,
+      "caja": {
+        "min": [
+          -0.93,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.93,
+          0.92,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.pintado",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mostrador pintado granate con remate de latón",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 96,
+      "caja": {
+        "min": [
+          -0.93,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.93,
+          0.92,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.vitrina_pan",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "vitrina de bollería: croissants, rosquillas y magdalenas sobre bandejas",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 523,
+      "caja": {
+        "min": [
+          -0.92,
+          0,
+          -0.31
+        ],
+        "max": [
+          0.92,
+          1.43,
+          0.33
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.vitrina_carne",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "vitrina de charcutería: embutidos y bandejas de jamón",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 656,
+      "caja": {
+        "min": [
+          -0.92,
+          0,
+          -0.31
+        ],
+        "max": [
+          0.92,
+          1.43,
+          0.33
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.vitrina_queso",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "vitrina de quesos: ruedas, cuñas y piezas",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 454,
+      "caja": {
+        "min": [
+          -0.92,
+          0,
+          -0.31
+        ],
+        "max": [
+          0.92,
+          1.43,
+          0.33
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.vitrina_dulces",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "vitrina de pastelería: tartaletas y pastelitos de colores",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 558,
+      "caja": {
+        "min": [
+          -0.92,
+          0,
+          -0.31
+        ],
+        "max": [
+          0.92,
+          1.43,
+          0.33
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "horno.ladrillo",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "horno de leña de ladrillo con boca en arco, brasas, bóveda, chimenea y pala",
+      "materiales": [
+        "ss_in",
+        "ss_in_brasa"
+      ],
+      "triangulos": 445,
+      "caja": {
+        "min": [
+          -0.66,
+          -0.0002,
+          -0.385
+        ],
+        "max": [
+          1.02,
+          2.04,
+          0.43
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "cajonera.botica",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cajonera de farmacia 2,0×2,3 con 6×8 cajones, tiradores y etiquetas; cornisa con frascos",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 531,
+      "caja": {
+        "min": [
+          -1.04,
+          0,
+          -0.21
+        ],
+        "max": [
+          1.04,
+          2.26,
+          0.23
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "caja.registradora",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "caja registradora de latón con teclas y cajón",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 152,
+      "caja": {
+        "min": [
+          -0.2,
+          0,
+          -0.16
+        ],
+        "max": [
+          0.2,
+          0.3,
+          0.2
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "balanza",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "balanza de platos con aguja",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 110,
+      "caja": {
+        "min": [
+          -0.32,
+          0,
+          -0.1141
+        ],
+        "max": [
+          0.32,
+          0.3,
+          0.1141
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.cupula",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pantalla cónica de cobre con luz cálida",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 96,
+      "caja": {
+        "min": [
+          -0.22,
+          -0.3,
+          -0.2092
+        ],
+        "max": [
+          0.22,
+          0,
+          0.2092
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.globo",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "globo opalino luminoso",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 80,
+      "caja": {
+        "min": [
+          -0.15,
+          -0.35,
+          -0.15
+        ],
+        "max": [
+          0.15,
+          0,
+          0.15
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.industrial",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pantalla industrial esmaltada verde oscuro",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 116,
+      "caja": {
+        "min": [
+          -0.27,
+          -0.31,
+          -0.2568
+        ],
+        "max": [
+          0.27,
+          0,
+          0.2568
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.canasta",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pantalla de mimbre ancha",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 96,
+      "caja": {
+        "min": [
+          -0.34,
+          -0.36,
+          -0.3234
+        ],
+        "max": [
+          0.34,
+          0,
+          0.3234
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.gota",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "lágrima de cristal luminosa",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 72,
+      "caja": {
+        "min": [
+          -0.12,
+          -0.42,
+          -0.12
+        ],
+        "max": [
+          0.12,
+          0,
+          0.12
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "lampara.cable",
+      "familia": "utileria",
+      "estira": "y",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cable de cuelgue (se escala en Y: origen arriba, baja hacia -Y)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 6,
+      "caja": {
+        "min": [
+          -0.006,
+          -1,
+          -0.006
+        ],
+        "max": [
+          0.006,
+          0,
+          0.006
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "luz.riel",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "carril de focos con tres focos de latón (origen en el techo)",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 89,
+      "caja": {
+        "min": [
+          -0.5,
+          -0.222,
+          -0.0487
+        ],
+        "max": [
+          0.5,
+          0,
+          0.0487
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "pizarra.menu_pan",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pizarra de menú con título y espiga dibujada",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 56,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.72,
+          0.046
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "pizarra.menu_cafe",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pizarra de menú con taza dibujada",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 58,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          0
+        ],
+        "max": [
+          0.5,
+          0.72,
+          0.048
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "espejo.redondo",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "espejo redondo con marco de latón (Ø0,84; centro a 0,5 m del origen)",
+      "materiales": [
+        "ss_in",
+        "ss_in_espejo"
+      ],
+      "triangulos": 91,
+      "caja": {
+        "min": [
+          -0.42,
+          0.08,
+          0
+        ],
+        "max": [
+          0.42,
+          0.92,
+          0.04
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "espejo.arco",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "espejo alto de medio punto con marco de madera 0,7×1,8",
+      "materiales": [
+        "ss_in",
+        "ss_in_espejo"
+      ],
+      "triangulos": 59,
+      "caja": {
+        "min": [
+          -0.35,
+          0,
+          0
+        ],
+        "max": [
+          0.35,
+          1.8,
+          0.042
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "cuadros.galeria",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cinco cuadros de distinto tamaño en marcos de colores",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 60,
+      "caja": {
+        "min": [
+          -0.625,
+          -0.03,
+          0
+        ],
+        "max": [
+          0.5,
+          0.77,
+          0.034
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "perchero.rail_a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "perchero con 9 prendas (camisas, vestidos, chaquetas) en colores no contiguos",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 742,
+      "caja": {
+        "min": [
+          -0.85,
+          0,
+          -0.12
+        ],
+        "max": [
+          0.82,
+          1.598,
+          0.12
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "perchero.rail_b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "perchero con 9 prendas, otra paleta y orden",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 742,
+      "caja": {
+        "min": [
+          -0.82,
+          0,
+          -0.12
+        ],
+        "max": [
+          0.85,
+          1.598,
+          0.12
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "maniqui.vestido",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "maniquí con vestido acampanado sobre base redonda",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 243,
+      "caja": {
+        "min": [
+          -0.34,
+          0,
+          -0.3234
+        ],
+        "max": [
+          0.34,
+          1.7492,
+          0.3234
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "maniqui.vaquero",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "maniquí con chaqueta y vaqueros",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 219,
+      "caja": {
+        "min": [
+          -0.2775,
+          0,
+          -0.2092
+        ],
+        "max": [
+          0.2775,
+          1.7492,
+          0.2092
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mesa.expositora",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mesa de madera 1,0×0,7 con tres pilas de ropa plegada y un jarrón",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 178,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.35
+        ],
+        "max": [
+          0.5,
+          1,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "percha.pared",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "riel de pared con seis prendas colgadas (espalda en z=0)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 400,
+      "caja": {
+        "min": [
+          -0.71,
+          -1.012,
+          0
+        ],
+        "max": [
+          0.74,
+          0.06,
+          0.146
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mesa.cafe",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mesa redonda de mármol con dos sillas de bistró",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 225,
+      "caja": {
+        "min": [
+          -0.36,
+          0,
+          -0.564
+        ],
+        "max": [
+          0.36,
+          0.92,
+          0.564
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mesa.puesta",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mesa de restaurante 1,0×0,7 con mantel, platos, copas y vela",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 538,
+      "caja": {
+        "min": [
+          -0.504,
+          0,
+          -0.564
+        ],
+        "max": [
+          0.504,
+          0.92,
+          0.564
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mesa.libros",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mesa de lectura con pilas de libros, un libro abierto y una lámpara de sobremesa",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz"
+      ],
+      "triangulos": 200,
+      "caja": {
+        "min": [
+          -0.55,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.55,
+          1.1,
+          0.32
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mesa.tecnologia",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mesa de demostración con dos portátiles y tres tabletas encendidos",
+      "materiales": [
+        "ss_in",
+        "ss_in_pantalla"
+      ],
+      "triangulos": 94,
+      "caja": {
+        "min": [
+          -0.6,
+          0,
+          -0.35
+        ],
+        "max": [
+          0.6,
+          0.98,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "taburete.bar",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "taburete alto de bar, asiento verde y pie cromado",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 100,
+      "caja": {
+        "min": [
+          -0.19,
+          0,
+          -0.1807
+        ],
+        "max": [
+          0.19,
+          0.68,
+          0.1807
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.bar_cafe",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "barra de café 2,2 m con cafetera de dos grupos, tazas, molinillo y tres taburetes",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 605,
+      "caja": {
+        "min": [
+          -1.14,
+          0,
+          -0.34
+        ],
+        "max": [
+          1.14,
+          1.42,
+          0.6007
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fruteria.escalonada_a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "expositor de tres cajones con manzanas, naranjas y tomates",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 734,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          -0.42
+        ],
+        "max": [
+          0.62,
+          1.42,
+          0.521
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "fruteria.escalonada_b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "expositor de tres cajones con peras, verduras y limones",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 734,
+      "caja": {
+        "min": [
+          -0.6213,
+          0,
+          -0.42
+        ],
+        "max": [
+          0.6371,
+          1.42,
+          0.521
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "jamones.rail",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "barra de techo con siete jamones y una cadena de chorizos (origen: arriba)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 529,
+      "caja": {
+        "min": [
+          -0.71,
+          -0.7577,
+          -0.0926
+        ],
+        "max": [
+          0.71,
+          0.3,
+          0.0926
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "salchichas.cadena",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cadena de chorizos en curva, de barra a barra (curva de 1,0 m)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 192,
+      "caja": {
+        "min": [
+          -0.5193,
+          -0.2198,
+          -0.045
+        ],
+        "max": [
+          0.5193,
+          0.035,
+          0.045
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "mostrador.bascula_hielo",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "cajón de hielo con pescado entero (3 piezas) y marisco",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 135,
+      "caja": {
+        "min": [
+          -0.7,
+          0,
+          -0.35
+        ],
+        "max": [
+          0.7,
+          0.96,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "cubos.flores_a",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "tres cubos con ramos de rojos, rosas y amarillos",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 684,
+      "caja": {
+        "min": [
+          -0.5632,
+          0,
+          -0.1538
+        ],
+        "max": [
+          0.5656,
+          1.1222,
+          0.1646
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "cubos.flores_b",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "tres cubos con ramos de azules, blancos y lilas",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 684,
+      "caja": {
+        "min": [
+          -0.55,
+          0,
+          -0.1723
+        ],
+        "max": [
+          0.5596,
+          1.1173,
+          0.15
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "expositor.gafas",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "panel de madera con ocho monturas en clavijas (espalda en z=0)",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 496,
+      "caja": {
+        "min": [
+          -0.62,
+          0,
+          0
+        ],
+        "max": [
+          0.62,
+          0.6,
+          0.066
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "pantallas.pared",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pared de pantallas 3×2 sobre panel oscuro con repisa de dispositivos (espalda en z=0)",
+      "materiales": [
+        "ss_in",
+        "ss_in_pantalla"
+      ],
+      "triangulos": 78,
+      "caja": {
+        "min": [
+          -0.95,
+          0,
+          0
+        ],
+        "max": [
+          0.95,
+          1.4,
+          0.12
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "gondola.doble",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "góndola de doble cara 1,2×1,6 con cinco baldas de productos y cabecera",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 832,
+      "caja": {
+        "min": [
+          -0.65,
+          0,
+          -0.3
+        ],
+        "max": [
+          0.65,
+          1.82,
+          0.306
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "nevera.vitrina",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "nevera de puertas de vidrio 1,0×2,0 con botellas, latas y tira LED",
+      "materiales": [
+        "ss_in",
+        "ss_in_luz",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 618,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.5,
+          2,
+          0.36
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "cajas.apiladas",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "pila de cajas de cartón y cajones de plástico con producto",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 96,
+      "caja": {
+        "min": [
+          -0.55,
+          0,
+          -0.18
+        ],
+        "max": [
+          0.54,
+          0.88,
+          0.182
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "sacos.harina",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "sacos de harina atados, pila de seis sobre palé",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 448,
+      "caja": {
+        "min": [
+          -0.5,
+          0,
+          -0.3
+        ],
+        "max": [
+          0.5,
+          0.91,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "silla.barbero",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "sillón de barbero de cuero rojo con reposapiés y base cromada",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 136,
+      "caja": {
+        "min": [
+          -0.335,
+          0,
+          -0.32
+        ],
+        "max": [
+          0.335,
+          1.28,
+          0.6
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "poste.barbero",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "poste de barbero rayado rojo/blanco/azul con remates",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 202,
+      "caja": {
+        "min": [
+          -0.09,
+          0.44,
+          -0.09
+        ],
+        "max": [
+          0.09,
+          1.98,
+          0.09
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "banco.espera",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "banco corrido de tres plazas con asientos azules y patas de acero",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 56,
+      "caja": {
+        "min": [
+          -0.75,
+          0,
+          -0.22
+        ],
+        "max": [
+          0.75,
+          0.9,
+          0.2
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "ventanilla.banco",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "mostrador de ventanilla con cristal, rejilla de latón y ranura (2,0×1,2 sobre 0,9)",
+      "materiales": [
+        "ss_in",
+        "ss_in_vidrio"
+      ],
+      "triangulos": 60,
+      "caja": {
+        "min": [
+          -1.04,
+          0,
+          -0.4
+        ],
+        "max": [
+          1.04,
+          2.1,
+          0.35
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "escalera.libros",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "escalera corrediza de biblioteca con peldaños y carro (2,4 m)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 130,
+      "caja": {
+        "min": [
+          -0.25,
+          -0.0036,
+          -0.1
+        ],
+        "max": [
+          0.25,
+          2.28,
+          0.5433
+        ]
+      },
+      "archivo": "interior"
+    },
+    {
+      "id": "zapatos.escalonado",
+      "familia": "utileria",
+      "estira": "fijo",
+      "escala_nominal": [
+        1,
+        1,
+        1
+      ],
+      "nota": "expositor de tres peldaños con zapatos en pares (1,2×1,0)",
+      "materiales": [
+        "ss_in"
+      ],
+      "triangulos": 372,
+      "caja": {
+        "min": [
+          -0.6,
+          0,
+          -0.45
+        ],
+        "max": [
+          0.6,
+          1.01,
+          0.5
+        ]
+      },
+      "archivo": "interior"
+    }
+  ],
+  "kits": [
+    {
+      "id": "clasico_piedra",
+      "etiqueta": "Clásico de piedra",
+      "perfiles": [
+        "historico",
+        "espana"
+      ],
+      "afines": [
+        "panaderia",
+        "libreria",
+        "servicios",
+        "cafe",
+        "bazar"
+      ],
+      "marco": "piedra",
+      "zocalo": "zocalo.piedra",
+      "puerta": "puerta.madera_vidrio",
+      "rotulo": "rotulo.fascia",
+      "cornisa": "cornisa.dentada",
+      "toldos": [
+        "toldo.recto",
+        "toldo.festoneado",
+        null
+      ],
+      "bandera": "bandera.cartela",
+      "caja": [
+        "caja.recta",
+        "caja.biselada"
+      ],
+      "cenefa": true,
+      "capas": [
+        "capa.plana",
+        "capa.quebrada"
+      ],
+      "persiana": "persiana.cajon"
+    },
+    {
+      "id": "madera_barrio",
+      "etiqueta": "Madera de barrio",
+      "perfiles": [
+        "historico",
+        "espana",
+        "latam"
+      ],
+      "afines": [
+        "panaderia",
+        "carniceria",
+        "fruteria",
+        "cafe",
+        "restaurante",
+        "bazar"
+      ],
+      "marco": "madera",
+      "zocalo": "zocalo.panel",
+      "puerta": "puerta.madera_vidrio",
+      "rotulo": "rotulo.cajon",
+      "cornisa": null,
+      "toldos": [
+        "toldo.recto",
+        "toldo.capota",
+        null
+      ],
+      "bandera": "bandera.circulo",
+      "caja": [
+        "caja.recta",
+        "caja.nicho_central"
+      ],
+      "cenefa": false,
+      "capas": [
+        "capa.plana",
+        "capa.curva"
+      ],
+      "persiana": "persiana.guia"
+    },
+    {
+      "id": "moderno_aluminio",
+      "etiqueta": "Moderno de aluminio",
+      "perfiles": [
+        "moderno",
+        "espana",
+        "latam"
+      ],
+      "afines": [
+        "ropa",
+        "electronica",
+        "optica",
+        "belleza",
+        "servicios",
+        "calzado"
+      ],
+      "marco": "aluminio",
+      "zocalo": "zocalo.bisel",
+      "puerta": "puerta.cristal",
+      "rotulo": "rotulo.cajon",
+      "cornisa": null,
+      "toldos": [
+        null,
+        "toldo.marquesina"
+      ],
+      "bandera": "bandera.cuadrada",
+      "caja": [
+        "caja.recta",
+        "caja.fondo_curvo"
+      ],
+      "cenefa": true,
+      "capas": [
+        "capa.curva",
+        "capa.con_pie"
+      ],
+      "persiana": "persiana.cajon"
+    },
+    {
+      "id": "escaparate_ancho",
+      "etiqueta": "Escaparate ancho sin zócalo",
+      "perfiles": [
+        "moderno"
+      ],
+      "afines": [
+        "ropa",
+        "calzado",
+        "optica",
+        "electronica"
+      ],
+      "marco": "aluminio",
+      "zocalo": null,
+      "puerta": "puerta.doble",
+      "rotulo": "rotulo.fascia",
+      "cornisa": null,
+      "toldos": [
+        null
+      ],
+      "bandera": null,
+      "caja": [
+        "caja.biselada",
+        "caja.recta"
+      ],
+      "cenefa": true,
+      "capas": [
+        "capa.con_pie",
+        "capa.plana"
+      ],
+      "persiana": "persiana.cajon"
+    },
+    {
+      "id": "latam_reja",
+      "etiqueta": "Latam con cortina y capota",
+      "perfiles": [
+        "latam"
+      ],
+      "afines": [
+        "fruteria",
+        "supermercado",
+        "bazar",
+        "belleza",
+        "restaurante",
+        "electronica"
+      ],
+      "marco": "forja",
+      "zocalo": "zocalo.liso",
+      "puerta": "puerta.metal_ciega",
+      "rotulo": "rotulo.cajon",
+      "cornisa": null,
+      "toldos": [
+        "toldo.capota",
+        "toldo.cajon"
+      ],
+      "bandera": "bandera.cuadrada",
+      "caja": [
+        "caja.recta",
+        "caja.nicho_central"
+      ],
+      "cenefa": false,
+      "capas": [
+        "capa.plana",
+        "capa.curva"
+      ],
+      "persiana": "persiana.panel"
+    },
+    {
+      "id": "farmacia_cruz",
+      "etiqueta": "Farmacia con cruz",
+      "perfiles": [
+        "moderno",
+        "espana",
+        "latam"
+      ],
+      "afines": [
+        "farmacia",
+        "optica"
+      ],
+      "marco": "aluminio",
+      "zocalo": "zocalo.bisel",
+      "puerta": "puerta.cristal",
+      "rotulo": "rotulo.fascia",
+      "cornisa": null,
+      "toldos": [
+        "toldo.marquesina",
+        null
+      ],
+      "bandera": "bandera.cruz",
+      "caja": [
+        "caja.recta",
+        "caja.fondo_curvo"
+      ],
+      "cenefa": true,
+      "capas": [
+        "capa.plana",
+        "capa.con_pie"
+      ],
+      "persiana": "persiana.cajon"
+    },
+    {
+      "id": "cafe_terraza",
+      "etiqueta": "Café con toldo de cofre",
+      "perfiles": [
+        "historico",
+        "espana",
+        "latam"
+      ],
+      "afines": [
+        "cafe",
+        "restaurante",
+        "panaderia"
+      ],
+      "marco": "madera",
+      "zocalo": "zocalo.liso",
+      "puerta": "puerta.doble",
+      "rotulo": "rotulo.fascia",
+      "cornisa": "cornisa.simple",
+      "toldos": [
+        "toldo.cajon",
+        "toldo.festoneado"
+      ],
+      "bandera": "bandera.circulo",
+      "caja": [
+        "caja.biselada",
+        "caja.fondo_curvo"
+      ],
+      "cenefa": true,
+      "capas": [
+        "capa.quebrada",
+        "capa.plana"
+      ],
+      "persiana": "persiana.guia"
+    },
+    {
+      "id": "mercado_vitrina",
+      "etiqueta": "Mercado con hornacinas",
+      "perfiles": [
+        "historico",
+        "latam",
+        "espana"
+      ],
+      "afines": [
+        "carniceria",
+        "fruteria",
+        "floristeria",
+        "supermercado"
+      ],
+      "marco": "forja",
+      "zocalo": "zocalo.piedra",
+      "puerta": "puerta.madera_vidrio",
+      "rotulo": "rotulo.cajon",
+      "cornisa": null,
+      "toldos": [
+        "toldo.festoneado",
+        "toldo.recto"
+      ],
+      "bandera": "bandera.cuadrada",
+      "caja": [
+        "caja.nicho_central",
+        "caja.recta"
+      ],
+      "cenefa": false,
+      "capas": [
+        "capa.curva",
+        "capa.plana"
+      ],
+      "persiana": "persiana.panel",
+      "nichos": 2
+    }
+  ],
+  "archivo": {
+    "nombre": "kit-escaparate.glb",
+    "bytes": 228028,
+    "sha256": "52d43ced434f43062ef5a552f05d7b235fd33ad3cee668f6d8f542da630b0b36"
+  },
+  "archivo_interior": {
+    "nombre": "kit-interior.glb",
+    "bytes": 2585484,
+    "sha256": "4586b47fe5efd98ebc2083dcfa7b46a6290ab360922b85f7ddf2c5c2ca1d102c"
+  },
+  "runtime": {
+    "fachada": {
+      "nombre": "kit-escaparate.meshopt.glb",
+      "bytes": 228028,
+      "sha256": "52d43ced434f43062ef5a552f05d7b235fd33ad3cee668f6d8f542da630b0b36",
+      "compression": "none"
+    },
+    "interior": {
+      "nombre": "kit-interior.meshopt.glb",
+      "bytes": 1276144,
+      "sha256": "7c43b80c0b1657866d2d3d4a74f4d88bfed2282076c4286738c25ec6785d99db",
+      "compression": "meshopt-lossless"
+    }
+  }
+}

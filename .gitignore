@@ -44,3 +44,15 @@ worlds/**/*.zip
 worlds/verification.json
 features/worlds/__tests__/
 .next-studio-check/
+# Proyecto integrado: fuentes vigentes, sin caches ni respaldos
+**/__pycache__/
+**/.cache/
+**/.trabajo/
+**/RESPALDO/
+**/respaldo/
+**/.geo-cache/
+**/.style-pool/
+**/.npm-cache/
+**/exportaciones/
+**/*.log
+

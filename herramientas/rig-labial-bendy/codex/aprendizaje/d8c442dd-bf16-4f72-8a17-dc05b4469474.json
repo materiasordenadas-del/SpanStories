@@ -1,0 +1,19 @@
+{
+  "id": "d8c442dd-bf16-4f72-8a17-dc05b4469474",
+  "timestamp": "2026-10-23T22:42:55.114402+00:00",
+  "status": "fallo",
+  "character": "Ichigo",
+  "topic": "parpados",
+  "problem": "Edicion posterior del usuario retiro 50 vertices y 50 caras del parpado despues de validar el rig",
+  "action": "Revision visual y medicion del cierre real sin regenerar ni recuperar caras; actualizacion e instalacion 0.7.15 y relevo documentado para Claude Code",
+  "result": "Cierre actual incompleto: L553/978 y R584/1043 muestras visibles. Pruebas anteriores validas solo para la geometria anterior. Alternativa de compatibilidad 0.7.15 pendiente de ejecucion.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\prueba_ichigo_20261023\\revision_usuario_cierre_real.json",
+      "sha256": "65cded0f9f3d6b3e3bae2062188bc6b8acfecbc214bab844a427af3d130444c3"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.7.15",
+  "plugin_version": "0.7.15"
+}

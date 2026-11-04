@@ -1,0 +1,23 @@
+{
+  "id": "88d4a58b-63cd-45bf-90d6-4460b2cef9e4",
+  "timestamp": "2026-10-27T14:02:00.934596+00:00",
+  "status": "verificado",
+  "character": "Tom Holland; bocas sinteticas de tres tamanos y ejes",
+  "topic": "editor_labios",
+  "problem": "Puntos fuera del labio, arrastre lento y respuesta lateral desigual",
+  "action": "Anclas baricentricas proyectadas desde guias labiales, dos controles inferiores, actualizacion agrupada, pausa temporal de subdivision y calibracion bilateral",
+  "result": "Superficie inspeccionada en Tom; regresion de tres escalas/ejes y alta idempotente con cuatro drivers; arrastre de 3 px en ambos lados con diferencia 0.00171 px; 38-48 ms por actualizacion; acciones, Basis, UV, grupos, materiales y keys anteriores conservados; prueba CU interrumpida por el usuario; blend no guardado",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\editor_labios_0811\\verificacion_0812.json",
+      "sha256": "4543bfae681f5d18ff69439e4b687a5f14da8d7bfdfd97c8e230c9ad2e14363c"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\editor_labios_0811\\puntos_sobre_labios_0812.png",
+      "sha256": "f1cdd3401bf26d57f81690c850e8f17154131237b53fd14a1ce44b69613b7860"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.12",
+  "plugin_version": "0.8.12"
+}

@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","source":{"id":"ejemplo-correccion","name":"Ejemplo sintético; sustituir targetId y valores por datos propios","license":"Datos de demostración propios"},"features":[{"type":"Feature","id":"correccion-1","geometry":null,"properties":{"targetId":"osm:way:ID_DEL_EDIFICIO","edit":{"height":18.5,"levels":5,"colour":"#d8ccb4","roofShape":"flat"}}}]}

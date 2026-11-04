@@ -1,0 +1,19 @@
+{
+  "id": "bdeb5f61-eb6a-43f0-84ea-379f3b927de4",
+  "timestamp": "2026-10-29T11:12:03.976310+00:00",
+  "status": "verificado",
+  "character": "Pegazo",
+  "topic": "editor_ojos_altura",
+  "problem": "Faltaba subir y bajar el ojo completo",
+  "action": "Addon 0.8.40: control Altura en la seccion Ojos, simetria y restauracion",
+  "result": "Subir, bajar, movimiento de piezas hijas y ojo independiente comprobados. Altura restaurada; mallas y ajustes del usuario conservados, incluido tamano 0.9336493. Control visible. Blend sin guardar.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\editor_globos_0840\\verificacion.json",
+      "sha256": "6ebf35906b7f1d23c69cf2d8c8843670cb8cc832045000bea5970441769ac791"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

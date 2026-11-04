@@ -1,0 +1,19 @@
+{
+  "id": "0c405713-e848-4fec-bb7a-f9f1e7521d9e",
+  "timestamp": "2026-10-28T12:21:58.709183+00:00",
+  "status": "verificado",
+  "character": "Tom Holland detallado y fixtures",
+  "topic": "seleccion y cierre palpebral 0.8.28",
+  "problem": "Cierre incompleto tras eliminar filas; necesidad de seleccionar un punto o tres con sus influencias",
+  "action": "Seleccion conjunta con limites individuales, pesos por conjunto y contacto que interpola rabillos; regeneracion transaccional y copia independiente del estado anterior solicitada por usuario",
+  "result": "650 poses del generador, miradas y pares validos; 39 poses evaluadas sin contacto; 95958 rayos sin globo visible. Basis intacto y copia antes del cierre verificada. Fuente Blender y plugin 0.8.28 sincronizados",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\RESULTADO_0828.md",
+      "sha256": "c31def20e885f31ccdbcaf4d87b81073c34ee0d0ae561a00c41561f172ef0897"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.28",
+  "plugin_version": "0.8.28"
+}

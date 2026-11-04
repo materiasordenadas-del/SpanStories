@@ -1,0 +1,4439 @@
+{
+ "esquema": "spanstories.cuerpo.biblioteca/1",
+ "fps": 24,
+ "nota": "Una expresion corporal por gesto facial (mismo nombre que <cara>_FACS_<gesto>), en estilo M y F: clave <gesto>_<M|F>. Valores a intensidad 1. Angulos en grados desde la pose neutra; ver DISENO.md. Parametros sin _L/_R valen para los dos lados. mano_objetivo = [afuera, adelante, arriba] desde el hombro en longitudes de brazo (afuera < 0 = hacia la linea media).",
+ "expresiones": {
+  "neutra": {
+   "estilo": "MF",
+   "titulo": "Neutra",
+   "params": {},
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.6,
+    "balanceo_periodo": 7.0
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 0,
+    "mantener": 72,
+    "salida": 16,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "gesto": "neutro",
+   "familia": "neutra"
+  },
+  "aburrido_F": {
+   "gesto": "aburrido",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Aburrida (femenina)",
+   "nota": "Se inclina un poco hacia delante; la mano derecha queda delante del cuerpo tamborileando con los dedos mientras la izquierda cuelga. La cabeza se ladea y gira hacia un lado con la mirada perdida.",
+   "referencia": "Witchel (2016) y Ricciardi et al. (2019) relacionan el aburrimiento con más movimiento pequeño de hombros y manos, que baja cuando la tarea engancha. El tamborileo de los dedos es esa inquietud pequeña llevada a la mano.",
+   "fuentes": [
+    "https://www.inderscience.com/filter.php?aid=104590",
+    "https://core.ac.uk/works/8051478"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_lateral": 3,
+    "torso_girar": 2,
+    "pecho_abrir": -3,
+    "hombro_subir": -2,
+    "hombro_adelante": 4,
+    "brazo_abrir_L": 4,
+    "brazo_adelantar_L": 6,
+    "codo_L": 18,
+    "muneca_doblar_L": 6,
+    "dedos_cerrar_L": 0.2,
+    "mano_objetivo_R": [
+     -0.2,
+     0.25,
+     -0.4
+    ],
+    "codo_direccion_R": 5,
+    "dedos_cerrar_R": 0.2,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": 6,
+    "cabeza_girar": 5,
+    "cuello_adelantar": 0
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.8,
+    "balanceo_periodo": 4.2
+   },
+   "gesto_repetido": {
+    "params": {
+     "dedos_cerrar_R": 0.15
+    },
+    "periodo": 1.2,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 80,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "aburrido_M": {
+   "gesto": "aburrido",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Aburrido (masculino)",
+   "nota": "Una mano en la cadera y la otra colgando; el peso pasa despacio de una pierna a otra mientras la cabeza se ladea y gira hacia un lado. El torso se balancea con un ritmo lento y repetido.",
+   "referencia": "Witchel (2016) y Ricciardi et al. (2019) encuentran que el movimiento pequeño de inquietud aumenta cuando la tarea es menos interesante, y un estudio de hombros confirma más movimiento con lectura aburrida. El cambio de peso de un lado a otro es la forma gruesa de esa inquietud.",
+   "fuentes": [
+    "https://www.inderscience.com/filter.php?aid=104590",
+    "https://core.ac.uk/works/8051478"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": 1,
+    "torso_girar": 3,
+    "pecho_abrir": -2,
+    "hombro_subir": 1,
+    "hombro_adelante": 3,
+    "brazo_abrir_R": 3,
+    "codo_R": 15,
+    "muneca_doblar_R": 10,
+    "dedos_cerrar_R": 0.2,
+    "mano_objetivo_L": [
+     0.25,
+     0.05,
+     -0.45
+    ],
+    "codo_direccion_L": 15,
+    "muneca_doblar_L": 6,
+    "dedos_cerrar_L": 0.3,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": 4,
+    "cabeza_girar": 7,
+    "cuello_adelantar": 0
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.5,
+    "balanceo_periodo": 4.0
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_lateral": 4
+    },
+    "periodo": 3.2,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 80,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "aliviado_F": {
+   "gesto": "aliviado",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Aliviado (femenina)",
+   "nota": "Se afloja con una sonrisa: los hombros bajan y se ladean, el torso se reclina un poco y las manos se apoyan suaves a la altura del vientre, como si soltara algo. Cabeza ladeada y mirada blanda.",
+   "referencia": "Una guía de escritura sugiere mostrar el alivio con una exhalación grande, dejarse caer o llevarse la mano al pecho, en lugar de decirlo. Un material de práctica advierte que el mismo gesto de dejarse caer sirve para cansancio o frustración, por lo que la cara debe fijar la lectura.",
+   "fuentes": [
+    "https://www.markcheverton.com/writing-resources/sensory-details/relief",
+    "https://www.carepatron.com/files/body-language-test-sample.pdf"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": 3,
+    "torso_girar": -2,
+    "hombro_subir": -4,
+    "hombro_adelante": -2,
+    "cabeza_lateral": 7,
+    "cabeza_inclinar": 4,
+    "cabeza_girar": -2,
+    "mano_objetivo_L": [
+     -0.2,
+     0.25,
+     -0.4
+    ],
+    "mano_objetivo_R": [
+     -0.18,
+     0.22,
+     -0.36
+    ],
+    "codo_direccion": 6,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.1
+   },
+   "vida": {
+    "respiracion": 1.5,
+    "respiracion_periodo": 4.0,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.6
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 16,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "aliviado_M": {
+   "gesto": "aliviado",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Aliviado (masculino)",
+   "nota": "Suelta el peso: los hombros caen de golpe, el pecho se hunde un poco, la cabeza baja y se ladea. Una mano sube al pecho y se queda ahí mientras la otra cuelga suelta; una exhalación larga marca la salida.",
+   "referencia": "Las guías de escritura y de animación describen el alivio como hombros que bajan, respiración larga y una mano que va al pecho; son descripciones, no estudios. Un suspiro solo no basta para distinguir alivio de cansancio, así que la cara (ceja interna alzada y sonrisa suave) es la que aclara el gesto.",
+   "fuentes": [
+    "https://www.markcheverton.com/writing-resources/sensory-details/relief",
+    "https://www.carepatron.com/files/body-language-test-sample.pdf",
+    "https://animationmentor.com/?p=5305"
+   ],
+   "params": {
+    "hombro_subir": -6,
+    "hombro_adelante": 2,
+    "pecho_abrir": -4,
+    "torso_encorvar": 3,
+    "torso_inclinar": 2,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": -3,
+    "cabeza_girar": -2,
+    "mano_objetivo_R": [
+     -0.15,
+     0.28,
+     -0.12
+    ],
+    "codo_direccion_R": 6,
+    "brazo_abrir_L": 4,
+    "codo_L": 12,
+    "dedos_cerrar_L": 0.1
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 4.2,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 16,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "altanero_F": {
+   "gesto": "altanero",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Altanero (femenina)",
+   "nota": "Desdeñosa: se gira apenas hacia un lado, barbilla alta y la mirada por encima. La mano izquierda sale hacia afuera con un gesto de desdén y la muñeca floja; la derecha reposa suelta.",
+   "referencia": "Las guías de animación asocian la barbilla alta con superioridad, y el gesto de desdén con la mano hacia afuera es una convención de escena más que un estudio. La diferencia con M está en el gesto de la mano, en lugar de la cadera, y en el giro del torso.",
+   "fuentes": [
+    "https://blog.animschool.edu/tag/animation-poses/",
+    "https://www.humintell.com/2018/04/the-power-of-posture/"
+   ],
+   "params": {
+    "torso_girar": -6,
+    "torso_inclinar": -3,
+    "torso_lateral": 2,
+    "pecho_abrir": 5,
+    "hombro_adelante": -4,
+    "hombro_subir": 3,
+    "cabeza_inclinar": -10,
+    "cabeza_girar": -9,
+    "cabeza_lateral": 3,
+    "mano_objetivo_L": [
+     0.3,
+     0.2,
+     -0.3
+    ],
+    "muneca_doblar_L": -8,
+    "dedos_abrir_L": 0.4,
+    "brazo_abrir_R": 6,
+    "codo_R": 14,
+    "dedos_cerrar_R": 0.1
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.0
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 12,
+    "mantener": 56,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.06,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 2,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "altanero_M": {
+   "gesto": "altanero",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Altanero (masculino)",
+   "nota": "Mira desde arriba: barbilla alta, cabeza girada y ladeada hacia el lado de la mano, pecho hacia fuera y torso echado atrás. Una mano en la cadera y el otro brazo suelto; quieto, sin gesticular.",
+   "referencia": "Tracy advierte que una postura muy expansiva se lee como arrogancia, y las guías de animación atribuyen la barbilla alta a superioridad. Por eso el cuerpo se queda contenido: la mirada baja ya la marca la cara.",
+   "fuentes": [
+    "https://www.humintell.com/2018/04/the-power-of-posture/",
+    "https://blog.animschool.edu/tag/animation-poses/"
+   ],
+   "params": {
+    "torso_inclinar": -6,
+    "pecho_abrir": 7,
+    "hombro_subir": -2,
+    "hombro_adelante": -6,
+    "cabeza_inclinar": -12,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -6,
+    "dedos_cerrar_R": 0.2,
+    "brazo_abrir_L": 6,
+    "codo_L": 12,
+    "dedos_cerrar_L": 0.1,
+    "mano_objetivo_R": [
+     0.12,
+     0.0,
+     -0.72
+    ],
+    "codo_direccion_R": 35
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.4,
+    "balanceo_periodo": 7.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 12,
+    "mantener": 56,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 2.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "asco_F": {
+   "gesto": "asco",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Asco (femenina)",
+   "nota": "Retroceso: gira y se aparta, mano derecha al pecho, la izquierda algo levantada con la palma fuera, hombros arriba.",
+   "params": {
+    "torso_inclinar": -5,
+    "torso_girar": -15,
+    "torso_lateral": 4,
+    "pecho_abrir": -4,
+    "hombro_subir": 7,
+    "hombro_adelante": 6,
+    "mano_objetivo_R": [
+     -0.4,
+     0.3,
+     -0.12
+    ],
+    "codo_direccion_R": -5,
+    "muneca_doblar_R": 12,
+    "dedos_cerrar_R": 0.35,
+    "brazo_abrir_L": 10,
+    "brazo_adelantar_L": 18,
+    "codo_L": 45,
+    "muneca_doblar_L": -25,
+    "dedos_abrir_L": 0.3,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": 8,
+    "cabeza_girar": -18,
+    "cuello_adelantar": -9
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 16,
+    "anticipacion": 0,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las fuentes describen el asco con una cara apretada y un cuerpo que se aparta, y la mano que empuja hacia fuera aparece como rechazo en la semiótica de gestos. La mano al pecho es decisión de diseño, no dato de la fuente.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ]
+  },
+  "asco_M": {
+   "gesto": "asco",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Asco (masculina)",
+   "nota": "Rechazo: se aparta girando, la mano derecha sube con la palma fuera para frenar, la cabeza se vuelve y mete la barbilla.",
+   "params": {
+    "torso_inclinar": -4,
+    "torso_girar": -13,
+    "torso_lateral": 3,
+    "pecho_abrir": -2,
+    "hombro_subir": 4,
+    "hombro_subir_R": 8,
+    "hombro_adelante": 3,
+    "brazo_abrir_R": 6,
+    "brazo_adelantar_R": 28,
+    "brazo_girar_R": 8,
+    "codo_R": 70,
+    "muneca_doblar_R": -32,
+    "dedos_abrir_R": 0.35,
+    "dedos_cerrar_R": 0.1,
+    "brazo_abrir_L": 2,
+    "brazo_adelantar_L": 4,
+    "codo_L": 14,
+    "dedos_cerrar_L": 0.4,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -16,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 16,
+    "anticipacion": 0,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Animation Mentor (Jay Davis) dice que ante algo asqueroso el personaje se aparta girando el cuerpo o la cara, y avisa de no exagerar. La semiótica de gestos franceses agrupa el empuje con la palma hacia fuera como rechazo.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ]
+  },
+  "avergonzado_F": {
+   "gesto": "avergonzado",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Avergonzado (femenina)",
+   "nota": "Junta las manos delante de la cintura y se inclina un poco hacia el lado al que mira; la cabeza va ladeada y baja. Gestos pequeños y tímidos, con una media sonrisa contenida en la cara.",
+   "referencia": "Keltner (1995) describe la vergüenza leve con autocontacto y evitación de la mirada, sin un patrón fijo; la versión femenina usa las manos juntas en vez de tocarse la nuca. Las guías de animación recomiendan el hombro y la cabeza como portadores de la emoción oculta.",
+   "fuentes": [
+    "https://greatergood.berkeley.edu/dacherkeltner/docs/keltner.embarrassment.jpsp.1995.pdf",
+    "https://www.animationmentor.com/?p=99675"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": -4,
+    "torso_girar": -3,
+    "pecho_abrir": -4,
+    "hombro_subir": 4,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [
+     -0.12,
+     0.3,
+     -0.3
+    ],
+    "mano_objetivo_R": [
+     -0.1,
+     0.32,
+     -0.28
+    ],
+    "codo_direccion": -4,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.3,
+    "pulgar_cerrar": 0.25,
+    "cabeza_inclinar": 10,
+    "cabeza_lateral": -6,
+    "cabeza_girar": -5,
+    "cuello_adelantar": 1
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.4,
+    "balanceo": 1.2,
+    "balanceo_periodo": 3.8
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 10,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "avergonzado_M": {
+   "gesto": "avergonzado",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Avergonzado (masculino)",
+   "nota": "Se gira un poco hacia un lado: la mano derecha va a la nuca sin llegar a la cabeza, la cabeza baja y se aparta la mirada. Los hombros se encogen algo y el peso pasa a una pierna.",
+   "referencia": "Keltner (1995) describe la vergüenza leve con evitación de la mirada, autocontacto en cara o cuello y sonrisa nerviosa, aunque sin un patrón corporal único. Una tabla de conteo de 2025 sitúa la cabeza baja y la mirada hacia abajo entre las señales más frecuentes.",
+   "fuentes": [
+    "https://greatergood.berkeley.edu/dacherkeltner/docs/keltner.embarrassment.jpsp.1995.pdf",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7192454/",
+    "https://journal.psych.ac.cn/acps/EN/Y2025/V57/I10/1745"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_girar": -5,
+    "torso_lateral": -2,
+    "pecho_abrir": -3,
+    "hombro_subir_R": 6,
+    "hombro_adelante": 3,
+    "mano_objetivo_R": [
+     -0.22,
+     -0.2,
+     0.05
+    ],
+    "codo_direccion_R": 25,
+    "brazo_abrir_L": 4,
+    "codo_L": 20,
+    "muneca_doblar_L": 8,
+    "dedos_cerrar_L": 0.25,
+    "cabeza_inclinar": 12,
+    "cabeza_lateral": -5,
+    "cabeza_girar": -8,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.0,
+    "balanceo": 0.6,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 10,
+    "mantener": 48,
+    "salida": 14,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "cansado_F": {
+   "gesto": "cansado",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Cansado (femenina)",
+   "nota": "Apoya el peso en una cadera y se lleva una mano a la zona lumbar, arqueando un poco la espalda. El brazo libre cuelga flojo y la cabeza va ladeada y algo baja.",
+   "referencia": "Las guías divulgativas describen el cansancio con apoyos de manos o brazos, bostezos, frotarse los ojos y movimientos lentos. La mano en la zona lumbar y el peso en una cadera son criterio de animación, no un dato medido.",
+   "fuentes": [
+    "https://www.calm.com/blog/body-language-examples"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": 4,
+    "torso_encorvar": 3,
+    "pecho_abrir": -4,
+    "hombro_subir": -3,
+    "hombro_adelante": 5,
+    "mano_objetivo_R": [
+     -0.1,
+     -0.35,
+     -0.4
+    ],
+    "codo_direccion_R": -4,
+    "brazo_abrir_L": 3,
+    "codo_L": 10,
+    "muneca_doblar_L": 5,
+    "dedos_cerrar_L": 0.15,
+    "cabeza_inclinar": 10,
+    "cabeza_lateral": -4,
+    "cabeza_girar": 3,
+    "cuello_adelantar": 1
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 4.6,
+    "balanceo": 1.2,
+    "balanceo_periodo": 5.5
+   },
+   "tiempos": {
+    "entrada": 22,
+    "asentar": 14,
+    "mantener": 72,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "cansado_M": {
+   "gesto": "cansado",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Cansado (masculino)",
+   "nota": "Peso caído y casi inmóvil: hombros bajos, brazos colgando como si pesaran, cabeza algo caída y respiraciones largas. Cambia el peso de pie de vez en cuando, muy despacio.",
+   "referencia": "Las guías divulgativas dicen que los hombros caídos señalan cansancio (también tristeza o estrés), y que el cansado apoya el cuerpo o bosteza. No hay estudios controlados sobre la postura de cansancio; el resto es criterio de animación.",
+   "fuentes": [
+    "https://www.calm.com/blog/body-language-examples"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_lateral": 3,
+    "torso_encorvar": 6,
+    "pecho_abrir": -3,
+    "hombro_subir": -4,
+    "hombro_adelante": 6,
+    "brazo_abrir": 4,
+    "brazo_adelantar": 2,
+    "brazo_girar": 4,
+    "codo": 12,
+    "antebrazo_girar": 4,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.15,
+    "cabeza_inclinar": 8,
+    "cabeza_lateral": 4,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 5.0,
+    "balanceo": 1.0,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 22,
+    "asentar": 14,
+    "mantener": 72,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "concentrado_F": {
+   "gesto": "concentrado",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Concentrado (femenina)",
+   "nota": "Quieta y recogida: el torso apenas se adelanta, las manos juntas y quietas delante del vientre, la cabeza baja con una leve ladeada y la mirada fija en algo cercano. Casi sin movimiento.",
+   "referencia": "Las fuentes dicen que inclinarse hacia delante muestra atencion y que la quietud transmite control; las manos juntas delante del vientre son una eleccion de actuacion sin estudio que la respalde.",
+   "fuentes": [
+    "https://randstad.co.uk/career-advice/interview-tips/body-language-interviews"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_girar": -2,
+    "hombro_subir": -1,
+    "hombro_adelante": 2,
+    "mano_objetivo_L": [
+     -0.2,
+     0.4,
+     -0.45
+    ],
+    "mano_objetivo_R": [
+     -0.2,
+     0.4,
+     -0.45
+    ],
+    "codo_direccion": -3,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.2,
+    "cabeza_inclinar": 5,
+    "cabeza_lateral": -3,
+    "cuello_adelantar": 3
+   },
+   "vida": {
+    "respiracion": 0.8,
+    "respiracion_periodo": 4.4,
+    "balanceo": 0.2,
+    "balanceo_periodo": 9
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 14,
+    "mantener": 96,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "concentrado_M": {
+   "gesto": "concentrado",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Concentrado (masculina)",
+   "nota": "Inclinado sobre la tarea: el torso se adelanta, la cabeza baja y avanza, y las dos manos trabajan a la altura del pecho con los codos cerrados. Respira poco y casi no se mueve.",
+   "referencia": "Las guias de entrevista y presentacion leen la inclinacion hacia delante como atencion, pero avisan de que si es exagerada resulta intimidante, por eso el torso se queda en 7 grados.",
+   "fuentes": [
+    "https://randstad.co.uk/career-advice/interview-tips/body-language-interviews"
+   ],
+   "params": {
+    "torso_inclinar": 7,
+    "pecho_abrir": -2,
+    "hombro_adelante": 4,
+    "hombro_subir": 2,
+    "mano_objetivo_L": [
+     -0.3,
+     0.55,
+     -0.15
+    ],
+    "mano_objetivo_R": [
+     -0.25,
+     0.55,
+     -0.15
+    ],
+    "codo_direccion": -6,
+    "muneca_doblar": 4,
+    "dedos_cerrar": 0.35,
+    "pulgar_cerrar": 0.3,
+    "cabeza_inclinar": 6,
+    "cuello_adelantar": 6,
+    "cabeza_lateral": 2
+   },
+   "vida": {
+    "respiracion": 0.9,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.3,
+    "balanceo_periodo": 8
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 12,
+    "mantener": 96,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "confundido_F": {
+   "gesto": "confundido",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Confundido (estilo femenino)",
+   "nota": "Se adelanta un poco para ver mejor: el torso se inclina hacia delante, la cabeza se ladea a su izquierda con el cuello estirado y las manos quedan juntas delante del vientre, con los dedos casi entrelazados. Cuando la cabeza vuelve al centro, el cuerpo se queda un instante.",
+   "referencia": "Las fuentes de lenguaje corporal describen la confusión como una cabeza ladeada con poca seguridad y la mirada de lado. La inclinación hacia delante y las manos juntas son decisión de diseño para diferenciarla de la duda y de M.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "mano_objetivo_L": [
+     -0.2,
+     0.3,
+     -0.45
+    ],
+    "mano_objetivo_R": [
+     -0.15,
+     0.32,
+     -0.42
+    ],
+    "dedos_cerrar": 0.3,
+    "cabeza_inclinar": -2,
+    "cabeza_lateral": 7,
+    "cabeza_girar": 2,
+    "cuello_adelantar": 5
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 3,
+     "torso_lateral": 2
+    },
+    "periodo": 3.4,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.8,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 14,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.03,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "confundido_M": {
+   "gesto": "confundido",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Confundido (estilo masculino)",
+   "nota": "Ladea la cabeza a su izquierda y la deja ir y volver, como un péndulo lento; un hombro sube un poco con la palma izquierda hacia arriba, y la derecha cuelga suelta. El torso casi no se mueve y las cejas hacen el resto.",
+   "referencia": "Las fuentes de lenguaje corporal asocian la cabeza ladeada y el encogimiento de hombros con la duda o la falta de saber, y la animación usa el ladeo como señal de perplejidad. La lectura del encogimiento depende de la cultura, según un artículo académico sueco.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt",
+    "https://gup.ub.gu.se/file/112018"
+   ],
+   "params": {
+    "hombro_subir_L": 6,
+    "mano_objetivo_L": [
+     0.15,
+     0.28,
+     -0.45
+    ],
+    "antebrazo_girar_L": -12,
+    "dedos_abrir_L": 0.25,
+    "mano_objetivo_R": [
+     0.05,
+     0.1,
+     -0.85
+    ],
+    "cabeza_inclinar": -3,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 4
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 4,
+     "cabeza_girar": 2
+    },
+    "periodo": 2.4,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.4,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "curioso_F": {
+   "gesto": "curioso",
+   "familia": "sorpresa",
+   "estilo": "F",
+   "titulo": "Curiosa (femenina)",
+   "nota": "Curiosidad de cerca: el torso se ladea hacia el lado de la ceja alzada, la cabeza se inclina más y vuelve cada poco. La mano izquierda queda a la cintura, como esperando la respuesta, y la derecha suelta.",
+   "referencia": "La cabeza ladeada como atención o pregunta aparece en fuentes de comunicación no verbal de baja calidad, y la inclinación hacia delante como interés en la escucha en guías de counseling. Con dos señales que coinciden el gesto es más fiable que con una sola.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Body_language",
+    "https://dimaggio-old.heartlight.org/curious-expressions-info-0911826292.html",
+    "https://www.advisorpedia.com/growth/body-language-tips-for-perfect-attending-behavior"
+   ],
+   "params": {
+    "torso_lateral": 4,
+    "torso_inclinar": 3,
+    "hombro_subir": 3,
+    "hombro_adelante": 2,
+    "cabeza_lateral": 10,
+    "cabeza_inclinar": -4,
+    "cabeza_girar": -4,
+    "mano_objetivo_L": [
+     -0.15,
+     0.32,
+     -0.3
+    ],
+    "dedos_cerrar_L": 0.1,
+    "brazo_abrir_R": 4,
+    "codo_R": 12,
+    "dedos_cerrar_R": 0.1
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 5,
+     "cabeza_inclinar": 2
+    },
+    "periodo": 2.0,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.0,
+    "balanceo": 1.4,
+    "balanceo_periodo": 3.2
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 10,
+    "mantener": 72,
+    "salida": 16,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.08,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "curioso_M": {
+   "gesto": "curioso",
+   "familia": "sorpresa",
+   "estilo": "M",
+   "titulo": "Curioso (masculino)",
+   "nota": "Se inclina hacia lo que le llama la atención: el torso avanza, la cabeza se ladea hacia el lado de la ceja alzada y vuelve despacio. La mano derecha queda abierta a media altura y el brazo izquierdo suelto.",
+   "referencia": "Wikipedia y guías de comunicación relacionan el ladeo de la cabeza y el avance del cuerpo con interés, aunque Wikipedia marca ese apartado como poco sustentado. Como el interés se lee mejor con varias señales a la vez, la cabeza, el torso y la ceja van juntos.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Body_language",
+    "https://dimaggio-old.heartlight.org/curious-expressions-info-0911826292.html",
+    "https://www.advisorpedia.com/growth/body-language-tips-for-perfect-attending-behavior"
+   ],
+   "params": {
+    "torso_inclinar": 6,
+    "cuello_adelantar": 4,
+    "hombro_adelante": 3,
+    "hombro_subir": 2,
+    "cabeza_lateral": 8,
+    "cabeza_girar": -4,
+    "cabeza_inclinar": -2,
+    "mano_objetivo_R": [
+     0.05,
+     0.3,
+     -0.25
+    ],
+    "codo_direccion_R": 10,
+    "dedos_abrir_R": 0.2,
+    "brazo_abrir_L": 4,
+    "codo_L": 12
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 4,
+     "cabeza_girar": -2
+    },
+    "periodo": 2.4,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.3,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 10,
+    "mantener": 72,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.06,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "desafiante_F": {
+   "gesto": "desafiante",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Desafiante (femenina)",
+   "nota": "De lado: el peso en la cadera derecha, el torso algo girado y la cabeza alta con la mirada firme. El brazo derecho cuelga con el puño cerrado y el izquierdo se adelanta con la palma hacia abajo, como si cortara la conversacion.",
+   "referencia": "CBS presenta la postura firme y el peso repartido como dominio, pero el sentido depende del contexto; la palma hacia abajo no esta verificada en las fuentes y es una decision de actuacion.",
+   "fuentes": [
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": -5,
+    "torso_girar": -3,
+    "pecho_abrir": 4,
+    "hombro_subir": 2,
+    "hombro_subir_R": 4,
+    "hombro_adelante": -2,
+    "brazo_abrir_R": 4,
+    "brazo_adelantar_R": 6,
+    "codo_R": 15,
+    "dedos_cerrar_R": 0.9,
+    "pulgar_cerrar_R": 0.6,
+    "brazo_abrir_L": 6,
+    "brazo_adelantar_L": 20,
+    "codo_L": 25,
+    "antebrazo_girar_L": 10,
+    "dedos_cerrar_L": 0.4,
+    "cabeza_inclinar": -8,
+    "cabeza_lateral": 4,
+    "cabeza_girar": -5
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.8,
+    "balanceo_periodo": 5
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 64,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "desafiante_M": {
+   "gesto": "desafiante",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Desafiante (masculina)",
+   "nota": "Frente a frente: ambas manos en las caderas con los codos afuera, el pecho adelante y la barbilla alzada. No se mueve, se ensancha; un empuje corto al inicio y luego se asienta.",
+   "referencia": "CBS asocia las manos en las caderas y la postura ancha con dominio y determinacion, y la llama postura de poder en discusiones; la barbilla alzada como desafio es una inferencia, no un dato de las fuentes.",
+   "fuentes": [
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 4,
+    "pecho_abrir": 7,
+    "hombro_subir": 2,
+    "hombro_adelante": -3,
+    "mano_objetivo_L": [
+     0.16,
+     0.0,
+     -0.66
+    ],
+    "mano_objetivo_R": [
+     0.16,
+     0.0,
+     -0.66
+    ],
+    "codo_direccion": 35,
+    "muneca_doblar": 4,
+    "dedos_cerrar": 0.7,
+    "pulgar_cerrar": 0.5,
+    "cabeza_inclinar": -6
+   },
+   "pico": {
+    "torso_inclinar": 6,
+    "cabeza_inclinar": -9
+   },
+   "vida": {
+    "respiracion": 1.8,
+    "respiracion_periodo": 3.0,
+    "balanceo": 0.6,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 8,
+    "mantener": 60,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "desorientado_F": {
+   "gesto": "desorientado",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Desorientado (estilo femenino)",
+   "nota": "Se mece sin saber dónde está: el torso oscila despacio de un lado a otro, la cabeza se ladea y gira en oleadas suaves, la mano derecha sube un poco como si tanteara el aire y la izquierda cuelga. Los movimientos son lentos, sin brusquedad.",
+   "referencia": "No encontré una guía específica para el mareo; las fuentes de animación solo tratan de forma general el desfase entre cuerpo y cabeza. El balanceo lento y la mano que tantea son decisión de diseño para distinguirla de la búsqueda rápida de M.",
+   "fuentes": [
+    "https://brianlemay.com/Pages/animationschool/animation/2ndsemesteranimation/05Take/taketips.html"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 4,
+    "torso_girar": -3,
+    "pecho_abrir": -2,
+    "hombro_subir": 3,
+    "hombro_adelante": 2,
+    "dedos_abrir": 0.3,
+    "cabeza_inclinar": -3,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -4,
+    "brazo_abrir_L": 8,
+    "codo_L": 15,
+    "brazo_abrir_R": 10,
+    "brazo_adelantar_R": 15,
+    "codo_R": 35,
+    "antebrazo_girar_R": -10
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_lateral": 4,
+     "cabeza_lateral": 3,
+     "cabeza_girar": 6
+    },
+    "periodo": 3.0,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 3.6,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 12,
+    "mantener": 64,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "desorientado_M": {
+   "gesto": "desorientado",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Desorientado (estilo masculino)",
+   "nota": "Pierde el rumbo y busca: el cuerpo casi no se mueve, la cabeza va a un lado y a otro en miradas rápidas, y los brazos caen sueltos con las palmas hacia arriba, como si no supiera dónde apoyarse. No hay peso fijo; las miradas se repiten cada poco.",
+   "referencia": "Una guía de animación describe el giro de cabeza en tres tiempos: arranque brusco, giro y asentamiento, lo que sirve para la búsqueda con la cabeza. El ritmo de las miradas es decisión de diseño sobre ese patrón.",
+   "fuentes": [
+    "https://brianlemay.com/Pages/animationschool/animation/2ndsemesteranimation/05Take/taketips.html"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 1,
+    "pecho_abrir": -2,
+    "hombro_subir": 2,
+    "brazo_abrir": 8,
+    "brazo_adelantar": 6,
+    "codo": 20,
+    "antebrazo_girar": -10,
+    "dedos_abrir": 0.3,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 3,
+    "cabeza_girar": -6
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_girar": 8,
+     "cabeza_inclinar": -2
+    },
+    "periodo": 1.6,
+    "forma": "golpe"
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2,
+    "balanceo": 0.4,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "determinado_F": {
+   "gesto": "determinado",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Determinado (femenina)",
+   "nota": "Quieta y decidida: la mano izquierda cerrada sobre el esternon, la derecha junto al cuerpo tambien en puño, hombros bajos y barbilla nivelada. Se mantiene sin gesticular; la fuerza esta en la inmovilidad.",
+   "referencia": "Las fuentes ven la postura alta, firme y los hombros bajos como seguridad; la mano en el pecho para expresar compromiso es una eleccion de actuacion sin estudio que la respalde.",
+   "fuentes": [
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "pecho_abrir": 3,
+    "hombro_subir": -2,
+    "hombro_adelante": -2,
+    "mano_objetivo_L": [
+     -0.2,
+     0.35,
+     0.05
+    ],
+    "codo_direccion_L": -8,
+    "muneca_doblar_L": 4,
+    "dedos_cerrar_L": 0.95,
+    "pulgar_cerrar_L": 0.7,
+    "brazo_abrir_R": 5,
+    "brazo_adelantar_R": 2,
+    "codo_R": 25,
+    "antebrazo_girar_R": -4,
+    "dedos_cerrar_R": 0.9,
+    "pulgar_cerrar_R": 0.7,
+    "cabeza_inclinar": 2,
+    "cabeza_lateral": -2,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2,
+    "balanceo": 0.2,
+    "balanceo_periodo": 7
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 12,
+    "mantener": 72,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "determinado_M": {
+   "gesto": "determinado",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Determinado (masculina)",
+   "nota": "Plantado: torso derecho y algo adelantado, pecho abierto y hombros atras. Los punos a la altura de la cintura con los codos doblados; el movimiento es minimo y la firmeza esta en la quietud.",
+   "referencia": "CBS asocia la postura de hombros anchos y firmes con determinacion; el resto es decision de animacion, sin estudio que cuantifique la postura determinada.",
+   "fuentes": [
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "pecho_abrir": 4,
+    "hombro_subir": -1,
+    "hombro_adelante": -4,
+    "brazo_abrir": 8,
+    "brazo_adelantar": 6,
+    "brazo_girar": 3,
+    "codo": 55,
+    "antebrazo_girar": 4,
+    "muneca_doblar": 2,
+    "dedos_cerrar": 0.95,
+    "pulgar_cerrar": 0.8,
+    "cabeza_inclinar": 2,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 3.0,
+    "balanceo": 0.3,
+    "balanceo_periodo": 6
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 10,
+    "mantener": 72,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "disgusto_F": {
+   "gesto": "disgusto",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Disgusto (estilo femenino)",
+   "nota": "Se cierra hacia dentro, como si oliera algo malo: los hombros suben y se acercan, el torso se hunde un poco y se aparta hacia su derecha. La mano derecha queda recogida junto a la clavícula sin llegar a la cara, la cabeza se ladea y baja, y la izquierda cuelga algo doblada con la mano floja.",
+   "referencia": "Animation Mentor (Jay Davis) sugiere que el asco primario se busca con un olor imaginado y que el cuerpo se aparta. La mano a la clavícula y el cierre hacia dentro son decisiones de diseño para distinguir F de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis"
+   ],
+   "params": {
+    "torso_inclinar": -1,
+    "torso_lateral": -3,
+    "pecho_abrir": -4,
+    "hombro_subir": 8,
+    "hombro_adelante": 5,
+    "mano_objetivo_R": [
+     -0.14,
+     0.28,
+     -0.05
+    ],
+    "mano_objetivo_L": [
+     0.1,
+     0.18,
+     -0.6
+    ],
+    "dedos_cerrar": 0.4,
+    "pulgar_cerrar": 0.2,
+    "cabeza_inclinar": 5,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -4,
+    "cuello_adelantar": -6
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.6
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 14,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "disgusto_M": {
+   "gesto": "disgusto",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Disgusto (estilo masculino)",
+   "nota": "Desagrado seco: el torso se aparta un poco y se hunde, los hombros suben, y la mano izquierda hace un gesto corto de apartar hacia fuera con la palma abajo. La derecha queda floja junto al cuerpo, y la cabeza se baja y se gira apenas, sin llegar al giro completo del asco.",
+   "referencia": "Animation Mentor (Jay Davis) distingue el asco moral del asco primario y dice que el primario se busca imaginando un olor horrible. El apartarse de forma breve es la lectura que da esa fuente; el gesto de apartar con la mano es decisión de diseño.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_girar": -6,
+    "pecho_abrir": -2,
+    "hombro_subir": 6,
+    "hombro_adelante": 3,
+    "mano_objetivo_L": [
+     0.25,
+     0.3,
+     -0.3
+    ],
+    "mano_objetivo_R": [
+     -0.05,
+     0.12,
+     -0.8
+    ],
+    "cabeza_inclinar": 3,
+    "cabeza_girar": -8,
+    "cabeza_lateral": -2,
+    "cuello_adelantar": -4
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 12,
+    "mantener": 44,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "dolor_fuerte_F": {
+   "gesto": "dolor_fuerte",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Dolor fuerte (femenina)",
+   "nota": "Se abraza el torso con las manos sobre los costados del vientre, la cabeza baja y se gira para no mirar. Se balancea hacia delante y atrás en vez de tensarse de golpe, con los hombros subidos.",
+   "referencia": "La guardia de dolor se describe como cambio de postura y sujeción de la zona, con más movimiento que la rigidez; las guías de animación asocian la cabeza gacha con malestar o derrota. Las diferencias de género en la expresión son pequeñas y dependen de la emoción, así que M y F se separan sobre todo en el ritmo.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1902.08990",
+    "https://trudy.ruslang.ru/en/node/1749"
+   ],
+   "params": {
+    "torso_inclinar": 8,
+    "torso_encorvar": 10,
+    "pecho_abrir": -10,
+    "torso_girar": -4,
+    "hombro_subir": 10,
+    "hombro_adelante": 10,
+    "mano_objetivo_L": [
+     -0.28,
+     0.33,
+     -0.5
+    ],
+    "mano_objetivo_R": [
+     -0.26,
+     0.35,
+     -0.48
+    ],
+    "codo_direccion": -5,
+    "muneca_doblar": 15,
+    "dedos_cerrar": 0.8,
+    "pulgar_cerrar": 0.6,
+    "cabeza_inclinar": 12,
+    "cabeza_lateral": 4,
+    "cabeza_girar": -6,
+    "cuello_adelantar": 5
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 2.6,
+    "temblor": 0.25,
+    "temblor_frecuencia": 7,
+    "balanceo": 1.4,
+    "balanceo_periodo": 3.2
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 24,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.03,
+    "curva_entrada": "rapida",
+    "curva_salida": "lenta",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "dolor_fuerte_M": {
+   "gesto": "dolor_fuerte",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Dolor fuerte (masculina)",
+   "nota": "Se dobla hacia delante: una mano sobre el abdomen, el puño derecho apretado contra el muslo y los hombros tensos. Se contrae en espasmos cortos que lo encorvan un poco más.",
+   "referencia": "Las revisiones de dolor describen la postura protectora y la guardia ante el dolor, con la ansiedad como mediador más que la intensidad sola, así que el cuerpo se cierra sobre la zona. Las guías de animación ponen la postura general como señal más fuerte.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1902.08990",
+    "https://mocaponline.com/blogs/mocap-news/emotion-animation-games-guide"
+   ],
+   "params": {
+    "torso_inclinar": 9,
+    "torso_encorvar": 10,
+    "pecho_abrir": -8,
+    "hombro_subir": 8,
+    "hombro_adelante": 8,
+    "brazo_abrir_R": 6,
+    "brazo_adelantar_R": 10,
+    "brazo_girar_R": 6,
+    "codo_R": 35,
+    "antebrazo_girar_R": 6,
+    "muneca_doblar_R": 6,
+    "dedos_cerrar_R": 0.9,
+    "pulgar_cerrar_R": 0.8,
+    "mano_objetivo_L": [
+     -0.15,
+     0.25,
+     -0.3
+    ],
+    "codo_direccion_L": 8,
+    "dedos_cerrar_L": 0.5,
+    "cabeza_inclinar": 14,
+    "cuello_adelantar": 6
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 2.8,
+    "temblor": 0.3,
+    "temblor_frecuencia": 8
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_encorvar": 3,
+     "torso_inclinar": 2,
+     "cabeza_inclinar": 3
+    },
+    "periodo": 1.8,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 22,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.05,
+    "curva_entrada": "rapida",
+    "curva_salida": "lenta",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "dolor_leve_F": {
+   "gesto": "dolor_leve",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Dolor leve (femenina)",
+   "nota": "Se encoge hacia el lado que duele: la mano izquierda se apoya en el costado y la derecha la cubre delante del vientre. Se mueve algo más que la versión masculina, con balanceo lento y la cabeza ladeada.",
+   "referencia": "La revisión de detección automática señala la conducta protectora como lo más informativo del dolor, y las guías de animación dan peso a la postura general. La versión femenina se mueve algo más, pero la guardia sigue siendo moderada.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1902.08990",
+    "https://mocaponline.com/blogs/mocap-news/emotion-animation-games-guide"
+   ],
+   "params": {
+    "torso_inclinar": 4,
+    "torso_lateral": 5,
+    "torso_encorvar": 5,
+    "pecho_abrir": -4,
+    "hombro_subir_L": 5,
+    "hombro_adelante_L": 4,
+    "mano_objetivo_L": [
+     0.08,
+     0.2,
+     -0.38
+    ],
+    "codo_direccion_L": 10,
+    "muneca_doblar_L": 10,
+    "dedos_cerrar_L": 0.35,
+    "pulgar_cerrar_L": 0.3,
+    "mano_objetivo_R": [
+     -0.3,
+     0.3,
+     -0.3
+    ],
+    "dedos_cerrar_R": 0.3,
+    "cabeza_inclinar": 8,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 3,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.4,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.5
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 10,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "dolor_leve_M": {
+   "gesto": "dolor_leve",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Dolor leve (masculina)",
+   "nota": "Aguanta casi sin moverse: se aparta un poco hacia el lado que duele, la mano izquierda presiona el costado y el hombro de ese lado sube. La respiración se queda corta.",
+   "referencia": "Las revisiones de conducta de dolor describen la conducta protectora (sujetar la zona, encogerse, quedarse quieto) como la señal corporal más informativa, y la guardia depende más de la ansiedad que de la intensidad. Para un dolor leve la guardia se queda moderada.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1902.08990"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": 3,
+    "torso_encorvar": 3,
+    "pecho_abrir": -2,
+    "hombro_subir_L": 4,
+    "hombro_adelante_L": 2,
+    "mano_objetivo_L": [
+     -0.3,
+     0.3,
+     -0.5
+    ],
+    "codo_direccion_L": -5,
+    "muneca_doblar_L": 6,
+    "dedos_cerrar_L": 0.6,
+    "pulgar_cerrar_L": 0.5,
+    "brazo_abrir_R": 4,
+    "codo_R": 14,
+    "dedos_cerrar_R": 0.2,
+    "cabeza_inclinar": 5,
+    "cabeza_lateral": 6,
+    "cuello_adelantar": 1
+   },
+   "vida": {
+    "respiracion": 0.8,
+    "respiracion_periodo": 3.8,
+    "balanceo": 0.2,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 8,
+    "mantener": 48,
+    "salida": 14,
+    "anticipacion": 0.04,
+    "sobrepaso": 0,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "dudoso_F": {
+   "gesto": "dudoso",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Dudoso (estilo femenino)",
+   "nota": "Ladea la cabeza a su derecha y se adelanta un poco con el cuello; la mano derecha queda junto al cuello sin llegar a la cara, y la izquierda cuelga suelta. El peso se corre despacio hacia ese lado y la respiración se pausa.",
+   "referencia": "Las guías de lenguaje corporal describen la duda con la cabeza ladeada y la mirada que se desvía a un lado. La mano junto al cuello y el peso que se corre son decisión de diseño para distinguirla de M, que encoge un hombro.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": -3,
+    "torso_girar": -2,
+    "hombro_subir": 3,
+    "hombro_subir_R": 6,
+    "hombro_adelante": 2,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": -7,
+    "cabeza_girar": -5,
+    "cuello_adelantar": 6,
+    "mano_objetivo_R": [
+     -0.15,
+     0.3,
+     -0.1
+    ],
+    "muneca_doblar_R": 6,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.1,
+    "mano_objetivo_L": [
+     0.12,
+     0.2,
+     -0.7
+    ]
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.8,
+    "balanceo": 0.6,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 14,
+    "mantener": 64,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "dudoso_M": {
+   "gesto": "dudoso",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Dudoso (estilo masculino)",
+   "nota": "Sube un hombro a un lado con la palma derecha hacia arriba, la cabeza se ladea a su derecha y la mirada se va de lado. El torso se queda casi quieto y levemente atrás; no está convencido y lo deja en el aire.",
+   "referencia": "Las guías de lenguaje corporal asocian la duda con la cabeza ladeada y la mirada que se desvía, y con el encogimiento de hombros como señal de incertidumbre, aunque son fuentes populares. La lectura del encogimiento depende de la cultura, según un artículo académico sueco.",
+   "fuentes": [
+    "https://tvtropes.org/pmwiki/pmwiki.php/Main/QuizzicalTilt",
+    "https://gup.ub.gu.se/file/112018"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": -2,
+    "hombro_subir_R": 8,
+    "cabeza_inclinar": 2,
+    "cabeza_lateral": -8,
+    "cabeza_girar": -4,
+    "cuello_adelantar": 2,
+    "dedos_abrir_R": 0.3,
+    "brazo_abrir_R": 12,
+    "brazo_adelantar_R": 12,
+    "codo_R": 70,
+    "antebrazo_girar_R": -40,
+    "brazo_abrir_L": 5,
+    "codo_L": 12
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "enojado_F": {
+   "gesto": "enojado",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Enojado (femenina)",
+   "nota": "Desafiante: peso a un lado y torso girado, barbilla arriba con la cabeza vuelta hacia el otro, brazos tensos algo atras con punos.",
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": -4,
+    "torso_girar": 7,
+    "pecho_abrir": 5,
+    "hombro_subir": 3,
+    "hombro_subir_R": 6,
+    "hombro_adelante": -2,
+    "brazo_abrir": 7,
+    "brazo_adelantar": -8,
+    "brazo_girar": 4,
+    "codo": 18,
+    "antebrazo_girar": -4,
+    "muneca_doblar": 4,
+    "dedos_cerrar": 0.8,
+    "pulgar_cerrar": 0.7,
+    "cabeza_inclinar": -3,
+    "cabeza_lateral": 5,
+    "cabeza_girar": -6
+   },
+   "vida": {
+    "respiracion": 2.2,
+    "respiracion_periodo": 2.6,
+    "temblor": 0.2,
+    "temblor_frecuencia": 7
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 8,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.1,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las fuentes citan manos cerradas con fuerza como señal de frustracion y el cierre corporal como hostilidad; la contencion frente a la expansion del M es una eleccion de actuacion, no un dato medido.",
+   "fuentes": [
+    "https://education.byu.edu/sites/default/files/media/cites/files/2023/body-language-clues.pdf",
+    "https://www.scienceofpeople.com/aggressive-body-language-2/"
+   ],
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "enojado_M": {
+   "gesto": "enojado",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Enojado (masculina)",
+   "nota": "Empuje hacia delante: pecho inflado, brazos separados y tensos, punos, cuello adelantado y barbilla baja. Respiracion fuerte.",
+   "params": {
+    "torso_inclinar": 6,
+    "pecho_abrir": 7,
+    "hombro_subir": 4,
+    "hombro_adelante": 2,
+    "brazo_abrir": 14,
+    "brazo_adelantar": 2,
+    "brazo_girar": 6,
+    "codo": 28,
+    "antebrazo_girar": 10,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.9,
+    "pulgar_cerrar": 0.85,
+    "cabeza_inclinar": 7,
+    "cuello_adelantar": 9
+   },
+   "vida": {
+    "respiracion": 2.6,
+    "respiracion_periodo": 2.4,
+    "temblor": 0.25,
+    "temblor_frecuencia": 7
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 8,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.12,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las guias populares asocian pecho inflado, punos cerrados e inclinarse hacia delante con hostilidad; no son estudios validados, asi que se usan como pauta y no como norma.",
+   "fuentes": [
+    "https://www.scienceofpeople.com/aggressive-body-language-2/",
+    "https://education.byu.edu/sites/default/files/media/cites/files/2023/body-language-clues.pdf"
+   ]
+  },
+  "enojado_boca_abierta_F": {
+   "gesto": "enojado_boca_abierta",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Enojado con grito (femenina)",
+   "nota": "Grito desde el pecho: la mano derecha cerrada sube a la altura del pecho mientras la izquierda queda en la cadera, el peso cae a un lado y la cabeza se adelanta ladeada. Los hombros suben con cada frase.",
+   "referencia": "Las fuentes leen el puño y la postura de confrontacion como enfado; CBS presenta la mano en la cadera como postura de poder en discusiones, pero el peso ladeado y la version contenida son decisiones de actuacion.",
+   "fuentes": [
+    "https://www.scienceofpeople.com/aggressive-body-language-2/",
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 3,
+    "torso_lateral": -3,
+    "torso_girar": -3,
+    "pecho_abrir": 6,
+    "hombro_subir": 9,
+    "hombro_subir_R": 12,
+    "hombro_adelante": 5,
+    "mano_objetivo_R": [
+     -0.35,
+     0.45,
+     0.05
+    ],
+    "codo_direccion_R": 10,
+    "muneca_doblar_R": 5,
+    "dedos_cerrar_R": 1.0,
+    "pulgar_cerrar_R": 0.9,
+    "dedos_cerrar_L": 0.8,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": 6,
+    "cuello_adelantar": 6,
+    "brazo_abrir_L": 10,
+    "brazo_adelantar_L": 4,
+    "codo_L": 40,
+    "antebrazo_girar_L": -5
+   },
+   "vida": {
+    "respiracion": 2.6,
+    "respiracion_periodo": 2.2,
+    "rebote": 0.8,
+    "rebote_periodo": 0.9,
+    "temblor": 0.2,
+    "temblor_frecuencia": 8
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 16,
+    "anticipacion": 0.1,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "enojado_boca_abierta_M": {
+   "gesto": "enojado_boca_abierta",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Enojado con grito (masculina)",
+   "nota": "Grito con todo el cuerpo: sale hacia delante con el pecho abierto, los brazos se separan con punos y la cabeza se adelanta al hablar. Cada empuje rebota un poco y se apaga en pocos tiempos.",
+   "referencia": "Las fuentes populares describen pecho inflado, punos y avance hacia el otro como señal agresiva; el rebote es una decision de animacion para dar energia al grito.",
+   "fuentes": [
+    "https://www.scienceofpeople.com/aggressive-body-language-2/"
+   ],
+   "params": {
+    "torso_inclinar": 7,
+    "pecho_abrir": 8,
+    "hombro_subir": 7,
+    "hombro_adelante": 4,
+    "brazo_abrir": 16,
+    "brazo_adelantar": 8,
+    "brazo_girar": 4,
+    "codo": 35,
+    "antebrazo_girar": 12,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 1.0,
+    "pulgar_cerrar": 0.9,
+    "cabeza_inclinar": 5,
+    "cuello_adelantar": 10
+   },
+   "pico": {
+    "torso_inclinar": 10,
+    "cuello_adelantar": 12,
+    "hombro_subir": 9,
+    "brazo_abrir": 20,
+    "codo": 42
+   },
+   "vida": {
+    "respiracion": 3.0,
+    "respiracion_periodo": 1.8,
+    "rebote": 1.8,
+    "rebote_periodo": 0.6,
+    "temblor": 0.2,
+    "temblor_frecuencia": 8
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 14,
+    "anticipacion": 0.14,
+    "sobrepaso": 0.14,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "esceptico_F": {
+   "gesto": "esceptico",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Esceptico (femenina)",
+   "nota": "Duda sin hablar: las manos juntas y sueltas delante del vientre, el peso cargado hacia un lado y la cabeza ladeada con una leve inclinacion de barbilla. La mirada va de lado y el cuerpo apenas se mueve.",
+   "referencia": "Las fuentes leen la cabeza ladeada y las manos recogidas como duda o juicio mas que como enfado; el reparto de peso y la quietud son decisiones de actuacion.",
+   "fuentes": [
+    "https://www.slideshare.net/slideshow/body-language-pptx/281156799",
+    "https://en.wikipedia.org/wiki/Body_language"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 4,
+    "hombro_subir": 1,
+    "mano_objetivo_L": [
+     -0.25,
+     0.3,
+     -0.5
+    ],
+    "mano_objetivo_R": [
+     -0.25,
+     0.3,
+     -0.5
+    ],
+    "codo_direccion": -4,
+    "dedos_cerrar": 0.25,
+    "pulgar_cerrar": 0.2,
+    "cabeza_lateral": 10,
+    "cabeza_inclinar": 3,
+    "cabeza_girar": 3
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.6,
+    "balanceo_periodo": 5
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "esceptico_M": {
+   "gesto": "esceptico",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Esceptico (masculina)",
+   "nota": "Juicio en pausa: la mano derecha junto a la barbilla con el indice a lo largo de la mejilla, el brazo izquierdo doblado bajo el codo derecho, el torso algo atras y la cabeza ladeada con la barbilla algo baja.",
+   "referencia": "Las fuentes leen la mano en la barbilla como pensamiento, pero con la cabeza ladeada y el indice en la mejilla la asocian a duda o juicio critico; el contexto de la cara decide cual de las dos lecturas aplica.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Body_language",
+    "https://www.slideshare.net/slideshow/body-language-pptx/281156799"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": 3,
+    "hombro_subir": 2,
+    "mano_objetivo_R": [
+     -0.4,
+     0.4,
+     0.2
+    ],
+    "codo_direccion_R": 15,
+    "dedos_cerrar_R": 0.4,
+    "pulgar_cerrar_R": 0.3,
+    "mano_objetivo_L": [
+     -0.35,
+     0.25,
+     -0.45
+    ],
+    "codo_direccion_L": -10,
+    "dedos_cerrar_L": 0.2,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 4,
+    "cabeza_inclinar": 2
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.5
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "esfuerzo_F": {
+   "gesto": "esfuerzo",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Esfuerzo (femenina)",
+   "nota": "Tira de algo hacia el pecho con las manos a la altura del pecho, inclinándose un poco hacia atrás con los codos hacia fuera. Las manos agarran primero y luego el cuerpo sigue en tirones suaves, con el aire que sale en cada uno.",
+   "referencia": "Los estudios de esfuerzo señalan el ceño y la mandíbula como señales de esfuerzo intenso, sin datos sobre tirar o levantar. Un estudio de 2022 con gestos encontró que los hombres gesticulan con más fuerza en emociones negativas, pero las diferencias son pocas; por eso M y F se separan en el ritmo (empuje en pulsos frente a tirón suave).",
+   "fuentes": [
+    "https://research.bangor.ac.uk/en/studentTheses/the-psychophysiology-of-perception-of-effort/",
+    "https://trudy.ruslang.ru/en/node/1749"
+   ],
+   "params": {
+    "torso_inclinar": -5,
+    "pecho_abrir": 6,
+    "hombro_subir": 10,
+    "hombro_adelante": -6,
+    "mano_objetivo_L": [
+     0.05,
+     0.4,
+     -0.2
+    ],
+    "mano_objetivo_R": [
+     -0.08,
+     0.42,
+     -0.15
+    ],
+    "codo_direccion": 25,
+    "muneca_doblar": 6,
+    "dedos_cerrar": 0.9,
+    "pulgar_cerrar": 0.8,
+    "cabeza_inclinar": 4,
+    "cuello_adelantar": 3
+   },
+   "vida": {
+    "respiracion": 2.6,
+    "respiracion_periodo": 1.8,
+    "temblor": 0.3,
+    "temblor_frecuencia": 8
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_inclinar": -3,
+     "hombro_subir": 2
+    },
+    "periodo": 1.8,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 16,
+    "anticipacion": 0.08,
+    "sobrepaso": 0.05,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "esfuerzo_M": {
+   "gesto": "esfuerzo",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Esfuerzo (masculino)",
+   "nota": "Empuja hacia delante con los puños a la altura del pecho, los hombros subidos y la cabeza hundida; el torso empuja en pulsos cortos. Respira fuerte entre empujones.",
+   "referencia": "Los estudios de esfuerzo muestran que el ceño y la presión de la mandíbula suben con el esfuerzo intenso, y que los observadores juzgan el esfuerzo por la cara. La postura de empujar apenas está documentada, así que el cuerpo es criterio de animación.",
+   "fuentes": [
+    "https://research.bangor.ac.uk/en/studentTheses/the-psychophysiology-of-perception-of-effort/",
+    "https://doaj.org/article/5543b64fbf9f4454b476be5e3c5eb04b"
+   ],
+   "params": {
+    "torso_inclinar": 10,
+    "torso_encorvar": 4,
+    "pecho_abrir": -4,
+    "hombro_subir": 8,
+    "hombro_adelante": 8,
+    "mano_objetivo_L": [
+     0.1,
+     0.65,
+     -0.05
+    ],
+    "mano_objetivo_R": [
+     0.1,
+     0.66,
+     -0.03
+    ],
+    "codo_direccion": 10,
+    "muneca_doblar": -4,
+    "dedos_cerrar": 0.95,
+    "pulgar_cerrar": 0.9,
+    "cabeza_inclinar": 8,
+    "cuello_adelantar": 6
+   },
+   "pico": {
+    "torso_inclinar": 11,
+    "cabeza_inclinar": 10
+   },
+   "vida": {
+    "respiracion": 3.0,
+    "respiracion_periodo": 1.4,
+    "temblor": 0.35,
+    "temblor_frecuencia": 8
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_inclinar": 3,
+     "cabeza_inclinar": 2
+    },
+    "periodo": 1.4,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 8,
+    "mantener": 60,
+    "salida": 14,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.04,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "feliz_ojos_cerrados_F": {
+   "gesto": "feliz_ojos_cerrados",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Feliz, ojos cerrados (femenina)",
+   "nota": "Dulce y ensimismada: la cabeza se ladea hacia atrás con los ojos cerrados, una mano sube suave hasta el pecho y el cuerpo se mece con un vaivén lento.",
+   "referencia": "Las guías de animación leen la cabeza ladeada como cercanía y la barbilla alta como bienestar, pero son fuentes de escuela y no estudios. Con los ojos cerrados la cara ya marca el gesto, así que el cuerpo se queda en lo sutil.",
+   "fuentes": [
+    "https://blog.animschool.edu/tag/animation-poses/",
+    "https://en.wikipedia.org/wiki/Body_language"
+   ],
+   "params": {
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "hombro_subir": -2,
+    "hombro_adelante": -2,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 9,
+    "cabeza_girar": -3,
+    "mano_objetivo_R": [
+     -0.15,
+     0.3,
+     -0.05
+    ],
+    "codo_direccion_R": 8,
+    "muneca_doblar_R": 4,
+    "dedos_cerrar_R": 0.1,
+    "brazo_abrir_L": 6,
+    "codo_L": 12
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 4.0,
+    "balanceo": 1.4,
+    "balanceo_periodo": 4.2
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 20,
+    "anticipacion": 0,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 2.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "feliz_ojos_cerrados_M": {
+   "gesto": "feliz_ojos_cerrados",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Feliz, ojos cerrados (masculino)",
+   "nota": "Se deja ir de gusto: el torso se reclina un poco, el mentón sube, los hombros bajan y los brazos quedan sueltos y algo separados. Movimiento lento y continuo, casi de descanso.",
+   "referencia": "Las guías de animación relacionan los hombros bajos y la cabeza algo alta con soltura, sin estudios de muestra grande sobre esa postura. Coulson distingue posturas emblemáticas de acciones funcionales, y aquí la postura es sobre todo funcional (descanso).",
+   "fuentes": [
+    "https://blog.animschool.edu/tag/animation-poses/",
+    "https://boccignone.di.unimi.it/IUM2_2013_files/Coulson.pdf"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "pecho_abrir": 3,
+    "hombro_subir": -3,
+    "hombro_adelante": -3,
+    "brazo_abrir": 5,
+    "codo": 8,
+    "antebrazo_girar": -4,
+    "muneca_doblar": 2,
+    "dedos_cerrar": 0.05,
+    "cabeza_inclinar": -6,
+    "cabeza_lateral": 4,
+    "cabeza_girar": -3
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 4.2,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 12,
+    "mantener": 64,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "guino_F": {
+   "gesto": "guino",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Guiño (femenina)",
+   "nota": "Pícara y ligera: la cabeza se ladea hacia el ojo que guiña, el torso se inclina un poco hacia ese lado y la mano izquierda hace un gesto de \"a ver qué pasa\" con la palma abierta a la altura de la cintura.",
+   "referencia": "Las fuentes sobre guiños son de calidad baja y solo sugieren que el ritmo marca la intención y que suele ir con sonrisa. La gesticulación de la mano y el giro de la cabeza son decisiones de diseño, en línea con los estudios débiles que apuntan a más gesticulación femenina.",
+   "fuentes": [
+    "https://tropedia.fandom.com/wiki/Quizzical_Tilt",
+    "https://journal.fdu.uz/index.php/sjfsu/article/view/5502"
+   ],
+   "params": {
+    "torso_lateral": -3,
+    "torso_girar": -3,
+    "hombro_subir": -2,
+    "hombro_adelante": 2,
+    "cabeza_lateral": -8,
+    "cabeza_inclinar": 3,
+    "cabeza_girar": -4,
+    "dedos_abrir_L": 0.4,
+    "brazo_abrir_R": 6,
+    "codo_R": 16,
+    "dedos_cerrar_R": 0.1,
+    "brazo_adelantar_L": 20,
+    "brazo_abrir_L": 8,
+    "codo_L": 70,
+    "antebrazo_girar_L": -30
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.4,
+    "balanceo": 1.2,
+    "balanceo_periodo": 3.8
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 10,
+    "mantener": 56,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.06,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "guino_M": {
+   "gesto": "guino",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Guiño (masculino)",
+   "nota": "Complicidad tranquila: la mano derecha en la cadera con el codo afuera, el torso se ladea hacia el lado contrario a esa cadera y la cabeza se inclina hacia el ojo que guiña, con la barbilla algo alta.",
+   "referencia": "Las fuentes sobre el guiño son de baja calidad y solo coinciden en que la intención la marcan el ritmo y la sonrisa leve. La asimetría del cuerpo es decisión de diseño, no un dato de estudio.",
+   "fuentes": [
+    "https://tropedia.fandom.com/wiki/Quizzical_Tilt"
+   ],
+   "params": {
+    "torso_lateral": 3,
+    "torso_inclinar": -2,
+    "hombro_subir_R": 2,
+    "brazo_abrir_L": 4,
+    "codo_L": 12,
+    "dedos_cerrar_L": 0.15,
+    "cabeza_lateral": -5,
+    "cabeza_inclinar": -3,
+    "brazo_abrir_R": 10,
+    "codo_R": 20
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.8,
+    "balanceo_periodo": 4.8
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 8,
+    "mantener": 56,
+    "salida": 16,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.06,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "guino_boca_abierta_F": {
+   "gesto": "guino_boca_abierta",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Guiño con boca abierta (femenina)",
+   "nota": "Se ríe de su propia broma: encoge los hombros con la risa, la mano derecha queda a la altura de la clavícula con un gesto de '¿te lo dije?', la izquierda cuelga ligera y la cabeza se ladea y gira hacia el guiño.",
+   "referencia": "El estudio preliminar de 2022 sugiere más señal de hombros y tórax en la risa de las mujeres, con poca muestra. Para este gesto uso los hombros como eje del rebote y dejo la mano en la clavícula, sin tocar la cara.",
+   "fuentes": [
+    "https://aclweb.org/anthology/2022.smila-1.9.pdf",
+    "https://tropedia.fandom.com/wiki/Quizzical_Tilt"
+   ],
+   "params": {
+    "torso_girar": -3,
+    "torso_lateral": -3,
+    "torso_inclinar": 1,
+    "hombro_subir": 5,
+    "hombro_adelante": 1,
+    "mano_objetivo_R": [
+     -0.2,
+     0.3,
+     -0.1
+    ],
+    "codo_direccion_R": 8,
+    "dedos_cerrar_R": 0.1,
+    "dedos_abrir_R": 0.2,
+    "brazo_abrir_L": 6,
+    "codo_L": 16,
+    "cabeza_lateral": -8,
+    "cabeza_inclinar": -4,
+    "cabeza_girar": -5
+   },
+   "vida": {
+    "respiracion": 1.5,
+    "respiracion_periodo": 2.8,
+    "rebote": 0.8,
+    "rebote_periodo": 1.0,
+    "balanceo": 1.2,
+    "balanceo_periodo": 3.4
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 10,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.1,
+    "curva_entrada": "elastica",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "guino_boca_abierta_M": {
+   "gesto": "guino_boca_abierta",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Guiño con boca abierta (masculino)",
+   "nota": "Bromista y confiado: el mismo guiño con la sonrisa abierta. La mano derecha sube con la palma hacia arriba como si mostrara algo, los hombros se mueven con la risa y el torso se inclina un poco hacia adelante.",
+   "referencia": "Las guías de animación leen la palma arriba como gesto de 'mira lo que digo' y la risa como movimiento de hombros; no hay estudios que lo confirmen para este gesto. El brazo libre no debe competir con el guiño, que sigue siendo asimétrico.",
+   "fuentes": [
+    "https://tropedia.fandom.com/wiki/Quizzical_Tilt",
+    "https://aclweb.org/anthology/2022.smila-1.9.pdf"
+   ],
+   "params": {
+    "torso_inclinar": 4,
+    "torso_lateral": -2,
+    "pecho_abrir": 2,
+    "hombro_subir": 3,
+    "hombro_adelante": 2,
+    "muneca_doblar_R": -10,
+    "dedos_abrir_R": 0.5,
+    "brazo_abrir_L": 6,
+    "codo_L": 15,
+    "dedos_cerrar_L": 0.1,
+    "cabeza_lateral": -6,
+    "cabeza_inclinar": 2,
+    "cabeza_girar": -4,
+    "brazo_abrir_R": 8,
+    "brazo_adelantar_R": 12,
+    "codo_R": 40,
+    "antebrazo_girar_R": -10
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 2.6,
+    "rebote": 0.9,
+    "rebote_periodo": 1.0,
+    "balanceo": 0.6,
+    "balanceo_periodo": 4.4
+   },
+   "tiempos": {
+    "entrada": 8,
+    "asentar": 10,
+    "mantener": 48,
+    "salida": 16,
+    "anticipacion": 0.08,
+    "sobrepaso": 0.12,
+    "curva_entrada": "elastica",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "incredulo_F": {
+   "gesto": "incredulo",
+   "familia": "sorpresa",
+   "estilo": "F",
+   "titulo": "Incredulidad (estilo femenino)",
+   "nota": "Una mano en la cadera y la otra en el aire con la palma arriba: se echa un poco atrás y mira de arriba abajo con la cabeza ladeada y la barbilla alzada, como quien no se fía de lo que oye. El peso se queda en un pie y el gesto se sostiene.",
+   "referencia": "Las fuentes de sorpresa atribuyen a la incredulidad las cejas levantadas y la cabeza atrás o ladeada. La mano en la cadera es decisión de diseño para diferenciarla de la de M, no un dato verificado en las fuentes.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "pecho_abrir": 3,
+    "hombro_subir": 4,
+    "mano_objetivo_R": [
+     0.3,
+     0.05,
+     -0.6
+    ],
+    "codo_direccion_R": 14,
+    "mano_objetivo_L": [
+     0.18,
+     0.35,
+     -0.2
+    ],
+    "antebrazo_girar_L": -12,
+    "dedos_abrir_L": 0.4,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 8,
+    "cabeza_girar": -4,
+    "cuello_adelantar": -4
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.6,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 9,
+    "asentar": 14,
+    "mantener": 50,
+    "salida": 20,
+    "anticipacion": 0.02,
+    "sobrepaso": 0.03,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "incredulo_M": {
+   "gesto": "incredulo",
+   "familia": "sorpresa",
+   "estilo": "M",
+   "titulo": "Incredulidad (estilo masculino)",
+   "nota": "No se lo cree: el torso se echa un poco atrás, el mentón se recoge y la cabeza se queda un instante hacia atrás y ladeada. Los brazos se abren a la altura de la cintura con las palmas hacia arriba, como preguntando en serio.",
+   "referencia": "La revisión de sorpresa (Wikipedia) indica que subir las cejas se asocia más a la incredulidad que al sobresalto. El resto de la postura (palmas arriba, cabeza atrás) viene de lenguaje corporal popular, no de evidencia de laboratorio.",
+   "fuentes": [
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)",
+    "https://arxiv.org/pdf/1801.07481"
+   ],
+   "params": {
+    "torso_inclinar": -4,
+    "pecho_abrir": 2,
+    "hombro_subir": 5,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": -6,
+    "cuello_adelantar": -10,
+    "dedos_abrir": 0.35,
+    "brazo_abrir": 14,
+    "brazo_adelantar": 10,
+    "codo": 55,
+    "antebrazo_girar": -25,
+    "muneca_doblar": -10
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.0
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 12,
+    "mantener": 44,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.08,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "miedo_F": {
+   "gesto": "miedo",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Miedo (femenina)",
+   "nota": "Se encoge: hombros arriba y adelante, manos recogidas junto al pecho y la barbilla, se aparta girando. Temblor.",
+   "params": {
+    "torso_inclinar": -5,
+    "torso_girar": -12,
+    "torso_encorvar": 6,
+    "pecho_abrir": -6,
+    "hombro_subir": 13,
+    "hombro_adelante": 10,
+    "mano_objetivo_L": [
+     -0.3,
+     0.3,
+     0.05
+    ],
+    "mano_objetivo_R": [
+     -0.25,
+     0.36,
+     0.12
+    ],
+    "codo_direccion": -10,
+    "muneca_doblar": 15,
+    "dedos_cerrar": 0.5,
+    "pulgar_cerrar": 0.4,
+    "cabeza_inclinar": 8,
+    "cabeza_lateral": 5,
+    "cabeza_girar": -14,
+    "cuello_adelantar": -5
+   },
+   "vida": {
+    "respiracion": 1.8,
+    "respiracion_periodo": 1.6,
+    "temblor": 0.45,
+    "temblor_frecuencia": 9
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0.2,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las fuentes de animación describen el miedo como un cuerpo que se protege y se repliega, con las manos cerca del rostro o del pecho. Que F se recoja en lugar de retroceder es decisión propia para diferenciarla de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ]
+  },
+  "miedo_M": {
+   "gesto": "miedo",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Miedo (masculina)",
+   "nota": "Retirada y guardia: se echa atras y se aparta, hombros arriba, brazos delante con palmas fuera, barbilla hacia atras. Temblor.",
+   "params": {
+    "torso_inclinar": -7,
+    "torso_girar": -10,
+    "torso_lateral": -2,
+    "pecho_abrir": -4,
+    "hombro_subir": 11,
+    "hombro_adelante": 5,
+    "brazo_abrir": 4,
+    "brazo_adelantar": 30,
+    "brazo_adelantar_R": 36,
+    "brazo_girar": 10,
+    "codo": 85,
+    "antebrazo_girar": -5,
+    "muneca_doblar": -28,
+    "dedos_cerrar": 0.15,
+    "dedos_abrir": 0.65,
+    "cabeza_inclinar": 5,
+    "cabeza_girar": -12,
+    "cuello_adelantar": -6
+   },
+   "vida": {
+    "respiracion": 2.0,
+    "respiracion_periodo": 1.6,
+    "temblor": 0.5,
+    "temblor_frecuencia": 9
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 10,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0.22,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las fuentes de animación describen el miedo como retirada y protección, con manos hacia la cara o el pecho, y avisan de que esos gestos se vuelven cliché si no encajan con el personaje. La lectura de la postura como señal de actitud viene de una fuente secundaria; no pude comprobar el trabajo original de Ekman y Friesen.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay",
+    "https://www.ugr.es/~aula_psi/EL_COMPORTAMIENTO_NO_VERBAL.htm"
+   ],
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "molesto_leve_F": {
+   "gesto": "molesto_leve",
+   "familia": "enfado",
+   "estilo": "F",
+   "titulo": "Molesto leve (femenina)",
+   "nota": "Impaciencia de pie: el peso cae en la cadera derecha, la mano derecha queda en la cintura y la izquierda doblada delante del cuerpo. Los dedos de la izquierda golpean el antebrazo a ritmo corto mientras la cabeza se ladea y se gira un poco hacia un lado.",
+   "referencia": "Las fuentes no separan el molesto leve del enfado; el peso en una cadera aparece en CBS como postura de poder, y el golpeteo de dedos es una decision de animacion con intensidad baja.",
+   "fuentes": [
+    "https://education.byu.edu/sites/default/files/media/cites/files/2023/body-language-clues.pdf",
+    "https://www.cbsnews.com/news/body-language/"
+   ],
+   "params": {
+    "torso_inclinar": 1,
+    "torso_lateral": -3,
+    "torso_girar": -2,
+    "pecho_abrir": -2,
+    "hombro_subir": 2,
+    "hombro_adelante": 2,
+    "mano_objetivo_R": [
+     0.15,
+     -0.05,
+     -0.55
+    ],
+    "codo_direccion_R": 20,
+    "muneca_doblar_R": 6,
+    "dedos_cerrar_R": 0.1,
+    "brazo_abrir_L": 6,
+    "brazo_adelantar_L": 14,
+    "codo_L": 80,
+    "muneca_doblar_L": 4,
+    "dedos_cerrar_L": 0.3,
+    "cabeza_inclinar": -2,
+    "cabeza_lateral": -5,
+    "cabeza_girar": -4,
+    "cuello_adelantar": -1
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.2,
+    "balanceo": 0.5,
+    "balanceo_periodo": 5
+   },
+   "gesto_repetido": {
+    "params": {
+     "muneca_doblar_L": 6,
+     "dedos_cerrar_L": 0.15
+    },
+    "periodo": 1.1,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 10,
+    "mantener": 64,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "molesto_leve_M": {
+   "gesto": "molesto_leve",
+   "familia": "enfado",
+   "estilo": "M",
+   "titulo": "Molesto leve (masculina)",
+   "nota": "Malestar contenido: se echa un poco atras, los hombros algo subidos y los brazos doblados bajo el pecho sin cruzar del todo. La cabeza se aparta hacia un lado y el peso oscila de una pierna a otra con ritmo lento.",
+   "referencia": "BYU lista las manos apretadas entre las señales de frustracion; el balanceo de peso que marca el ritmo es una decision de animacion, no un dato de las fuentes.",
+   "fuentes": [
+    "https://education.byu.edu/sites/default/files/media/cites/files/2023/body-language-clues.pdf"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 1,
+    "hombro_subir": 3,
+    "hombro_adelante": 3,
+    "mano_objetivo_L": [
+     -0.35,
+     0.3,
+     -0.5
+    ],
+    "mano_objetivo_R": [
+     -0.35,
+     0.3,
+     -0.45
+    ],
+    "codo_direccion": -10,
+    "dedos_cerrar": 0.2,
+    "cabeza_inclinar": 3,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -6,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_lateral": 2,
+     "cabeza_girar": 1.5
+    },
+    "periodo": 2.2,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 64,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "pensativo_F": {
+   "gesto": "pensativo",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Pensativo (femenina)",
+   "nota": "Pensativa de pie: la mano derecha toca la mejilla con los dedos sueltos, la otra cuelga relajada, el peso va a un lado y la cabeza se ladea y sube la vista, y vuelve despacio. No apoya ningun codo.",
+   "referencia": "Las fuentes ven la mano en la mejilla y la cabeza ladeada como evaluacion, con la mirada hacia arriba como pensamiento; el balanceo de la cabeza es decision de animacion.",
+   "fuentes": [
+    "https://www.goodreads.com/author_blog_posts/9796742-jinxi-boo-what-does-your-body-language-say-about-you-how-to-read-signs",
+    "https://www.slideshare.net/slideshow/body-language-pptx/281156799"
+   ],
+   "params": {
+    "torso_inclinar": -1,
+    "torso_lateral": 3,
+    "torso_girar": 2,
+    "mano_objetivo_R": [
+     -0.38,
+     0.3,
+     0.22
+    ],
+    "codo_direccion_R": 4,
+    "muneca_doblar_R": 8,
+    "dedos_cerrar_R": 0.3,
+    "pulgar_cerrar_R": 0.2,
+    "brazo_abrir_L": 4,
+    "brazo_adelantar_L": 2,
+    "codo_L": 20,
+    "dedos_cerrar_L": 0.15,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 5,
+    "cabeza_inclinar": -2
+   },
+   "vida": {
+    "respiracion": 0.9,
+    "respiracion_periodo": 4.2,
+    "balanceo": 0.7,
+    "balanceo_periodo": 5.5
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 3,
+     "cabeza_girar": 2
+    },
+    "periodo": 4.2,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 20,
+    "asentar": 14,
+    "mantener": 84,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "pensativo_M": {
+   "gesto": "pensativo",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Pensativo (masculina)",
+   "nota": "Pensando con la mano en la barbilla: el codo derecho apoyado sobre el antebrazo izquierdo que cruza bajo el, la cabeza ladeada e inclinada que va y viene despacio, como sopesando, y la mirada sube hacia un lado.",
+   "referencia": "Las fuentes describen la mano en la barbilla con la cabeza ladeada como meditacion o evaluacion (Goodreads/Jinxi Boo y la diapositiva de evaluacion); con cejas fruncidas el mismo gesto pasa a escepticismo, asi que el gesto facial decide.",
+   "fuentes": [
+    "https://www.goodreads.com/author_blog_posts/9796742-jinxi-boo-what-does-your-body-language-say-about-you-how-to-read-signs",
+    "https://www.slideshare.net/slideshow/body-language-pptx/281156799"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_girar": 3,
+    "torso_lateral": 2,
+    "hombro_adelante": 2,
+    "hombro_subir": 1,
+    "mano_objetivo_R": [
+     -0.35,
+     0.38,
+     0.12
+    ],
+    "codo_direccion_R": -20,
+    "muneca_doblar_R": 12,
+    "dedos_cerrar_R": 0.35,
+    "pulgar_cerrar_R": 0.3,
+    "mano_objetivo_L": [
+     -0.3,
+     0.2,
+     -0.35
+    ],
+    "codo_direccion_L": -6,
+    "dedos_cerrar_L": 0.25,
+    "cabeza_lateral": 6,
+    "cabeza_inclinar": 3,
+    "cabeza_girar": 3,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 0.9,
+    "respiracion_periodo": 4.0,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_inclinar": 4,
+     "cabeza_lateral": 2
+    },
+    "periodo": 3.6,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 22,
+    "asentar": 14,
+    "mantener": 84,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "repulsion_F": {
+   "gesto": "repulsion",
+   "familia": "asco",
+   "estilo": "F",
+   "titulo": "Repulsión (estilo femenino)",
+   "nota": "Se aparta con el torso y la cabeza hacia su derecha; la mano izquierda se estira hacia el objeto con la palma fuera y la derecha queda pegada al vientre. Los hombros se suben y la barbilla se retrae.",
+   "referencia": "Las fuentes de animación piden no exagerar el asco, y citan el cuerpo que se aleja y la palma hacia fuera como rasgos del rechazo. Un brazo estirado y la otra mano pegada al cuerpo son decisión propia para distinguirla de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -6,
+    "torso_lateral": -5,
+    "torso_girar": -6,
+    "pecho_abrir": -6,
+    "hombro_subir": 6,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [
+     0.1,
+     0.5,
+     -0.15
+    ],
+    "muneca_doblar_L": -28,
+    "dedos_abrir_L": 0.5,
+    "mano_objetivo_R": [
+     -0.1,
+     0.2,
+     -0.6
+    ],
+    "dedos_cerrar_R": 0.4,
+    "cabeza_inclinar": 6,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -12,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 1.3,
+    "respiracion_periodo": 3.0
+   },
+   "tiempos": {
+    "entrada": 7,
+    "asentar": 12,
+    "mantener": 40,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.06,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "repulsion_M": {
+   "gesto": "repulsion",
+   "familia": "asco",
+   "estilo": "M",
+   "titulo": "Repulsión (estilo masculino)",
+   "nota": "Rechazo entero: el torso se echa atrás y el pecho se cierra, las dos manos salen hacia delante con las palmas fuera como si empujaran algo, y los codos se doblan. La cabeza se aparta de lado con el cuello retraído y la pose queda tensa.",
+   "referencia": "Animation Mentor (Jay Davis) dice que el asco se resuelve con el cuerpo que se aparta, y la semiótica de gestos franceses incluye el empuje con la palma hacia fuera como rechazo. Empujar con los dos brazos es decisión de diseño para la repulsión.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-disgust-with-jay-davis",
+    "https://publish.iupress.indiana.edu/read/the-semiotics-of-french-gestures/section/b661bde0-8352-4465-9b12-15d4be24fb2c"
+   ],
+   "params": {
+    "torso_inclinar": -8,
+    "torso_girar": -5,
+    "pecho_abrir": -4,
+    "hombro_subir": 8,
+    "hombro_adelante": 6,
+    "mano_objetivo_L": [
+     0.12,
+     0.45,
+     -0.1
+    ],
+    "mano_objetivo_R": [
+     0.12,
+     0.45,
+     -0.1
+    ],
+    "muneca_doblar": -25,
+    "dedos_abrir": 0.55,
+    "dedos_cerrar": 0.1,
+    "cabeza_inclinar": 5,
+    "cabeza_girar": -10,
+    "cuello_adelantar": -10
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 2.8
+   },
+   "tiempos": {
+    "entrada": 5,
+    "asentar": 10,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "risa_fuerte_F": {
+   "gesto": "risa_fuerte",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Risa fuerte (femenina)",
+   "nota": "Carcajada echando la cabeza atrás: el torso se mantiene más erguido y los hombros se encogen y vuelven con cada risa. La mano izquierda se apoya en el esternón y la derecha queda suelta junto a la cadera.",
+   "referencia": "El mismo estudio de 2022 apunta a más movimiento de tórax y hombros en las mujeres, aunque es un trabajo inicial con pocos datos. Por eso el rebote de F se reparte en hombros y pecho, y el cuerpo se balancea hacia el lado de la cabeza.",
+   "fuentes": [
+    "https://aclweb.org/anthology/2022.smila-1.9.pdf",
+    "https://binus.ac.id/bandung/dkv/2025/11/03/building-emotion-through-movement-how-animators-make-you-feel/"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": -2,
+    "torso_girar": -3,
+    "pecho_abrir": 3,
+    "hombro_subir": 6,
+    "hombro_adelante": 2,
+    "cabeza_inclinar": -9,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -4,
+    "mano_objetivo_L": [
+     -0.2,
+     0.25,
+     -0.25
+    ],
+    "dedos_cerrar_L": 0.25,
+    "brazo_abrir_R": 8,
+    "codo_R": 30,
+    "dedos_cerrar_R": 0.15
+   },
+   "pico": {
+    "cabeza_inclinar": -12,
+    "hombro_subir": 8
+   },
+   "gesto_repetido": {
+    "params": {
+     "hombro_subir": 2,
+     "pecho_abrir": -2,
+     "torso_inclinar": 1
+    },
+    "periodo": 0.8,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 1.8,
+    "respiracion_periodo": 2.0,
+    "balanceo": 0.8,
+    "balanceo_periodo": 3.0
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 8,
+    "mantener": 42,
+    "salida": 16,
+    "anticipacion": 0.12,
+    "sobrepaso": 0.1,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "risa_fuerte_M": {
+   "gesto": "risa_fuerte",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Risa fuerte (masculina)",
+   "nota": "Se dobla de risa: el torso cae hacia adelante con el pecho que se vacía, una mano va al vientre y los codos se mueven con cada carcajada. El rebote está en el torso y los codos.",
+   "referencia": "Un estudio preliminar de 2022 con 186 vídeos de risa y estimación de pose encontró más señal de tórax y hombros en mujeres y más de codos en hombres, pero lo presenta como trabajo inicial. Por eso el rebote de M va sobre todo en los codos y el de F en tórax y hombros.",
+   "fuentes": [
+    "https://aclweb.org/anthology/2022.smila-1.9.pdf",
+    "https://binus.ac.id/bandung/dkv/2025/11/03/building-emotion-through-movement-how-animators-make-you-feel/"
+   ],
+   "params": {
+    "torso_inclinar": 7,
+    "torso_encorvar": 5,
+    "pecho_abrir": -5,
+    "hombro_subir": 4,
+    "hombro_adelante": 4,
+    "cabeza_inclinar": 9,
+    "cabeza_lateral": 3,
+    "cabeza_girar": -4,
+    "mano_objetivo_R": [
+     -0.15,
+     0.3,
+     -0.45
+    ],
+    "codo_direccion_R": 20,
+    "brazo_abrir_L": 6,
+    "codo_L": 18,
+    "dedos_cerrar_L": 0.2
+   },
+   "pico": {
+    "torso_inclinar": 10,
+    "pecho_abrir": -7,
+    "cabeza_inclinar": 12
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_inclinar": 2,
+     "codo_R": 8,
+     "codo_L": 6,
+     "cabeza_inclinar": 2
+    },
+    "periodo": 0.7,
+    "forma": "seno"
+   },
+   "vida": {
+    "respiracion": 2.0,
+    "respiracion_periodo": 1.8,
+    "balanceo": 0.5,
+    "balanceo_periodo": 4.0
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 8,
+    "mantener": 42,
+    "salida": 16,
+    "anticipacion": 0.1,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sarcastico_F": {
+   "gesto": "sarcastico",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Sarcastico (femenina)",
+   "nota": "Inocencia de salon: la mano derecha abierta sobre el pecho, la izquierda suelta con un giro de muñeca, el peso algo cambiado y la cabeza ladeada que se mece despacio. La cara pone la ironia.",
+   "referencia": "Britannica incluye la cabeza ladeada y los hombros encogidos entre las señales corporales del sarcasmo; la mano abierta sobre el pecho y el giro de muñeca son elecciones de actuacion sin estudio que las respalde.",
+   "fuentes": [
+    "https://britannica.com/EBchecked/topic/524049/sarcasm",
+    "https://digitalcommons.memphis.edu/facpubs/8600"
+   ],
+   "params": {
+    "torso_inclinar": 1,
+    "torso_lateral": -3,
+    "hombro_subir": 2,
+    "hombro_adelante": 1,
+    "mano_objetivo_R": [
+     -0.25,
+     0.32,
+     -0.02
+    ],
+    "codo_direccion_R": -4,
+    "muneca_doblar_R": 6,
+    "dedos_abrir_R": 0.3,
+    "brazo_abrir_L": 4,
+    "brazo_adelantar_L": 8,
+    "codo_L": 25,
+    "muneca_doblar_L": -6,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 5,
+    "cabeza_inclinar": 1,
+    "cuello_adelantar": -1
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.2,
+    "balanceo": 1.0,
+    "balanceo_periodo": 3.0
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 3,
+     "muneca_doblar_L": -6
+    },
+    "periodo": 2.6,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sarcastico_M": {
+   "gesto": "sarcastico",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Sarcastico (masculina)",
+   "nota": "Encogimiento de falsa inocencia: los hombros suben, los brazos se abren con las palmas hacia arriba y la cabeza se ladea y se mece de lado mientras la sonrisa se queda a medias, como quien dice que no tiene culpa.",
+   "referencia": "Britannica cita cejas altas, ojos en blanco, encogerse de hombros y la cabeza ladeada como señales no verbales de sarcasmo; Caucci y Kreuz encuentran que los movimientos de cabeza, ojos y boca transmiten la intencion sarcastica.",
+   "fuentes": [
+    "https://britannica.com/EBchecked/topic/524049/sarcasm",
+    "https://digitalcommons.memphis.edu/facpubs/8600"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_lateral": 2,
+    "hombro_subir": 7,
+    "hombro_adelante": -2,
+    "muneca_doblar": -15,
+    "dedos_abrir": 0.4,
+    "cabeza_lateral": 8,
+    "cabeza_inclinar": -2,
+    "cabeza_girar": 4,
+    "brazo_abrir": 14,
+    "brazo_adelantar": 14,
+    "codo": 60,
+    "antebrazo_girar": -35
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.8,
+    "balanceo_periodo": 3.5
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 4,
+     "torso_lateral": 1.5
+    },
+    "periodo": 2.4,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 8,
+    "mantener": 60,
+    "salida": 16,
+    "anticipacion": 0.06,
+    "sobrepaso": 0.06,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "seguro_de_si_F": {
+   "gesto": "seguro_de_si",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Seguro de sí (femenina)",
+   "nota": "Firme y clara: hombros relajados hacia atrás, peso repartido y una mano que explica al frente con calma, con la palma hacia abajo; la otra queda suelta. La cabeza se mantiene estable y la mirada va al frente.",
+   "referencia": "Los estudios sobre género y gesticulación son pequeños y dan resultados mixtos; aquí solo se usa como diferencia de ritmo, con una mano que explica en lugar de dos. Tracy advierte que una postura muy expansiva puede leerse como arrogancia, así que el torso se queda moderado.",
+   "fuentes": [
+    "https://journal.fdu.uz/index.php/sjfsu/article/view/5502",
+    "https://www.humintell.com/2018/04/the-power-of-posture/"
+   ],
+   "params": {
+    "torso_inclinar": -1,
+    "pecho_abrir": 3,
+    "hombro_adelante": -3,
+    "hombro_subir": -1,
+    "mano_objetivo_R": [
+     -0.1,
+     0.42,
+     -0.1
+    ],
+    "antebrazo_girar_R": 10,
+    "codo_direccion_R": 6,
+    "dedos_abrir_R": 0.2,
+    "brazo_abrir_L": 8,
+    "codo_L": 14,
+    "dedos_cerrar_L": 0.1,
+    "cabeza_lateral": 2,
+    "cabeza_inclinar": -1
+   },
+   "vida": {
+    "respiracion": 1.1,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.9,
+    "balanceo_periodo": 4.2
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 8,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.05,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "manos_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "seguro_de_si_M": {
+   "gesto": "seguro_de_si",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Seguro de sí (masculino)",
+   "nota": "Plantado y sereno: pecho abierto, hombros atrás y bajos, barbilla a nivel y los brazos sueltos que ocupan espacio sin pegarse al cuerpo. No tiene prisa y el peso se queda quieto.",
+   "referencia": "En un estudio de citas rápidas de 2016 la postura expansiva se asoció a más 'sí' y a más dominio percibido, pero las fuentes que encontré son en su mayoría de sus defensores. Por eso el gesto cambia la lectura externa y no se apoya en efectos internos sobre la confianza.",
+   "fuentes": [
+    "https://www.humintell.com/2018/04/the-power-of-posture/",
+    "https://www.amycuddy.com/topics/presence-body-language"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "pecho_abrir": 6,
+    "hombro_subir": -2,
+    "hombro_adelante": -5,
+    "brazo_abrir": 12,
+    "codo": 14,
+    "muneca_doblar": 3,
+    "dedos_cerrar": 0.1,
+    "cabeza_inclinar": -1
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.4,
+    "balanceo": 0.5,
+    "balanceo_periodo": 6.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0.03,
+    "sobrepaso": 0.04,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sonoliento_F": {
+   "gesto": "sonoliento",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Somnolienta (femenina)",
+   "nota": "Se apoya hacia un lado con los brazos cruzados flojos delante de la cintura; la cabeza se inclina hacia el mismo lado y oscila despacio, como si se fuera a dormir de pie.",
+   "referencia": "Las guías divulgativas asocian el cansancio con apoyos y hombros caídos, y la somnolencia con la cabeza que se deja caer. La oscilación lateral de la cabeza es criterio de animación, no un dato medido.",
+   "fuentes": [
+    "https://www.calm.com/blog/body-language-examples"
+   ],
+   "params": {
+    "torso_inclinar": 2,
+    "torso_lateral": 5,
+    "torso_encorvar": 5,
+    "pecho_abrir": -3,
+    "hombro_subir": -2,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [
+     -0.3,
+     0.3,
+     -0.45
+    ],
+    "mano_objetivo_R": [
+     -0.28,
+     0.3,
+     -0.42
+    ],
+    "codo_direccion": -5,
+    "muneca_doblar": 8,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.15,
+    "cabeza_inclinar": 8,
+    "cabeza_lateral": 8,
+    "cabeza_girar": 2,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 5.2,
+    "balanceo": 1.4,
+    "balanceo_periodo": 4.8
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_lateral": 6,
+     "cabeza_inclinar": 4
+    },
+    "periodo": 5.0,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 20,
+    "asentar": 14,
+    "mantener": 90,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sonoliento_M": {
+   "gesto": "sonoliento",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Somnoliento (masculino)",
+   "nota": "De pie y encorvado: la cabeza cae despacio hacia delante y de golpe se recupera con una sacudida. Brazos flojos y respiración profunda y lenta.",
+   "referencia": "Las guías divulgativas señalan el sueño con párpados caídos, bostezos, frotarse los ojos y movimientos lentos. La cabezada de caída y sacudida no tiene estudio controlado detrás; es criterio de animación.",
+   "fuentes": [
+    "https://www.calm.com/blog/body-language-examples"
+   ],
+   "params": {
+    "torso_inclinar": 4,
+    "torso_encorvar": 8,
+    "pecho_abrir": -4,
+    "hombro_subir": -3,
+    "hombro_adelante": 6,
+    "brazo_abrir": 3,
+    "brazo_adelantar": 3,
+    "brazo_girar": 4,
+    "codo": 10,
+    "antebrazo_girar": 4,
+    "muneca_doblar": 4,
+    "dedos_cerrar": 0.2,
+    "pulgar_cerrar": 0.15,
+    "cabeza_inclinar": 12,
+    "cabeza_lateral": 2,
+    "cuello_adelantar": 4
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 5.0,
+    "balanceo": 0.4,
+    "balanceo_periodo": 6.5
+   },
+   "gesto_repetido": {
+    "params": {
+     "cabeza_inclinar": 8,
+     "torso_encorvar": 2
+    },
+    "periodo": 4.5,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 20,
+    "asentar": 12,
+    "mantener": 90,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sonrisa_abierta_F": {
+   "gesto": "sonrisa_abierta",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Sonrisa abierta (femenina)",
+   "nota": "Elevada y recogida: hombros arriba, manos que se juntan delante del pecho, cabeza ladeada, curva suave del torso y vaiven.",
+   "params": {
+    "torso_inclinar": -2,
+    "pecho_abrir": 5,
+    "torso_lateral": 3,
+    "torso_girar": 4,
+    "hombro_subir": 4,
+    "hombro_adelante": 2,
+    "mano_objetivo_L": [
+     -0.3,
+     0.42,
+     -0.3
+    ],
+    "mano_objetivo_R": [
+     -0.28,
+     0.45,
+     -0.25
+    ],
+    "codo_direccion": 15,
+    "muneca_doblar": 8,
+    "dedos_cerrar": 0.25,
+    "pulgar_cerrar": 0.2,
+    "cabeza_inclinar": -4,
+    "cabeza_lateral": 9,
+    "cabeza_girar": 4
+   },
+   "vida": {
+    "respiracion": 1.2,
+    "respiracion_periodo": 3.0,
+    "rebote": 1.0,
+    "rebote_periodo": 1.0,
+    "balanceo": 1.6,
+    "balanceo_periodo": 3.5
+   },
+   "tiempos": {
+    "entrada": 12,
+    "asentar": 8,
+    "mantener": 48,
+    "salida": 14,
+    "anticipacion": 0.05,
+    "sobrepaso": 0.12,
+    "curva_entrada": "elastica",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Un estudio pequeño con observación y encuesta concluye que las mujeres gesticulan más, y un trabajo de 2023 lo confirma con poca muestra; lo uso solo como diferencia de ritmo, no como estereotipo. Los hombros altos y la cabeza ladeada vienen de guías de animación.",
+   "fuentes": [
+    "https://journal.fdu.uz/index.php/sjfsu/article/view/5502",
+    "https://openworks.wooster.edu/independentstudy/5590",
+    "https://blog.animschool.edu/tag/animation-poses/"
+   ]
+  },
+  "sonrisa_abierta_M": {
+   "gesto": "sonrisa_abierta",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Sonrisa abierta (masculina)",
+   "nota": "Abierto y hacia arriba: pecho fuera, hombros atras, brazos que se abren con palmas al frente, cabeza alta. Rebote ligero.",
+   "params": {
+    "torso_inclinar": -3,
+    "pecho_abrir": 7,
+    "hombro_subir": 2,
+    "hombro_adelante": -4,
+    "brazo_abrir": 12,
+    "brazo_abrir_R": 15,
+    "brazo_adelantar": 6,
+    "brazo_girar": -6,
+    "codo": 22,
+    "codo_R": 28,
+    "antebrazo_girar": -12,
+    "muneca_doblar": -6,
+    "dedos_cerrar": 0.15,
+    "dedos_abrir": 0.25,
+    "pulgar_cerrar": 0.1,
+    "cabeza_inclinar": -7,
+    "cabeza_lateral": 3
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 3.0,
+    "rebote": 1.5,
+    "rebote_periodo": 0.9,
+    "balanceo": 1.0,
+    "balanceo_periodo": 4.0
+   },
+   "tiempos": {
+    "entrada": 10,
+    "asentar": 8,
+    "mantener": 48,
+    "salida": 14,
+    "anticipacion": 0.08,
+    "sobrepaso": 0.15,
+    "curva_entrada": "elastica",
+    "curva_salida": "suave",
+    "desfase": 1.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las guías de animación leen el pecho abierto y la cabeza alta como alegría expansiva, y la palma arriba como gesto de invitación. Son fuentes de escuela sin estudio de muestra grande; la sonrisa ya la marca la cara, así que el cuerpo solo acompaña.",
+   "fuentes": [
+    "https://blog.animschool.edu/tag/animation-poses/",
+    "https://animationmentor.com/?p=5305"
+   ]
+  },
+  "sonrisa_leve_F": {
+   "gesto": "sonrisa_leve",
+   "familia": "alegria",
+   "estilo": "F",
+   "titulo": "Sonrisa leve (femenina)",
+   "nota": "Cercana y tranquila: el torso se ladea y gira un poco hacia el interlocutor, la cabeza se inclina de lado y la mano derecha queda suelta a la altura de la cintura. Pocos gestos y un vaivén suave.",
+   "referencia": "Un estudio de 2023 (Eurasian Journal of Philology) y un trabajo mixto con observación indican que las mujeres gesticulan algo más y que los hombres muestran un lenguaje corporal más contenido; las muestras son pequeñas. La cabeza ladeada como señal de apertura aparece en Wikipedia, que marca ese apartado como poco sustentado.",
+   "fuentes": [
+    "https://journal.fdu.uz/index.php/sjfsu/article/view/5502",
+    "https://en.wikipedia.org/wiki/Body_language"
+   ],
+   "params": {
+    "torso_lateral": 2,
+    "torso_girar": 3,
+    "hombro_subir": 1,
+    "hombro_adelante": 1,
+    "cabeza_lateral": 7,
+    "cabeza_girar": 3,
+    "cabeza_inclinar": -1,
+    "mano_objetivo_R": [
+     -0.2,
+     0.25,
+     -0.45
+    ],
+    "codo_direccion_R": 8,
+    "muneca_doblar_R": 6,
+    "dedos_cerrar_R": 0.15,
+    "brazo_abrir_L": 4,
+    "codo_L": 14,
+    "dedos_cerrar_L": 0.1
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 1.2,
+    "balanceo_periodo": 3.8
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 10,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sonrisa_leve_M": {
+   "gesto": "sonrisa_leve",
+   "familia": "alegria",
+   "estilo": "M",
+   "titulo": "Sonrisa leve (masculina)",
+   "nota": "Calmado y accesible: el pecho sale un poco, los hombros van sueltos y la cabeza se ladea apenas con la barbilla algo alta. Brazos casi sin gesticular y peso quieto.",
+   "referencia": "Las guías de animación (AnimSchool) asocian la cabeza algo alta y los hombros sueltos con actitud abierta, y se suele asumir desde Ekman que el cuerpo transmite sobre todo intensidad y no el tipo de emoción. Son fuentes de escuela, no estudios de muestra grande.",
+   "fuentes": [
+    "https://blog.animschool.edu/tag/animation-poses/",
+    "https://en.wikipedia.org/wiki/Body_language"
+   ],
+   "params": {
+    "torso_inclinar": -1,
+    "pecho_abrir": 3,
+    "hombro_adelante": -2,
+    "brazo_abrir": 5,
+    "codo": 12,
+    "antebrazo_girar": -4,
+    "muneca_doblar": 2,
+    "dedos_cerrar": 0.1,
+    "cabeza_inclinar": -2,
+    "cabeza_lateral": 4
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.8,
+    "balanceo": 0.6,
+    "balanceo_periodo": 5.0
+   },
+   "tiempos": {
+    "entrada": 14,
+    "asentar": 8,
+    "mantener": 60,
+    "salida": 18,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "suave",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sorpresa_F": {
+   "gesto": "sorpresa",
+   "familia": "sorpresa",
+   "estilo": "F",
+   "titulo": "Sorpresa (femenina)",
+   "nota": "Se eleva y se echa atras; las manos suben al pecho y la derecha cerca de la boca; cabeza ladeada; luego se asienta.",
+   "params": {
+    "torso_inclinar": -4,
+    "pecho_abrir": 6,
+    "hombro_subir": 11,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [
+     -0.3,
+     0.34,
+     0.02
+    ],
+    "mano_objetivo_R": [
+     -0.38,
+     0.38,
+     0.12
+    ],
+    "codo_direccion": 5,
+    "muneca_doblar": -5,
+    "dedos_cerrar": 0.15,
+    "dedos_abrir": 0.45,
+    "pulgar_cerrar": 0.1,
+    "cabeza_inclinar": -6,
+    "cabeza_lateral": 6,
+    "cabeza_girar": 3,
+    "cuello_adelantar": -5
+   },
+   "pico": {
+    "torso_inclinar": -6,
+    "hombro_subir": 15,
+    "dedos_abrir": 0.7,
+    "cabeza_inclinar": -9
+   },
+   "vida": {
+    "respiracion": 1.5,
+    "respiracion_periodo": 2.4
+   },
+   "tiempos": {
+    "entrada": 5,
+    "asentar": 14,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.08,
+    "sobrepaso": 0,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Las fuentes describen la sorpresa con manos hacia el pecho o la cara y la cabeza echada atrás o ladeada. El respingo lento de F es decisión propia para distinguirla del salto de M.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1801.07481",
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)"
+   ]
+  },
+  "sorpresa_M": {
+   "gesto": "sorpresa",
+   "familia": "sorpresa",
+   "estilo": "M",
+   "titulo": "Sorpresa (masculina)",
+   "nota": "Sobresalto hacia arriba y atras: pecho abierto, hombros arriba, brazos que suben abiertos con manos extendidas; luego se asienta.",
+   "params": {
+    "torso_inclinar": -6,
+    "pecho_abrir": 9,
+    "hombro_subir": 10,
+    "hombro_adelante": -2,
+    "muneca_doblar": -12,
+    "dedos_cerrar": 0.05,
+    "dedos_abrir": 0.6,
+    "cabeza_inclinar": -8,
+    "cuello_adelantar": -7,
+    "mano_objetivo_L": [
+     -0.15,
+     0.45,
+     -0.05
+    ],
+    "mano_objetivo_R": [
+     -0.12,
+     0.45,
+     0.0
+    ],
+    "codo_direccion": 10
+   },
+   "pico": {
+    "torso_inclinar": -8,
+    "hombro_subir": 15,
+    "dedos_abrir": 0.8,
+    "cabeza_inclinar": -11
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 2.4
+   },
+   "tiempos": {
+    "entrada": 5,
+    "asentar": 14,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.1,
+    "sobrepaso": 0,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "claude",
+   "referencia": "La revisión de reconocimiento de gestos (arXiv) lista para la sorpresa el retroceso brusco, las manos hacia la cabeza o la cara y el paso atrás. Wikipedia indica que la cabeza va atrás o ladeada, y que el sobresalto en sí es un reflejo más que una emoción.",
+   "fuentes": [
+    "https://arxiv.org/pdf/1801.07481",
+    "https://en.wikipedia.org/wiki/Surprise_(emotion)",
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-surprise-with-dreamworks-animator-chadd-ferron"
+   ],
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "sospechoso_F": {
+   "gesto": "sospechoso",
+   "familia": "otras",
+   "estilo": "F",
+   "titulo": "Sospechoso (femenina)",
+   "nota": "Encogida y vigilante: las dos manos bajas delante del cuerpo, los hombros algo subidos y adelantados, el torso apartado a un lado y la cabeza girada al contrario con la barbilla baja y la mirada de reojo.",
+   "referencia": "SPSP recoge que la mirada de reojo no es indicador fiable de engaño; las manos bajas y el cuerpo cerrado se usan aqui como señal de cautela, sin cifras de estudio.",
+   "fuentes": [
+    "https://spsp.org/news/character-and-context-blog/matsumoto-nonverbal-behavior-cues-deception"
+   ],
+   "params": {
+    "torso_inclinar": -2,
+    "torso_girar": -3,
+    "torso_encorvar": 3,
+    "hombro_subir": 4,
+    "hombro_adelante": 4,
+    "mano_objetivo_L": [
+     -0.3,
+     0.3,
+     -0.55
+    ],
+    "mano_objetivo_R": [
+     -0.3,
+     0.3,
+     -0.55
+    ],
+    "codo_direccion": -6,
+    "dedos_cerrar": 0.4,
+    "pulgar_cerrar": 0.3,
+    "cabeza_girar": 7,
+    "cabeza_lateral": 4,
+    "cabeza_inclinar": 5,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.8,
+    "balanceo": 0.4,
+    "balanceo_periodo": 6.5
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 12,
+    "mantener": 64,
+    "salida": 22,
+    "anticipacion": 0.04,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "sospechoso_M": {
+   "gesto": "sospechoso",
+   "familia": "otras",
+   "estilo": "M",
+   "titulo": "Sospechoso (masculina)",
+   "nota": "Se aparta: el torso gira hacia un lado y se echa un poco atras, la mano derecha queda cerca del pecho y la cabeza gira hacia el lado contrario con la barbilla baja, mirando de reojo.",
+   "referencia": "Segun SPSP, Matsumoto no confirma que mirar de lado sea señal fiable de mentira; aqui la lectura es de sospecha y atencion, no de engaño. La torsion contraria de cabeza y torso es una decision de animacion.",
+   "fuentes": [
+    "https://spsp.org/news/character-and-context-blog/matsumoto-nonverbal-behavior-cues-deception"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_girar": -6,
+    "torso_lateral": -2,
+    "pecho_abrir": -3,
+    "hombro_adelante": -2,
+    "hombro_subir": 1,
+    "mano_objetivo_R": [
+     -0.28,
+     0.32,
+     -0.35
+    ],
+    "codo_direccion_R": -10,
+    "dedos_cerrar_R": 0.2,
+    "dedos_cerrar_L": 0.15,
+    "cabeza_girar": 10,
+    "cabeza_inclinar": 4,
+    "cabeza_lateral": 3
+   },
+   "vida": {
+    "respiracion": 1.0,
+    "respiracion_periodo": 3.6,
+    "balanceo": 0.4,
+    "balanceo_periodo": 7
+   },
+   "tiempos": {
+    "entrada": 18,
+    "asentar": 12,
+    "mantener": 64,
+    "salida": 22,
+    "anticipacion": 0.05,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "suave",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "terror_F": {
+   "gesto": "terror",
+   "familia": "miedo",
+   "estilo": "F",
+   "titulo": "Terror (estilo femenino)",
+   "nota": "Se echa atrás y se pliega sobre sí misma: la espalda se encorva, el pecho se hunde, una mano queda junto a la barbilla con los dedos cerrados y la otra se aprieta al pecho. La cabeza se baja y se gira de lado, los hombros suben y la respiración es entrecortada.",
+   "referencia": "Las fuentes de animación indican que en el susto las manos suben hacia la boca o la cara como protección. La forma de plegarse y la mano junto a la barbilla son decisiones de diseño para distinguirla del escudo de M.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ],
+   "params": {
+    "torso_inclinar": -3,
+    "torso_encorvar": 9,
+    "torso_lateral": 4,
+    "pecho_abrir": -10,
+    "hombro_subir": 14,
+    "hombro_adelante": 10,
+    "codo_direccion": -6,
+    "mano_objetivo_R": [
+     -0.22,
+     0.24,
+     -0.02
+    ],
+    "mano_objetivo_L": [
+     -0.15,
+     0.3,
+     -0.2
+    ],
+    "muneca_doblar": 14,
+    "dedos_cerrar": 0.6,
+    "pulgar_cerrar": 0.4,
+    "cabeza_inclinar": 10,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -8,
+    "cuello_adelantar": -8
+   },
+   "vida": {
+    "respiracion": 2.0,
+    "respiracion_periodo": 1.3,
+    "temblor": 0.6,
+    "temblor_frecuencia": 10
+   },
+   "tiempos": {
+    "entrada": 6,
+    "asentar": 12,
+    "mantener": 36,
+    "salida": 16,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.12,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 1.2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "terror_M": {
+   "gesto": "terror",
+   "familia": "miedo",
+   "estilo": "M",
+   "titulo": "Terror (estilo masculino)",
+   "nota": "Salto atrás con escudo: el torso se echa hacia atrás y se gira, los hombros saltan arriba y los antebrazos se levantan delante de la cara con las palmas fuera y los codos afuera. La cabeza se hunde y se vuelve, el cuello se recoge, el temblor es fuerte y la respiración sale a golpes.",
+   "referencia": "Las fuentes de animación describen el terror súbito con señales corporales y faciales extremas, frente al miedo lento con gestos contenidos. El escudo con los antebrazos es decisión de diseño sobre esa base.",
+   "fuentes": [
+    "https://animationmentor.com/blog/the-6-basic-emotions-animating-fear-with-keith-sintay"
+   ],
+   "params": {
+    "torso_inclinar": -11,
+    "torso_girar": -10,
+    "pecho_abrir": -6,
+    "hombro_subir": 14,
+    "hombro_adelante": 6,
+    "codo_direccion": 12,
+    "mano_objetivo_L": [
+     -0.12,
+     0.42,
+     -0.05
+    ],
+    "mano_objetivo_R": [
+     -0.2,
+     0.4,
+     -0.06
+    ],
+    "muneca_doblar": -25,
+    "dedos_cerrar": 0.1,
+    "dedos_abrir": 0.6,
+    "cabeza_inclinar": 6,
+    "cabeza_girar": -14,
+    "cabeza_lateral": -3,
+    "cuello_adelantar": -10
+   },
+   "pico": {
+    "torso_inclinar": -12,
+    "hombro_subir": 15,
+    "cabeza_girar": -16,
+    "cuello_adelantar": -12
+   },
+   "vida": {
+    "respiracion": 2.4,
+    "respiracion_periodo": 1.2,
+    "temblor": 0.7,
+    "temblor_frecuencia": 12
+   },
+   "tiempos": {
+    "entrada": 4,
+    "asentar": 8,
+    "mantener": 36,
+    "salida": 14,
+    "anticipacion": 0.04,
+    "sobrepaso": 0.3,
+    "curva_entrada": "rapida",
+    "curva_salida": "suave",
+    "desfase": 0.5,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  },
+  "triste_F": {
+   "gesto": "triste",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Triste (femenina)",
+   "nota": "Se recoge hacia dentro: hombros adelante y algo subidos, manos que se buscan abajo delante del cuerpo, cabeza baja y ladeada.",
+   "params": {
+    "torso_inclinar": 4,
+    "torso_encorvar": 10,
+    "pecho_abrir": -7,
+    "torso_girar": -3,
+    "hombro_subir": 3,
+    "hombro_adelante": 12,
+    "mano_objetivo_L": [
+     -0.32,
+     0.3,
+     -0.62
+    ],
+    "mano_objetivo_R": [
+     -0.36,
+     0.33,
+     -0.58
+    ],
+    "codo_direccion": -5,
+    "muneca_doblar": 10,
+    "dedos_cerrar": 0.4,
+    "pulgar_cerrar": 0.35,
+    "cabeza_inclinar": 16,
+    "cabeza_lateral": 8,
+    "cabeza_girar": -5,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 1.6,
+    "respiracion_periodo": 4.4,
+    "balanceo": 0.6,
+    "balanceo_periodo": 7.0
+   },
+   "tiempos": {
+    "entrada": 28,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Coulson (2004) respalda la lectura de torso y cabeza caídos como tristeza. Cousin y Schmid Mast (2013, citados en la búsqueda) reportan que las mujeres expresan más tristeza; aquí esa diferencia se traduce en ritmo y en las manos, no en una postura distinta de la emoción.",
+   "fuentes": [
+    "https://ueaeprints.uea.ac.uk/id/eprint/73537/",
+    "https://trudy.ruslang.ru/en/node/1749"
+   ]
+  },
+  "triste_M": {
+   "gesto": "triste",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Triste (masculina)",
+   "nota": "Peso muerto: pecho hundido, hombros caidos y adelante, brazos colgando pesados, cabeza baja. Suspiros lentos.",
+   "params": {
+    "torso_inclinar": 5,
+    "torso_encorvar": 12,
+    "pecho_abrir": -8,
+    "hombro_subir": -3,
+    "hombro_adelante": 9,
+    "brazo_abrir": -3,
+    "brazo_adelantar": 3,
+    "brazo_girar": 10,
+    "codo": 10,
+    "antebrazo_girar": 15,
+    "muneca_doblar": 8,
+    "dedos_cerrar": 0.35,
+    "pulgar_cerrar": 0.3,
+    "cabeza_inclinar": 20,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -6,
+    "cuello_adelantar": 4
+   },
+   "vida": {
+    "respiracion": 1.8,
+    "respiracion_periodo": 4.6,
+    "balanceo": 0.5,
+    "balanceo_periodo": 8.0
+   },
+   "tiempos": {
+    "entrada": 26,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 22,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "claude",
+   "referencia": "Coulson (2004) logra acuerdos por encima del 90 % para algunas posturas de tristeza, con el torso y la cabeza caídos. Las guías de animación ponen la postura general y la cabeza como señal principal de la emoción, por encima de la cara en plano lejano.",
+   "fuentes": [
+    "https://ueaeprints.uea.ac.uk/id/eprint/73537/",
+    "https://mocaponline.com/blogs/mocap-news/emotion-animation-games-guide"
+   ]
+  },
+  "triste_boca_abierta_F": {
+   "gesto": "triste_boca_abierta",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Triste con boca abierta (femenina)",
+   "nota": "Llanto abierto: las manos suben al pecho, los hombros se encogen y bajan con cada sollozo y el cuerpo se mece suavemente. La cabeza va baja y ladeada.",
+   "referencia": "Las guías de animación asocian la cabeza gacha y los hombros caídos con tristeza o derrota, y Coulson (2004) muestra que la tristeza se reconoce bien en posturas caídas. Con la boca abierta, el cuerpo se mece en vez de tensarse; eso es criterio de animación más que dato medido.",
+   "fuentes": [
+    "https://mocaponline.com/blogs/mocap-news/emotion-animation-games-guide",
+    "https://ueaeprints.uea.ac.uk/id/eprint/73537/"
+   ],
+   "params": {
+    "torso_inclinar": 5,
+    "torso_encorvar": 7,
+    "pecho_abrir": -6,
+    "torso_lateral": 2,
+    "hombro_subir": 5,
+    "hombro_adelante": 9,
+    "mano_objetivo_L": [
+     -0.3,
+     0.32,
+     -0.12
+    ],
+    "mano_objetivo_R": [
+     -0.32,
+     0.34,
+     -0.1
+    ],
+    "codo_direccion": -6,
+    "muneca_doblar": 10,
+    "dedos_cerrar": 0.4,
+    "pulgar_cerrar": 0.3,
+    "cabeza_inclinar": 14,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -4,
+    "cuello_adelantar": 2
+   },
+   "vida": {
+    "respiracion": 2.2,
+    "respiracion_periodo": 2.0,
+    "balanceo": 1.0,
+    "balanceo_periodo": 5.0
+   },
+   "gesto_repetido": {
+    "params": {
+     "hombro_subir": 2,
+     "hombro_adelante": 2
+    },
+    "periodo": 2.4,
+    "forma": "seno"
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 12,
+    "mantener": 72,
+    "salida": 20,
+    "anticipacion": 0.03,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 2.5,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "triste_boca_abierta_M": {
+   "gesto": "triste_boca_abierta",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Triste con boca abierta (masculina)",
+   "nota": "Llanto que se aguanta: el torso empuja hacia delante en cada sollozo, los puños quedan apretados junto a los muslos y los hombros suben a golpes. No se lleva las manos a la cara.",
+   "referencia": "No encontré estudios sobre el cuerpo durante el llanto. Las guías de animación dicen que los hombros revelan sentimientos que el personaje intenta ocultar, lo que encaja con un llanto contenido; los sollozos en pulsos son criterio de animación.",
+   "fuentes": [
+    "https://www.animationmentor.com/?p=99675",
+    "https://www.rmcad.edu/?p=86872"
+   ],
+   "params": {
+    "torso_inclinar": 6,
+    "torso_encorvar": 9,
+    "pecho_abrir": -5,
+    "hombro_subir": 4,
+    "hombro_adelante": 7,
+    "brazo_abrir": 4,
+    "brazo_adelantar": 6,
+    "brazo_girar": 6,
+    "codo": 22,
+    "antebrazo_girar": 8,
+    "muneca_doblar": 4,
+    "dedos_cerrar": 0.7,
+    "pulgar_cerrar": 0.6,
+    "cabeza_inclinar": 16,
+    "cabeza_lateral": -2,
+    "cabeza_girar": -3,
+    "cuello_adelantar": 4
+   },
+   "vida": {
+    "respiracion": 2.4,
+    "respiracion_periodo": 1.8,
+    "temblor": 0.2,
+    "temblor_frecuencia": 6,
+    "balanceo": 0.4,
+    "balanceo_periodo": 6.0
+   },
+   "gesto_repetido": {
+    "params": {
+     "torso_encorvar": 4,
+     "hombro_subir": 3,
+     "cabeza_inclinar": 3
+    },
+    "periodo": 2.0,
+    "forma": "golpe"
+   },
+   "tiempos": {
+    "entrada": 16,
+    "asentar": 10,
+    "mantener": 72,
+    "salida": 20,
+    "anticipacion": 0.05,
+    "sobrepaso": 0,
+    "curva_entrada": "suave",
+    "curva_salida": "lenta",
+    "desfase": 2,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "verguenza_F": {
+   "gesto": "verguenza",
+   "familia": "tristeza",
+   "estilo": "F",
+   "titulo": "Vergüenza (femenina)",
+   "nota": "Se abraza por delante con los antebrazos cruzados a la altura del pecho y la cabeza cae hacia abajo y hacia un lado. Se encoge sobre sí misma y casi no se mueve, con un temblor muy leve.",
+   "referencia": "La vergüenza se asocia a un cuerpo colapsado y cabeza baja, y el autocontacto aparece en las descripciones de conducta, aunque no hay un patrón único (Keltner, 1995). Un estudio de 2022 con gestos encontró diferencias de género pequeñas, así que la versión femenina se separa por los brazos cruzados y no por la emoción.",
+   "fuentes": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7192454/",
+    "https://greatergood.berkeley.edu/dacherkeltner/docs/keltner.embarrassment.jpsp.1995.pdf",
+    "https://trudy.ruslang.ru/en/node/1749"
+   ],
+   "params": {
+    "torso_inclinar": 6,
+    "torso_encorvar": 12,
+    "pecho_abrir": -10,
+    "torso_girar": -3,
+    "hombro_subir": 8,
+    "hombro_adelante": 12,
+    "mano_objetivo_L": [
+     -0.4,
+     0.42,
+     -0.3
+    ],
+    "mano_objetivo_R": [
+     -0.38,
+     0.4,
+     -0.12
+    ],
+    "codo_direccion": -6,
+    "muneca_doblar": 12,
+    "dedos_cerrar": 0.45,
+    "pulgar_cerrar": 0.35,
+    "cabeza_inclinar": 20,
+    "cabeza_lateral": 6,
+    "cabeza_girar": -10,
+    "cuello_adelantar": 5
+   },
+   "vida": {
+    "respiracion": 1.4,
+    "respiracion_periodo": 4.2,
+    "balanceo": 0.4,
+    "balanceo_periodo": 6.5,
+    "temblor": 0.1,
+    "temblor_frecuencia": 5
+   },
+   "tiempos": {
+    "entrada": 20,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 24,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "cabeza_primero"
+   },
+   "fuente": "investigacion"
+  },
+  "verguenza_M": {
+   "gesto": "verguenza",
+   "familia": "tristeza",
+   "estilo": "M",
+   "titulo": "Vergüenza (masculina)",
+   "nota": "Se hunde y se gira para apartarse: el brazo izquierdo se esconde a la espalda, el derecho cuelga pesado y la cabeza baja mirando al suelo. Casi no mueve el cuerpo, como quien quiere desaparecer.",
+   "referencia": "Los estudios de vergüenza describen un cuerpo colapsado, hombros hacia dentro y cabeza baja, con evitación de la mirada; los resultados sobre la mirada son mixtos y la vergüenza se confunde a menudo con la tristeza. El brazo escondido es lo que diferencia este gesto de la tristeza.",
+   "fuentes": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7192454/",
+    "https://doaj.org/article/cf35f851b3324890a57f773f5cade685"
+   ],
+   "params": {
+    "torso_inclinar": 6,
+    "torso_girar": -7,
+    "torso_encorvar": 13,
+    "pecho_abrir": -12,
+    "hombro_subir": -2,
+    "hombro_adelante": 13,
+    "pulgar_cerrar_R": 0.4,
+    "cabeza_inclinar": 20,
+    "cabeza_lateral": -4,
+    "cabeza_girar": -8,
+    "cuello_adelantar": 4,
+    "mano_objetivo_L": [
+     -0.3,
+     0.3,
+     -0.65
+    ],
+    "mano_objetivo_R": [
+     -0.32,
+     0.32,
+     -0.62
+    ],
+    "codo_direccion": 0,
+    "dedos_cerrar": 0.4
+   },
+   "vida": {
+    "respiracion": 0.8,
+    "respiracion_periodo": 4.0,
+    "balanceo": 0.3,
+    "balanceo_periodo": 7.0
+   },
+   "tiempos": {
+    "entrada": 22,
+    "asentar": 12,
+    "mantener": 60,
+    "salida": 26,
+    "anticipacion": 0,
+    "sobrepaso": 0,
+    "curva_entrada": "lenta",
+    "curva_salida": "lenta",
+    "desfase": 3,
+    "orden": "torso_primero"
+   },
+   "fuente": "investigacion",
+   "revisado": "corregido tras hoja 2026-10-22"
+  }
+ },
+ "vinculos": {
+  "nota": "Por defecto cada gesto facial <g> activa la expresion corporal <g>_<estilo>. Aqui solo las excepciones.",
+  "neutro": "neutra",
+  "ojos_cerrados": "neutra"
+ }
+}

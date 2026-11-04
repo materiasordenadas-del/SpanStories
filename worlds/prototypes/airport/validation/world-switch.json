@@ -1,0 +1,92 @@
+{
+  "measurements": [
+    {
+      "phase": "arrival-shell",
+      "at": "2026-09-23T01:12:17.594Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "render": {
+        "frame": 8,
+        "calls": 5,
+        "triangles": 156,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "A00",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 1,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "departure-restored",
+      "at": "2026-09-23T01:12:17.628Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "render": {
+        "frame": 11,
+        "calls": 7,
+        "triangles": 408,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "PREFETCHED",
+          "loaded": false
+        },
+        {
+          "id": "D05",
+          "state": "UNLOADED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    }
+  ],
+  "scaleReport": null
+}

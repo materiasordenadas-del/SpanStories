@@ -1,0 +1,23 @@
+{
+  "id": "796cfc3d-40ab-44c4-ae15-d7bc239510db",
+  "timestamp": "2026-10-18T23:52:07.951054+00:00",
+  "status": "fallo",
+  "character": "Lian",
+  "topic": "Suavizado excesivo de cierre",
+  "problem": "Forzar una banda muy fina y18 iteraciones de suavizado produce puntas y penetra el iris.",
+  "action": "Descartar variante renders38-40; conservar grosor, transporte radial y6 iteraciones. Limitar target de piel fuera del radio ocular con margen para cuerdas poligonales.",
+  "result": "No usar la variante fallida como referencia. El cierre posterior se valida por separado, no por residual Newton solamente.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\38_contorno_fino_frente.png",
+      "sha256": "5567c512638fe02b3bc20ac195b1aaccdf514623f59dc0f51f4d1c6bd757058f"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\47_QA_final_piel.json",
+      "sha256": "26bfd411bbf8e4761edfd6f5b6198dc919ef43858d76c4044baa7112f1fa425c"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.5.2",
+  "plugin_version": "0.5.2"
+}

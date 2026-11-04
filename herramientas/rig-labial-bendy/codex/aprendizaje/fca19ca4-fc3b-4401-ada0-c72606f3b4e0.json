@@ -1,0 +1,27 @@
+{
+  "id": "fca19ca4-fc3b-4401-ada0-c72606f3b4e0",
+  "timestamp": "2026-10-28T17:08:52.232718+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "parpados",
+  "problem": "Reparto de cierre y tension inferior acoplados",
+  "action": "Reparto vertical general 85/15, curva suave y tension independiente limitada a la envolvente; validacion y respaldo transaccional",
+  "result": "Tom aproximadamente 84/16 evaluado; cierre sin globo visible; sin cambios en mejillas, Basis ni copia anterior. Pruebas geometricas en escalas, asimetrias y traslaciones; otros personajes completos no verificados.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\RESULTADO_0829.md",
+      "sha256": "1c62266b705011bc02809872b2f66f768fe565cee92196190f6efab2ed871804"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\verificacion_0829.json",
+      "sha256": "6a5d7900e8026a30cb4563a651c48ef1362f1abd4d4271634025937b04775faa"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\aplicado_0829.json",
+      "sha256": "b41215ea6cad7c30ff4bb644dca4f197c60ac5fbce01db3f1505151407bc90de"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.29",
+  "plugin_version": "0.8.29"
+}

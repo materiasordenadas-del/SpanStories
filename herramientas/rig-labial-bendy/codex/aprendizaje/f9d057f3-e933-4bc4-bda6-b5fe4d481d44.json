@@ -1,0 +1,19 @@
+{
+  "id": "f9d057f3-e933-4bc4-bda6-b5fe4d481d44",
+  "timestamp": "2026-10-23T02:37:38.053529+00:00",
+  "status": "propuesta",
+  "character": "Carlitos",
+  "topic": "parpados",
+  "problem": "Comprobar si el rig ocular cambia la malla en reposo",
+  "action": "Retirar 183 caras de pestañas UV; separar globos originales sin mover puntos; crear solo seis keys oculares con ARAP2; comparar camara fija y rayos",
+  "result": "Reposo: maximo error de vertices 0 y 0 pixeles distintos en frente y 3/4. Sin rig facial de boca. Cierre total: 0 rayos de 2286 ven cada globo. Revision completa y empaquetado pendientes; Tronchatoro conserva ARAP2 y ensayo monotono rechazado no aplicado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_parpados_20261022\\ESTADO_ACTUAL.md",
+      "sha256": "b3ac606092563c4c6ab4b0f16c9298d325f22c96ba41756ffdea9c7ec2ae789c"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.7.2",
+  "plugin_version": "0.7.2"
+}

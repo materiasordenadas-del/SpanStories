@@ -1,0 +1,14 @@
+{
+  "id": "1d5cf055-df98-408a-8c59-ce727eaf8769",
+  "timestamp": "2026-10-25T21:50:59.975077+00:00",
+  "status": "fallo",
+  "character": "Vale 2",
+  "topic": "parpados",
+  "problem": "Flujo facial completo 0.8.10 termina con cierre incompleto e inversiones en Vale 2 de 26861 vertices",
+  "action": "209 caras de pestanas superiores retiradas tras revision UV; flujo completo aplicado. Ruta aislada probada con piel 1066 y 45 islas inferiores revisadas; solape 0.015, 0.025, 0.03 y 0.04",
+  "result": "Rig y FACS aplicados; cierre original 0.37 por ciento visible, hasta 10 inversiones. Ruta UV rechazada por cierre residual o cruces; no escribio keys. Sin guardar blend.",
+  "evidence": [],
+  "supersedes": null,
+  "addon_version": "0.8.2",
+  "plugin_version": "0.8.2"
+}

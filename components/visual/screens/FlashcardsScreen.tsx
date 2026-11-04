@@ -19,6 +19,7 @@ import {
   type FlashcardSession,
   type PracticeOccurrence,
 } from "@/lib/adapters/practice";
+import { PERSONAL_FLASHCARD_KEY_PREFIX, buildPersonalFlashcardDeck, usePersonalPracticeItems } from "@/lib/adapters/personal-practice";
 import styles from "./baseline.module.css";
 import cards from "./flashcards.module.css";
 import { recordKnowledge, useKnowledge } from "@/lib/adapters/lexical-knowledge";
@@ -124,8 +125,14 @@ function OwnedFlashcardsScreen({ occurrences }: { occurrences: readonly Practice
   const { owner, error } = useKnowledge();
   const sessionId = useRef<string | null>(null);
   const recordedAttempts = useRef(new Set<number>());
-  const { ready, items } = usePracticeItems();
-  const deck = useMemo(() => buildFlashcardDeck(items, occurrences), [items, occurrences]);
+  const { ready: readyPractice, items } = usePracticeItems();
+  const { ready: personalReady, items: personalItems } = usePersonalPracticeItems();
+  // Personal cards use their own `PERSONAL:` key namespace — never a real PracticeTargetKey — so recordAttempt
+  // below can tell them apart and skip story-attributed knowledge events for them, even when the item resolved
+  // to a real curriculum Sense: it was typed in notes, not encountered in a Story.
+  const personalDeck = useMemo(() => buildPersonalFlashcardDeck(personalItems, occurrences) as unknown as readonly Flashcard[], [personalItems, occurrences]);
+  const deck = useMemo(() => [...buildFlashcardDeck(items, occurrences), ...personalDeck], [items, occurrences, personalDeck]);
+  const ready = readyPractice && personalReady;
   // La sesión queda fijada con la primera respuesta: guardar o quitar palabras en otra pestaña no cambia la tarjeta en curso.
   const [started, setStarted] = useState<FlashcardSession | null>(null);
   const [response, setResponse] = useState("");
@@ -153,6 +160,11 @@ function OwnedFlashcardsScreen({ occurrences }: { occurrences: readonly Practice
   const recordAttempt = (answered: FlashcardSession) => {
     const result = currentFlashcardAttempt(answered);
     if (!card || !result || recordedAttempts.current.has(session.index)) return false;
+    if (card.key.startsWith(PERSONAL_FLASHCARD_KEY_PREFIX)) {
+      // Never claim a personal note's word was found in a Story: no knowledge event for its provenance.
+      recordedAttempts.current.add(session.index);
+      return true;
+    }
     const item = items.find(i => practiceTargetKey(i.target) === card.key);
     const candidates = occurrences.filter(o => practiceTargetKey(o.target) === card.key);
     const source = candidates.find(o => o.storyVersionId === item?.savedFrom?.storyVersionId && o.occurrenceId === item.savedFrom.occurrenceId) ?? candidates[0];
@@ -180,7 +192,7 @@ function OwnedFlashcardsScreen({ occurrences }: { occurrences: readonly Practice
 
   let content = null;
   if (ready && session.deck.length === 0) {
-    content = <EmptyDeck savedCount={items.length} />;
+    content = <EmptyDeck savedCount={items.length + personalItems.length} />;
   } else if (ready && session.status === "FINISHED") {
     content = <SessionEnd onRestart={restart} session={session} />;
   } else if (ready && card !== undefined) {

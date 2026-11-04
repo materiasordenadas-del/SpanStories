@@ -1,0 +1,19 @@
+{
+  "name": "rig-labial",
+  "version": "0.8.50",
+  "author": {
+    "name": "Adriel"
+  },
+  "description": "Rig de labios con Bendy Bones (método Vale), ojos, párpados con delineado y 14 gestos para cualquier cara en Blender con el add-on Rig Labial Bendy, paso a paso y con revisión de cerca.",
+  "license": "MIT",
+  "keywords": [
+    "blender",
+    "rigging",
+    "facial-rig",
+    "bendy-bones",
+    "lip-rig",
+    "eyelids",
+    "facs",
+    "tripo"
+  ]
+}

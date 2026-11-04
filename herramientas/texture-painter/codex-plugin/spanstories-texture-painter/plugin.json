@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "spanstories-texture-painter",
+  "version": "0.2.7",
+  "description": "Pintura de personajes en Blender mediante islas UV, capas y exportación PNG/GLB para Three.js, preservando malla y rig.",
+  "author": {"name": "SpanStories"},
+  "license": "GPL-3.0-or-later",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "SpanStories Texture Painter",
+        "shortDescription": "Pintura UV para Blender",
+        "longDescription": "Cuatro herramientas simples para agentes: ayuda, iniciar, pintar una región por nombre y exportar PNG/GLB para Three.js. Los modelos pequeños reutilizan regiones y colores preparados sin interpretar UV ni modificar la malla.",
+        "developerName": "SpanStories",
+        "capabilities": [],
+        "defaultPrompt": "Usa start_painting, copia nombres de regiones y colores y pinta con paint_named_region. Detente si falta un nombre o autorización. Conserva malla, UV y rig; exporta solo si lo solicito."
+      }
+    }
+  }
+}

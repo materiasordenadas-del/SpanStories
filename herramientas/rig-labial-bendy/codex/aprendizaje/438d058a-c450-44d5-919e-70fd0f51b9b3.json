@@ -1,0 +1,23 @@
+{
+  "id": "438d058a-c450-44d5-919e-70fd0f51b9b3",
+  "timestamp": "2026-10-29T19:58:44.833958+00:00",
+  "status": "verificado",
+  "character": "Tom y Pegazo",
+  "topic": "panel_por_personaje_0841",
+  "problem": "Editor bloqueaba el cambio de personaje y los rigs nuevos no preparaban todos los puntos y expresiones",
+  "action": "Addon 0.8.41: sesiones por personaje, preparacion al terminar rig, bordes topologicos para rigs anteriores y conservacion de opciones",
+  "result": "126 canales Pegazo y 144 Tom verificados desde panel, 42 expresiones y miniaturas Pegazo, 51 canales y 71 drivers base validos; 94 objetos con mallas, materiales y keys originales intactos. Sin guardar blend. No corrige defectos visuales previos del rig.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pegazo_rig_20261029\\panel_0841\\verificacion_final.json",
+      "sha256": "aece07d702c6e25d4978c903b14f1c9294cede997039c6f2443c922f0ccb93d5"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pegazo_rig_20261029\\panel_0841\\panel_pegazo.png",
+      "sha256": "1925a4bbbef5d1c737dae0ee68930825ea44e9e7ac7986513947ec4e536dc745"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

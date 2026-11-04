@@ -1,0 +1,27 @@
+{
+  "id": "c537d1c1-2394-4c07-ae38-af35aba70c59",
+  "timestamp": "2026-10-28T20:20:48.041019+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "restauracion_nasal_basis",
+  "problem": "0.8.34 restauraba solo 17 vértices centrales; la transición conservaba hasta 4.84 mm de deformación nasal. La prueba anterior no demostraba la nariz completa.",
+  "action": "0.8.35 delimita puente punta y aletas desde anclas Basis y protege labios y ojos; desactiva correctivas nasales anteriores al recalcular",
+  "result": "Aplicado en Tom: 447 vértices a Basis, 133 de transición, cambio exterior cero, keys previas y canales no nasales intactos. Dos renders de visor inspeccionados: nariz actual frente a Basis. Pruebas de tres escalas y regresión regional aprobadas. Blend no guardado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\verificacion_0835.json",
+      "sha256": "2128b6f9d4312ac7b9e91c67fbf1f30469bb4c29cc74013479517651f69e66bf"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\nariz_0835_visor.png",
+      "sha256": "378290186f40d57378e24ab2776ce3da6b9c8ad61e85702bbcfe85954477cb55"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\nariz_0835_basis.png",
+      "sha256": "b20c8f6f65c70909d8930665171a97d96a3ef8b121753982a9027855627d2046"
+    }
+  ],
+  "supersedes": "fffad734-8924-4e91-940e-c92e5511bfdf",
+  "addon_version": "0.8.35",
+  "plugin_version": "0.8.32"
+}

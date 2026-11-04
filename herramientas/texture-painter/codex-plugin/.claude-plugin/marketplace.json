@@ -1,0 +1,14 @@
+{
+  "owner": {
+    "name": "SpanStories"
+  },
+  "plugins": [
+    {
+      "description": "Pintura UV en Blender y exportación para Three.js",
+      "version": "0.1.24",
+      "name": "spanstories-texture-painter",
+      "source": "./spanstories-texture-painter"
+    }
+  ],
+  "name": "spanstories-texture-painter-local"
+}

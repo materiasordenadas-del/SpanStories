@@ -1,0 +1,27 @@
+{
+  "id": "3dc83bd9-18a2-4039-ad1b-0ae2f39b0c98",
+  "timestamp": "2026-10-27T04:39:37.469992+00:00",
+  "status": "verificado",
+  "character": "Tom Holland detallado",
+  "topic": "UV y rig facial supervisado 0.8.10",
+  "problem": "Sin UV y combinación de FACS con correctivas de párpados por superficie UV; las formas de sonrisa y ceño interferían con el dominio ocular.",
+  "action": "UV continuas en piel, marcadores asimétricos revisados, cierre 0.45 sin solape angular, drivers hats conservados y dominio TC ocular protegido de las otras formas. Ajuste de cejas, dientes y lengua; contención de bolsa ampliada a todos los visemas.",
+  "result": "325 poses y 891 miradas por ojo y 36 conjuntas aceptadas; 198 poses instaladas y 12 combinaciones FACS reales sin fallos; cierre frontal y 3/4 sin globo visible. Cavidad contenida en 65 poses. Cuerpo y cabello con desplazamiento 0 mm. No establece garantía para combinaciones arbitrarias o exportación.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\Rig_Tom_Holland_revision\\06_parpados_resultado.json",
+      "sha256": "1004494995cfb3afd237927121c3901713eba38309a82ca1b64baec655d366b5"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\Rig_Tom_Holland_revision\\14_verificacion_final.json",
+      "sha256": "47c905aed7f1bda647fbde477d22cb57107b07a2d214dcf6d8b6fddc97401d5e"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\Rig_Tom_Holland_revision\\16_bolsa_visemas.json",
+      "sha256": "0c969774ea3280a92758b0ec05d2eaac80b966b86c18a4434096629e39630435"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.2",
+  "plugin_version": "0.8.2"
+}

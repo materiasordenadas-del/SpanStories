@@ -1,0 +1,27 @@
+{
+  "id": "05030165-5d8f-4a8f-8184-99ec37764b94",
+  "timestamp": "2026-10-18T23:52:07.966018+00:00",
+  "status": "verificado",
+  "character": "Lian",
+  "topic": "Prueba piel sin pestanas y limites de contacto",
+  "problem": "El borde visual de pestanas ocultaba una abertura de piel al100% de cierre.",
+  "action": "Raycast sobre piel excluyendo caras UV de pestanas, restriccion de raices y transporte radial, Newton amortiguado y margen ocular0.5mm escalado.",
+  "result": "En cierre100% las muestras visibles son0/931R0/928L frontal y0/787R0/903L3/4. No certifica sellado3D: medir aun informa separacionL1.397mmR0.943mm, con irregularidades de cantos pendientes.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\47_QA_final_piel.json",
+      "sha256": "26bfd411bbf8e4761edfd6f5b6198dc919ef43858d76c4044baa7112f1fa425c"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\46_correctiva_margen_poligonos.json",
+      "sha256": "712879d755a9049cd2c6bc5008018dc4ea03144cd8d1e127d6105a2d046f64e3"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\FINAL_cierre_100_tres_cuartos.png",
+      "sha256": "f8db8dad9f4c191626c24e2f434556b6254bf017c25d5924f2f9b2af82448a6b"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.5.2",
+  "plugin_version": "0.5.2"
+}

@@ -88,3 +88,32 @@ export type { PracticeItemRepository } from "./repository/practice-item-reposito
 export { InMemoryPracticeItemRepository } from "./repository/in-memory-practice-item-repository.ts";
 export type { StorageLike } from "./repository/local-storage-practice-item-repository.ts";
 export { LocalStoragePracticeItemRepository, PRACTICE_STORAGE_KEY } from "./repository/local-storage-practice-item-repository.ts";
+export { FirestorePracticeItemRepository } from "./repository/firestore-practice-item-repository.ts";
+
+/**
+ * PersonalPracticeItem: vocabulary typed by hand in the learner's notes, not
+ * seen in any Story. Distinct identity and repository from PracticeItem
+ * (see `domain/personal-item.ts`) — merged into Flashcards, kept out of
+ * StoryOccurrence/curriculum entirely.
+ */
+export type {
+  PersonalPracticeAddedBy,
+  PersonalPracticeItem,
+  PersonalPracticeItemId,
+  PersonalPracticeItemType,
+  PersonalPracticeResolutionStatus,
+  PersonalPracticeSource,
+} from "./domain/personal-item.ts";
+export { createPersonalPracticeItem, normalizeSpaces, withResolution, withUpdatedSurface } from "./domain/personal-item.ts";
+
+export type { PersonalPracticeSyncResult } from "./engine/personal-practice-notes.ts";
+export { syncPersonalPracticeNotes } from "./engine/personal-practice-notes.ts";
+
+export type { PersonalFlashcard } from "./domain/personal-flashcard.ts";
+export { PERSONAL_FLASHCARD_KEY_PREFIX, buildPersonalFlashcard, buildPersonalFlashcardDeck } from "./domain/personal-flashcard.ts";
+
+export type { PersonalPracticeItemRepository } from "./repository/personal-practice-item-repository.ts";
+export { InMemoryPersonalPracticeItemRepository } from "./repository/in-memory-personal-practice-item-repository.ts";
+export { LocalStoragePersonalPracticeItemRepository, PERSONAL_PRACTICE_STORAGE_KEY } from "./repository/local-storage-personal-practice-item-repository.ts";
+export { personalPracticeStorageKey } from "./repository/personal-practice-storage-key.ts";
+export { FirestorePersonalPracticeItemRepository } from "./repository/firestore-personal-practice-item-repository.ts";

@@ -1,0 +1,23 @@
+{
+  "id": "63c1209e-6412-43b1-af88-5864bdce8d83",
+  "timestamp": "2026-10-18T23:52:07.935424+00:00",
+  "status": "verificado",
+  "character": "Lian",
+  "topic": "UV antes de rig y regiones",
+  "problem": "Un material contiene piezas faciales en islas UV; inferir por proximidad mezclo pestanas con piel.",
+  "action": "Usar inventario UV y semillas aprobadas: cejas1018/3561, pestanas850/3317. Persistir FACE IDs y color de esquina sin modificar UV ni Basis.",
+  "result": "Usuario aprobo cejas376 caras y pestanas148 caras. Basis original se conserva. Cejas excluidas de DEF-parp y zona correctiva: movimiento de blink0mm.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\FINAL_cierre_00.png",
+      "sha256": "0f4c1f8e394f66df552d3caf04cac82cdfb82b78cbca601d63b09f241ab185ae"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Nueva carpeta\\RLB_revision\\Lian\\45_verificacion_cinco_posiciones.json",
+      "sha256": "99629d9d7e1f977f96e94a7aaebf09ab5f094384951d5c526e207fce48833e1a"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.5.2",
+  "plugin_version": "0.5.2"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "62fb872f-12fe-4e66-9997-e9c5de744d61",
+  "timestamp": "2026-10-18T22:19:25.119122+00:00",
+  "status": "verificado",
+  "character": "complemento",
+  "topic": "version",
+  "problem": "ZIP 0.4.1 anterior a la fuente local",
+  "action": "Comparar manifiesto Blender y copia incluida por SHA-256",
+  "result": "Fuente local 0.5.0; 23 archivos coinciden. Verificación estática, sin validar deformación en Blender.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\plugins\\rig-labial-codex\\assets\\provenance.json",
+      "sha256": "9b28664095ef3c393e9e2bc070c51eaf301dc78e6f40837a3cf027411b9a2260"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\plugins\\rig-labial-codex\\assets\\rig_labial_bendy\\blender_manifest.toml",
+      "sha256": "b9ac867850383cf2cbf809603683e976ecac49bd07d99eb6bae3c65edda5fdfa"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.5.0",
+  "plugin_version": "0.5.0"
+}

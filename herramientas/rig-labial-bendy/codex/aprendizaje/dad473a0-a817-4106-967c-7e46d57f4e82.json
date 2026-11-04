@@ -1,0 +1,19 @@
+{
+  "id": "dad473a0-a817-4106-967c-7e46d57f4e82",
+  "timestamp": "2026-10-27T14:09:55.579759+00:00",
+  "status": "verificado",
+  "character": "Tom Holland y tres bocas sinteticas",
+  "topic": "editor_labios_horizontal",
+  "problem": "Los puntos labiales no tenian movimiento horizontal",
+  "action": "Anadir un canal X por punto usando su mascara vertical; reflejar el signo al enlazar, conservar el centro y ofrecer deslizador Izquierda/Derecha",
+  "result": "14 canales nuevos en Tom; desplazamiento visible de aproximadamente 3 px en ambos sentidos; espejo con simetria y pareja inmovil sin ella; deslizador comprobado; keys previas y expresion conservadas; tres regresiones sinteticas pasaron; blend sin guardar",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\editor_labios_0811\\horizontal_0814.json",
+      "sha256": "527c8794f6003aa660d6ace1bef9c9c18f394fe56382f9bd52eca3b9f5c5a033"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.14",
+  "plugin_version": "0.8.14"
+}

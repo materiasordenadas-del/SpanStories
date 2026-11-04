@@ -1,0 +1,35 @@
+{
+  "id": "3dca2011-f5ea-42f6-aca2-3b478a16f77a",
+  "timestamp": "2026-10-23T14:24:18.750113+00:00",
+  "status": "verificado",
+  "character": "Tronchatoro y cuatro superficies sinteticas",
+  "topic": "parpados aislados 0.7.5: generacion sin alteracion estructural y movimiento seguro",
+  "problem": "Cadenas aproximadas fijaban filas adicionales, colapsaban triangulos y dejaban rendijas; interpolacion y comprobacion por vertices eran insuficientes",
+  "action": "Borde real de abertura, contacto escalonado, trayectoria efectiva unica, restricciones geometricas y colisiones de caras, validacion previa y drivers cortos; actualizacion e instalacion 0.7.5",
+  "result": "Cinco geometrías probadas; 325 controles y 891 miradas por ojo y 36 pares por generacion, 37 estados de drivers reales, 1386 combinaciones independientes y 198 poses de medicion sin fallos; cierre frontal y lateral sin ojo visible; Basis topologia UV normales y otros 50 objetos preservados; Blender Codex y ZIP coinciden",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_definitiva_parpados_20261023\\INFORME_CORRECCION_COMPLEMENTO_075.md",
+      "sha256": "06cdfc22f0273d8dbb6ebf6f2f879682cd1edc017f488e75c4be706054b7fe13"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_definitiva_parpados_20261023\\auditoria_movimientos_075.json",
+      "sha256": "7e0414b746c4eed4b0ba305c13c73bd885323df9914ffbdd35b3527b527d7714"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_definitiva_parpados_20261023\\estado_final_sesion_075.json",
+      "sha256": "6fdbc6a59e8284add811e9cc42bdc1c6246c5d988ebd46a15a00048b9adb861c"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_definitiva_parpados_20261023\\final_075_frente_cerrado.png",
+      "sha256": "8b76513e392af2fc1d5ccaef4be9de8b8bc06dae3d017b6e4bc16b9642489455"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\correccion_definitiva_parpados_20261023\\verificacion_instalacion_075.json",
+      "sha256": "ec834e70d38f55e3ff58f352040dac39a230cbae13d82d1e5f0333454f0dcebb"
+    }
+  ],
+  "supersedes": "fa0ce174-6246-48cc-a81d-7d033cf2d623",
+  "addon_version": "0.7.5",
+  "plugin_version": "0.7.5"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "be17c7d6-8873-4095-9e7d-40060a67b571",
+  "timestamp": "2026-10-31T17:46:30.668762+00:00",
+  "status": "fallo",
+  "character": "Hama",
+  "topic": "parpados",
+  "problem": "preparar_parpados elegia el lazo de 16 del medio globo suelto y fallaba con max() vacio",
+  "action": "0.8.47: lazo acotado por ambos lados se descarta, tubo tras membrana se descarta e islas dentro del lazo se borran",
+  "result": "Hama con lazo 25 de 24,8 mm, 96 caras sueltas quitadas por ojo; comprobado con medidas y vista frontal, sin rig ni parpadeo",
+  "evidence": [],
+  "supersedes": null,
+  "addon_version": "0.8.47",
+  "plugin_version": "0.8.47"
+}

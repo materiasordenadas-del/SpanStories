@@ -1,0 +1,23 @@
+{
+  "id": "4ed0bfa8-18f2-4f67-96a4-ba90c2e41983",
+  "timestamp": "2026-10-29T13:29:58.854747+00:00",
+  "status": "verificado",
+  "character": "Pegazo",
+  "topic": "orientacion_ojos",
+  "problem": "Iris inclinado hacia abajo unos 20 grados y globo alto; encaje inferior hundido",
+  "action": "Giro X de -19.14/-19.77 grados y recentrado ocular conservando la superficie superior medida. Baseline del editor actualizado, tamano del usuario 0.9336493 conservado.",
+  "result": "Capturas frontal, ambos tres cuartos y superposicion revisadas. Parte inferior adelantada 4.09/5.25 mm. Piel intacta y controles conservan el encaje. Revision visual del usuario pendiente; blend sin guardar.",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a185b9-2468-7d50-ac81-137b761bde5c\\orientacion_pegazo\\verificacion.json",
+      "sha256": "f5ad5d0c97d6591459c353ceff6c189ca13c856bfe19c516105dd544301bef63"
+    },
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a185b9-2468-7d50-ac81-137b761bde5c\\orientacion_pegazo\\frontal.png",
+      "sha256": "6a8df26d5b0a9a1b2b6fbacb64dda574a515160ee1f34e8092c9e631b1458b95"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

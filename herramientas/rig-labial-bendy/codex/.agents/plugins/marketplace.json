@@ -1,0 +1,10 @@
+{
+  "name": "rig-labial-codex-local",
+  "interface": {"displayName": "Rig Labial Codex local"},
+  "plugins": [{
+    "name": "rig-labial-codex",
+    "source": {"source": "local", "path": "./plugins/rig-labial-codex"},
+    "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+    "category": "Design"
+  }]
+}

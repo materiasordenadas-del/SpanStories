@@ -1,0 +1,23 @@
+{
+  "id": "5d5804d0-9c40-4144-b59d-1b22f14301c7",
+  "timestamp": "2026-10-28T21:33:15.387650+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "miniaturas",
+  "problem": "Librería facial con miniaturas anteriores a los ajustes actuales",
+  "action": "Renderizar las 42 acciones existentes y actualizar sus previews sin regenerar los valores de las expresiones; incluir piezas vinculadas por relación, no solo por prefijo de nombre",
+  "result": "42 miniaturas de 256x256 actualizadas, sin errores; valores de todas las acciones conservados. Revisadas visualmente sonrisa leve y dolor fuerte. Pose restaurada tras cada render. Blend no guardado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Tom Holland - cabeza detallada y cuerpo\\miniaturas\\actualizacion_20261028.json",
+      "sha256": "9f0ee7716726ea3fb677ea69a3adab3c455931d89d7420955f55a94e68109e58"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Tom Holland - cabeza detallada y cuerpo\\miniaturas\\dolor_fuerte.png",
+      "sha256": "3b53b2d8b2f3df3f23a25ddcba3d05c0aca1fac794e9d699bc416205c7770495"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.35",
+  "plugin_version": "0.8.32"
+}

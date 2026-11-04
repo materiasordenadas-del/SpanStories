@@ -1,0 +1,23 @@
+{
+  "id": "49e3867f-f53e-451a-9f20-2d2c81b5bc4d",
+  "timestamp": "2026-10-29T13:51:08.734410+00:00",
+  "status": "verificado",
+  "character": "Pegazo",
+  "topic": "encaje_ojos_contraste",
+  "problem": "Usuario rechazo revision blanca: globo sobresaliente a la izquierda de la imagen y pupilas descentradas",
+  "action": "Contraste temporal piel oscura y globos cian; reduccion y encaje de ambos globos a radio 12.6 mm; pupilas alineadas a puntos aproximados de referencia (474,193) y (542,193). Subdivision ocular para evitar solapes. Piel y parpados no modificados.",
+  "result": "Capturas finales frontal, ambos laterales y superposicion inspeccionadas con contraste. Materiales tambien revisados y colores temporales restaurados. Hash de vertices y caras de Pegazo intacto; sin keys ni modificadores. Controles conservan el encaje. La validacion anterior no detectaba el saliente y no equivale a aprobacion visual. Revision del usuario pendiente; blend sin guardar.",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a185b9-2468-7d50-ac81-137b761bde5c\\encaje_pegazo_revisado\\verificacion.json",
+      "sha256": "4ee57ef0c7f6dc4095f2b2ca6d6952126dcb73424fc9ab21c7dd2e2177c6e966"
+    },
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a185b9-2468-7d50-ac81-137b761bde5c\\encaje_pegazo_revisado\\contraste_frontal.png",
+      "sha256": "c27c54c79762b6e11f419aa6a58fbc59f6619d1bb06c0ac6b59282608c0b4a1f"
+    }
+  ],
+  "supersedes": "4ed0bfa8-18f2-4f67-96a4-ba90c2e41983",
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

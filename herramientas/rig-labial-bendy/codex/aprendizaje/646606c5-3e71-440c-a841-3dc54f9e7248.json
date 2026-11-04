@@ -1,0 +1,14 @@
+{
+  "id": "646606c5-3e71-440c-a841-3dc54f9e7248",
+  "timestamp": "2026-10-30T23:25:30.685342+00:00",
+  "status": "propuesta",
+  "character": "Pegazo",
+  "topic": "colocacion",
+  "problem": "Pivote R adelantado, dientes altos en boca curva, aletas y cejas fuera de sitio",
+  "action": "Ojos recolocados con ojos_poner y parpados rehechos; boca_tom usa el contacto labial si la boca es curva; aletas medidas en malla; cejas por isla",
+  "result": "Cierre R 33 a 9 por ciento, dientes visibles. Sin probar en otros personajes; quedan desgarros de comisuras y bultos al cerrar",
+  "evidence": [],
+  "supersedes": null,
+  "addon_version": "0.8.44",
+  "plugin_version": "0.8.44"
+}

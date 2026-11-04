@@ -1,0 +1,23 @@
+{
+  "id": "fffad734-8924-4e91-940e-c92e5511bfdf",
+  "timestamp": "2026-10-28T20:05:35.434790+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "guardar_base_regional",
+  "problem": "Guardar difícil de encontrar; restauración independiente de nariz boca y cada ojo requerida",
+  "action": "0.8.34 añade Guardar expresión en cabecera y pie y correctivas regionales por expresión con lados explícitos",
+  "result": "Prueba Blender aislada: núcleo a Basis, exterior y lado opuesto conservados con simetría, Deshacer e independencia de expresión. Máscaras de Tom verificadas sin ejecutar restauración. Capturas actuales revisadas: botones visibles; pose intacta y blend no guardado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\verificacion_0834.json",
+      "sha256": "76635e01e25465439a1964ebc140de569183473a84fca04407ca7baba9ffaa5f"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\interfaz_0834.png",
+      "sha256": "cdf0df5d24eca49b1f802c00097a3bb853a5f440eef301daa445e6ee2ae8a438"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.34",
+  "plugin_version": "0.8.32"
+}

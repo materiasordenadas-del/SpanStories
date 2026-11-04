@@ -1,0 +1,99 @@
+{
+  "addon_version": "0.5.0",
+  "claude_skill_version": "0.4.1",
+  "source": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\rig_labial_bendy",
+  "files": [
+    {
+      "path": "__init__.py",
+      "sha256": "BF5B5A9B6CB9C8EDB8EA9140346E78810B89BE66D7E44A0D9B19BB08EB773494"
+    },
+    {
+      "path": "blender_manifest.toml",
+      "sha256": "B9AC867850383CF2CBF809603683E976ECAC49BD07D99EB6BAE3C65EDDA5FDFA"
+    },
+    {
+      "path": "biblioteca\\expresiones_ref.json",
+      "sha256": "3C0199E5425D4885C301B609BBC821C9BC43E45F93452B2ACF4D2FC14C3320C3"
+    },
+    {
+      "path": "biblioteca\\ojos_vale.blend",
+      "sha256": "C3EB6ED55782D2E6B37D20C1B4D6B021C10251B3432ECA81733BCD1E8FEF4797"
+    },
+    {
+      "path": "nucleo\\__init__.py",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "nucleo\\contacto.py",
+      "sha256": "6F6C78F278A7D0A58BE75F092DB247FA80C0D1450509B18762C968965A72E39A"
+    },
+    {
+      "path": "nucleo\\deteccion.py",
+      "sha256": "2AA38C514D2EBE982F8765A33AC02DD5BAA6B35CBF4CC36999A1789425FD4107"
+    },
+    {
+      "path": "nucleo\\expresiones.py",
+      "sha256": "061E95E2DF76AE1F386FDDEEF161442EB95FE48A3474045460505EA75EEDD425"
+    },
+    {
+      "path": "nucleo\\gestos.py",
+      "sha256": "0E40356359DC5B8EC0172568C662ACC112686D28A04A74DC667E599258D5E371"
+    },
+    {
+      "path": "nucleo\\interior.py",
+      "sha256": "7DF70979E924C0CC524D4E6DAA37AD3144B214B164BDBD4F259750AF472DA13C"
+    },
+    {
+      "path": "nucleo\\labios.py",
+      "sha256": "A950BCCE6B32707B17BFE34C3EDDB407A1A6C14D4AD87D95AC52E521C27F3EC6"
+    },
+    {
+      "path": "nucleo\\malla.py",
+      "sha256": "1A7977C2031EBDEC885928D1E5883B964E552E734931EA7D7EF9D53A3B64242A"
+    },
+    {
+      "path": "nucleo\\marco.py",
+      "sha256": "1A9883062937E4D6ED4F2D172202F2C338D8636F28CCCE9C106403570693780E"
+    },
+    {
+      "path": "nucleo\\medidas.py",
+      "sha256": "D3708358C1AD8431025880D89D6567B746CC926A20B4432C5E97784A46A97A5B"
+    },
+    {
+      "path": "nucleo\\ojos_esculpidos.py",
+      "sha256": "CBA05C825F394EF5303C252338DE10C2E23CE686DCB57C69F1F9B37EC748B086"
+    },
+    {
+      "path": "nucleo\\ojos.py",
+      "sha256": "A974E501FA5BFBBDCCF4F6BA6213E21D7D0C2CA42CAB0CE1516630151333EC2D"
+    },
+    {
+      "path": "nucleo\\parpados_huesos.py",
+      "sha256": "00F39818331CAA4DEE1FA62573079489936BCEBAC74998FED178F1FEACEBD9F2"
+    },
+    {
+      "path": "nucleo\\partes.py",
+      "sha256": "240FD581BF03EAA826A38F73A407509848F7A9B670ED60BA3B6EBE6066651E40"
+    },
+    {
+      "path": "nucleo\\pasos.py",
+      "sha256": "5328689DB7D27579DE7D5236614ED19DB6DE7491DAEFC13218095D3DB3F0ECEC"
+    },
+    {
+      "path": "nucleo\\pesos.py",
+      "sha256": "D82F3EAF80CDA3F8E55E89F5807FE433562373BF186FE7163435DF66ED174265"
+    },
+    {
+      "path": "nucleo\\revision.py",
+      "sha256": "4C9BC75A6A4D7254445F95620F2A243CCA39C1FFC9157BBF6B43EA4B5370D6D0"
+    },
+    {
+      "path": "nucleo\\shapekeys.py",
+      "sha256": "C283DB233E38185BF813611861898E0287C2C7B5ED24A8784776D0FB3AF184C1"
+    },
+    {
+      "path": "nucleo\\util.py",
+      "sha256": "CEB8BAB90E5B0BD8A2605ECC7829BFF9BA5A58D4A47D1C381A1E76E1EE920DE0"
+    }
+  ]
+}

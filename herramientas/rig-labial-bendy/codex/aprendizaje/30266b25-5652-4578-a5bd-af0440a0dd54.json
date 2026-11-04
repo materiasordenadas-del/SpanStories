@@ -1,0 +1,14 @@
+{
+  "id": "30266b25-5652-4578-a5bd-af0440a0dd54",
+  "timestamp": "2026-10-30T23:16:27.747793+00:00",
+  "status": "propuesta",
+  "character": "Pegazo",
+  "topic": "marcadores",
+  "problem": "Deformaciones malas: globo R 4,4 mm adelantado respecto a L con piel simetrica (dy 0,5); huesos faciales heredan ese error; nariz en el puente; dientes centrados en comisuras sonrientes",
+  "action": "Solo diagnostico: aberturas por rayos, simetria por tramos, anclas contra islas de cejas, dientes contra contacto labial",
+  "result": "Sin corregir. Hipotesis: colocar interior respecto a la linea de contacto central, no K.C, y validar pivotes contra la abertura real",
+  "evidence": [],
+  "supersedes": null,
+  "addon_version": "0.8.44",
+  "plugin_version": "0.8.44"
+}

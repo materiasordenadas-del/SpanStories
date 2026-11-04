@@ -1,0 +1,102 @@
+{
+  "scaleReport": {
+    "rawBounds": {
+      "min": [
+        -0.07824625386717621,
+        -0.0870182388337933,
+        -0.56441490284188
+      ],
+      "max": [
+        1.478561662484235,
+        1.6129815703299148,
+        0.0025664383636164745
+      ],
+      "size": [
+        1.5568079163514112,
+        1.699999809163708,
+        0.5669813412054965
+      ]
+    },
+    "scaleApplied": 1,
+    "textures": [
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      },
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      },
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      }
+    ],
+    "animationClips": 21
+  },
+  "current": {
+    "at": "2026-09-23T01:13:23.087Z",
+    "quality": "STANDARD",
+    "viewport": [
+      617,
+      850
+    ],
+    "dpr": 1,
+    "fps": 59.880239520962,
+    "frameMs": 16.69999999999891,
+    "p95Ms": 16.80000000000291,
+    "calls": 7,
+    "triangles": 396,
+    "geometries": 1,
+    "textures": 1,
+    "render": {
+      "frame": 973,
+      "calls": 17,
+      "triangles": 215220,
+      "points": 0,
+      "lines": 0
+    },
+    "memory": {
+      "geometries": 11,
+      "textures": 14
+    },
+    "zones": [
+      {
+        "id": "D01",
+        "state": "ACTIVE_HIGH",
+        "loaded": true
+      },
+      {
+        "id": "D02",
+        "state": "RETIRING",
+        "loaded": true
+      },
+      {
+        "id": "D04",
+        "state": "PREFETCHED",
+        "loaded": false
+      },
+      {
+        "id": "D05",
+        "state": "UNLOADED",
+        "loaded": false
+      }
+    ],
+    "assets": [
+      {
+        "key": "airport:toon-kit:r180",
+        "refs": 2,
+        "ready": true
+      },
+      {
+        "key": "glb:http://127.0.0.1:8766/Animaci%C3%B3n%203D/personajes/samuel/Samuel_con_rostro_manos.glb",
+        "refs": 1,
+        "ready": true
+      }
+    ],
+    "samuel": true
+  }
+}

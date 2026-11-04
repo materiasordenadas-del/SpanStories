@@ -1,0 +1,27 @@
+{
+  "id": "fa0ce174-6246-48cc-a81d-7d033cf2d623",
+  "timestamp": "2026-10-23T12:17:11.606738+00:00",
+  "status": "verificado",
+  "character": "Tronchatoro",
+  "topic": "parpados_aislados",
+  "problem": "Agujeros en cierre y ruta solo parpados dependiente de boca y conectividad por vertices",
+  "action": "Instalar 0.7.3: superficie por UV y aristas, cadenas visibles, apertura y cierre ARAP aislados, conservar Basis y retirar ojos Tripo; probar operador instalado por MCP",
+  "result": "Repositorio y perfil Blender coinciden; boton FINISHED; reposo 0 pixeles distintos; 42 objetos previos protegidos; cierre 0 rayos ven ojo frontal y +-32 grados; separacion maxima de polilineas 0.138 mm. Persisten pliegues pequenos y 2 vertices R con entrada 0.290 mm en reposo mirando arriba 12 grados. No se guardo blend ni se corrigio globalmente FACS heredado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\evaluacion_tronchatoro_20261023\\INFORME_ERROR_PARPADOS_TRONCHATORO.md",
+      "sha256": "25e5b826248429c44583daf6c2be76ec2c5cbf3e952cc0d56d6a2036aa498203"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\evaluacion_tronchatoro_20261023\\medidas_actuales.json",
+      "sha256": "e96ca2cbd6feb0f06d8aa1a9513684b0299393d56fcc7dc4e0931776df63704b"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\evaluacion_tronchatoro_20261023\\candidato_aislado_34_cerrado.png",
+      "sha256": "394de87d973f0910c82dd13a2714db08dd15aace52f0e8639cbf3f4e7fd91767"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.7.3",
+  "plugin_version": "0.7.3"
+}

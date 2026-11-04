@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "blender-motion-rig",
+  "version": "1.0.0",
+  "description": "Rigging de movimiento con auditoría local, retopología dirigida y pruebas de deformación en Blender.",
+  "author": {
+    "name": "Adriel Pereira"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Blender Motion Rig",
+        "shortDescription": "Audita, prepara y verifica rigs de movimiento",
+        "longDescription": "Preparación de rigs para mallas de Tripo, Meshy y otros generadores por defecto. Prioriza la forma de la retopología antes de los pesos y verifica flexión, torsión y contaminación entre miembros. Una habilidad compacta con scripts automáticos que reutiliza Blender sin añadir servidores ni dependencias.",
+        "developerName": "Adriel Pereira",
+        "category": "Productivity",
+        "capabilities": ["Interactive"],
+        "defaultPrompt": [
+          "Audita el personaje seleccionado para rig de movimiento y corrige únicamente las zonas que lo necesitan. Ejecuta el rig y verifica sus deformaciones.",
+          "Revisa hombros, codos y rodillas del rig seleccionado. Corrige la causa y prueba otra vez sin alterar las zonas que funcionan."
+        ]
+      }
+    }
+  }
+}

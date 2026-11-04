@@ -1,0 +1,19 @@
+{
+  "id": "fe6aff79-5b27-4a53-b0a9-52b9fe7798a0",
+  "timestamp": "2026-10-29T02:52:30.743022+00:00",
+  "status": "verificado",
+  "character": "Tom Holland",
+  "topic": "grosor labios",
+  "problem": "El usuario informo que 0.8.36 no producia un cambio visible; la revision visual anterior fue insuficiente",
+  "action": "0.8.37 usa bandas de volumen propias, pertenencia exclusiva por pesos del rig y suavizado interno; migra solo las dos keys propias conservando valores. No cambia modificadores.",
+  "result": "Tres tamanos y migracion comprobados. Nueve combinaciones sin invertir caras. Capturas Workbench individuales revisadas: cambio visible frente y tres cuartos. Evaluacion con modificadores: movimiento propio 0.0014-0.0018, opuesto menor a 0.000000061 (precision float), cuatro extremos independientes. Keys ajenas, controles, acciones, modificadores y seleccion conservados. Superior 0 e inferior -1. No se guardo blend; no garantiza expresiones arbitrarias.",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a1857f-e05c-7251-bf44-c934916f4e8b\\verificacion_grosor_independiente.json",
+      "sha256": "ff0536524a6dd07d0af64c6beb55d84478c30427f4f276933c6a60cb68e70d16"
+    }
+  ],
+  "supersedes": "69500649-6264-40b6-b25d-b6b9ef675991",
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

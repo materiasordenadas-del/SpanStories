@@ -1,0 +1,5 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {boundsAround} from '../src/geo/projection.js';
+const base='http://127.0.0.1:5179',name=process.argv[2]??'Madrid';
+const searchResponse=await fetch(base+'/api/geo/search?q='+encodeURIComponent(name));const search=await searchResponse.json();if(!searchResponse.ok)throw Error(search.error);console.log(JSON.stringify({search:search.results.slice(0,2)}));
+const bounds=boundsAround(40.4168,-3.7038,600,450),response=await fetch(base+'/api/geo/region',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({bounds,label:'Madrid · Puerta del Sol'})}),source=await response.json();if(!response.ok)throw Error(source.error);await mkdir('reports',{recursive:true});await writeFile('reports/geographic-madrid-source.json',JSON.stringify(source));console.log(JSON.stringify({elements:source.osm.elements.length,elevation:source.elevation.resolution,range:[Math.min(...source.elevation.heights),Math.max(...source.elevation.heights)],tiles:source.elevation.tiles,attribution:source.attribution}));

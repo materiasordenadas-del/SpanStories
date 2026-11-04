@@ -1,0 +1,1900 @@
+{
+  "storyId": "A1-M04-I05-S3",
+  "metrics": {
+    "coreTokens": 301,
+    "learnerFacingTokens": 651,
+    "punctuationSegments": 56,
+    "clauseMarkersPerSegmentMax": 0
+  },
+  "budgetPass": {
+    "coreTokens": true
+  },
+  "firstIntroCount": 24,
+  "returnCount": 93,
+  "countIntegrity": {
+    "pass": true,
+    "mismatches": []
+  },
+  "coverage": [
+    {
+      "targetId": "SENSE-A1-000007",
+      "item": "abierto",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "abierto"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000063",
+      "item": "banco",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "banco"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000127",
+      "item": "centro",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "centro"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000130",
+      "item": "cerrado",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "cerrado"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000223",
+      "item": "entrada",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "entrada"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000236",
+      "item": "estampilla",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "estampilla"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000247",
+      "item": "exterior",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "exterior"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000253",
+      "item": "farmacia",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "farmacia"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000296",
+      "item": "hospital",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "hospital"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000305",
+      "item": "información",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "información"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000436",
+      "item": "parqueadero",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "parqueadero"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000450",
+      "item": "planta",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "planta"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000462",
+      "item": "postal",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "postal"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000489",
+      "item": "quiosco",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "quiosco"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000507",
+      "item": "salida",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "salida"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000515",
+      "item": "sello",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "sello"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000531",
+      "item": "sobre",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "sobre"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0060",
+      "item": "oficina de información",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "oficina de información"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0061",
+      "item": "oficina de turismo",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "oficina de turismo"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0094",
+      "item": "ir al hospital",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "ir al hospital"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0095",
+      "item": "ir al médico",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "ir al médico"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0121",
+      "item": "oficina de información y turismo",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "oficina de información y turismo"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0164",
+      "item": "estar abierto",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0165",
+      "item": "estar cerrado",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000008",
+      "item": "abogado",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000081",
+      "item": "bombero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000151",
+      "item": "compañero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000152",
+      "item": "comprador",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000180",
+      "item": "dedicarse",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000195",
+      "item": "director",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000215",
+      "item": "empresa",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000218",
+      "item": "enfermero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "enfermera"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000243",
+      "item": "estudio",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000260",
+      "item": "firmar",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000306",
+      "item": "ingeniero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000318",
+      "item": "jefe",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000362",
+      "item": "médico",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "médico"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000416",
+      "item": "oficina",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "oficina"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000455",
+      "item": "policía",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000475",
+      "item": "profesión",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000567",
+      "item": "trabajador",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000568",
+      "item": "trabajar",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000569",
+      "item": "trabajo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000582",
+      "item": "vendedor",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "vendedor"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "GRAM-A1-055",
+      "item": "Coincidencia formal de su/sus para varios referentes de 3.ª persona",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0032",
+      "item": "dedicarse a",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0033",
+      "item": "estar en paro",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0035",
+      "item": "tener trabajo",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000011",
+      "item": "acá",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000021",
+      "item": "ahí",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000027",
+      "item": "al lado",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "al lado"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000031",
+      "item": "allá",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000032",
+      "item": "allí",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "allí"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000048",
+      "item": "aquel",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000049",
+      "item": "aquí",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "aquí"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000055",
+      "item": "avenida",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "avenida"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000106",
+      "item": "capital",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000126",
+      "item": "céntrico",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000138",
+      "item": "ciudad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "ciudad"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000225",
+      "item": "entre",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000230",
+      "item": "ese",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "esa"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000239",
+      "item": "este",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "esto",
+        "esta"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000334",
+      "item": "lejos",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000344",
+      "item": "lugar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000353",
+      "item": "mapa",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000449",
+      "item": "plano",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "plano"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000452",
+      "item": "plaza",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "GRAM-A1-007",
+      "item": "Ciudades y localidades: uso como nombre propio",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-043",
+      "item": "Incompatibilidad con demostrativos, numerales e indefinidos en el mismo determinante",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-046",
+      "item": "Paradigma masculino/femenino singular/plural de este, ese, aquel",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-047",
+      "item": "Formas neutras esto, eso, aquello",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-048",
+      "item": "Neutro demostrativo en posición inicial con ser/estar",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-049",
+      "item": "Deixis espacial: proximidad y distancia respecto de interlocutores",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-050",
+      "item": "Demostrativo neutro para identificar objeto desconocido",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-051",
+      "item": "Demostrativo prenominal e incompatibilidad con artículo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-092",
+      "item": "Adverbios interrogativos de A1 se completan en 8.8",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-094",
+      "item": "Deícticos aquí, ahí, allí",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-096",
+      "item": "Muy + lejos/cerca como intensificación",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-106",
+      "item": "Dónde para lugar y cómo para modo; forma invariable y posición inicial/aislada",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-120",
+      "item": "Sintagma preposicional restrictivo con término nominal, infinitivo o adverbial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-131",
+      "item": "Estar para localización espacial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0146",
+      "item": "al este",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0148",
+      "item": "al lado",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "al lado"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0149",
+      "item": "al norte",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0150",
+      "item": "al oeste",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0151",
+      "item": "al sur",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0158",
+      "item": "en el centro",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "en el centro"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000001",
+      "item": "a",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "a"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000002",
+      "item": "a la derecha",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000003",
+      "item": "a la izquierda",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000005",
+      "item": "a pie",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "a pie"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000038",
+      "item": "andar",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000095",
+      "item": "calle",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "calle"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000113",
+      "item": "carretera",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000114",
+      "item": "carro",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000129",
+      "item": "cerca",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000135",
+      "item": "chofer",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000145",
+      "item": "colectivo",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000216",
+      "item": "en",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "en"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000240",
+      "item": "este",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000278",
+      "item": "guagua",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000326",
+      "item": "kilómetro",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000335",
+      "item": "lento",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000405",
+      "item": "norte",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000415",
+      "item": "oeste",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000479",
+      "item": "pueblo",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000482",
+      "item": "punto",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000493",
+      "item": "rápido",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000540",
+      "item": "sur",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000565",
+      "item": "todo recto",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "todo recto"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "GRAM-A1-032",
+      "item": "Contracciones al y del",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-095",
+      "item": "Preferencia regional por acá/allá",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0113",
+      "item": "ir andando",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0141",
+      "item": "a la derecha",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0142",
+      "item": "a la izquierda",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0144",
+      "item": "a pie",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "a pie"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0186",
+      "item": "todo recto",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "todo recto"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    }
+  ],
+  "missingTextEvidence": [
+    {
+      "targetId": "12B1-MWU-0164",
+      "item": "estar abierto",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0165",
+      "item": "estar cerrado",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000008",
+      "item": "abogado",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000081",
+      "item": "bombero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000151",
+      "item": "compañero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000152",
+      "item": "comprador",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000180",
+      "item": "dedicarse",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000195",
+      "item": "director",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000215",
+      "item": "empresa",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000243",
+      "item": "estudio",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000260",
+      "item": "firmar",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000306",
+      "item": "ingeniero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000318",
+      "item": "jefe",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000455",
+      "item": "policía",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000475",
+      "item": "profesión",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000567",
+      "item": "trabajador",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000568",
+      "item": "trabajar",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000569",
+      "item": "trabajo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0032",
+      "item": "dedicarse a",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0033",
+      "item": "estar en paro",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0035",
+      "item": "tener trabajo",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000011",
+      "item": "acá",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000021",
+      "item": "ahí",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000031",
+      "item": "allá",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000048",
+      "item": "aquel",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000106",
+      "item": "capital",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000126",
+      "item": "céntrico",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000225",
+      "item": "entre",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000334",
+      "item": "lejos",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000344",
+      "item": "lugar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000353",
+      "item": "mapa",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000452",
+      "item": "plaza",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0146",
+      "item": "al este",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0149",
+      "item": "al norte",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0150",
+      "item": "al oeste",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0151",
+      "item": "al sur",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000002",
+      "item": "a la derecha",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000003",
+      "item": "a la izquierda",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000038",
+      "item": "andar",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000113",
+      "item": "carretera",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000114",
+      "item": "carro",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000129",
+      "item": "cerca",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000135",
+      "item": "chofer",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000145",
+      "item": "colectivo",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000240",
+      "item": "este",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000278",
+      "item": "guagua",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000326",
+      "item": "kilómetro",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000335",
+      "item": "lento",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000405",
+      "item": "norte",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000415",
+      "item": "oeste",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000479",
+      "item": "pueblo",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000482",
+      "item": "punto",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000493",
+      "item": "rápido",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000540",
+      "item": "sur",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0113",
+      "item": "ir andando",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0141",
+      "item": "a la derecha",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0142",
+      "item": "a la izquierda",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    }
+  ],
+  "humanGrammarEvidenceRequired": [
+    {
+      "targetId": "GRAM-A1-055",
+      "item": "Coincidencia formal de su/sus para varios referentes de 3.ª persona",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-007",
+      "item": "Ciudades y localidades: uso como nombre propio",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-043",
+      "item": "Incompatibilidad con demostrativos, numerales e indefinidos en el mismo determinante",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-046",
+      "item": "Paradigma masculino/femenino singular/plural de este, ese, aquel",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-047",
+      "item": "Formas neutras esto, eso, aquello",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-048",
+      "item": "Neutro demostrativo en posición inicial con ser/estar",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-049",
+      "item": "Deixis espacial: proximidad y distancia respecto de interlocutores",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-050",
+      "item": "Demostrativo neutro para identificar objeto desconocido",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-051",
+      "item": "Demostrativo prenominal e incompatibilidad con artículo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-092",
+      "item": "Adverbios interrogativos de A1 se completan en 8.8",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-094",
+      "item": "Deícticos aquí, ahí, allí",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-096",
+      "item": "Muy + lejos/cerca como intensificación",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-106",
+      "item": "Dónde para lugar y cómo para modo; forma invariable y posición inicial/aislada",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-120",
+      "item": "Sintagma preposicional restrictivo con término nominal, infinitivo o adverbial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-131",
+      "item": "Estar para localización espacial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-032",
+      "item": "Contracciones al y del",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-095",
+      "item": "Preferencia regional por acá/allá",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    }
+  ],
+  "ignoredDeprecatedArguments": [],
+  "futureCollisionCandidates": [
+    {
+      "surface": "cena",
+      "targetId": "SENSE-A1-000121",
+      "item": "cena",
+      "introducedIn": "A1-M05-I05-S2"
+    },
+    {
+      "surface": "ir",
+      "targetId": "SENSE-A1-000313",
+      "item": "ir",
+      "introducedIn": "A1-M06-I05-S3"
+    },
+    {
+      "surface": "sí, sí",
+      "targetId": "12B1-MWU-0204",
+      "item": "sí, sí",
+      "introducedIn": "A1-M06-I05-S3"
+    },
+    {
+      "surface": "sol",
+      "targetId": "SENSE-A1-000535",
+      "item": "sol",
+      "introducedIn": "A1-M07-I05-S3"
+    },
+    {
+      "surface": "mañana",
+      "targetId": "SENSE-A1-000350",
+      "item": "mañana",
+      "introducedIn": "A1-M07-I05-S3"
+    },
+    {
+      "surface": "tarde",
+      "targetId": "SENSE-A1-000543",
+      "item": "tarde",
+      "introducedIn": "A1-M07-I05-S3"
+    },
+    {
+      "surface": "o",
+      "targetId": "SENSE-A1-000413",
+      "item": "o",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "pero",
+      "targetId": "SENSE-A1-000444",
+      "item": "pero",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "y",
+      "targetId": "SENSE-A1-000606",
+      "item": "y",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "sí, pero",
+      "targetId": "12B1-MWU-0198",
+      "item": "sí, pero",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "postal",
+      "targetId": "SENSE-A1-000463",
+      "item": "postal",
+      "introducedIn": "A1-M08-I06-S1"
+    }
+  ],
+  "editorialStatus": "REVIEW_REQUIRED"
+}

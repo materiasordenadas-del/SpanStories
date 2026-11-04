@@ -1,0 +1,27 @@
+{
+  "id": "4b1e44a9-0c33-49e8-a660-952fad5aa790",
+  "timestamp": "2026-10-31T19:49:48.001656+00:00",
+  "status": "verificado",
+  "character": "Hama",
+  "topic": "rig_facial_local",
+  "problem": "Marcadores incorrectos, cuencas cruzadas y cierre radial defectuoso",
+  "action": "Correccion local con ojos originales exactos, anillos regulares, superficie real, correctivas y dientes anatomicos con textura",
+  "result": "33 niveles sin colision ocular; cierre frontal y oblicuo comprobado; sin nuevos cruces de piel en niveles revisados; cero drivers invalidos. Renders revisados. Sin guardar blend. Verificacion local, sin garantia general del plugin.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Hama\\verificacion_final.json",
+      "sha256": "ac87862682ca6da4abe60115a392ff7e9d8a1a921b78f673e3268e52bf0c7ece"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Hama\\final_cierre.png",
+      "sha256": "af96812acf29bc542518ac2ccc7b294a06f12196ab493483da1512c6d28c1a89"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Hama\\final_dientes_anatomicos.png",
+      "sha256": "fba1fa0735b6e06c284c876ff7a4c689f96374e536fc91737e8ff10705765109"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.48",
+  "plugin_version": "0.8.48"
+}

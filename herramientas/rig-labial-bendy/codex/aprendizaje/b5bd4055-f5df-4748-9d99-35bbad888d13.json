@@ -1,0 +1,19 @@
+{
+  "id": "b5bd4055-f5df-4748-9d99-35bbad888d13",
+  "timestamp": "2026-10-29T11:09:10.371733+00:00",
+  "status": "verificado",
+  "character": "Pegazo",
+  "topic": "editor_ojos",
+  "problem": "Faltaban profundidad y tamano completo; iris oculto en Avanzado",
+  "action": "Addon 0.8.39: seccion Ojos entre Cejas y Parpados, profundidad, escala, iris, pupila, ambos o independientes y restauracion",
+  "result": "UI observada en Blender. Pruebas de profundidad y escala por pivote, simetria e independencia correctas. Nueve combinaciones iris/pupila sin inversiones. Restauracion exacta de todas las mallas de la escena. Blend sin guardar.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\editor_globos_0839\\verificacion.json",
+      "sha256": "800a415e05af32be3b3c5e5a87dede7e028b16bb70513c78f116b60505b7fad0"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

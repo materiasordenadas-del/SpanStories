@@ -1,0 +1,16 @@
+schema_version = "1.0.0"
+id = "expresiones_corporales"
+version = "0.2.2"
+name = "Expresiones Corporales"
+tagline = "Expresiones del cuerpo que acompañan a los gestos de la cara"
+maintainer = "SpanStories"
+type = "add-on"
+blender_version_min = "4.2.0"
+license = ["SPDX:MIT"]
+tags = ["Animation", "Rigging"]
+
+[permissions]
+files = "Guarda bibliotecas JSON, hojas PNG de revisión y GLB"
+
+[build]
+paths_exclude_pattern = ["__pycache__/", "*.pyc", "_pruebas/"]

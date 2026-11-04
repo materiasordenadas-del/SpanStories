@@ -1,0 +1,19 @@
+{
+  "id": "b3e6af4d-05f5-4ff1-b057-abbe8a6ccd14",
+  "timestamp": "2026-10-27T22:03:54.334254+00:00",
+  "status": "verificado",
+  "character": "Generico y Tom Holland",
+  "topic": "seleccion labial manual 0.8.17",
+  "problem": "Referencia oculta por overlays y boca cerrada en Edit para elegir caras internas",
+  "action": "Apertura temporal con jawOpen y mouthClose, mezcla visible en Edit, referencia recuperable y restauracion al salir",
+  "result": "Pruebas Blender manuales en tres escalas y ejes, registro completo y localidad pasaron. En Tom se verificaron referencia y boca abierta visualmente y restauracion exacta de controles sin cambios de coordenadas, canales ni acciones; blend no guardado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\labios_seleccion_0817\\verificacion_sesion.json",
+      "sha256": "2f2a6b9c99759a1648c7e74ceacbf03e494a95ef8760ffef62998670bc2ca1c6"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.17",
+  "plugin_version": "0.8.17"
+}

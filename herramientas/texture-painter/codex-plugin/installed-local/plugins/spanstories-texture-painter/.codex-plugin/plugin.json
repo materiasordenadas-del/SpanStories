@@ -1,0 +1,15 @@
+{
+  "name": "spanstories-texture-painter",
+  "version": "0.2.7",
+  "description": "Pintura UV en Blender y exportación PNG/GLB para Three.js sin modificar malla ni rig",
+  "author": {"name": "SpanStories"},
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "SpanStories Texture Painter",
+    "shortDescription": "Pintura UV para Blender",
+    "longDescription": "Cuatro herramientas simples: ayuda, iniciar, pintar regiones por nombre y exportar texturas para Three.js.",
+    "developerName": "SpanStories",
+    "capabilities": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "2da666e8-672a-42d7-8cb3-c8191c4f485f",
+  "timestamp": "2026-10-28T19:54:58.094733+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "puntos_manual",
+  "problem": "Puntos existentes invisibles con Mostrar puntos activo: handler y modal ausentes",
+  "action": "0.8.33 recupera dibujo y arrastre al elegir zona, Manual y Mover puntos; aísla fallos de pesos",
+  "result": "Recuperación funcional verificada; geometría de keys, valores y acciones conservados. Manual probado con intercambio de pesos simulado. Captura negra: revisión visual pendiente. Blend no guardado.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\verificacion_0833.json",
+      "sha256": "296be032a4e1ca7290fec8ed7f4486a2f5f7e0b30bde01685b13307f6dcc370e"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

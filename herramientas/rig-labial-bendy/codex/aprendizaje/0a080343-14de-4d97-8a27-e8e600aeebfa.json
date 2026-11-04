@@ -1,0 +1,23 @@
+{
+  "id": "0a080343-14de-4d97-8a27-e8e600aeebfa",
+  "timestamp": "2026-10-28T18:15:43.238171+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "basal parpados arrugas",
+  "problem": "Basal con corte binario desplazaba piel infraorbitaria de forma discontinua",
+  "action": "Mascaras palpebrales geometricas con transicion cubica; migracion explicita de keys anteriores con respaldo NPZ e idempotencia",
+  "result": "Aislamiento visual confirma causa en dos basales inferiores activas. Render corregido revisado; tres keys migradas y todas las demas coordenadas intactas. Prueba Basal en tres escalas y regresion de pesos y seleccion aprobadas.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\basales_corregidos.json",
+      "sha256": "498babaed69955cb3e3935b4e3d273c5b4adbdb3f572644a6513d03ffa15395a"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Animación 3D\\rig_labial_bendy\\codex\\entregas\\pesos_parpados_0825\\arrugas_corregido.png",
+      "sha256": "95c88a103f3e7554296a5e7b0601980f79bc0094df98b6d282cee24823a4320a"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.32",
+  "plugin_version": "0.8.32"
+}

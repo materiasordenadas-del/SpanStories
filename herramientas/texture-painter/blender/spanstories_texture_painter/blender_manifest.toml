@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+id = "spanstories_texture_painter"
+version = "0.2.7"
+name = "SpanStories Texture Painter"
+tagline = "Pintura UV por capas y exportación PNG y GLB para Three.js"
+maintainer = "SpanStories"
+type = "add-on"
+tags = ["Paint", "UV"]
+blender_version_min = "4.3.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Cargar referencias y guardar texturas y GLB"
+network = "Conectar con Codex mediante un puente autenticado en localhost"

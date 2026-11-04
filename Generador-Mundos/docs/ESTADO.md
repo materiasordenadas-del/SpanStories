@@ -1,0 +1,181 @@
+# Estado de Atlas · Estudio de lugares
+
+## 0.17.0 · Integrados Claude y Blender como diseños independientes
+
+El taller procedural y el generador ofrecen «Claude · pintado» / «Blender · volumen». Se conserva el diseño original de cada uno: pinturas, recetas, piezas y materiales; no se mezclan interiores. La conversión inicial de materiales se retiró. El `.blend` no se editó. La opción se guarda en el proyecto y se aplica a cualquier lugar generado; los proyectos anteriores conservan Claude.
+
+Blender se instancia por módulo, mantiene paredes completas y limita la utilería a 24 m; el interior Meshopt derivado pesa 1 276 144 bytes frente a 2 585 484 del original. Suite **145/145**, compilación aprobada y ejecución en Barcelona procedural con 732 escaparates. La aceptación visual completa y la paridad con el visor siguen pendientes; no hay nueva exportación publicada. Detalles y límites: [INFORME_SESION_0.17.0.md](INFORME_SESION_0.17.0.md). El apartado siguiente describe el estado anterior a esta conexión.
+
+## 0.17.0 (en curso) · Kit modular de escaparates en Blender · 26/10/2026
+
+Añadido sin tocar `commerce-scene.js` ni el atlas: 64 módulos estructurales (marcos, cierre hundido 0,25 m, puertas, rótulos, toldos, persianas, cajas someras, capas, hornacinas, vinilos) y 8 kits de gramática, modelados en Blender por código (`scripts/blender/construir_kit_escaparate.py`, `blender/kit-escaparates.blend`) y exportados a `public/assets/kits-escaparate/` (GLB 189 KB + `kit.json` con SHA-256). Ensamblador puro `commerce-blender-kit-assembly.js`, carga con three `commerce-blender-kit.js`, banco visual `reports/estudio/0.17.0/kit-escaparates.html`. `npm run kit:escaparate` lo reconstruye. 13 pruebas nuevas (`tests/estudio-blender-kit.test.js`); suite completa 135/135. Ampliado con 88 piezas de interior con volumen (pieles y utilería con una receta por cada una de las 17 categorías; 17 pruebas del kit). Falta LOD/Meshopt del interior (3 400–6 400 triángulos por local), integrarlo con el atlas vigente, instanciar por módulo, exportar por prefabs y medir FPS/bytes. Detalle en [KIT_ESCAPARATES_BLENDER.md](KIT_ESCAPARATES_BLENDER.md). Respaldo previo: `respaldo/versiones/0.17.0-previo-kits-blender-20261026T234734Z`.
+
+## Versión vigente: 0.16.1 · Correcciones de generación y colocación · 26/10/2026
+
+Correcciones sobre la fuente vigente, con interiores de activación manual por decisión expresa del usuario. No se amplía la generación automática de interiores.
+
+- Edificios: relación parte/contorno por intersección real, cobertura mediante unión sin sumar solapes y áreas netas descontando patios. `building:part=no` se respeta; etiquetas simultáneas `building` + `building:part` se interpretan como parte. Se conservan edificios que cruzan el borde aunque su centro quede fuera. Relleno inferido con comprobación poligonal final para impedir superposiciones entre parcelas y con edificios registrados.
+- Calles: se conservan vías cubiertas y túneles en los datos; los túneles no generan asfalto, escaleras ni vegetación de superficie. Calzada y marcas se recortan frente a huellas ocupadas, sin mover ejes ni edificios; se informa del conflicto de fuente. Áreas con patios y solapes se unen respetando el sentido de sus anillos.
+- Árboles: se comprueban vías de servicio, agua, canchas, superficies incompatibles y distancia exacta a fachadas. Los puntos registrados contradictorios se conservan en la fuente y se omite su representación, con aviso; los árboles inferidos se colocan en espacio válido. Se conservan modelos y sombreado de árboles.
+- Exteriores por sectores y entorno lejano: los árboles en costuras mantienen un único propietario; los edificios de fondo no duplican los de la zona detallada. Agua, parques y edificios lejanos conservan sus huecos. El fondo usa el relieve efectivo filtrado/local en su transición, y se regenera si cambia esa superficie o las huellas. Teselas alrededor de ±180° con coordenadas válidas, caché binaria con caducidad real y peticiones concurrentes agrupadas sin competir por el mismo temporal.
+- Fuente: validación de Overpass antes de caché y cambio de proveedor; recuperación de entradas antiguas inválidas. Conversión exacta de medidas en metros, centímetros, milímetros, kilómetros, pies/pulgadas; valores ambiguos quedan desconocidos. Geometrías incompletas generan avisos en lugar de cerrar huecos o inventar segmentos.
+- Fuente (26/10/2026, Barcelona «operation was aborted due to timeout»): los Overpass públicos estaban saturados (~30 s en una consulta mínima) y el servidor probaba cada espejo en fila hasta 80 s cada uno. Ahora los espejos compiten (`overpassRace`: el siguiente arranca si el anterior falla o pasa de 15 s; gana el primero válido) y el error final se explica en español. Barcelona 400 m: de fallo a 19 s.
+- Interiores: colisión de dintel, límite de salto/cámara contra techo, dintel visible desde dentro e IDs globales de superficies interiores al cargar por sectores.
+
+Verificación: 115 pruebas aprobadas (20 regresiones nuevas reproducidas primero en la versión defectuosa), compilación Vite y generación real en Arequipa (57 edificios, 35 vías); fuentes guardadas de Madrid y Buenos Aires y tres tradiciones escolares. Arquitectura e instancias escolares idénticas al respaldo, y siete archivos de render/estilos idénticos por SHA-256. Exportación exterior de 17 GLB: hashes, decodificación Meshopt, recursos e IDs verificados; 17/17 sectores reabiertos en el receptor de Atlas. Proyectos de ensayo y evidencia: `reports/estudio/0.16.1/`. Detalles y límites en [INFORME_SESION_0.16.1.md](INFORME_SESION_0.16.1.md).
+
+Respaldo previo verificado: `respaldo/versiones/0.16.0-previo-correcciones-geometria-20261026T032758Z` (316 archivos, SHA-256). La precisión sigue limitada por la fuente y por las geometrías genéricas; no se declara reconstrucción exacta universal.
+
+## 0.16.0 · Estilo Dispatch · 26/10/2026
+
+Nuevo estilo «Dispatch · SpanStories» (modo 8) junto a Trigun, Zelda y Ghibli, inspirado en el «anime occidental» del juego *Dispatch* (AdHoc Studio, 2025): cel de dos tonos con borde duro y sombra arrojada nítida, sombras de color violáceo (rosadas en la piel), tinta limpia teñida que se apaga en el fondo, fondos pintados a gouache con brochazos anchos, cielo de atardecer con estratos a brochazos, borde de luz cálido en el lado del sol y de neón (cian/magenta) en la sombra, y paleta propia para las cinco horas/climas. Módulo `src/estudio/render/dispatch.js`; en `pipeline.js` solo se añaden ramas `mode==8` (las condiciones `mode==6||mode==7` pasan a `mode>=6`, equivalentes para los modos existentes). Copas con volumen (`foliageVolume`) como en Zelda/Ghibli. 95 pruebas (2 nuevas en `tests/estudio-dispatch.test.js`) y compilación aprobadas. Capturas en `reports/estudio/0.16.0/`. Informe: [INFORME_SESION_0.16.0.md](INFORME_SESION_0.16.0.md). Aprobación visual del usuario pendiente. Respaldo previo: `respaldo/versiones/0.15.0-previo-dispatch-20261026T011419Z`.
+
+## 0.15.0 · Zelda acuarela y personajes BotW · 25/10/2026
+
+Zelda rehecho hacia *Breath of the Wild* con acuarela: sombras de color (pigmento concentrado, lila-azul y relleno de cielo, nunca gris), terminador dibujado por el pincel con franja cálida, borde húmedo, sombras arrojadas con borde de papel mojado, curva de tono que conserva el croma y un pase de acuarela en pantalla (Kuwahara suave, borde húmedo, temblor y papel; control «Acuarela»). Césped de Zelda más claro (verde lima). Personajes de prueba (botón 👥 Personajes en Zelda): Lamine y la chica como superficie 25 con cel BotW (sombra cálida en piel, franja subsuperficial, borde de luz). Trigun, Color, Arcilla y Ghibli sin cambios: 2250 comparaciones GPU con diferencia 0 (`reports/estudio/0.15.0/estilos-intactos-gpu.json`). 93 pruebas y compilación aprobadas; coste del pase dentro del ruido de medida. Capturas en `reports/estudio/0.15.0/`. Informe: [INFORME_SESION_0.15.0.md](INFORME_SESION_0.15.0.md). Aprobación visual del usuario pendiente. Respaldo previo: `respaldo/versiones/0.14.2-previo-zelda-acuarela-20261025T014836Z`.
+
+## 0.14.2 · Árboles Zelda en Ghibli · 24/10/2026
+
+Studio Ghibli usa el tratamiento visual exacto de los árboles de Zelda, sin modificar Zelda. Incluye copas y troncos/ramas de anime, anime2, jabami y sakura, con las mismas geometrías, texturas, colores de especie, instancias y ubicaciones. La categoría visual 24 identifica exclusivamente troncos/ramas; antes de sombrear se interpreta como su categoría original 0. Ghibli enruta esas partes y el follaje a las fórmulas Zelda, conservando también su paleta de iluminación/bruma. No cambia el intercambio anterior de césped ni el cielo, arquitectura o navegación.
+
+Verificación: 12 pruebas específicas y compilación correctas; 630 comparaciones GPU contra el shader 0.14.1, cinco ambientes, dos distancias y tres mezclas de suelo, con diferencia máxima de canal 0. Incluye copas y troncos (180 casos), conservación de Zelda y césped (180 casos de césped), cielo, edificios y agua. Evidencia: `reports/estudio/arboles-ghibli-zelda-gpu.json`; comprobador `tests/grass-swap-gpu.js` con escenario `trees`. Captura real: `reports/estudio/arboles-zelda-en-ghibli.jpg`. Aprobación visual del usuario pendiente.
+
+## 0.14.1 · Intercambio de césped
+
+Intercambio solicitado: Ghibli recibe exactamente el césped James que tenía Zelda; Zelda recibe el sombreado de césped que tenía Ghibli. Solo cambia la elección de apariencia para superficies 8 (suelo verde) y 23 (hojas 3D), incluido su acabado y bruma originales. Conserva geometría, distribución, parámetros, viento, LOD y el aspecto de árboles, edificios y cielos. Los uniformes de cielo del césped son independientes del cielo de la escena para preservar su color anterior en todas las horas.
+
+Verificación: 12 pruebas específicas de césped/Ghibli y compilación correctas. Comparación GPU del shader anterior contra el actual: 540 combinaciones (cinco ambientes, seis superficies, Trigun/Zelda/Ghibli, dos distancias y tres mezclas de suelo), 180 de césped; diferencia máxima de canal = 0. Evidencia: `reports/estudio/intercambio-cesped-gpu.json`; comprobador reproducible `tests/grass-swap-gpu.js`, pasando como argumento el shader del respaldo anterior. Ejecución real con 26.250 matas y ruta James activa solo en Ghibli; capturas `reports/estudio/cesped-intercambiado-ghibli.jpg` y `cesped-intercambiado-zelda.jpg`. Cámara y selección de estilo previas restauradas después de la revisión. Aprobación visual del usuario pendiente.
+
+## 0.14.0 · Studio Ghibli
+
+Studio Ghibli añadido al selector del Estudio junto a Trigun y Zelda. Fuente: módulo StudioGhibli del visor vigente (solo lectura). Pintura anclada al mundo, masas de follaje sin sustituir colores de especies, iluminación cálida/sombra fría, contorno delicado, humedad atmosférica y tres nubes PNG originales con movimiento angular. Las cinco horas/climas existentes tienen sus paletas originales Ghibli. Los botones de estilos se distribuyen en varias filas para conservar el acceso a todos.
+
+Comprobado: 88 pruebas existentes y dos nuevas (aislamiento de colores/parámetros al alternar estilos; persistencia Ghibli al guardar/reabrir); compilación Vite. Ejecución visual en el colegio procedural y en 40.94513, -4.11035 (200 m), vista de calle, alternancia Zelda → Trigun → Ghibli y noche/mediodía, sin errores de shader. Captura en `reports/estudio/ghibli-segovia.jpg`. Aprobación visual del usuario pendiente.
+
+Adaptación al motor diferido: pigmento en coordenadas mundo para superficies estáticas, en lugar de coordenadas locales por malla del visor. No añade personajes, lluvia ni selector de controles específicos del visor; usa los ambientes existentes. El estilo es de ejecución/PNG, no se hornea en los materiales GLB. Geometría, datos, semillas, navegación y el visor de referencia se conservan.
+
+## 0.13.0 · césped igual que la demo web (Claude Code)
+
+El césped Zelda/James reproducía el ZIP de GitHub, no la web smythdesign.com/demos/grass. Se tomó el shader del bundle.js de la web (Three r131): contraste 2 y brillo −0,5 (el ZIP tiene 1,5 / +0,1), onda X a 2 rad/s más onda Z a un cuarto, waveSize 5 sobre 30 m, 0,3 m en punta y 0,1 m a media hoja. Valores por defecto como la web: hojas 0,8–1,4 m, 0,1 m de ancho, ≈212 hojas/m² (72 matas × 3), sin calvas por agrupación. Las tres hojas de cada mata quedaban apiladas (±4 mm) porque su separación se multiplicaba por la anchura; ahora van en metros (atributo aOffset). Densidad plena hasta 12 m y hojas ensanchadas al aclarar. En Zelda, el suelo verde usa la misma fórmula sin luz, con bruma Zelda lejana. Botón «Igual que la web» en el panel. Mismos controles, sectores, presupuestos y dos draw calls. Coste medido en Segovia: 2,2 ms (118 000 triángulos), 60 fps. 88 pruebas y compilación aprobadas. Informe: [INFORME_SESION_0.13.0.md](INFORME_SESION_0.13.0.md).
+
+## Relevo entre Codex y Claude Code
+
+La fuente vigente es D:\Español\Generador-Mundos, con entrada index.html → src/estudio/main.js. Cada agente perfecciona el resultado del anterior en esta misma fuente. La siguiente intervención debe partir de la versión indicada arriba, que mantiene Estudio y las mejoras acumuladas; no del Atlas inicial ni de una carpeta de respaldo.
+
+Antes de editar: leer README, este estado y el módulo afectado; conservar los cambios recibidos. Al entregar: registrar cambios, verificaciones realizadas y pendientes reales aquí, y guardar el respaldo de la versión. El siguiente agente vuelve a leer el estado vigente: la versión indicada aquí avanzará con cada entrega.
+
+Atlas clásico (/atlas.html → src/main.js) permanece como función heredada; no es otra línea de desarrollo. Sus módulos compartidos no se deben mover ni retirar sin revisar dependencias. Los respaldos son históricos de recuperación, nunca fuentes de trabajo paralelas.
+
+## Trabajo actual · césped James Smyth
+
+Se sustituyó el césped V5 por la geometría y las texturas locales de James Smyth, con viento GPU animado, altura y densidad ajustables, dos batches, sectores reutilizables y máscara de vegetación/altura de las superficies construidas. La misma geometría funciona en los siete estilos. AssetScattering solo inspira optimización, sin incorporar su aspecto ni movimiento.
+
+Panel integrado: Ciudad/Bosque, densidad, alcance de detalle 10/20/30/40/50 m, cobertura simplificada ajustable, colores/viento, presupuestos, culling, calidad automática opcional, guardar/cargar ajustes y comparación de rendimiento con/sin césped. El terreno, árboles aprobados, edificios, navegación y selección conservan sus implementaciones. Detalles y límites en [CESPED-JAMES.md](CESPED-JAMES.md). La aprobación visual del usuario es independiente de los controles técnicos.
+
+Verificado: 88 pruebas, compilación, siete estilos, botones de altura, densidad y recorrido de ida/vuelta conservando buffers. Valores iniciales aprobados: 20/50 m. Coste adicional en dos muestras locales: 0,8–1,3 ms, dos llamadas adicionales. Cronómetro GPU y sombras optativas comprobados. Registro: [CESPED-JAMES-VERIFICACION.md](../reports/estudio/CESPED-JAMES-VERIFICACION.md).
+
+## Cambios anteriores · 0.12.0
+
+Estilo «Zelda · SpanStories» rehecho al estilo *Breath of the Wild*; Trigun y los demás estilos sin cambios. Informe: [INFORME_SESION_0.12.0.md](INFORME_SESION_0.12.0.md).
+
+- Composición Zelda (`render/pipeline.js`, modo 6): dos tonos con sombra fría profunda, acuarela y pinceladas en espacio mundo, borde luminoso, translucidez, AO teñida, bruma aérea por altura, cielo pintado, casi sin tinta.
+- Árboles (aprobados por el usuario: no tocar): normal de volumen de copa solo en Zelda (`gmaterial.js` `foliageVolume`, `trees.js` `crown`) y paletas oliva del visor de Barcelona por árbol; sakura y otoño conservan su tono.
+- Césped 3D (`render/grass.js`), adaptado de la pradera V5: un draw call, anillo de 20 m que sigue a la cámara, máscara cenital de césped horneada una vez por lugar; +1,8 ms de pie en un prado.
+- 78 pruebas y compilación aprobadas. Respaldo previo: `respaldo/versiones/0.11.0-previo-zelda-botw-20261024T222514Z`.
+
+## Cambios de 0.11.0
+
+Generación automática y rendimiento, con lugares latinoamericanos no incluidos en los ejemplos (Antigua Guatemala, Cusco, Montevideo, Guanajuato, Oaxaca, Panamá Casco Viejo) y Puerta del Sol como control. Informe completo, métricas y pendientes: [INFORME_SESION_0.11.0.md](INFORME_SESION_0.11.0.md); evidencias en `reports/estudio/0.11.0/`.
+
+- Contexto urbano deducido de la fuente (`data/context.js`) y alturas estimadas por contexto: centros históricos latinoamericanos de 1–2 plantas; iglesias y torres ya no elevan la mediana vecinal. Alturas registradas intactas.
+- Relleno de manzanas opcional (`data/infill.js`, activo por defecto en lugares nuevos): parcelas `gen:relleno:<calle>:<lado>:<metro>` donde OSM no dibuja edificios; rejilla de 0,5 m que respeta edificios, contornos sustituidos, calles, aceras, áreas, líneas y árboles; rechaza franjas de plaza y zonas con ≥ 75 % de frente cubierto. 60–110 ms.
+- Contornos con partes que cubren < 60 % se conservan (Catedral de Oaxaca, Real Casa de Correos), retranqueados 12 cm; las partes heredan uso/patrimonio/Wikidata del contorno.
+- Templos con cubierta registrada pasan por el generador de iglesias; anchos > 22 m con tres naves (bóveda o dos aguas), portadas laterales y pilastras. Sin torres inventadas.
+- Relieve de proveedor filtrado (gaussiano σ 18 m que conserva pendientes; opciones original/30 m); DEM local intacto. Respuesta al «altos y bajos» señalado por el usuario: ruido del DEM, no del constructor.
+- Rendimiento: variantes raras (≤ 12 instancias) fundidas por sector de 100 m con `aId` de edificio: −31 % a −39 % de llamadas en Sol (438→266 en vista general), +7 % triángulos. Modo solo estructura por defecto (sin coches, farolas, mobiliario ni macetas); lo que trae OSM queda como ancla `embedded:false` con su id para GLB propios.
+- Overpass con espejos ante 429/5xx/tiempo agotado.
+- 78 pruebas (6 nuevas) y compilación aprobadas. Proyectos anteriores: relleno y filtro desactivados al abrirlos; conservan sus opciones.
+
+No verificado en 0.11.0: exportación completa de un paquete con las anclas nuevas y relleno en el modo por sectores. Respaldo previo: `respaldo/versiones/0.10.0-previo-claude-visual-20261024T204338Z`.
+
+## Cambios de 0.10.0
+
+0.10.0 continúa las ocho etapas cerradas de 0.9.0. Propuesta visual aprobada por el usuario, ajustando expresamente carga y descarga comercial a **10 m / 10 m**. Máximo global de 12 escaparates cercanos, generación bajo demanda y liberación de geometrías/materiales propios al alejarse; control «Comercios a 10 m», guardado en las opciones. Vidrio con reflexión estilizada y fondo con paralaje, estanterías y mostrador aparentes; no es interior transitable ni reproducción de un negocio real. Mismo propietario/ID que el edificio, también en bloques desplazados. Efecto cercano propio de Atlas; GLB mantiene la representación estática.
+
+Se corrigió además el defecto señalado por el usuario: zócalos del escaparate y del edificio interrumpidos en puertas/vanos. La hoja comercial llega al umbral, separada del zócalo fijo; se comprueban también portales y la representación base sin detalle cercano. Dimensiones comerciales estiradas conservan la ubicación de puerta de la instancia original. No se alteran las tiradas de colores, perfiles ni techos.
+
+Trigun ya estaba parcialmente aplicado en 0.9.0: se contrastó con el módulo vigente del visor, manteniendo paleta/albedo local y completando reflejos selectivos y parámetros de transición/saturación. Recorrido: diagonales normalizadas, subpasos de colisión, consulta en bordes de rejilla, inicio en suelo libre, límites del área, limpieza de teclas al salir/perder foco, alternancia sin repetición y cámara de tercera persona que se acerca ante obstáculos. El ratón admite arrastre si no hay bloqueo del puntero. Los controles orbitales dejan de actualizarse durante el recorrido.
+
+Referencias automáticas al cargar ciudades: OSM incluye tiendas, históricos y obras de arte; se conservan identidades de monumentos y contornos sustituidos por partes. Consulta Wikidata por Q exacto, hasta 100 identidades por lugar, lotes/caché de siete días y aviso de fallo. Fotos y modelos de referencia se enlazan, no se reconstruyen ni instalan automáticamente. Altura P2048 solo cuando es única, en metros, con cita, sin calificadores, edificio completo y Q no compartido; OSM explícito, fuentes locales y edición manual prevalecen. Fuente original intacta; referencias guardadas en proyecto, reapertura sin red y metadata del paquete. **No se ha resuelto la reconstrucción fiel universal de monumentos ni la falta de datos en todos los lugares.**
+
+Verificación y capturas: `reports/estudio/0.10.0/VERIFICACION.md`. No se reabren las ocho etapas ni se repite su validación integral; se comprueban módulos afectados por esta revisión y los fallos nuevos. Respaldo previo: `respaldo/versiones/0.9.0-previo-comercios-recorrido-20261024T194639Z`, con 188 archivos verificados mediante SHA-256.
+
+Cierre de esta revisión: 46 pruebas pertinentes aprobadas y compilación 0.10.0 correcta. Madrid ejecutado con 376 edificios/207 POI/23 referencias (Oso y Madroño, Carlos III, Mariblanca y Real Casa de Correos, entre ellas); cero alturas/modelos automáticamente aceptados por falta de datos compatibles. Se detectó HTTP 504 al ampliar OSM y se aisló el complemento con espera de ocho segundos, manteniendo la caché y los registros base y avisando si falta cobertura. La carga final terminó sin avisos. Evidencia visual de las puertas corregidas y teclado real en ambas vistas.
+
+Corrección final solicitada: accesos que flotaban por utilizar la cota máxima del edificio. Puertas, escaparates y portal de iglesia ahora toman el suelo local ante su hoja, manteniendo las dimensiones del perfil y el ajuste manual de apoyo. No se mueve la estructura ni el techo. Auditoría numérica de Madrid: 1009 comercios y 310 portales, 1319 accesos en total, ninguno con diferencia superior a 2 cm respecto al suelo digital local; error máximo de redondeo 0,00000123 m. La puerta mostrada bajó de Y=3,927 a Y=3,138 y coincide con la acera local. Captura final `madrid-puerta-apoyada.jpg`. Informe completo del chat: `respaldo/documentacion-0.10.0/INFORME_CHAT_20261024.md` (histórico).
+
+Restricción vigente de techos, reiterada por el usuario: simplificar únicamente si (pesoConTechos - pesoSinTechos) / pesoSinTechos >= 10 %, medido en exportaciones equivalentes. Sin esa evidencia se conservan. En la etapa 4 no se añade detalle superior; los controles de perfiles y modelos son opcionales y fueron aprobados tras explicarlos en lenguaje cotidiano.
+
+Objetivo: las ocho etapas de [PLAN.md](PLAN.md) implementadas y verificadas según sus criterios. Entrega y relevo: [INFORME_CONTINUACION.md](INFORME_CONTINUACION.md). Límites que permanecen: [LIMITACIONES.md](LIMITACIONES.md). No se afirma reconstrucción universal ni fidelidad sin referencias.
+
+0.9.0: validación integral cerrada con 58 pruebas y compilación aprobadas. Gran Vía guardada: 354/354 edificios con geometría e ID, 58 GLB decodificados, hashes comprobados y selección en UI de osm:relation:4715753. Colegio sobre Madrid: 237 registros/235 edificios dibujados, lugar original conservado. Ensayo de 2 km: 400/400 edificios en los 1600 GLB y hashes de 1608 archivos; exporta toda el área, no solo los bloques residentes. Sin recursos pendientes. Repetición con caché caliente: 13 840 776 bytes estimados, 206 geometrías y 16 texturas en ambos retornos, con 6/100 bloques activos; no equivale a memoria total ni FPS universal.
+
+Se corrigieron marcas duplicadas y bordillos artificiales entre bloques; la generación y exportación comparten finalizeChunk. El modo sin proveedores tampoco consulta la búsqueda por nombre ni las teselas del mapa. En ensayos con autoguardado=0, Guardar descarga sin escribir la recuperación local. Interiores incompatibles se rechazan con error y reversión. Respaldos excluidos de la vigilancia y del servicio de Vite. No se han retirado techos ni simplificado geometrías para los ahorros de Meshopt.
+
+Evidencias finales: reports/estudio/0.9.0/VERIFICACION.md. Los paquetes y archivos para continuar están enumerados en el informe; no se ha instalado el adaptador en el visor principal de SpanStories. La recuperación local pudo cambiar durante la prueba manual anterior de Guardar: se conserva su copia anterior, pero no se asegura que la recuperación actual sea la última zona visitada por el usuario.
+
+0.8.0: paquetes exclusivos por ejecución, sin sobrescribir exportaciones anteriores; manifiesto completo escrito al final y hashes SHA-256. Estructura con _ENTITY_ID, instancias con tabla de propietarios y modelos con ID propio; atributos de superficie y UV conservados. Todos los elementos visibles y texturas se incluyen en los GLB; las anclas son metadatos de elementos ya incluidos. Proyecto fuente editable incluido. El modo por sectores exporta toda el área construyendo/liberando cada bloque, no solo lo residente. AtlasPackage.js portátil incluido, con carga/descarga por cercanía, comprobación de integridad y selección. El visor principal de SpanStories no se ha modificado.
+
+Meshopt sin cuantización, reducción geométrica ni reordenación; se usa solo si reduce bytes. Decodificación comprobada en el cargador Three real y exactitud numérica comprobada en prueba. Revisión opcional aprobada dentro de Atlas: lee el paquete guardado, adapta al G-buffer existente y vuelve al proyecto editable. No equivale a integración en el visor principal.
+
+Prueba escolar con interior gen:edificio:1 y modelo asignado gen:edificio:2: 36 GLB, todos decodificados y comprimidos; 56 339 668 → 27 982 384 bytes de GLB. 68 edificios con geometría conservan su ID; dos pilares de 1,44 m² se omiten por el mínimo de área del generador previo. Recursos sin dependencias pendientes. Proyecto guardado desde UI en reports/estudio/0.8.0/escuela-interior-modelo.json; verificación en escuela-paquete-final.json. Cinco pruebas nuevas; última suite completa: 57 aprobadas antes de las últimas protecciones de biblioteca y presupuesto; se repetirá al cerrar.
+
+Durante la prueba se detectó y corrigió la conversión de recursos indexados y la conservación de UV; también el doble prefijo de atributos personalizados del exportador y la invocación de fetch del receptor. La exportación con geometría inválida se archivó en respaldo/exportaciones-fallidas, sin eliminarla. No se consideran válidas las pruebas anteriores a esas correcciones.
+
+0.7.0: modo opcional por sectores de 200 m, hasta 2 km/lado, 20 000 edificios en datos y 1500 por sector; máximo 9 sectores de detalle y presupuesto estimado de 192 MiB de buffers geométricos. Construcción bajo demanda, descarga real de recursos propios, descarte de resultados obsoletos y actualización de sectores afectados por ediciones. Fuera del detalle hay terreno de plano, sin reproducir la arquitectura lejana. El conjunto semántico completo sigue residente en CPU: no es un mundo infinito ni streaming de proveedores. Modelos/texturas de biblioteca tienen vida compartida y no se confunden con los buffers descargables.
+
+Se corrigió el dueño de las instancias tras compactar LOD; selección conserva el ID global en sectores. Caché de prototipos acotada a 256; wrappers de instancias liberables y recursos compartidos protegidos. La apertura fallida reconstruye la sesión anterior. Panel con límites y medición de render de esta vista.
+
+52 pruebas y compilación aprobadas. Escenario sintético de 400 edificios/2 km: primera medición de esquina, 4/100 sectores, 9 214 680 bytes de buffers estimados; 136 llamadas/91 906 triángulos y 15,8 ms/fotograma sincronizado en este entorno (690×583, DPR 1, tres repeticiones). No equivale a memoria total/VRAM ni a rendimiento de cualquier ciudad. reports/estudio/0.7.0 contiene fixture y captura. Se prepararon dependencias locales de compresión para la etapa 7; aún no se declara comprobado el paquete exportado en esta versión.
+
+0.6.0: ajustes por ID de apoyo del edificio, ancho y representación de calle; puentes y túneles aproximados con superficie de recorrido; importación de DEM local en metros con centro/tamaño coincidentes y fuente/licencia; interiores opcionales de planta baja con puerta real, suelo, paredes, techo interior y colisiones. Una estancia admite huellas compatibles; dos requieren rectángulo. Se rechazan pendiente/apoyo inadecuados, modelos propios e iglesias genéricas. Fuente, configuración y deshacer se conservan al guardar/abrir. Los errores de aplicación revierten el cambio. La geometría del techo exterior es idéntica en la prueba antes/después del interior.
+
+Verificado: 48 pruebas y compilación aprobadas; interior habilitado y entrada probados desde UI en escuela sintética, captura reports/estudio/0.6.0/interior-prueba.png. No representa un plano real. Puentes/túneles se comprobaron mediante cotas y continuidad en pruebas controladas; no se certifican pendientes viales ni obras reales. Etapa 6 opcional aprobada por el usuario.
+
+0.5.0: perfiles opcionales por ID para ventanas, puertas, balcones y referencia; estilos adicionales explícitos y uso optativo del estilo etiquetado. Biblioteca de GLB estáticos autocontenidos (48 MB/modelo, hasta 50 y proyecto total 160 MB), rechazo de recursos externos/compresión sin decodificador/morphs/animaciones. Ajuste uniforme dentro de envolvente y apoyo en terreno; identificación y selección conservadas; exportación de modelos asignados con materiales originales. Ediciones y perfiles se deshacen juntos. Importar no cambia la escena hasta aplicar el perfil. No se añaden detalles de techos. Ningún edificio real se declara fiel sin comparación y aprobación de referencia.
+
+45 pruebas y compilación aprobadas. Importación/asignación de torre-atlas.glb probada en colegio sintético sin autosalvado, con captura en reports/estudio/0.5.0/modelo-asignado.png; es demostración técnica, no arquitectura real. Fuente y estilo compartido conservados; perfil de un edificio no modifica los vecinos. Falta repetir paquete completo y reimportación, previsto en etapa 7. Se corrigió también la metadata de proyecto para guardar el lugar construido y no una selección del mapa pendiente o fallida.
+
+0.4.0: panel Datos/cobertura/fuentes, diferencias entre altura registrada/derivada/estimada/corregida; GeoJSON local con licencia y IDs, adiciones o correcciones por targetId, prioridad manual → local → OSM → inferencia. Las fuentes se guardan en el proyecto y pueden retirarse sin tocar OSM. Parámetros de estimación y región explícita; modo sin proveedores con fuente guardada y contexto lejano serializable. La caché vencida puede recuperarse con aviso si falla el proveedor; actualizar explícitamente sigue notificando el fallo. Fuentes nuevas sin cobertura siguen necesitando datos externos o locales.
+
+Se corrigió un fallo descubierto al probar Plaza de Mayo: partes elevadas con plantas inferidas negativas impedían el autosalvado. Se conserva el conteo registrado cuando su relación con min_height es incompatible y se avisa; el snapshot original permanece intacto. Prueba real de Buenos Aires añadida. 41 pruebas y compilación aprobadas. El contexto guardado se reconstruyó en prueba con proveedor desconectado y cero llamadas. El navegador se dejó visible por petición del usuario; no cambiar su lugar/cámara mientras lo está explorando.
+
+0.3.0: proyecto JSON completo de Estudio, autosalvado con copia anterior en base separada de Atlas clásico, reapertura de lugar/escuela/colegio insertado, cámara/semillas/opciones y contexto lejano guardable. Selección de edificios por ID desde dropdown, paredes agrupadas o piezas instanciadas; overlays individuales y deshacer de hasta 30 ediciones. Restaurar fuente retira el overlay. El exportador recibe los datos efectivos editados. Los controles fueron aprobados por el usuario en ventana emergente.
+
+Verificado: 35 pruebas aprobadas y compilación. En la interfaz de Gran Vía se editó osm:relation:4521990 a 29 m y 9 plantas, se descargó y reabrió el JSON; conservó la fuente de 35,2 m y las 354 entidades/89 vías. La edición temporal se retiró tras guardar evidencias. El proyecto de prueba y capturas están en reports/estudio/0.3.0. El caso interactivo se ejecutó sin contexto lejano; el soporte de contexto guardado aún requiere prueba específica de desconexión en la etapa 3.
+
+Cambios: README breve; documentación vigente en docs; documentación y 25 evidencias del Atlas clásico archivadas en respaldo; respaldo reproducible con SHA-256. Prioridad elegida por el usuario: fidelidad de fachadas y edificios singulares.
+
+Primera revisión visual aprobada y aplicada: política de apariencia separada de la geometría; colores de fachada registrados sin variación aleatoria; materiales registrados antes que estilo; cubiertas planas registradas respetadas; color/material de cubierta usados en las ramas principales. Sin áticos ni templetes aleatorios en edificios identificados como singulares, ni en aquellos con forma de cubierta registrada. Los campanarios y cúpulas genéricos por probabilidad también se restringen. Se conservan Wikidata, Wikipedia, patrimonio, arquitecto y estilo registrado; la exportación incluye procedencia y representación aproximada.
+
+Las 52 capturas previas de Estudio están en respaldo/evidencias-estudio-hasta-0.1.0; las nuevas evidencias van en reports/estudio/0.2.0. No se han creado versiones paralelas del programa.
+
+Base previa: respaldo/versiones/0.1.0-base-20261024T134827Z (fuentes y recursos verificados). Las evidencias históricas se conservan además en respaldo/evidencias-atlas-clasico-20261024; los cinco JSON utilizados por tests/scripts permanecen en reports. Atlas clásico sigue siendo una entrada funcional, no una copia editable nueva.
+
+## Limitaciones pendientes
+
+- Fachadas y monumentos: gramática aproximada; sin reconstrucción por fotografías ni modelos específicos universales.
+- Esta revisión prioriza atributos registrados, no certifica que OSM coincida con el lugar real. Los tonos deducidos de material siguen siendo aproximados. Colores no reconocidos usan una alternativa; cubiertas no soportadas o huellas incompatibles se aproximan y se señala en la representación. Iglesias sin datos específicos conservan una gramática genérica.
+- Datos: dependencia de OSM, alturas inferidas, estilos regionales limitados.
+- Territorio: 200–1000 m en modo completo; hasta 2 km por lado en modo opcional por sectores; contexto lejano simplificado. Terreno, puentes, túneles e interiores son aproximados y no reconstruyen ingeniería ni planos reales.
+- Operación: servicios externos y rendimiento variable; descarga de detalle dentro del área cargada, sin mundo continuo ni streaming geográfico de red.
+- Edición: hay editor individual, reapertura, biblioteca de modelos/perfiles y controles de calles/relieve/interior; no hay edición libre de cada pieza de fachada.
+- Exportación: geometría fusionada con selección por ID conservada; no permite editar libremente cada pieza de fachada en el GLB. Recursos incluidos y Meshopt comprobado. La iluminación depende del receptor y la integración automática en el visor principal sigue fuera de lo aplicado.
+
+No se considera resuelta una limitación por añadir una opción: requiere prueba pertinente y, cuando corresponda, comparación con referencias reales.
+
+## Verificación histórica · 0.2.0
+
+30 pruebas aprobadas (cuatro nuevas de Estudio: geometría y colores tras regenerar, prioridad de materiales, procedencia e identidad, conservación de calles y huellas). Compilación aprobada; persiste aviso de tamaño del paquete Three.js. Organización comprobada por rutas y consumidores de fixtures.
+
+Gran Vía 300 × 300 m ejecutada en el puerto habitual: 354 entidades, 89 vías, 69 alturas estimadas, 176 árboles; captura en reports/estudio/0.2.0/gran-via-revision.png. No se afirma fidelidad visual contra fotografías reales. La exportación completa a GLB no se ha repetido en esta revisión; su metadato se añadió al exportador existente.

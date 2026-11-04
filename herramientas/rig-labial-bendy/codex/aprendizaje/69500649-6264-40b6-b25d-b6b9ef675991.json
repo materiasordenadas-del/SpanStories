@@ -1,0 +1,19 @@
+{
+  "id": "69500649-6264-40b6-b25d-b6b9ef675991",
+  "timestamp": "2026-10-29T02:42:13.366039+00:00",
+  "status": "verificado",
+  "character": "Tom Holland",
+  "topic": "grosor labios",
+  "problem": "Faltaba un control de grosor independiente de las expresiones",
+  "action": "0.8.36 agrega dos morphs rlb_grosor_labio_sup/inf y panel, ambos neutros; no regenera el rig",
+  "result": "Tres escalas y nueve combinaciones en Tom sin caras invertidas; capturas Workbench frontal y tres cuartos revisadas, efecto suave. Basis, UV, topologia, keys previas, controles y acciones conservados. Registro y retirada limpia del addon comprobados. No se guardo el blend. No garantiza expresiones arbitrarias.",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a1857f-e05c-7251-bf44-c934916f4e8b\\verificacion_grosor.json",
+      "sha256": "a6202c8a04886afff023149fd7956b5683b7cf695a68b9042d9cb38f3fb19278"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.33",
+  "plugin_version": "0.8.32"
+}

@@ -1,0 +1,13 @@
+schema_version = "1.0.0"
+id = "rig_labial_bendy"
+version = "0.8.50"
+name = "Rig Labial Bendy"
+tagline = "Rig de labios con Bendy Bones, boca y ojos reutilizados"
+maintainer = "SpanStories"
+type = "add-on"
+blender_version_min = "4.2.0"
+license = ["SPDX:MIT"]
+tags = ["Rigging", "Animation"]
+
+[permissions]
+files = "Guarda hojas PNG de revisión junto al .blend"

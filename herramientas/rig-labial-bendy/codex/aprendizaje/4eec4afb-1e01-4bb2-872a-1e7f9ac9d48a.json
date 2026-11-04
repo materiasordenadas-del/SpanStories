@@ -1,0 +1,27 @@
+{
+  "id": "4eec4afb-1e01-4bb2-872a-1e7f9ac9d48a",
+  "timestamp": "2026-10-28T22:26:13.464469+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "expresiones_21",
+  "problem": "Gestos excesivos concentrados en párpados, nariz y apertura labial; dolor leve unilateral",
+  "action": "Editar 21 acciones existentes por separado con recortes de referencia en Empty existente alineado frontal ortográfico; segunda pasada sobre diez gestos tras revisión visual",
+  "result": "21 renders frontales 768 y 21 oblicuos revisados; superposición de escena comprobada. Neutral, otras 21 acciones y coordenadas de keys intactas. Miniaturas actualizadas. Aprobación estética del usuario pendiente; no se guardó blend.",
+  "evidence": [
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Tom_expresiones_21\\informe.json",
+      "sha256": "8d88e82ad6e8be63646c5d6427f591cca9588e7dc8caaa36174e955841329d4d"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Tom_expresiones_21\\Tom_21_corregidas.png",
+      "sha256": "d06d99f70416ac0348e6c83aa9cdc02559570115176f46a8017c840740658312"
+    },
+    {
+      "path": "D:\\Español\\imagen para animación\\Vale 2\\RLB_revision\\Tom_expresiones_21\\revision_oblicua.jpg",
+      "sha256": "95cb07fd80d1f6ef79f1765bfd9a97c2ef49a78d735a669daf103110b5b63352"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.35",
+  "plugin_version": "0.8.32"
+}

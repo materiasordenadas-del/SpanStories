@@ -1,0 +1,23 @@
+{
+  "id": "188c684f-a8f6-4b07-b5a2-aa678b84c16a",
+  "timestamp": "2026-10-27T11:50:26.979219+00:00",
+  "status": "fallo",
+  "character": "Tom Holland detallado",
+  "topic": "expresiones y alcance dental",
+  "problem": "El ajuste de sonrisa se amplio a sustituir las bandas dentales existentes; el usuario rechazo esa sustitucion. Rig Blender cargado 0.8.10.",
+  "action": "Se restauraron los mismos datablocks dentales originales, parentescos y modificadores, se retiraron las mallas creadas y solo se modifico el Action sonrisa_abierta con controles existentes de labios y comisuras.",
+  "result": "Dentaduras originales restauradas con 584 vertices y 30 keys cada una. Las otras 41 expresiones y la geometria, keys y UV de la cara permanecen iguales. Sin guardar blend. La naturalidad final de la sonrisa no tiene aprobacion visual del usuario.",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\27\\01a17d1a-bc59-7c80-a5a0-a6057fa11808\\tom_expresiones\\restauracion_verificada.json",
+      "sha256": "452173627237c2e164f6fc2133d0bafed749584bdd7cd4449140046dd10e7201"
+    },
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\27\\01a17d1a-bc59-7c80-a5a0-a6057fa11808\\tom_expresiones\\FINAL_solo_sonrisa.json",
+      "sha256": "4a8641e7353de2a1a82ba4c03a8c4d6d27284a494092536dae13c715e5c531db"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.2",
+  "plugin_version": "0.8.2"
+}

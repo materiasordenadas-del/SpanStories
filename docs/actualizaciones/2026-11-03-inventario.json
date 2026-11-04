@@ -1,0 +1,15 @@
+{
+  "rama": "actualizacion/spanstories-completo-20261103",
+  "componentes": {
+    "generador-mundos": "Generador-Mundos",
+    "story-studio-plan": "docs/story-studio/plan-original",
+    "texture-painter": "herramientas/texture-painter",
+    "rig-labial-bendy": "herramientas/rig-labial-bendy",
+    "blender-motion-rig": "herramientas/blender-motion-rig",
+    "glb-app": "herramientas/glb-app",
+    "cara-viva": "herramientas/cara-viva",
+    "expresiones-corporales": "herramientas/expresiones-corporales"
+  },
+  "archivos_adicionales": 720,
+  "verificacion": "Ver INFORME_ACTUALIZACION.md; sin despliegue público."
+}

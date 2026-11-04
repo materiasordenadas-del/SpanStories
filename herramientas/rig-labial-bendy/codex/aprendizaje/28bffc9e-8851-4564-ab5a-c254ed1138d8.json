@@ -1,0 +1,19 @@
+{
+  "id": "28bffc9e-8851-4564-ab5a-c254ed1138d8",
+  "timestamp": "2026-10-29T11:03:35.935597+00:00",
+  "status": "verificado",
+  "character": "Tom",
+  "topic": "interfaz",
+  "problem": "Separar ajustes generales de la edición por zona conservando las opciones",
+  "action": "Paneles en Propiedades Objeto y barra lateral; actualización exclusiva de draw y registro de paneles 0.8.38",
+  "result": "151 opciones antes y después en diez escenarios, 79 funciones ajenas a UI idénticas, operadores y propiedades sin cambios, firmas de geometría UV pesos acciones y valores iguales; revisión visual en Blender; no se guardó blend",
+  "evidence": [
+    {
+      "path": "C:\\Users\\AdrielPereira\\.codex\\visualizations\\2026\\10\\29\\01a1874c-0689-7153-bf96-8b8e7e2f20c8\\verificacion_paneles.json",
+      "sha256": "a3f7bdc8309cb9af3eb0f9534242d6fb0872f851971503a860c45397fdc466b1"
+    }
+  ],
+  "supersedes": null,
+  "addon_version": "0.8.38",
+  "plugin_version": "0.8.32"
+}
