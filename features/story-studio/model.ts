@@ -1,6 +1,7 @@
 import type { StoryReaderViewModel } from '../story-reader/model.ts';
 import type { Story } from '../story-engine/domain/model.ts';
 import type { NewVersionInput } from '../story-engine/repository/story-repository.ts';
+import { validateLife, type SceneLife } from './life.ts';
 /** Direction is a versioned layer over Story Engine content; never a second copy of its text. */
 export type Vec3 = readonly [number, number, number];
 export type Shot = { position: Vec3; target: Vec3; fov: number; transition: number };
@@ -24,7 +25,9 @@ export type Sequence = { id: string; name: string; cues: Cue[]; gate: Gate };
 /** Lighting presets understood by the shared city light (Luz25D). Absent = keep the viewer's current light. */
 export const SCENE_AMBIENTS = ['manana', 'mediodia', 'tarde', 'nublado', 'noche'] as const;
 export type SceneAmbient = typeof SCENE_AMBIENTS[number];
-export type StudioScene = { id: string; name: string; zoneId: string; actors: Actor[]; shot: Shot; entryIds: string[]; sequences: Sequence[]; ambient?: SceneAmbient };
+export type StudioScene = { id: string; name: string; zoneId: string; actors: Actor[]; shot: Shot; entryIds: string[]; sequences: Sequence[]; ambient?: SceneAmbient;
+  /** Vida ambiental: NPC grabados una vez en el estudio (ver life.ts). */
+  life?: SceneLife };
 export type StudioProject = {
   schema: 1; id: string; name: string; storyId: string; storyVersionId: string;
   revision: number; scenes: StudioScene[];
@@ -39,7 +42,10 @@ export type StudioSource = {
   engine?:{story:Story;content:NewVersionInput};
 };
 export type StudioSnapshot = {
-  sceneId: string; sequenceId: string; time: number; shot: Shot; actors: Actor[];
+  sceneId: string; sequenceId: string; time: number;
+  /** Tiempo acumulado dentro de la escena: reloj determinista de la vida ambiental. */
+  sceneTime: number;
+  shot: Shot; actors: Actor[];
   performances: Extract<Cue, { kind: 'actor' }>[];
   dialogue: Extract<Cue, { kind: 'dialogue' }> | null;
   caption: Extract<Cue, { kind: 'dialogue' }> | null;
@@ -76,6 +82,7 @@ export function validateProject(raw: unknown, source: StudioSource): asserts raw
       if (!obj(actor) || !id(actor.id) || actors.has(actor.id) || !id(actor.characterId) || !id(actor.name) || !vec(actor.position) || !number(actor.rotation, -1000, 1000) || !number(actor.height, .2, 5)) fail('Personaje inválido.');
       actors.add(actor.id);
     }
+    if (scene.life !== undefined) { const problem = validateLife(scene.life, scene.zoneId); if (problem) fail(problem); }
     for (const sequence of scene.sequences) {
       if (!obj(sequence)) fail('Secuencia inválida.');
       unique(sequence.id); sequences.add(sequence.id);

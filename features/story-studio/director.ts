@@ -24,6 +24,7 @@ export function sampleSequence(project: StudioProject, index: number, time: numb
     });
   const lastOtherScene = route.findLastIndex(item => item.scene.id !== scene.id);
   const moments = route.slice(lastOtherScene + 1).map(item => item.sequence);
+  const sceneTime = moments.slice(0, -1).reduce((sum, prior) => sum + sequenceDuration(prior), 0) + time;
   for (const [step, prior] of moments.entries()) {
     const current = step === moments.length - 1;
     const localTime = current ? time : sequenceDuration(prior);
@@ -57,7 +58,7 @@ export function sampleSequence(project: StudioProject, index: number, time: numb
       if (current && cue.kind === 'sound' && localTime < cue.at + cue.duration) sounds.push(cue);
     }
   }
-  return { sceneId: scene.id, sequenceId: sequence.id, time, shot, actors, performances, dialogue, caption, sounds };
+  return { sceneId: scene.id, sequenceId: sequence.id, time, sceneTime, shot, actors, performances, dialogue, caption, sounds };
 }
 
 export function createStudioDirector(projectInput: StudioProject, source: StudioSource) {

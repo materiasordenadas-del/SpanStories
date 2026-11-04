@@ -9,6 +9,7 @@ import {StudioReading} from './StudioReading';
 import {useStudioAudio} from './useStudioAudio';
 import styles from './story-player.module.css';
 import {readStudioCheckpoint,saveStudioCheckpoint} from '@/features/story-studio/checkpoint';
+import {lifeIsStale} from '@/features/story-studio/life';
 
 export function PublishedStudioPlayer({releaseId,sources,viewerUrl,service,owner}:{releaseId:string;sources:StudioSource[];viewerUrl:string;service:WorldLexiconService;owner:string}){
   const [content,setContent]=useState<ReturnType<typeof readPublishedPresentation>|null>(null),[error,setError]=useState<string|null>(null);
@@ -46,7 +47,10 @@ function ReleasedPerformance({content,viewerUrl,service,owner}:{content:ReturnTy
       if(event.origin!==origin||event.source!==frame.current?.contentWindow)return;
       const m=event.data;
       if(m?.channel!=='spanstories.studio'||m.version!==1){void bridge.handle({origin:event.origin,source:event.source,data:m});return;}
-      if(m.type==='READY'){window.clearInterval(hello);setConnected(true);const stage=latest.current.stage,scene=project.scenes.find(s=>s.id===stage.sceneId)!;post('STAGE',{requestId:crypto.randomUUID(),stage:{...stage,zoneId:scene.zoneId,entryIds:scene.entryIds,ambient:scene.ambient},student:true,allowLook:project.navigation.allowLook});}
+      if(m.type==='READY'){window.clearInterval(hello);setConnected(true);const stage=latest.current.stage,scene=project.scenes.find(s=>s.id===stage.sceneId)!;
+        // La vida ambiental publicada es una grabación fija: se entrega una vez por escena.
+        for(const s of project.scenes)post('LIFE',{sceneId:s.id,life:s.life?.recording&&!lifeIsStale(s.life)?{cast:s.life.cast,recording:s.life.recording}:null});
+        post('STAGE',{requestId:crypto.randomUUID(),stage:{...stage,zoneId:scene.zoneId,entryIds:scene.entryIds,ambient:scene.ambient},student:true,allowLook:project.navigation.allowLook});}
       if(m.type==='STAGE_READY'&&m.sequenceId===latest.current.stage.sequenceId)setReady(true);
       if(m.type==='ERROR'){setError(typeof m.message==='string'?m.message:'No se pudo preparar el escenario.');setReady(false);commit(director.pause());}
       if(m.type==='OBJECT_TOUCHED'){setObjectOpen(true);const snapshot=director.snapshot();if(snapshot.gate.kind==='object'&&snapshot.gate.entryIds.includes(m.entryId))setTouch({sequenceId:snapshot.stage.sequenceId,entryId:m.entryId});}

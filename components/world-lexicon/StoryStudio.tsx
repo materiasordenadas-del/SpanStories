@@ -18,6 +18,7 @@ import {useStudioAudio} from './useStudioAudio';
 import {StudioMediaRepository,localAudioId,type StudioAudioAsset} from '@/features/story-studio/browser-media';
 import {speakSpanish} from '@/features/story-reader/browser-speech';
 import {storePublishedPresentation} from '@/features/story-studio/publication';
+import { LIFE_AFFORDANCES, LIFE_ROLES, lifeIsStale, defaultLife, type LifeAffordance, type LifeRole, type SceneLife } from '@/features/story-studio/life';
 
 const Flow = dynamic(() => import('./StudioFlow').then(m => m.StudioFlow), { ssr: false });
 const Timeline = dynamic(() => import('./StudioTimeline').then(m => m.StudioTimeline), { ssr: false });
@@ -52,7 +53,7 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
   const [project, setProject] = useState(rehearsal.project);
   const [sequenceId, setSequenceId] = useState(project.scenes[0].sequences[0].id);
   const [selectedCueId, setSelectedCueId] = useState<string | null>(null);
-  const [tab, setTab] = useState<'scene' | 'moment' | 'camera' | 'actors' | 'interaction'>('moment');
+  const [tab, setTab] = useState<'scene' | 'moment' | 'camera' | 'actors' | 'interaction' | 'life'>('moment');
   const [library, setLibrary] = useState<'characters' | 'scenarios' | 'actions'>('characters');
   const [student, setStudent] = useState(false);
   const [ready, setReady] = useState(false);
@@ -109,6 +110,18 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
   const viewer = new URL(viewerUrl); viewer.searchParams.set('estudio', '1'); viewer.searchParams.set('zone', stageZoneId);
   const origin = viewer.origin;
   const send = useCallback((type: string, data: Record<string, unknown> = {}) => frame.current?.contentWindow?.postMessage({ channel: 'spanstories.studio', version: 1, type, ...data }, origin), [origin]);
+  // Vida ambiental: solo se envían grabaciones vigentes y solo cuando cambian.
+  const lifeSent = useRef(new Map<string, string>());
+  const lifeRequest = useRef<string | null>(null);
+  const [recordingLife, setRecordingLife] = useState(false);
+  const sendLives = useCallback((value: StudioProject) => {
+    for (const s of value.scenes) {
+      const payload = s.life?.recording && !lifeIsStale(s.life) ? { cast: s.life.cast, recording: s.life.recording } : null;
+      const key = JSON.stringify(payload);
+      if (lifeSent.current.get(s.id) === key) continue;
+      lifeSent.current.set(s.id, key); send('LIFE', { sceneId: s.id, life: payload });
+    }
+  }, [send]);
   const list = sequenceList(project), item = list.find(x => x.sequence.id === sequenceId) ?? list[0];
   const { scene, sequence } = item;
   const selectedCue = sequence.cues.find(c => c.id === selectedCueId) ?? sequence.cues.find(c => c.kind === 'dialogue');
@@ -198,6 +211,7 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
         setConnected(true); setCharacters(Array.isArray(m.characters) ? m.characters : []); setEntries(Array.isArray(m.entries) ? m.entries : []);
         if (Array.isArray(m.zones)) setZones(m.zones.filter((z: unknown): z is StudioZone => !!z && typeof (z as StudioZone).id === 'string' && typeof (z as StudioZone).label === 'string'));
         const currentScene=projectRef.current.scenes.find(s=>s.id===playbackRef.current.stage.sceneId);
+        lifeSent.current.clear();sendLives(projectRef.current);
         if(currentScene)send('STAGE', { requestId: uid(), stage: { ...playbackRef.current.stage, zoneId: currentScene.zoneId, entryIds: currentScene.entryIds, ambient: currentScene.ambient }, student: studentRef.current, allowLook: projectRef.current.navigation.allowLook });
         setStatus('Escenario conectado · elige un momento para dirigirlo.');
       }
@@ -233,9 +247,21 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
         if(gate.kind==='object'&&gate.entryIds.includes(m.entryId))setObjectTouch({sequenceId:director.current.snapshot().stage.sequenceId,entryId:m.entryId});
       }
       if(m.type==='OBJECT_CLOSED')setObjectOpen(false);
+      if(m.type==='LIFE_RECORDED'&&m.requestId===lifeRequest.current){
+        lifeRequest.current=null;setRecordingLife(false);
+        const next=structuredClone(projectRef.current),target=next.scenes.find(s=>s.id===m.sceneId);
+        if(target?.life){
+          target.life.recording=m.recording;changeRef.current(next);
+          const r=m.recording as NonNullable<SceneLife['recording']>;
+          setStatus(`Vida ambiental grabada · ${r.tracks.length} NPC · bucle de ${Math.round(r.loop)} s · ${r.lines.length} frases.${r.warnings.length?' Revisa los avisos.':''} Guarda la puesta en escena.`);
+        }
+      }
+      if(m.type==='LIFE_ERROR'&&m.requestId===lifeRequest.current){lifeRequest.current=null;setRecordingLife(false);setStatus(typeof m.message==='string'?m.message:'No se pudo grabar la vida ambiental.');}
     };
     window.addEventListener('message', onMessage); send('HELLO'); return () => { window.clearInterval(helloTimer);window.removeEventListener('message', onMessage); };
-  }, [origin, send, service]);
+  }, [origin, send, service, sendLives]);
+
+  useEffect(() => { if (connected) sendLives(project); }, [connected, project, sendLives]);
 
   useEffect(() => {
     if (!connected) return;
@@ -398,6 +424,27 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
       send('PLACE', { actorId: id }); setStatus('Haz clic en el suelo para colocar a ' + name + '.');
     });
   }
+  function editLife(fn: (life: SceneLife) => void) {
+    const next = structuredClone(projectRef.current), target = next.scenes.find(s => s.id === scene.id)?.life;
+    if (!target) return; fn(target); changeRef.current(next);
+  }
+  function addLifePoint() {
+    capture(({ shot, position }) => editLife(l => {
+      // Por defecto el NPC mira hacia donde mira la cámara (por ejemplo, hacia el escaparate).
+      l.points.push({ id: uid(), kind: 'pasear', position, rotation: Math.atan2(position[0] - shot.position[0], position[2] - shot.position[2]), slots: 2 });
+    }));
+    setStatus('Punto añadido donde mira la cámara. Elige qué se puede hacer en él.');
+  }
+  function recordLife() {
+    const current = scene.life;
+    if (!current || !connected || lifeRequest.current) return;
+    if (!current.cast.length) { setStatus('Añade al menos un NPC antes de grabar.'); return; }
+    const requestId = uid(), config: SceneLife = { ...current }; delete config.recording;
+    lifeRequest.current = requestId; setRecordingLife(true);
+    send('LIFE_RECORD', { requestId, sceneId: scene.id, life: config, center: scene.shot.target });
+    setStatus('Grabando la vida ambiental…');
+    window.setTimeout(() => { if (lifeRequest.current === requestId) { lifeRequest.current = null; setRecordingLife(false); setStatus('El escenario no terminó la grabación de la vida ambiental.'); } }, 60000);
+  }
   function addCue(kind: Cue['kind']) {
     // New cues start at the playhead, or right after whatever already occupies that track.
     const base = { id: uid(), duration: 3 };
@@ -489,6 +536,8 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
   const currentItem = list[playback.index] ?? item;
   const gate = playback.gate;
   const panelHeading = (title: string, extra?: React.ReactNode) => <div className={styles.panelHeading}><h2>{title}</h2>{extra}</div>;
+  const life = scene.life, lifeRecording = life?.recording, lifeStale = life ? lifeIsStale(life) : false;
+  const npcName = (id: string) => { const i = life?.cast.findIndex(c => c.id === id) ?? -1; return i < 0 || !life ? 'NPC' : `${LIFE_ROLES[life.cast[i].roleId]} ${i + 1}`; };
   const vectorFields = (value: Vec3, update: (v: Vec3) => void) => <div className={styles.vectorFields}>{['X', 'Y', 'Z'].map((axis, i) => <label key={axis}>{axis}<input aria-label={`Posición ${axis}`} type="number" step="0.1" value={Number(value[i].toFixed(3))} onChange={e => update(value.map((v, j) => j === i ? number(e.target.value, v) : v) as unknown as Vec3)} /></label>)}</div>;
 
   return <div className={`${styles.studio} ${student ? styles.studentMode : ''} ${objectOpen?styles.objectOpen:''}`} style={{ '--timeline-size': showTime ? '156px' : '36px' } as CSSProperties}>
@@ -529,7 +578,7 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
     <section className={styles.flowPanel + ' ' + styles.panel} aria-label="Flujo narrativo">{panelHeading('Flujo narrativo', <div className={styles.inlineButtons}><button aria-pressed={flowDetail} onClick={()=>setFlowDetail(!flowDetail)}>{flowDetail?'Ver escena':'Ver acciones'}</button><button title="Añade un momento después del actual" onClick={() => apply(() => createSequence(project, scene.id, sequence.id), ({ project: next, id }) => { change(next); select(id); })}>{buttonIcon('plus', 'Añadir momento')}</button></div>)}<div className={styles.flowCanvas}>{!student&&<Flow project={project} source={source} sceneId={scene.id} selectedId={sequenceId} selectedCueId={selectedCueId} detail={flowDetail} issues={issues} onSelect={(id,gate)=>{select(id);if(gate)setTab('interaction');}} onCueSelect={id=>{setSelectedCueId(id);setTab('moment');}} onChange={change} />}</div></section>
 
     <aside className={styles.rightDock} aria-label="Dirección y acciones">
-      <section className={styles.panel + ' ' + styles.properties}>{panelHeading('Propiedades')}<div className={styles.tabs}>{(['scene', 'moment', 'camera', 'actors', 'interaction'] as const).map(k => <button key={k} aria-pressed={tab === k} onClick={() => setTab(k)}>{k === 'scene' ? 'Escena' : k === 'moment' ? 'Momento' : k === 'camera' ? 'Cámara' : k === 'actors' ? 'Personajes' : 'Interacción'}</button>)}</div>
+      <section className={styles.panel + ' ' + styles.properties}>{panelHeading('Propiedades')}<div className={styles.tabs}>{(['scene', 'moment', 'camera', 'actors', 'interaction', 'life'] as const).map(k => <button key={k} aria-pressed={tab === k} onClick={() => setTab(k)}>{k === 'scene' ? 'Escena' : k === 'moment' ? 'Momento' : k === 'camera' ? 'Cámara' : k === 'actors' ? 'Personajes' : k === 'interaction' ? 'Interacción' : 'Vida'}</button>)}</div>
         <div className={styles.inspector}>
           {tab === 'scene' && <><div className={styles.inspectorTitle}><span className={styles.objectIcon}><Icon name="world" /></span><div><h3>{scene.name}</h3><small>Escena {sceneIndex + 1} de {project.scenes.length}</small></div></div>
             <label>Nombre de la escena<input value={scene.name} onChange={e => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.name = e.target.value; })} /></label>
@@ -559,6 +608,24 @@ export function StoryStudio({ viewerUrl, service, owner, sources = [] }: { viewe
           {tab === 'camera' && <><h3>Cámara de la escena</h3><p className={styles.hint}>Navega en la vista 3D y captura el encuadre. El plano se reutiliza en esta escena.</p><button className={styles.wideButton} onClick={() => capture(({ shot }) => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.shot = shot; }))}>{buttonIcon('camera', 'Usar encuadre actual')}</button><label>Posición</label>{vectorFields(scene.shot.position, position => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.shot.position = position; }))}<label>Campo de visión · {scene.shot.fov}°<input aria-label="Campo de visión" type="range" min="15" max="80" value={scene.shot.fov} onChange={e => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.shot.fov = Number(e.target.value); })} /></label><label className={styles.check}><input type="checkbox" checked={project.navigation.allowLook} onChange={e => edit(copy => { copy.navigation.allowLook = e.target.checked; })} />El estudiante puede mirar alrededor</label></>}
           {tab === 'actors' && <><label>Personaje<select value={actor?.id ?? ''} onChange={e => setActorId(e.target.value)}>{!scene.actors.length && <option>Añade un personaje de la biblioteca</option>}{scene.actors.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></label>{actor && <><label>Nombre del papel<input value={actor.name} onChange={e => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.actors.find(a => a.id === actor.id)!.name = e.target.value; })} /></label><button className={styles.wideButton} onClick={() => { send('PLACE', { actorId: actor.id }); setStatus('Haz clic en el suelo para colocar a ' + actor.name + '.'); }}>Colocar con un clic en el escenario</button><label>Posición</label>{vectorFields(actor.position, position => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.actors.find(a => a.id === actor.id)!.position = position; }))}<label>Orientación (grados)<input type="number" step="5" value={Math.round(actor.rotation * 180 / Math.PI)} onChange={e => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.actors.find(a => a.id === actor.id)!.rotation = number(e.target.value, 0) * Math.PI / 180; })} /></label><button className={`${styles.wideButton} ${styles.danger}`} onClick={() => removeActor(actor.id)}>Quitar a {actor.name} de la escena</button></>}</>}
           {tab === 'interaction' && <><h3>Cuándo continúa</h3><label>Avance<select value={sequence.gate.kind} onChange={e => { const kind = e.target.value as Gate['kind']; editSequence(s => { s.gate = kind === 'auto' ? { kind } : kind === 'continue' ? { kind, prompt: 'Continúa cuando quieras.' } : kind === 'choice' ? { kind, prompt: 'Elige una respuesta.', options: [{ id: 'option-a', label: 'Primera respuesta' }, { id: 'option-b', label: 'Segunda respuesta' }] } : kind === 'answer' ? { kind, prompt: 'Escribe tu respuesta.', answers: ['Hola'] } : { kind, prompt: 'Toca el objeto indicado.', entryIds: scene.entryIds.slice(0, 1) }; }); }}><option value="continue">Esperar al estudiante</option><option value="auto">Al terminar las acciones</option><option value="choice">Elegir entre opciones</option><option value="answer">Escribir una respuesta</option><option value="object">Tocar un objeto</option></select></label>{sequence.gate.kind !== 'auto' && <label>Instrucción<input value={sequence.gate.prompt} onChange={e => editSequence(s => { if (s.gate.kind !== 'auto') s.gate.prompt = e.target.value; })} /></label>}{sequence.gate.kind === 'choice' && <>{sequence.gate.options.map((o, i) => <div key={o.id} className={styles.optionEditor}><label>Opción {i + 1}<input value={o.label} onChange={e => editSequence(s => { if (s.gate.kind === 'choice') { s.gate.options[i].label = e.target.value; delete s.gate.options[i].sentenceId; } })} /></label><select aria-label={`Frase de la Story para la opción ${i + 1}`} value={o.sentenceId ?? ''} onChange={e => editSequence(s => { if (s.gate.kind === 'choice') { const option = s.gate.options[i]; if (e.target.value) { option.sentenceId = e.target.value; option.label = (source.sentences.find(x => x.id === e.target.value)?.text ?? option.label).slice(0, 180); } else delete option.sentenceId; } })}><option value="">Texto libre</option>{source.sentences.map(x => <option key={x.id} value={x.id}>Frase: {x.text}</option>)}</select><select aria-label={`Destino de opción ${i + 1}`} value={o.nextSequenceId ?? ''} onChange={e => editSequence(s => { if (s.gate.kind === 'choice') s.gate.options[i].nextSequenceId = e.target.value || undefined; })}><option value="">Siguiente momento</option>{list.map(x => <option key={x.sequence.id} value={x.sequence.id}>{x.sequence.name}</option>)}</select>{sequence.gate.kind === 'choice' && sequence.gate.options.length > 2 && <button className={styles.danger} onClick={() => editSequence(s => { if (s.gate.kind === 'choice') s.gate.options.splice(i, 1); })}>Quitar opción {i + 1}</button>}</div>)}{sequence.gate.options.length < 8 && <button onClick={() => editSequence(s => { if (s.gate.kind === 'choice') s.gate.options.push({ id: `option-${uid()}`, label: `Opción ${s.gate.options.length + 1}` }); })}>{buttonIcon('plus', 'Añadir opción')}</button>}<p className={styles.hint}>Si eliges una frase de la Story, el estudiante verá su texto tal como está en la versión vinculada.</p></>}{sequence.gate.kind === 'object' && <><h4>Objetos que completan la interacción</h4>{scene.entryIds.length ? scene.entryIds.map(id => <label className={styles.check} key={id}><input type="checkbox" checked={sequence.gate.kind === 'object' && sequence.gate.entryIds.includes(id)} onChange={e => editSequence(s => { if (s.gate.kind === 'object') { const next = e.target.checked ? [...s.gate.entryIds, id] : s.gate.entryIds.filter(x => x !== id); if (next.length) s.gate.entryIds = next; } })} />{entryLabel(id)}</label>) : <p className={styles.hint}>Primero añade objetos tocables a la escena.</p>}</>}{sequence.gate.kind === 'answer' && <label>Respuestas aceptadas (separadas por |)<input value={sequence.gate.answers.join(' | ')} onChange={e => editSequence(s => { if (s.gate.kind === 'answer') s.gate.answers = e.target.value.split('|').map(x => x.trim()).filter(Boolean); })} /></label>}<p className={styles.hint}>El alumno puede mirar y tocar. El desplazamiento y los caminos se definen en la historia.</p><h4>Objetos que puede tocar</h4>{entries.map(entry => <label className={styles.check} key={entry.id}><input type="checkbox" checked={scene.entryIds.includes(entry.id)} onChange={e => apply(() => setSceneEntries(project, scene.id, e.target.checked ? [...scene.entryIds, entry.id] : scene.entryIds.filter(id => id !== entry.id)), change)} />{entry.label}</label>)}</>}
+          {tab === 'life' && <><h3>Vida ambiental</h3><p className={styles.hint}>NPC con su propio papel que dan vida al lugar. Se graban una sola vez: el estudiante y el tutor siempre ven la misma escena.</p>
+            {!life && <button className={styles.wideButton} onClick={() => edit(copy => { copy.scenes.find(s => s.id === scene.id)!.life = defaultLife(Math.floor(Math.random() * 0xffffffff)); })}>Añadir vida ambiental a esta escena</button>}
+            {life && <>
+              <h4>Reparto</h4>
+              {life.cast.map((c, i) => <label key={c.id}>{npcName(c.id)}<select aria-label={`Papel del NPC ${i + 1}`} value={c.roleId} onChange={e => editLife(l => { l.cast[i].roleId = e.target.value as LifeRole; })}>{Object.entries(LIFE_ROLES).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select><select aria-label={`Personaje del NPC ${i + 1}`} value={c.characterId} onChange={e => editLife(l => { l.cast[i].characterId = e.target.value; })}>{[...characters, ...(characters.some(x => x.id === c.characterId) ? [] : [{ id: c.characterId, label: c.characterId }])].map(x => <option key={x.id} value={x.id}>{x.label}</option>)}</select><button onClick={() => editLife(l => { l.cast.splice(i, 1); })}>Quitar</button></label>)}
+              <div className={styles.inlineButtons}><button disabled={!characters.length} onClick={() => editLife(l => { l.cast.push({ id: uid(), roleId: 'transeunte', characterId: characters[0].id, height: Math.round((1.6 + Math.random() * .25) * 100) / 100 }); })}>Añadir NPC</button></div>
+              <h4>Puntos del escenario</h4><p className={styles.hint}>Cada punto declara qué se puede hacer en él. Los NPC eligen según su papel.</p>
+              {life.points.map((p, i) => <label key={p.id}>Punto {i + 1}<select aria-label={`Uso del punto ${i + 1}`} value={p.kind} onChange={e => editLife(l => { l.points[i].kind = e.target.value as LifeAffordance; })}>{Object.entries(LIFE_AFFORDANCES).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select><span className={styles.twoColumns}><input aria-label={`Plazas del punto ${i + 1}`} type="number" min={1} max={8} value={p.slots} onChange={e => editLife(l => { l.points[i].slots = Math.min(8, Math.max(1, Math.round(number(e.target.value, 1)))); })} /><input aria-label={`Orientación del punto ${i + 1} (grados)`} type="number" step="5" value={Math.round(p.rotation * 180 / Math.PI)} onChange={e => editLife(l => { l.points[i].rotation = number(e.target.value, 0) * Math.PI / 180; })} /></span><button onClick={() => editLife(l => { l.points.splice(i, 1); })}>Quitar</button></label>)}
+              <button className={styles.wideButton} disabled={!ready} onClick={addLifePoint}>Añadir punto donde mira la cámara</button>
+              <h4>Grabación</h4>
+              <div className={styles.twoColumns}><label>Duración del bucle (s)<input type="number" min={20} max={600} value={life.duration} onChange={e => editLife(l => { l.duration = Math.min(600, Math.max(20, number(e.target.value, 90))); })} /></label><label>Radio del área (m)<input type="number" min={8} max={80} value={life.radius} onChange={e => editLife(l => { l.radius = Math.min(80, Math.max(8, number(e.target.value, 25))); })} /></label></div>
+              <label>Variación<input type="number" min={0} value={life.seed} onChange={e => editLife(l => { l.seed = Math.min(0xffffffff, Math.max(0, Math.round(number(e.target.value, 0)))); })} /></label>
+              <div className={styles.inlineButtons}><button onClick={() => editLife(l => { l.seed = Math.floor(Math.random() * 0xffffffff); })}>Otra variación</button><button disabled={!connected || !ready || recordingLife || !life.cast.length} onClick={recordLife}>{recordingLife ? 'Grabando…' : lifeRecording ? 'Volver a grabar' : 'Grabar vida ambiental'}</button></div>
+              <p className={styles.hint}>{!lifeRecording ? 'Sin grabar: el estudiante no verá NPC ambientales.' : lifeStale ? 'La configuración cambió después de grabar. Vuelve a grabar para que el estudiante vea los NPC.' : `Grabado · ${lifeRecording.tracks.length} NPC · bucle de ${Math.round(lifeRecording.loop)} s · ${lifeRecording.lines.length} frases.`}</p>
+              {lifeRecording && lifeRecording.warnings.map(w => <p className={styles.hint} key={w}>⚠ {w}</p>)}
+              {lifeRecording && !lifeStale && lifeRecording.lines.length > 0 && <><h4>Frases que se oyen</h4>{lifeRecording.lines.map((l, i) => <label key={l.id}>{l.at.toFixed(1)} s · {npcName(l.npcId)}<input value={l.text} maxLength={240} onChange={e => editLife(x => { if (x.recording) x.recording.lines[i].text = e.target.value; })} /></label>)}</>}
+              <button className={styles.wideButton} onClick={() => edit(copy => { delete copy.scenes.find(s => s.id === scene.id)!.life; })}>Quitar la vida ambiental de esta escena</button>
+            </>}</>}
         </div>
       </section>
       <section className={styles.panel + ' ' + styles.actionLibrary}>{panelHeading('Añadir a este momento')}<div className={styles.actionButtons}>{(['dialogue', 'camera', 'actor', 'sound'] as const).map(kind => <button key={kind} onClick={() => { setTab('moment'); addCue(kind); }}>{buttonIcon(kind === 'actor' ? 'person' : kind === 'dialogue' ? 'chat' : kind, kindNames[kind])}</button>)}<button onClick={() => setTab('interaction')}>{buttonIcon('look', 'Interacción')}</button></div></section>
