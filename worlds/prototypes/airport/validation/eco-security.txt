@@ -1,0 +1,11 @@
+ECO · Three r180
+FPS 59.9 · frame 16.7 ms
+P95 16.8 ms
+Draw calls 10 / 90
+Triángulos 564
+Geometrías 1 · Texturas 1
+Actual D02
+Cargados D01, D02, D04
+NPC completos 0 · fondo 0
+Samuel referencia 0
+Leases 3

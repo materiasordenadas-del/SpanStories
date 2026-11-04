@@ -14,3 +14,7 @@ firestore-debug.log*
 next-env.d.ts
 *.tsbuildinfo
 .claude/
+scripts/worlds/__pycache__/
+worlds/prototypes/**/__pycache__/
+worlds/source-archive/
+.cache/worlds-verification/

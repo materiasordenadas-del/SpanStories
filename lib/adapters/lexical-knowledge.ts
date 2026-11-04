@@ -42,6 +42,11 @@ export function recordKnowledge(input: Omit<KnowledgeEvent, "eventId" | "learner
     return false;
   }
 }
+/** Fuerza un reload tras escribir directamente en LocalKnowledgeEventRepository por fuera de recordKnowledge (ver components/accounts/KnowledgeSync.tsx, que importa eventos de Firestore al iniciar sesión). */
+export function refreshKnowledge(owner: string = currentLearner()) {
+  reload(owner);
+}
+
 export function useKnowledge() {
   const { user, loading } = useAuth();
   const owner = user ? `user:${user.uid}` : "guest";

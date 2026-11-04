@@ -14,6 +14,7 @@ import { layoutQuickGloss } from "./quick-gloss-layout";
 import { StoryEnd, type ConsultedWord, type StoryNextStep } from "./StoryEnd";
 import { StoryText } from "./StoryText";
 import { LexicalPanel } from "./WordPanel";
+import { NotesNotebook } from "./NotesNotebook";
 import { selectSpanishVoice, stopSpanishSpeech } from "@/features/story-reader/browser-speech";
 import styles from "./baseline.module.css";
 
@@ -50,6 +51,15 @@ function readGlossColor(): QuickGlossColor {
     return window.localStorage.getItem(GLOSS_COLOR_KEY) === "azul" ? "azul" : "naranja";
   } catch {
     return "naranja";
+  }
+}
+
+function readVoiceId(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(VOICE_KEY);
+  } catch {
+    return null;
   }
 }
 
@@ -118,12 +128,13 @@ function StoryWorkspace({ initialMode, initialListenMode, initialScene, island, 
   const [spokenProgress, setSpokenProgress] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
   const [fontScale, setFontScale] = useState(0);
   const [spacing, setSpacing] = useState<"compact" | "normal" | "wide">("normal");
   const [speed, setSpeed] = useState(1);
   const [voiceMenuOpen, setVoiceMenuOpen] = useState(false);
   const [voices, setVoices] = useState<readonly SpeechSynthesisVoice[]>([]);
-  const [selectedVoiceId, setSelectedVoiceId] = useState<string | null>(null);
+  const [selectedVoiceId, setSelectedVoiceId] = useState<string | null>(readVoiceId);
   const glossTimers = useRef(new Map<string, number>());
   const articleRef = useRef<HTMLElement>(null);
   const activeSentenceRef = useRef<HTMLSpanElement>(null);
@@ -158,13 +169,14 @@ function StoryWorkspace({ initialMode, initialListenMode, initialScene, island, 
     const updateVoices = () => setVoices(spanishVoices(speech.getVoices()));
     updateVoices();
     speech.addEventListener("voiceschanged", updateVoices);
-    try { setSelectedVoiceId(window.localStorage.getItem(VOICE_KEY)); } catch { /* La elección dura esta visita. */ }
     return () => speech.removeEventListener("voiceschanged", updateVoices);
   }, []);
-  useEffect(() => {
-    if (voices.length === 0 || (selectedVoiceId !== null && voices.some((voice) => voiceId(voice) === selectedVoiceId))) return;
+  // La voz elegida (o su reserva automática una vez que el navegador entrega la lista) se deriva en cada
+  // render en vez de sincronizarse con un efecto: `selectedVoiceId` solo guarda la elección explícita del usuario.
+  const effectiveVoiceId = useMemo(() => {
+    if (selectedVoiceId !== null && voices.some((voice) => voiceId(voice) === selectedVoiceId)) return selectedVoiceId;
     const fallback = selectSpanishVoice(voices);
-    if (fallback !== undefined) setSelectedVoiceId(voiceId(fallback));
+    return fallback === undefined ? null : voiceId(fallback);
   }, [selectedVoiceId, voices]);
   useEffect(() => {
     if (!isPlaying || !activeSentenceRef.current) return;
@@ -204,7 +216,7 @@ function StoryWorkspace({ initialMode, initialListenMode, initialScene, island, 
     if (typeof window.speechSynthesis === "undefined" || typeof window.SpeechSynthesisUtterance === "undefined") return;
     const sentence = model.sentences[fromSentence];
     if (sentence === undefined) return;
-    const voice = voices.find((item) => voiceId(item) === selectedVoiceId) ?? selectSpanishVoice(window.speechSynthesis.getVoices());
+    const voice = voices.find((item) => voiceId(item) === effectiveVoiceId) ?? selectSpanishVoice(window.speechSynthesis.getVoices());
     // La oración completa se entrega como una sola locución para conservar ritmo,
     // enlace entre palabras y prosodia natural también en las voces remotas de Chrome.
     const utterance = new SpeechSynthesisUtterance(sentence.text);
@@ -394,7 +406,15 @@ function StoryWorkspace({ initialMode, initialListenMode, initialScene, island, 
   return <div className={styles.storyWorkspace} style={{ "--reader-scale": `${fontScale}px`, "--reader-leading": spacing === "compact" ? "1.58" : spacing === "wide" ? "1.92" : "1.72" } as CSSProperties}>
     <div className={mode === "illustration" ? styles.illustrationLayout : ""}>
       <header className={styles.storyHeader}>
-      <div><p className={styles.eyebrow}>A1 · Isla {island} · Historia {story}</p><h1>{model.title}</h1></div>
+      <div className={styles.titleRow}><p className={styles.eyebrow}>A1 · Isla {island} · Historia {story}</p><h1>{model.title}</h1><button aria-haspopup="dialog" aria-label="Notas" className={styles.notesButton} onClick={() => setNotesOpen(true)} title="Notas" type="button">
+          <svg aria-hidden="true" fill="none" height="40" viewBox="0 0 32 32" width="40">
+            <path d="M9 6.5h13a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-15a2 2 0 0 1 2-2Z" fill="#EFF2F8" stroke="#1B2A4A" strokeWidth="1.8"/>
+            <path d="M12 4.5v5M16 4.5v5M20 4.5v5" stroke="#1B2A4A" strokeLinecap="round" strokeWidth="1.8"/>
+            <path d="M10.5 13h9M10.5 16.5h9M10.5 20h6" stroke="#1B2A4A" strokeLinecap="round" strokeWidth="1.6" opacity="0.4"/>
+            <path d="m19.6 21.4 6.3-6.3a1.7 1.7 0 0 1 2.4 2.4l-6.3 6.3-3.1.7.7-3.1Z" fill="#FFC94A" stroke="#1B2A4A" strokeLinejoin="round" strokeWidth="1.4"/>
+            <path d="m24.3 16.8 2.6 2.6" stroke="#1B2A4A" strokeLinecap="round" strokeWidth="1.4"/>
+          </svg>
+        </button></div>
       <div className={styles.readerActions}><button aria-expanded={preferencesOpen} className={styles.headerIcon} onClick={() => setPreferencesOpen((open) => !open)} type="button">Aa</button><button className={styles.headerIcon} type="button" title="Opciones">•••</button></div>
       <nav className={styles.storyModes} aria-label="Formato de la historia">
         <Link aria-current={mode === "read" && !listenMode ? "page" : undefined} href={`/islas/${island}/${story}`}>Leer</Link>
@@ -420,7 +440,8 @@ function StoryWorkspace({ initialMode, initialListenMode, initialScene, island, 
     </div>
     <LexicalPanel fallbackTranslation={quickTranslation} model={model} selectedWordId={selectedWordId} eventError={eventError} isOpen={isLexicalPanelOpen} onToggle={() => setIsLexicalPanelOpen((open) => !open)} />
     {mode === "read" && listenMode ? <div className={styles.audioPlayer} aria-label="Reproductor de la historia"><button aria-label="Frase anterior" onClick={() => seekToSentence(activeSentenceIndex - 1)} type="button">↺</button><button aria-label={isPlaying ? "Pausar" : "Reproducir"} className={styles.playButton} onClick={togglePlayback} type="button">{isPlaying ? "❚❚" : "▶"}</button><button aria-label="Siguiente frase" onClick={() => seekToSentence(activeSentenceIndex + 1)} type="button">↻</button><span>{String(Math.floor(activeSentenceIndex * 5 / 60)).padStart(2, "0")}:{String((activeSentenceIndex * 5) % 60).padStart(2, "0")}</span><input aria-label="Progreso" max={Math.max(model.sentences.length - 1, 1)} min="0" onChange={(event) => seekToSentence(Number(event.target.value))} type="range" value={activeSentenceIndex} /><span>03:12</span><button onClick={() => setSpeed((value) => value === 1 ? 1.2 : 1)} type="button">{speed}×</button><button aria-expanded={voiceMenuOpen} aria-haspopup="dialog" className={styles.voiceButton} onClick={() => setVoiceMenuOpen(true)} type="button">Voz</button></div> : null}
-    {voiceMenuOpen ? <div className={styles.voiceDialogBackdrop} onMouseDown={() => setVoiceMenuOpen(false)} role="presentation"><section aria-labelledby="voice-menu-title" aria-modal="true" className={styles.voiceDialog} onMouseDown={(event) => event.stopPropagation()} role="dialog"><button aria-label="Cerrar" className={styles.voiceClose} onClick={() => setVoiceMenuOpen(false)} type="button">×</button><h2 id="voice-menu-title">Voces en español</h2><p>Elige la voz para escuchar las historias. Las voces disponibles dependen de tu navegador y dispositivo.</p><div className={styles.voiceList} role="radiogroup" aria-label="Voz de lectura">{voices.length > 0 ? voices.map((voice) => <div className={styles.voiceRow} key={voiceId(voice)}><button aria-checked={selectedVoiceId === voiceId(voice)} className={styles.voiceChoice} onClick={() => chooseVoice(voice)} role="radio" type="button"><span>{voice.name}</span><small>{voice.lang}</small></button><button aria-label={`Probar ${voice.name}`} className={styles.voicePreview} onClick={() => previewVoice(voice)} type="button">▶</button></div>) : <p className={styles.noVoices}>No hay voces en español disponibles en este navegador.</p>}</div><div className={styles.voiceRate}><strong>Velocidad:</strong>{[0.6, 0.8, 0.9, 1, 1.2, 1.5].map((value) => <button aria-pressed={speed === value} key={value} onClick={() => setSpeed(value)} type="button">{value}×</button>)}</div><button className={styles.voiceContinue} onClick={() => setVoiceMenuOpen(false)} type="button">Continuar</button></section></div> : null}
+    {notesOpen ? <NotesNotebook island={island} onClose={() => setNotesOpen(false)} story={story} /> : null}
+    {voiceMenuOpen ? <div className={styles.voiceDialogBackdrop} onMouseDown={() => setVoiceMenuOpen(false)} role="presentation"><section aria-labelledby="voice-menu-title" aria-modal="true" className={styles.voiceDialog} onMouseDown={(event) => event.stopPropagation()} role="dialog"><button aria-label="Cerrar" className={styles.voiceClose} onClick={() => setVoiceMenuOpen(false)} type="button">×</button><h2 id="voice-menu-title">Voces en español</h2><p>Elige la voz para escuchar las historias. Las voces disponibles dependen de tu navegador y dispositivo.</p><div className={styles.voiceList} role="radiogroup" aria-label="Voz de lectura">{voices.length > 0 ? voices.map((voice) => <div className={styles.voiceRow} key={voiceId(voice)}><button aria-checked={effectiveVoiceId === voiceId(voice)} className={styles.voiceChoice} onClick={() => chooseVoice(voice)} role="radio" type="button"><span>{voice.name}</span><small>{voice.lang}</small></button><button aria-label={`Probar ${voice.name}`} className={styles.voicePreview} onClick={() => previewVoice(voice)} type="button">▶</button></div>) : <p className={styles.noVoices}>No hay voces en español disponibles en este navegador.</p>}</div><div className={styles.voiceRate}><strong>Velocidad:</strong>{[0.6, 0.8, 0.9, 1, 1.2, 1.5].map((value) => <button aria-pressed={speed === value} key={value} onClick={() => setSpeed(value)} type="button">{value}×</button>)}</div><button className={styles.voiceContinue} onClick={() => setVoiceMenuOpen(false)} type="button">Continuar</button></section></div> : null}
   </div>;
 }
 

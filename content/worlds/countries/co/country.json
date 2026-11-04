@@ -1,0 +1,97 @@
+{
+  "id": "co",
+  "name": "Colombia",
+  "locale": "es-CO",
+  "currency": "COP",
+  "city": {
+    "status": "pending",
+    "mapAssetId": null,
+    "touristPlaceTarget": 5
+  },
+  "places": [
+    {
+      "id": "co-airport",
+      "baseId": "airport",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-bank",
+      "baseId": "bank",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-cafe",
+      "baseId": "cafe",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-shop",
+      "baseId": "shop",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-pharmacy",
+      "baseId": "pharmacy",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-bus-stop",
+      "baseId": "bus-stop",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-restaurant",
+      "baseId": "restaurant",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "co-hotel",
+      "baseId": "hotel",
+      "baseVersion": "co-1",
+      "kind": "service",
+      "status": "ready",
+      "config": {"name": "Hotel Palma Real", "locale": "es-CO", "currency": "COP", "stars": 5, "characterScaleMeters": 1.7},
+      "assetIds": []
+    }
+  ],
+  "attractions": [],
+  "characterIds": [
+    "directora",
+    "gomez",
+    "jose",
+    "kakashi",
+    "iam",
+    "meseros",
+    "samuel",
+    "boy-unidentified"
+  ],
+  "appearances": []
+}

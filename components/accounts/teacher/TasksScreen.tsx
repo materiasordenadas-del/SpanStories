@@ -26,7 +26,7 @@ function taskStatus(startsAt: Date, dueAt: Date) {
   return "En curso";
 }
 
-function TaskForm({ stories, onClose, onCreated }: { stories: readonly PublishedStory[]; onClose: () => void; onCreated: () => void }) {
+export function TaskForm({ stories, onClose, onCreated, presetStudentId }: { stories: readonly PublishedStory[]; onClose: () => void; onCreated: () => void; presetStudentId?: string }) {
   const { user } = useAuth();
   const { loading, students } = useTeacherRoster();
   const [kind, setKind] = useState<TeacherTaskKind>("story");
@@ -40,7 +40,7 @@ function TaskForm({ stories, onClose, onCreated }: { stories: readonly Published
     nextWeek.setDate(nextWeek.getDate() + 7);
     return inputDate(nextWeek);
   });
-  const [selected, setSelected] = useState<ReadonlySet<string> | null>(null);
+  const [selected, setSelected] = useState<ReadonlySet<string> | null>(() => presetStudentId === undefined ? null : new Set([presetStudentId]));
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const studentIds = selected ?? new Set(students.map(({ link }) => link.studentId));

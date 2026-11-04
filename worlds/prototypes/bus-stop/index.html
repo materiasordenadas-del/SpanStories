@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Paradero de bus</title>
+<link rel="stylesheet" href="panel/panel.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>SpanStories / Paradero de bus</strong><span>1 unidad = 1 metro</span></header>
+<main>
+  <section id="viewport" aria-label="Escena 3D"><button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button></section>
+  <!-- Orden fijo del panel en TODOS los proyectos (ver PANEL.md):
+       1 Escena · 2 Luz y estilo · 3 Calidad · 4 Diagnóstico -->
+  <aside id="panel" hidden>
+    <h1>Panel</h1>
+    <section id="panel-escena"><h3>Escena</h3><p id="status" role="status">Iniciando WebGL…</p></section>
+    <section id="panel-estilo"></section>
+    <section id="panel-calidad">
+      <h3>Calidad</h3>
+      <label>Calidad <select id="quality"><option>HIGH</option><option selected>STANDARD</option><option>ECO</option></select></label>
+    </section>
+    <section id="panel-diagnostico"><details><summary>Diagnóstico y mediciones</summary><pre id="metrics">—</pre></details></section>
+  </aside>
+</main>
+<script type="module" src="main.js"></script>
+</html>

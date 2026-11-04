@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "path": "worlds/prototypes/airport/engine/EntranceHall.js",
+      "originalSha256": "16bf95f98825bde576286fc81c0e054fc90c523dd307d1ee3a2bc6eaf5520620",
+      "sha256": "d478b28be7e594898a9b5f297d3dc8f22502f7109df7442454bbd3af83058add",
+      "reason": "Añadir los cuatro colores reales de papeleras a la paleta: elimina nombres de color inválidos en contornos."
+    },
+    {
+      "path": "worlds/prototypes/restaurant/README.md",
+      "originalSha256": "26afd3aa7bc3ecb2c22f63d576416c2c292e098448fa3c63e4f4fc336a0a588d",
+      "sha256": "d0c2906541fb19c1d5d94c236597df720aaf96ec43ae8c9ee4634d70fd8397c2",
+      "reason": "Actualizar enlaces al aeropuerto trasladado y la pertenencia al repositorio."
+    }
+  ]
+}

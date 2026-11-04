@@ -1,0 +1,10 @@
+import * as T from '../engine/three.js';
+import { caja,cilindro,esfera,pieza } from './Piezas.js';
+import { COLORS as C } from '../engine/dimensions.js';
+export function crearServicioMesa(){const r=new T.Group();for(const x of [-.36,.36]){cilindro(r,'plato-'+x,.15,.023,C.ivory,x,.012);cilindro(r,'borde-'+x,.13,.015,C.gold,x,.027);cilindro(r,'centro-'+x,.115,.016,C.ivory,x,.035);caja(r,'servilleta-'+x,.09,.025,.16,C.cloth,x,.06);for(const side of [-1,1])caja(r,'cubierto-'+x+side,.018,.01,.18,C.gold,x+side*.19,.02);cilindro(r,'pie-copa-'+x,.03,.07,C.ivory,x+.12,.04,.26);const bowl=pieza(r,'copa-'+x,new T.SphereGeometry(.057,10,8),C.blue,[x+.12,.12,.26],false);bowl.scale.y=1.3;}return r;}
+export function crearFlorero({alto=.6}={}){const r=new T.Group(),profile=[new T.Vector2(.12,0),new T.Vector2(.15,.04),new T.Vector2(.17,alto*.32),new T.Vector2(.1,alto*.54),new T.Vector2(.11,alto*.61)];pieza(r,'vasija',new T.LatheGeometry(profile,16),C.ivory);
+  for(let i=0;i<9;i++){const a=i*2.4,x=Math.cos(a)*.13,z=Math.sin(a)*.13,y=alto*(.8+(i%3)*.075),bottom=new T.Vector3(0,alto*.55,0),tip=new T.Vector3(x,y,z),axis=tip.clone().sub(bottom);
+    const stem=cilindro(r,'tallo-'+i,.005,axis.length(),C.green);stem.position.copy(bottom).add(tip).multiplyScalar(.5);stem.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),axis.normalize());
+    esfera(r,'centro-'+i,.025,C.gold,x,y,z);for(let k=0;k<5;k++){const angle=k*Math.PI*2/5;const petal=esfera(r,'pétalo-'+i+'-'+k,.042,i%4?C.ivory:C.peach,x+Math.cos(angle)*.041,y+Math.sin(angle)*.041,z);petal.scale.set(1,.8,.4);}}
+  return r;}
+export function crearFuente(){const r=new T.Group();cilindro(r,'base',1.55,.18,C.stone);cilindro(r,'borde',1.45,.2,C.ivory,0,.22);cilindro(r,'agua',1.32,.025,C.blue,0,.31);cilindro(r,'pedestal',.14,1.2,C.gold,0,.75);cilindro(r,'cuenco',.6,.14,C.stone,0,1.34);cilindro(r,'agua-superior',.5,.022,C.blue,0,1.42);for(const radius of [.4,.85,1.2]){const ring=pieza(r,'ondas-'+radius,new T.TorusGeometry(radius,.008,4,40),C.ivory,[0,.327,0],false);ring.rotation.x=Math.PI/2;}return r;}

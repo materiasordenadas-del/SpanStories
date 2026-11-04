@@ -1,0 +1,1089 @@
+{
+  "schemaVersion": 1,
+  "places": [
+    {
+      "id": "airport",
+      "name": "Aeropuerto",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/airport/index.html",
+      "previewUrl": "/Aeropuerto/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "bank",
+      "name": "Banco",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/bank/index.html",
+      "previewUrl": "/Banco/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "cafe",
+      "name": "Cafetería",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/cafe/index.html",
+      "previewUrl": "/Cafeteria/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "shop",
+      "name": "Comercio",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/shop/index.html",
+      "previewUrl": "/Comercio/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "pharmacy",
+      "name": "Farmacia",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/pharmacy/index.html",
+      "previewUrl": "/Farmacia/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "bus-stop",
+      "name": "Parada",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/bus-stop/index.html",
+      "previewUrl": "/Parada/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurante",
+      "version": "import-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/restaurant/index.html",
+      "previewUrl": "/Restaurante/",
+      "adaptationStatus": "pending",
+      "capabilities": []
+    },
+    {
+      "id": "hotel",
+      "name": "Hotel Palma Real",
+      "version": "co-1",
+      "kind": "service",
+      "entry": "worlds/prototypes/hotel/index.html",
+      "previewUrl": "/Hotel/",
+      "adaptationStatus": "ready",
+      "capabilities": ["modular-selection", "three-lod", "lazy-zones", "floor-reflections", "front-desk", "concierge", "dining", "elevator", "room"]
+    }
+  ],
+  "assets": [
+    {
+      "id": "sha256:474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918",
+      "sha256": "474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918",
+      "path": "worlds/characters/assets/474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918/model.glb",
+      "url": "/characters/assets/474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918/model.glb",
+      "bytes": 2868100,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "directora/Meshy_AI_Blonde_Commander_Port_0926211209_generate.glb"
+      ]
+    },
+    {
+      "id": "sha256:6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af",
+      "sha256": "6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af",
+      "path": "worlds/characters/assets/6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af/model.glb",
+      "url": "/characters/assets/6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af/model.glb",
+      "bytes": 60649744,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "directora/traje marron .glb"
+      ]
+    },
+    {
+      "id": "sha256:7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8",
+      "sha256": "7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8",
+      "path": "worlds/characters/assets/7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8/model.glb",
+      "url": "/characters/assets/7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8/model.glb",
+      "bytes": 32163524,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "directora/traje verde .glb"
+      ]
+    },
+    {
+      "id": "sha256:0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022",
+      "sha256": "0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022",
+      "path": "worlds/characters/assets/0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022/model.glb",
+      "url": "/characters/assets/0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022/model.glb",
+      "bytes": 36869824,
+      "kind": "glb",
+      "skins": 2,
+      "animations": [
+        "Animation"
+      ],
+      "dependencies": [],
+      "sources": [
+        "Gomez/gomez con cara.glb"
+      ]
+    },
+    {
+      "id": "sha256:e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3",
+      "sha256": "e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3",
+      "path": "worlds/characters/assets/e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3/model.glb",
+      "url": "/characters/assets/e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3/model.glb",
+      "bytes": 32812884,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Gomez/Meshy_AI_Welcoming_Grandpa_0922001233_texture.glb"
+      ]
+    },
+    {
+      "id": "sha256:071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6",
+      "sha256": "071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6",
+      "path": "worlds/characters/assets/071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6/model.glb",
+      "url": "/characters/assets/071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6/model.glb",
+      "bytes": 41852072,
+      "kind": "glb",
+      "skins": 1,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/personajes/gomez/Gomez_con_cara_rig.glb"
+      ]
+    },
+    {
+      "id": "sha256:6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c",
+      "sha256": "6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c",
+      "path": "worlds/characters/assets/6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c/model.glb",
+      "url": "/characters/assets/6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c/model.glb",
+      "bytes": 7007220,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Kakashi/Meshy_AI_Open_Armed_Oliver_0922210822_generate.glb"
+      ]
+    },
+    {
+      "id": "sha256:8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d",
+      "sha256": "8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d",
+      "path": "worlds/characters/assets/8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d/model.glb",
+      "url": "/characters/assets/8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d/model.glb",
+      "bytes": 61156268,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Hi3D_Modelo 3D de Cabeza de Anime Pastel Segmentada_allparts_20260924_142728.glb"
+      ]
+    },
+    {
+      "id": "sha256:782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db",
+      "sha256": "782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db",
+      "path": "worlds/characters/assets/782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db/model.glb",
+      "url": "/characters/assets/782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db/model.glb",
+      "bytes": 62522656,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Hi3D_Modelo 3D de personaje de caricatura estilizado con bloques de color_allparts_20260923_152343.glb"
+      ]
+    },
+    {
+      "id": "sha256:05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630",
+      "sha256": "05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630",
+      "path": "worlds/characters/assets/05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630/model.glb",
+      "url": "/characters/assets/05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630/model.glb",
+      "bytes": 58357936,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Hi3D_Untitled_allparts_20260924_210654.glb"
+      ]
+    },
+    {
+      "id": "sha256:d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73",
+      "sha256": "d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73",
+      "path": "worlds/characters/assets/d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73/model.glb",
+      "url": "/characters/assets/d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73/model.glb",
+      "bytes": 9007708,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Iam_para_meshy.glb"
+      ]
+    },
+    {
+      "id": "sha256:292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623",
+      "sha256": "292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623",
+      "path": "worlds/characters/assets/292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623/model.glb",
+      "url": "/characters/assets/292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623/model.glb",
+      "bytes": 10299624,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Iam_V3_optimizado_Sin_TEXTURA .glb"
+      ]
+    },
+    {
+      "id": "sha256:e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7",
+      "sha256": "e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7",
+      "path": "worlds/characters/assets/e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7/model.glb",
+      "url": "/characters/assets/e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7/model.glb",
+      "bytes": 18155040,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/Meshy_AI_export_1790093384_part-segmentation.glb"
+      ]
+    },
+    {
+      "id": "sha256:661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea",
+      "sha256": "661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea",
+      "path": "worlds/characters/assets/661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea/model.glb",
+      "url": "/characters/assets/661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea/model.glb",
+      "bytes": 3450992,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/New link/Iam+post+procesado+tripo.glb"
+      ]
+    },
+    {
+      "id": "sha256:ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd",
+      "sha256": "ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd",
+      "path": "worlds/characters/assets/ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd/model.glb",
+      "url": "/characters/assets/ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd/model.glb",
+      "bytes": 3450992,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/New link/Iam_una_malla_sin_texturas (2).glb"
+      ]
+    },
+    {
+      "id": "sha256:eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23",
+      "sha256": "eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23",
+      "path": "worlds/characters/assets/eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23/model.glb",
+      "url": "/characters/assets/eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23/model.glb",
+      "bytes": 11375412,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Link/remesh/Iam_personaje_optimizado.glb"
+      ]
+    },
+    {
+      "id": "sha256:ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0",
+      "sha256": "ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0",
+      "path": "worlds/characters/assets/ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0/model.glb",
+      "url": "/characters/assets/ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0/model.glb",
+      "bytes": 53021916,
+      "kind": "glb",
+      "skins": 1,
+      "animations": [
+        "Animation"
+      ],
+      "dependencies": [],
+      "sources": [
+        "Link/Untitled.glb"
+      ]
+    },
+    {
+      "id": "sha256:e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824",
+      "sha256": "e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824",
+      "path": "worlds/characters/assets/e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824/model.glb",
+      "url": "/characters/assets/e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824/model.glb",
+      "bytes": 14172844,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/Iam_solo_malla.glb"
+      ]
+    },
+    {
+      "id": "sha256:9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176",
+      "sha256": "9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176",
+      "path": "worlds/characters/assets/9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176/model.glb",
+      "url": "/characters/assets/9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176/model.glb",
+      "bytes": 16823656,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/Iam_una_malla.glb"
+      ]
+    },
+    {
+      "id": "sha256:207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761",
+      "sha256": "207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761",
+      "path": "worlds/characters/assets/207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761/model.glb",
+      "url": "/characters/assets/207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761/model.glb",
+      "bytes": 10619528,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/Iam_una_malla_sin_texturas.glb"
+      ]
+    },
+    {
+      "id": "sha256:fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521",
+      "sha256": "fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521",
+      "path": "worlds/characters/assets/fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521/model.glb",
+      "url": "/characters/assets/fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521/model.glb",
+      "bytes": 792684,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "meseros/1.glb"
+      ]
+    },
+    {
+      "id": "sha256:c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61",
+      "sha256": "c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61",
+      "path": "worlds/characters/assets/c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61/model.glb",
+      "url": "/characters/assets/c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61/model.glb",
+      "bytes": 1684144,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "meseros/3.glb"
+      ]
+    },
+    {
+      "id": "sha256:09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8",
+      "sha256": "09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8",
+      "path": "worlds/characters/assets/09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8/model.glb",
+      "url": "/characters/assets/09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8/model.glb",
+      "bytes": 279060,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "meseros/5.glb"
+      ]
+    },
+    {
+      "id": "sha256:cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562",
+      "sha256": "cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562",
+      "path": "worlds/characters/assets/cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562/model.glb",
+      "url": "/characters/assets/cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562/model.glb",
+      "bytes": 3181884,
+      "kind": "glb",
+      "skins": 1,
+      "animations": [
+        "Running",
+        "Walking",
+        "01a0da09-f11b-732e-8e64-e47f323d12ec",
+        "Texting_Walk",
+        "Walk_Turn_Left_with_Weapon",
+        "Walk_Turn_Right_Idle_Style",
+        "restpose"
+      ],
+      "dependencies": [],
+      "sources": [
+        "meseros/Mesero bien/Meshy_AI_Little_Waiter_All_Animations.glb"
+      ]
+    },
+    {
+      "id": "sha256:e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd",
+      "sha256": "e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd",
+      "path": "worlds/characters/assets/e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd/model.glb",
+      "url": "/characters/assets/e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd/model.glb",
+      "bytes": 1184820,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "meseros/Mesero bien/Meshy_AI_Little_Waiter_texturizadp.glb"
+      ]
+    },
+    {
+      "id": "sha256:9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882",
+      "sha256": "9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882",
+      "path": "worlds/characters/assets/9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882/model.glb",
+      "url": "/characters/assets/9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882/model.glb",
+      "bytes": 35133016,
+      "kind": "glb",
+      "skins": 1,
+      "animations": [
+        "Running",
+        "Walking",
+        "All_Night_Dance",
+        "Breakdance_1990",
+        "Catching_Breath",
+        "Denim_Pop_Dance",
+        "Excited_Walk_M",
+        "Heavy_Hammer_Swing",
+        "Hip_Hop_Dance",
+        "Parkour_Vault_with_Roll",
+        "RunFast",
+        "Run_02",
+        "Shake_It_Off_Dance",
+        "Skip_Forward",
+        "Slap_Reaction",
+        "run_fast_2",
+        "situps",
+        "restpose"
+      ],
+      "dependencies": [],
+      "sources": [
+        "Samu para Meshy/Meshy_AI_Open_Arms_Avatar_All_Animations.glb",
+        "Animación 3D2/Meshy_AI_Open_Arms_Avatar_All_Animations.glb"
+      ]
+    },
+    {
+      "id": "sha256:14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f",
+      "sha256": "14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f",
+      "path": "worlds/characters/assets/14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f/model.glb",
+      "url": "/characters/assets/14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f/model.glb",
+      "bytes": 40391656,
+      "kind": "glb",
+      "skins": 1,
+      "animations": [
+        "All_Night_Dance",
+        "Breakdance_1990",
+        "Catching_Breath",
+        "Denim_Pop_Dance",
+        "Excited_Walk_M",
+        "Heavy_Hammer_Swing",
+        "Hip_Hop_Dance",
+        "Parkour_Vault_with_Roll",
+        "restpose",
+        "Run_02",
+        "run_fast_2",
+        "RunFast",
+        "Running",
+        "Shake_It_Off_Dance",
+        "situps",
+        "Skip_Forward",
+        "Slap_Reaction",
+        "Walking",
+        "Samuel_Juan_Facial_Eyebrows",
+        "Samuel_Juan_Facial_Eyes",
+        "Samuel_Juan_Facial_Mouth"
+      ],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/personajes/samuel/Samuel_con_rostro_manos.glb"
+      ]
+    },
+    {
+      "id": "sha256:a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8",
+      "sha256": "a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8",
+      "path": "worlds/characters/assets/a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8/model.glb",
+      "url": "/characters/assets/a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8/model.glb",
+      "bytes": 6446108,
+      "kind": "glb",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "animación 3D3/Meshy_AI_Open_Arms_Boy_0919163033_texture.glb"
+      ]
+    },
+    {
+      "id": "sha256:9e52048d32f61cfe325f84e99156c6eaf8a4d72efcc643f4067c8230251cc666",
+      "sha256": "9e52048d32f61cfe325f84e99156c6eaf8a4d72efcc643f4067c8230251cc666",
+      "path": "worlds/characters/assets/9e52048d32f61cfe325f84e99156c6eaf8a4d72efcc643f4067c8230251cc666/texture.png",
+      "url": "/characters/assets/9e52048d32f61cfe325f84e99156c6eaf8a4d72efcc643f4067c8230251cc666/texture.png",
+      "bytes": 10185447,
+      "kind": "texture",
+      "skins": 0,
+      "animations": [],
+      "dependencies": [],
+      "sources": [
+        "Animación 3D/personajes/samuel/Samuel_textura_pintada.png"
+      ]
+    }
+  ],
+  "characters": [
+    {
+      "id": "directora",
+      "name": "directora",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-474d77f36f309e76",
+          "assetId": "sha256:474d77f36f309e766f2a6e0e9c49dc5c08d3dd5da55be990c30629f92f479918",
+          "status": "candidate",
+          "label": "Meshy_AI_Blonde_Commander_Port_0926211209_generate",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-6c8d28058f52dac9",
+          "assetId": "sha256:6c8d28058f52dac9b00275d33871f5dd40f44306177e26b556ce69339f36b8af",
+          "status": "candidate",
+          "label": "traje marron ",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-7d0aad41995c0b50",
+          "assetId": "sha256:7d0aad41995c0b50b1647ee402620bdcc7603408034fd190cde88d1da0e56fe8",
+          "status": "candidate",
+          "label": "traje verde ",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "directora/Meshy_AI_Blonde_Commander_Port_0926211209_generate.glb",
+        "directora/rostro.png",
+        "directora/SpanStories_character_front_8K_transparent.png",
+        "directora/SpanStories_character_front_8K_transparent.zip",
+        "directora/SpanStories_personaje_uniforme_verde_8K.png",
+        "directora/SpanStories_personaje_uniforme_verde_8K.zip",
+        "directora/traje marron .glb",
+        "directora/traje verde .glb"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "gomez",
+      "name": "gomez",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-0e346acee2458092",
+          "assetId": "sha256:0e346acee24580928a06020b7a1838105a8c9507005200d22296a5195b27e022",
+          "status": "candidate",
+          "label": "gomez con cara",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-e933b67eefb6e90b",
+          "assetId": "sha256:e933b67eefb6e90bc29cf8ec15a5dac6f8488c9ee93d082b3bdb112b284b7bb3",
+          "status": "candidate",
+          "label": "Meshy_AI_Welcoming_Grandpa_0922001233_texture",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-071ab37b2ec78482",
+          "assetId": "sha256:071ab37b2ec784820e2d759a79858d832c22668cafd3beb9e85de886a7ee2cf6",
+          "status": "candidate",
+          "label": "Gomez_con_cara_rig",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "Gomez/b9f07b99-0bc1-475d-ac44-f8f014526546.png",
+        "Gomez/gomez con cara.glb",
+        "Gomez/gomez con cara_backup.glb",
+        "Gomez/gomez.blend",
+        "Gomez/Meshy_AI_Welcoming_Grandpa_0922001233_texture.glb",
+        "Gomez/Sr_Gomez_3_imagenes_2K_PNG_limpio.zip",
+        "Gomez/Sr_Gomez_espalda_limpio_2K.png",
+        "Gomez/Sr_Gomez_perfil_derecho_limpio_2K.png",
+        "Gomez/Sr_Gomez_perfil_izquierdo_limpio_2K.png",
+        "Gomez/Sr_Gomez_T_pose_barba_ajustada_8K.png",
+        "Gomez/Sr_Gomez_T_pose_palmas_frente_8K.zip",
+        "Animación 3D/personajes/gomez/fuente/Gomez_con_cara.backup.glb",
+        "Animación 3D/personajes/gomez/fuente/Gomez_con_cara.glb",
+        "Animación 3D/personajes/gomez/Gomez_con_cara_rig.glb"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "jose",
+      "name": "jose",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [],
+      "artSources": [
+        "José/modelo_espaldas_8K_16x9.png",
+        "José/modelo_frente_8K_16x9.png",
+        "José/modelo_frente_espaldas_8K_16x9.zip"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "kakashi",
+      "name": "kakashi",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-6d95a7f7ffe183b5",
+          "assetId": "sha256:6d95a7f7ffe183b5bbfb4d2dddb216aabe724d9dc5e2b92489f8ddd8a977df9c",
+          "status": "candidate",
+          "label": "Meshy_AI_Open_Armed_Oliver_0922210822_generate",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "Kakashi/Meshy_AI_Open_Armed_Oliver_0922210822_generate.glb",
+        "Kakashi/personaje_40_anos_espalda_8K.png",
+        "Kakashi/personaje_40_anos_frente_8K.png",
+        "Kakashi/personaje_40_anos_frente_espalda_8K.zip"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "iam",
+      "name": "iam",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-8529e713c74e2346",
+          "assetId": "sha256:8529e713c74e234616bb0968a5de9c96335068376bf80c85e495a929d58c6f5d",
+          "status": "candidate",
+          "label": "Hi3D_Modelo 3D de Cabeza de Anime Pastel Segmentada_allparts_20260924_142728",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-782c7a91cb6ad2c7",
+          "assetId": "sha256:782c7a91cb6ad2c7b7f517f2275b21856116a80efb03ee5d9817067a6a56b2db",
+          "status": "candidate",
+          "label": "Hi3D_Modelo 3D de personaje de caricatura estilizado con bloques de color_allparts_20260923_152343",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-05ffa93027137351",
+          "assetId": "sha256:05ffa93027137351a02478d1ea9fa3526fb11ea19e58cd88b8a7412c5b644630",
+          "status": "candidate",
+          "label": "Hi3D_Untitled_allparts_20260924_210654",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-d5e08537908dfbf0",
+          "assetId": "sha256:d5e08537908dfbf0c530302cb79d291c500214249f4498515ddc79f5808c5f73",
+          "status": "candidate",
+          "label": "Iam_para_meshy",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-292b2a34681d9978",
+          "assetId": "sha256:292b2a34681d9978d1796fbe8a996c31162755406a0e4c7345047bb22b9d1623",
+          "status": "candidate",
+          "label": "Iam_V3_optimizado_Sin_TEXTURA ",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-e3daa15da39217f0",
+          "assetId": "sha256:e3daa15da39217f02b3ffce3a9cd8394d547d0c44e21187cb06d07a01a0710e7",
+          "status": "candidate",
+          "label": "Meshy_AI_export_1790093384_part-segmentation",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-661d253d1b28cec8",
+          "assetId": "sha256:661d253d1b28cec85feb5f9273e0dc54d7d949e5e97bf9e88dcda64aefcf9eea",
+          "status": "candidate",
+          "label": "Iam+post+procesado+tripo",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-ef7d5617e671a38c",
+          "assetId": "sha256:ef7d5617e671a38c66d03451789aaf155a8bb4895cd9fd3cf5076e105eb298dd",
+          "status": "candidate",
+          "label": "Iam_una_malla_sin_texturas (2)",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-eb8245f6489edb59",
+          "assetId": "sha256:eb8245f6489edb5992a346a8a8a13bf3ee1668ad1aaf1429d4fd4fb92e570b23",
+          "status": "candidate",
+          "label": "Iam_personaje_optimizado",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-ef8586944d8fb6a1",
+          "assetId": "sha256:ef8586944d8fb6a1abf6d521cfbfacd9d57a84ebb328794a1a1823899b4053b0",
+          "status": "candidate",
+          "label": "Untitled",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-e8cd5c8c0bcab8e3",
+          "assetId": "sha256:e8cd5c8c0bcab8e3d243159619203b17e422a1a87900839902bcee210cefb824",
+          "status": "candidate",
+          "label": "Iam_solo_malla",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-9a43b0e6758d790e",
+          "assetId": "sha256:9a43b0e6758d790eb10224100a0c2519f7ea11a7a73ffe30d5670a9281575176",
+          "status": "candidate",
+          "label": "Iam_una_malla",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-207cb3d3216ee775",
+          "assetId": "sha256:207cb3d3216ee775d872ccc7077b0fb24bdae3b1f791f194ffe3395efda45761",
+          "status": "candidate",
+          "label": "Iam_una_malla_sin_texturas",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "Link/14c16b01-5810-4897-9e5a-52095887aec9.png",
+        "Link/1d7aadd5-174b-497b-b573-c0b4d237eb06.png",
+        "Link/6975ce6e-e0df-4d77-973a-7c7013b0fbb7.png",
+        "Link/_cara_tripo/brows_zoom.png",
+        "Link/_cara_tripo/c_v1_iam.png",
+        "Link/_cara_tripo/c_v1_ref.png",
+        "Link/_cara_tripo/c_v2_iam.png",
+        "Link/_cara_tripo/c_v2_ref.png",
+        "Link/_cara_tripo/c_v3_iam.png",
+        "Link/_cara_tripo/c_v3_ref.png",
+        "Link/_cara_tripo/c_v4_iam.png",
+        "Link/_cara_tripo/c_v4_ref.png",
+        "Link/_cara_tripo/c_v6_iam.png",
+        "Link/_cara_tripo/c_v6_ref.png",
+        "Link/_cara_tripo/c_v7_iam.png",
+        "Link/_cara_tripo/c_v7_ref.png",
+        "Link/_cara_tripo/c_v8_iam.png",
+        "Link/_cara_tripo/c_v8_ref.png",
+        "Link/_cara_tripo/c_v8eye_iam.png",
+        "Link/_cara_tripo/c_v8eye_ref.png",
+        "Link/_cara_tripo/c_v9_iam.png",
+        "Link/_cara_tripo/c_v9_ref.png",
+        "Link/_cara_tripo/cmp_eyes.png",
+        "Link/_cara_tripo/cmp_v1.png",
+        "Link/_cara_tripo/cmp_v2.png",
+        "Link/_cara_tripo/cmp_v3.png",
+        "Link/_cara_tripo/cmp_v4.png",
+        "Link/_cara_tripo/cmp_v6.png",
+        "Link/_cara_tripo/cmp_v7.png",
+        "Link/_cara_tripo/cmp_v9_side.png",
+        "Link/_cara_tripo/cmp_zoom.png",
+        "Link/_cara_tripo/cmp_zoom2.png",
+        "Link/_cara_tripo/cmp_zoom3.png",
+        "Link/_cara_tripo/cmp_zoom4.png",
+        "Link/_cara_tripo/cmp_zoom6.png",
+        "Link/_cara_tripo/cmp_zoom7.png",
+        "Link/_cara_tripo/cmp_zoom8.png",
+        "Link/_cara_tripo/compara.png",
+        "Link/_cara_tripo/dbg.png",
+        "Link/_cara_tripo/e_browL.png",
+        "Link/_cara_tripo/e_browR.png",
+        "Link/_cara_tripo/e_eyeL.png",
+        "Link/_cara_tripo/e_eyeR.png",
+        "Link/_cara_tripo/e_L_iam.png",
+        "Link/_cara_tripo/e_L_ref.png",
+        "Link/_cara_tripo/e_mouth.png",
+        "Link/_cara_tripo/e_R_iam.png",
+        "Link/_cara_tripo/e_R_ref.png",
+        "Link/_cara_tripo/fit.png",
+        "Link/_cara_tripo/fr_005.png",
+        "Link/_cara_tripo/fr_020.png",
+        "Link/_cara_tripo/fr_050.png",
+        "Link/_cara_tripo/fr_070.png",
+        "Link/_cara_tripo/fr_100.png",
+        "Link/_cara_tripo/fr_140.png",
+        "Link/_cara_tripo/fr_175.png",
+        "Link/_cara_tripo/fr_210.png",
+        "Link/_cara_tripo/fr_245.png",
+        "Link/_cara_tripo/fr_280.png",
+        "Link/_cara_tripo/fr_315.png",
+        "Link/_cara_tripo/fr_350.png",
+        "Link/_cara_tripo/fr_375.png",
+        "Link/_cara_tripo/fr_395.png",
+        "Link/_cara_tripo/fr_zoom.png",
+        "Link/_cara_tripo/frames_grid.png",
+        "Link/_cara_tripo/glb_front.png",
+        "Link/_cara_tripo/glb_side.png",
+        "Link/_cara_tripo/hmap_all.png",
+        "Link/_cara_tripo/l_front_eevee.png",
+        "Link/_cara_tripo/ov_eye.png",
+        "Link/_cara_tripo/ov_mouth.png",
+        "Link/_cara_tripo/overlay.png",
+        "Link/_cara_tripo/p_Asustado.png",
+        "Link/_cara_tripo/p_BocaO.png",
+        "Link/_cara_tripo/p_Enojado.png",
+        "Link/_cara_tripo/p_Esfuerzo.png",
+        "Link/_cara_tripo/p_Feliz.png",
+        "Link/_cara_tripo/p_Gritando.png",
+        "Link/_cara_tripo/p_Guino.png",
+        "Link/_cara_tripo/p_MirarArrDer.png",
+        "Link/_cara_tripo/p_MirarIzq.png",
+        "Link/_cara_tripo/p_Neutro.png",
+        "Link/_cara_tripo/p_Parpadeo.png",
+        "Link/_cara_tripo/p_Pensando.png",
+        "Link/_cara_tripo/p_Picaro.png",
+        "Link/_cara_tripo/p_Riendo.png",
+        "Link/_cara_tripo/p_Sorprendido.png",
+        "Link/_cara_tripo/p_Triste.png",
+        "Link/_cara_tripo/r_browL.png",
+        "Link/_cara_tripo/r_browR.png",
+        "Link/_cara_tripo/r_eyeL.png",
+        "Link/_cara_tripo/r_eyeR.png",
+        "Link/_cara_tripo/r_mouth.png",
+        "Link/_cara_tripo/referencia_opaca.png",
+        "Link/_cara_tripo/seg.png",
+        "Link/_cara_tripo/t_front_eevee.png",
+        "Link/_cara_tripo/tex_brillo.png",
+        "Link/_cara_tripo/tex_esclerotica.png",
+        "Link/_cara_tripo/tex_iris.png",
+        "Link/_cara_tripo/tex_iris_chk.png",
+        "Link/_cara_tripo/tex_labios.png",
+        "Link/_cara_tripo/tex_labios_prev.png",
+        "Link/_cara_tripo/tex_part_16_LOW.png",
+        "Link/_cara_tripo/tex_part_17_LOW.png",
+        "Link/_cara_tripo/tex_part_1_LOW.png",
+        "Link/_cara_tripo/tex_part_23_LOW.png",
+        "Link/_cara_tripo/tex_part_31_LOW.png",
+        "Link/_cara_tripo/tex_part_40_LOW.png",
+        "Link/_cara_tripo/tex_pupila.png",
+        "Link/_cara_tripo/tex_tinta.png",
+        "Link/_cara_tripo/texs.png",
+        "Link/_cara_tripo/texs2.png",
+        "Link/_cara_tripo/tripo_antes.png",
+        "Link/_cara_tripo/tripo_head.blend",
+        "Link/_cara_tripo/tripo_piel.png",
+        "Link/_cara_tripo/u_front_eevee.png",
+        "Link/_cara_tripo/unwrap.png",
+        "Link/_cara_tripo/verificacion_enojado.png",
+        "Link/_cara_tripo/verificacion_enojado_base.png",
+        "Link/_cara_tripo/verificacion_enojado_original.png",
+        "Link/_cara_tripo/verificacion_feliz.png",
+        "Link/_cara_tripo/verificacion_guino_original.png",
+        "Link/_cara_tripo/verificacion_medio_parpadeo.png",
+        "Link/_cara_tripo/verificacion_neutro.png",
+        "Link/_cara_tripo/verificacion_neutro_base.png",
+        "Link/_cara_tripo/verificacion_neutro_original.png",
+        "Link/_cara_tripo/verificacion_parpadeo.png",
+        "Link/_cara_tripo/verificacion_parpadeo_base.png",
+        "Link/_cara_tripo/verificacion_parpadeo_original.png",
+        "Link/_cara_tripo/verificacion_parpadeo_tres_cuartos.png",
+        "Link/_cara_tripo/verificacion_referencia.png",
+        "Link/_cara_tripo/verificacion_tres_cuartos.png",
+        "Link/_cara_tripo/verificacion_triste.png",
+        "Link/_cara_tripo/verificacion_triste_base.png",
+        "Link/_cara_tripo/verificacion_triste_original.png",
+        "Link/_cara_tripo/video_test.blend",
+        "Link/_cara_tripo/z_eyeL.png",
+        "Link/_cara_tripo/z_mouth.png",
+        "Link/cabeza_cuello2_8K.png",
+        "Link/cabeza_cuello_28K.png",
+        "Link/cabeza_cuello_8K.png",
+        "Link/cabeza_cuello_8K.zip",
+        "Link/ce70f6a0-4826-4cd8-ae90-2686a0a6e3c2.png",
+        "Link/cuellos_reparados_20260924_195943.blend",
+        "Link/cuellos_respaldo_20260924_195104.blend",
+        "Link/Definitiva.zip",
+        "Link/directora.blend",
+        "Link/Hi3D_Modelo 3D de Cabeza de Anime Pastel Segmentada_allparts_20260924_142728.glb",
+        "Link/Hi3D_Modelo 3D de personaje de caricatura estilizado con bloques de color_allparts_20260923_152343.glb",
+        "Link/Hi3D_Untitled_allparts_20260924_210654.glb",
+        "Link/Iam.blend",
+        "Link/Iam.blendV2_definitiva.blend",
+        "Link/Iam_95% perfecto .blend",
+        "Link/Iam_95% perfecto _ copia antes de codex .blend",
+        "Link/Iam_antes_correccion_cadera_rodilla_20260926_213126.blend",
+        "Link/Iam_backup_pre_unificar.blend",
+        "Link/Iam_blend1_cambios_sin_guardar_20260924.blend",
+        "Link/Iam_cabeza_cuerpo_separados_2026-09-27.blend",
+        "Link/Iam_casi perfecto.blend",
+        "Link/Iam_casi perfecto_mejor .blend",
+        "Link/Iam_malla_corregida.blend",
+        "Link/Iam_para_meshy.glb",
+        "Link/Iam_respaldo_original_sin_unir.blend",
+        "Link/Iam_tripo_cabeza_unida_2026-09-28_respaldo.blend",
+        "Link/Iam_V3_optimizacion_respaldo.blend",
+        "Link/Iam_V3_optimizado cara traspasada.blend",
+        "Link/Iam_V3_optimizado.blend",
+        "Link/Iam_V3_optimizado_Sin_TEXTURA .glb",
+        "Link/low.png",
+        "Link/Meshy_AI_export_1790093384_part-segmentation.glb",
+        "Link/modelo_verde_espaldas_8K_16x9.png",
+        "Link/modelo_verde_frente_8K_16x9.png",
+        "Link/modelo_verde_frente_espaldas_8K_16x9.zip",
+        "Link/New link/Iam+post+procesado+tripo.glb",
+        "Link/New link/Iam_una_malla_sin_texturas (2).glb",
+        "Link/personaje_cara_reemplazada_8K.png",
+        "Link/protagonista_spanstories_8K.zip",
+        "Link/remesh/Iam_personaje_optimizado.glb",
+        "Link/remesh/intento 4 .blend",
+        "Link/remesh/malla nueva .blend",
+        "Link/retopologia_trabajo/cuerpo_preparado.blend",
+        "Link/retopologia_trabajo/cuerpo_quadri_diagnostico.blend",
+        "Link/retopologia_trabajo/cuerpo_quads.blend",
+        "Link/retopologia_trabajo/cuerpo_quads_progreso.blend",
+        "Link/retopologia_trabajo/cuerpo_texturizado_progreso.blend",
+        "Link/retopologia_trabajo/fuente_cuerpo.blend",
+        "Link/retopologia_trabajo/Retopo_Brazo_L_Color.png",
+        "Link/retopologia_trabajo/Retopo_Brazo_R_Color.png",
+        "Link/retopologia_trabajo/Retopo_Camiseta_Color.png",
+        "Link/retopologia_trabajo/Retopo_Pantalon_Zapatos_Color.png",
+        "Link/rig_revision_celebrar.png",
+        "Link/rig_revision_correr.png",
+        "Link/union_respaldo_20260924_201059.blend",
+        "Link/Untitled.blend",
+        "Link/Untitled.glb",
+        "Link/Untitled_backup_antes_limpieza.blend",
+        "Animación 3D/Iam_solo_malla.glb",
+        "Animación 3D/Iam_una_malla.glb",
+        "Animación 3D/Iam_una_malla_sin_texturas.glb"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "meseros",
+      "name": "meseros",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-fd79edb661ac8b97",
+          "assetId": "sha256:fd79edb661ac8b97fb841933b4f3c89cbf71d1aa3dda33104787ea798a991521",
+          "status": "candidate",
+          "label": "1",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-c5a770890d980dc5",
+          "assetId": "sha256:c5a770890d980dc52da2ed454510009e4b803d1e07ad5984577840516e298d61",
+          "status": "candidate",
+          "label": "3",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-09e303b6b0edab8b",
+          "assetId": "sha256:09e303b6b0edab8b08c749d71323e6fd62130b40dbfcf0d46f63fdb32d8fcbe8",
+          "status": "candidate",
+          "label": "5",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-cec676b1afe97d55",
+          "assetId": "sha256:cec676b1afe97d555a5173ebfea859c617b50d2bc68fb38d73c2ae310e521562",
+          "status": "candidate",
+          "label": "Meshy_AI_Little_Waiter_All_Animations",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-e6ce79d996e67578",
+          "assetId": "sha256:e6ce79d996e67578b10c5bd2079259bdb809a37745c7b51501d6160cf89a1bdd",
+          "status": "candidate",
+          "label": "Meshy_AI_Little_Waiter_texturizadp",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "meseros/1.glb",
+        "meseros/1.png",
+        "meseros/3.glb",
+        "meseros/3.png",
+        "meseros/4.png",
+        "meseros/5.glb",
+        "meseros/5.png",
+        "meseros/Mesero bien/Bien.png",
+        "meseros/Mesero bien/Mesero_SpanStories_con_pelo_2K_transparente.zip",
+        "meseros/Mesero bien/Meshy_AI_Little_Waiter_All_Animations.glb",
+        "meseros/Mesero bien/Meshy_AI_Little_Waiter_texturizadp.glb"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "samuel",
+      "name": "samuel",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-9e1f37cc2d187c32",
+          "assetId": "sha256:9e1f37cc2d187c3291e70e52f1368c61b7c6bf88f76696ffba74b5eca00e4882",
+          "status": "candidate",
+          "label": "Meshy_AI_Open_Arms_Avatar_All_Animations",
+          "textureIds": []
+        },
+        {
+          "id": "candidate-14678cbd6df27e42",
+          "assetId": "sha256:14678cbd6df27e42d7d1640cc4900dbc16766645164820991ebb1f94e294034f",
+          "status": "candidate",
+          "label": "Samuel_con_rostro_manos",
+          "textureIds": [
+            "sha256:9e52048d32f61cfe325f84e99156c6eaf8a4d72efcc643f4067c8230251cc666"
+          ]
+        }
+      ],
+      "artSources": [
+        "Samu para Meshy/Meshy_AI_Open_Arms_Avatar_All_Animations.glb",
+        "Animación 3D/personajes/samuel/fuente/Samuel_con_rostro.glb",
+        "Animación 3D/personajes/samuel/fuente/Samuel_con_rostro_cuerpo.glb",
+        "Animación 3D/personajes/samuel/fuente/Samuel_con_rostro_manos.orig.glb",
+        "Animación 3D/personajes/samuel/fuente/samuel_face_albedo_basecolor_2K.png",
+        "Animación 3D/personajes/samuel/fuente/Samuel_front_3840x4608.png",
+        "Animación 3D/personajes/samuel/fuente/Samuel_sin_ojos_cejas_boca_3840x4608.png",
+        "Animación 3D/personajes/samuel/Samuel_con_rostro_manos.glb",
+        "Animación 3D/personajes/samuel/Samuel_textura_pintada.png",
+        "Animación 3D2/blender.blend",
+        "Animación 3D2/Colette the happy farmer.zip",
+        "Animación 3D2/mcp-1.0.3.zip",
+        "Animación 3D2/Meshy_AI_Open_Arms_Avatar_All_Animations.glb",
+        "Animación 3D2/Nick Wilde.zip",
+        "Animación 3D2/NickWildeV3.0Public.blend"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    },
+    {
+      "id": "boy-unidentified",
+      "name": "boy-unidentified",
+      "status": "selection-pending",
+      "defaultVersion": null,
+      "versions": [
+        {
+          "id": "candidate-a8e5c977baf3e748",
+          "assetId": "sha256:a8e5c977baf3e7488952c4b833735523dfa43a3f5c854fb5b316dcab9a9ed5c8",
+          "status": "candidate",
+          "label": "Meshy_AI_Open_Arms_Boy_0919163033_texture",
+          "textureIds": []
+        }
+      ],
+      "artSources": [
+        "animación 3D3/Meshy_AI_Open_Arms_Boy_0919163033_texture.glb"
+      ],
+      "note": "Agrupación provisional; no implica identidad ni versión definitiva aprobada."
+    }
+  ]
+}

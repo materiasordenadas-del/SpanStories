@@ -1,0 +1,71 @@
+{
+  "catalogoId": "grandhotel-fbx-usuario",
+  "nombre": "Grand Hotel Building",
+  "rutaOrigen": "D:\\Español\\imagen para animación\\Ambiente\\hotel\\source\\grandhotel_01.fbx",
+  "sha256Origen": "61da3b9da054b87a16462a85d9d2ff6cb9fd6f2c7b096de2e0efa3cb663604e7",
+  "metodo": "Geometría FBX original; albedo sustituido por colores planos y ventanas geométricas. Sin texturas fotográficas.",
+  "geometrias": [
+    {
+      "geometry": "Cube.002\u0000\u0001Geometry",
+      "triangles": 392,
+      "transform": {
+        "Lcl Translation": [
+          0.0,
+          1986.914794921875,
+          0.0
+        ],
+        "Lcl Rotation": [
+          -90.00000933466734,
+          -0.07905829905466705,
+          0.0
+        ],
+        "Lcl Scaling": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "DefaultAttributeIndex": [
+          0
+        ],
+        "InheritType": [
+          1
+        ]
+      }
+    },
+    {
+      "geometry": "Plane.003\u0000\u0001Geometry",
+      "triangles": 1392,
+      "transform": {
+        "Lcl Translation": [
+          2210.094970703125,
+          401.735107421875,
+          1255.139892578125
+        ],
+        "Lcl Rotation": [
+          -90.00000933466734,
+          -89.999995674289,
+          0.0
+        ],
+        "Lcl Scaling": [
+          100.0,
+          100.0,
+          100.0
+        ],
+        "DefaultAttributeIndex": [
+          0
+        ],
+        "InheritType": [
+          1
+        ]
+      }
+    }
+  ],
+  "modelo": "scene.gltf",
+  "preparacion": "Conversión glTF suministrada junto al FBX: geometría, UV y texturas intactas; se excluye el plano de contexto.",
+  "texturas": [
+    "textures/Building_baseColor.jpeg",
+    "textures/Material_baseColor.png"
+  ],
+  "texturasAutorizadas": true,
+  "geometriaFbxSha256": "61da3b9da054b87a16462a85d9d2ff6cb9fd6f2c7b096de2e0efa3cb663604e7"
+}

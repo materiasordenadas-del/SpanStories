@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Hotel Palma Real</title>
+<link rel="stylesheet" href="panel/panel.css">
+<link rel="stylesheet" href="hotel.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>PALMA REAL <small>HOTEL · COLOMBIA</small></strong><span>SpanStories · ★★★★★</span></header>
+<main>
+  <section id="viewport" aria-label="Escena 3D"><button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button>
+    <nav id="zonas" aria-label="Zonas del hotel"><button data-zone="fachada">Fachada</button><button data-zone="lobby">Lobby</button><button data-zone="conserjeria">Conserjería</button><button data-zone="restaurante">Restaurante</button><button data-zone="buffet">Restaurante buffet</button><button data-zone="bar">Bar</button><button data-zone="terraza">Terraza</button><button data-zone="circulacion">Ascensor y escalera</button><button data-zone="galeria">Galería P1</button><button data-zone="pasillo">Pasillo P1</button><button data-zone="habitacion">Habitación 201</button></nav>
+    <div id="zona-titulo"><small>BIENVENIDO A COLOMBIA</small><h1>Lobby y recepción</h1><p>Un lugar para llegar, descansar y descubrir.</p></div>
+    <div id="acciones" aria-label="Acciones de la zona"></div><p id="mensaje" role="status" aria-live="polite">Selecciona un objeto para interactuar.</p>
+    <div id="caminar-controles" hidden aria-label="Caminar"><button data-walk="forward" aria-label="Caminar adelante">↑</button><button data-walk="left" aria-label="Caminar a la izquierda">←</button><button data-walk="back" aria-label="Caminar atrás">↓</button><button data-walk="right" aria-label="Caminar a la derecha">→</button></div>
+    <div id="vista-controles"><button id="edit-mode" aria-pressed="false">Modo edición</button><button id="first-person" aria-pressed="false">Primera persona</button><button id="overview">Vista general</button><button id="zoom-in" aria-label="Acercar">＋</button><button id="zoom-out" aria-label="Alejar">−</button><button id="rotate" aria-label="Girar vista">↻</button></div>
+  </section>
+  <!-- Orden fijo del panel en TODOS los proyectos (ver PANEL.md):
+       1 Escena · 2 Luz y estilo · 3 Calidad · 4 Diagnóstico -->
+  <aside id="panel" hidden>
+    <h1>Panel</h1>
+    <section id="panel-escena"><h3>Escena</h3><p id="status" role="status">Iniciando WebGL…</p>
+      <label>Objeto <select id="objeto-seleccionado" aria-label="Seleccionar objeto"></select></label>
+      <p id="seleccion-status" role="status" aria-live="polite">Sin selección.</p>
+      <button id="accion-objeto" disabled>Interactuar con objeto</button>
+      <label><input type="checkbox" id="ocultar-objeto"> Ocultar objeto seleccionado</label>
+      <div id="editor" hidden></div>
+    </section>
+    <section id="panel-estilo"></section>
+    <section id="panel-calidad">
+      <h3>Calidad</h3>
+      <label>Detalle <select id="quality"><option value="HIGH" selected>LOD 1 · Completo</option><option value="STANDARD">LOD 2 · Equilibrado</option><option value="ECO">LOD 3 · Ligero</option></select></label>
+      <label><input type="checkbox" id="reflejos" checked> Piso con reflejo</label>
+      <label><input type="checkbox" id="pantallas" checked> Pantallas animadas</label>
+    </section>
+    <section id="panel-diagnostico"><details><summary>Diagnóstico y mediciones</summary><pre id="metrics">—</pre></details></section>
+  </aside>
+</main>
+<footer>SpanStories · Hotel ficticio · Fachada basada en Grand Hotel Building, Trueno, CC BY 4.0 · <a href="CREDITOS.md" target="_blank">Créditos</a></footer>
+<script type="module" src="main.js"></script>
+</html>

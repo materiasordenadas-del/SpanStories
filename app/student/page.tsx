@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProtectedAccount } from "@/components/accounts/ProtectedAccount";
+import { PersonalPracticeNotes } from "@/components/accounts/student/PersonalPracticeNotes";
 import styles from "@/components/accounts/accounts.module.css";
 import { listStudentTeachers, normalizeCode } from "@/features/accounts/account-service";
 import { listStudentTasks } from "@/features/accounts/task-service";
@@ -51,6 +52,7 @@ function StudentPageContent() {
       const available = task.startsAt.toDate() <= new Date();
       return <article className={styles.taskCard} key={task.id}><p className={styles.eyebrow}>{taskKindLabel(task)}</p><h3>{task.title}</h3><p>{taskContentLabel(task)}</p><p className={styles.taskMeta}>{available ? `Entrega: ${dateText(task.dueAt.toDate())}` : `Disponible: ${dateText(task.startsAt.toDate())}`}</p>{available ? <Link className={`${styles.button} ${styles.secondary}`} href={taskHref(task)}>Abrir tarea</Link> : null}</article>;
     })}</div>}</section>
+    <PersonalPracticeNotes />
     <section className={styles.studentSection}><h2>Mis profesores</h2>{loading ? <p>Cargando…</p> : teachers.length ? <><div className={styles.classGrid}>{teachers.map((item) => <div className={styles.classCard} key={item.teacherId}><h3>{item.teacherName}</h3><span>Desde el {item.joinedAt?.toDate?.().toLocaleDateString("es") ?? "hoy"}</span></div>)}</div><p className={styles.user}>Tus profesores ven las historias que terminas, tus palabras guardadas y tus resultados de práctica.</p></> : <p className={styles.empty}>Todavía no tienes profesor. Si te envía un enlace o un código, úsalo aquí.</p>}</section>
   </main>;
 }

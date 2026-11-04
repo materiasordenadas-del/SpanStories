@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · Aeropuerto</title>
+<link rel="stylesheet" href="lab.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>✈ SpanStories / Aeropuerto</strong><span>Modo libre · WASD para moverte</span></header>
+<main>
+  <section id="viewport" aria-label="Aeropuerto 3D">
+    <div id="cover" hidden>Preparando la siguiente zona…</div><div id="zone-tag" aria-hidden="true"></div>
+    <div id="help-overlay">WASD para moverte · arrastra para mirar</div>
+    <button id="build-toggle" aria-pressed="false">Modo creación</button>
+    <div id="build-panel" hidden>
+      <strong>Modo creación · muros</strong><span id="build-help" role="status">Clic para empezar</span>
+      <div><label><input id="wall-chain" type="checkbox" checked> Continuar muro</label><button id="wall-finish">Terminar trazado</button><button id="wall-undo" disabled>Deshacer último</button><button id="build-exit">Volver a caminar</button></div>
+    </div>
+    <div id="edit-menu" hidden><span id="edit-name">Toca un objeto</span><div id="edit-tools"><button data-act="smaller" title="Achicar">−</button><button data-act="bigger" title="Agrandar">+</button><button data-act="rotl" title="Girar 90° a la izquierda">↺ 90°</button><button data-act="rotr" title="Girar 90° a la derecha">↻ 90°</button><button data-act="delete" class="del" title="Eliminar">🗑</button><button data-act="done" title="Soltar">✕</button></div></div><button id="panel-toggle" aria-controls="trip-panel" aria-expanded="false">Opciones ☰</button>
+  </section>
+  <aside id="trip-panel" hidden>
+    <h1>Exploración libre</h1><p id="journey">Recorre el aeropuerto sin límites.</p>
+    <h2 id="zone">Preparando…</h2>
+    <div id="progress" aria-label="Progreso del viaje"></div>
+    <div class="row"><button id="previous">← Anterior</button><button id="next">Siguiente →</button></div>
+    <p id="walk-help">WASD o flechas para caminar · arrastra para mirar · cruza las puertas para avanzar.</p>
+    <button id="sound">Activar sonido</button>
+    <fieldset class="light">
+      <legend>Luz y estilo</legend>
+      <label>Ambiente <select id="ambiente"></select></label>
+      <label><input type="checkbox" id="contorno" checked> Contorno cartoon</label>
+      <label><input type="checkbox" id="reflejo" checked> Reflejo del piso</label>
+      <label>Grosor del trazo <input type="range" id="grosor" min="0.6" max="3" step="0.1" value="1.4"> <output id="grosor-valor">1.4 px</output></label>
+    </fieldset>
+    <fieldset class="light">
+      <legend>Edición</legend>
+      <label><input type="checkbox" id="edicion"> Modo edición (tocar objetos)</label>
+      <button id="edit-reset">Restaurar objetos eliminados y ajustes</button>
+    </fieldset>
+    <label>Calidad <select id="quality"><option>HIGH</option><option selected>STANDARD</option><option>ECO</option></select></label>
+    <label><input type="checkbox" id="auto"> Ajuste automático de calidad</label>
+    <p id="scale">Escala humana: 1,70 m. Cámara a 1,62 m; mostradores a 1,10 m.</p>
+    <p id="status" role="status">Iniciando WebGL…</p>
+    <details class="dev"><summary>Diagnóstico y mediciones</summary>
+      <button id="benchmark">Probar transiciones</button>
+      <button id="world-test">Probar cambio de mundo</button>
+      <button id="export">Exportar mediciones</button>
+      <label><input type="checkbox" id="debug"> Mostrar métricas</label>
+      <pre id="metrics" hidden aria-live="off"></pre>
+      <details><summary>Eventos de streaming</summary><pre id="events"></pre></details>
+      <details><summary>Informe de pruebas</summary><pre id="report">Todavía no se han ejecutado pruebas.</pre></details>
+    </details>
+    <p class="hint">Pulsa un objeto para conocer su nombre. El exterior usa capas 2D con paralaje.</p>
+  </aside>
+</main>
+<script type="module" src="lab.js?v=creacion-2"></script>
+</html>

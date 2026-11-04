@@ -27,7 +27,7 @@ type StoredPractice = {
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null;
 
-function parseTarget(value: unknown): PracticeTarget | null {
+export function parseTarget(value: unknown): PracticeTarget | null {
   if (!isRecord(value)) return null;
   const { type, lexemeId, senseId, storyVersionId, anchorId, surface, normalizedSurface } = value;
   if (type === "LEXEME" || type === "SENSE") {
@@ -59,7 +59,7 @@ function parseTarget(value: unknown): PracticeTarget | null {
   return null;
 }
 
-function parseOrigin(value: unknown): PracticeItemOrigin | null | undefined {
+export function parseOrigin(value: unknown): PracticeItemOrigin | null | undefined {
   if (value === null) return null;
   if (!isRecord(value) || typeof value.storyVersionId !== "string" || typeof value.occurrenceId !== "string") return undefined;
   const { storyVersionId, occurrenceId } = value;
@@ -73,8 +73,9 @@ function parseOrigin(value: unknown): PracticeItemOrigin | null | undefined {
   return undefined;
 }
 
-// localStorage is editable by anyone: only known shapes with published id patterns are accepted.
-function parseItem(value: unknown): PracticeItem | null {
+// Editable by anyone with access to the storage (localStorage) or the document (Firestore):
+// both accept only known shapes with published id patterns.
+export function parseItem(value: unknown): PracticeItem | null {
   if (!isRecord(value) || typeof value.savedAt !== "string" || Number.isNaN(Date.parse(value.savedAt))) return null;
   const target = parseTarget(value.target);
   const savedFrom = parseOrigin(value.savedFrom);

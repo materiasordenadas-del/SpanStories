@@ -8,6 +8,6 @@ export default async function TeacherStudentPage({ params, searchParams }: {
 }) {
   const [{ id }, { vista }, stories, words] = await Promise.all([params, searchParams, getPublishedStories(), getSavedWordLabels()]);
   return <ProtectedAccount bare role="teacher">
-    <TeacherStudentScreen stories={stories} studentId={decodeURIComponent(id)} view={vista === "tareas" ? "tareas" : "progreso"} words={words} />
+    <TeacherStudentScreen stories={stories} studentId={decodeURIComponent(id)} view={vista === "notas" ? "notas" : vista === "tareas" ? "tareas" : "progreso"} words={words} />
   </ProtectedAccount>;
 }

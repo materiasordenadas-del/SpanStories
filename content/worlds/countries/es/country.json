@@ -1,0 +1,88 @@
+{
+  "id": "es",
+  "name": "España",
+  "locale": "es-ES",
+  "currency": "EUR",
+  "city": {
+    "status": "pending",
+    "mapAssetId": null,
+    "touristPlaceTarget": 5
+  },
+  "places": [
+    {
+      "id": "es-airport",
+      "baseId": "airport",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-bank",
+      "baseId": "bank",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-cafe",
+      "baseId": "cafe",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-shop",
+      "baseId": "shop",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-pharmacy",
+      "baseId": "pharmacy",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-bus-stop",
+      "baseId": "bus-stop",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    },
+    {
+      "id": "es-restaurant",
+      "baseId": "restaurant",
+      "baseVersion": "import-1",
+      "kind": "service",
+      "status": "adaptation-pending",
+      "config": {},
+      "assetIds": []
+    }
+  ],
+  "attractions": [],
+  "characterIds": [
+    "directora",
+    "gomez",
+    "jose",
+    "kakashi",
+    "iam",
+    "meseros",
+    "samuel",
+    "boy-unidentified"
+  ],
+  "appearances": []
+}

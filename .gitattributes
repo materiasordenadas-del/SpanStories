@@ -24,3 +24,7 @@ content/a1/vocabulary/**/*.csv          -text diff
 generated/curriculum/a1/*.json          -text diff
 docs/curriculum/a1-restructure/*.csv    -text diff
 docs/curriculum/a1-restructure/*.json   -text diff
+
+# Migration and shared-asset manifests hash exact file bytes, including line endings.
+worlds/prototypes/**                   -text
+worlds/characters/assets/**            -text

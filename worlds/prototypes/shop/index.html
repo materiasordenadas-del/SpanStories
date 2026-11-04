@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpanStories · La Estrella</title>
+<link rel="stylesheet" href="panel/panel.css">
+<link rel="stylesheet" href="comercio.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<header><strong>⭐ SpanStories / La Estrella · <span id="titulo-modo">Supermercado</span></strong><span>Sistema 5 · Comercio · 1 unidad = 1 metro</span></header>
+<main>
+  <section id="viewport" aria-label="Tienda 3D">
+    <div id="cover">Abriendo la tienda…</div>
+    <div id="zone-tag" aria-hidden="true"></div>
+    <div id="nombre" role="status" hidden></div>
+    <div id="help-overlay">WASD o flechas para caminar · arrastra para mirar · pulsa un producto para saber cómo se llama y cuánto cuesta</div>
+    <div id="cruceta" aria-label="Caminar" hidden><button data-tecla="KeyW" aria-label="Adelante">▲</button><button data-tecla="ArrowLeft" aria-label="Girar a la izquierda">⟲</button><button data-tecla="KeyS" aria-label="Atrás">▼</button><button data-tecla="ArrowRight" aria-label="Girar a la derecha">⟳</button></div>
+    <button id="panel-toggle" aria-controls="panel" aria-expanded="false">Opciones ☰</button>
+  </section>
+  <!-- Orden fijo del panel en TODOS los proyectos (PANEL.md): 1 Escena · 2 Luz y estilo · 3 Calidad · 4 Diagnóstico -->
+  <aside id="panel" hidden>
+    <h1>La Estrella</h1>
+    <section id="panel-escena">
+      <h3>Escena</h3>
+      <label>Tipo de tienda <select id="modo"></select></label>
+      <label>Moneda de los precios <select id="moneda"></select></label>
+      <h2 id="zona">Preparando…</h2>
+      <div id="vistas" class="vistas" aria-label="Ir a"></div>
+      <p id="status" role="status">Iniciando WebGL…</p>
+    </section>
+    <section id="panel-estilo"></section>
+    <section id="panel-calidad">
+      <h3>Calidad</h3>
+      <label>Calidad <select id="quality"><option>HIGH</option><option selected>STANDARD</option><option>ECO</option></select></label>
+    </section>
+    <section id="panel-diagnostico"><details><summary>Diagnóstico y mediciones</summary><pre id="metrics">—</pre>
+      <p>Eventos: <code>comercio:modo</code>, <code>comercio:moneda</code>, <code>comercio:objeto</code>. API: <code>window.comercio</code> (ir, modo, moneda). URL: <code>?modo=general&amp;moneda=EUR&amp;vista=caja</code>.</p></details></section>
+  </aside>
+</main>
+<script type="module" src="main.js"></script>
+</html>

@@ -1,0 +1,21 @@
+/* Capa propia del Comercio sobre panel/panel.css (el panel no se reestiliza). */
+#cover{position:absolute;inset:0;z-index:6;display:grid;place-items:center;background:#12202d;color:#efd29a;font-size:18px}
+#cover[hidden]{display:none}
+#zone-tag{position:absolute;z-index:2;left:18px;top:16px;padding:6px 12px;border-radius:20px;background:#173552dd;color:#fff;font-weight:600}
+#nombre{position:absolute;z-index:2;left:50%;bottom:64px;transform:translateX(-50%);max-width:min(560px,calc(100% - 32px));padding:10px 16px;border-radius:10px;background:#fffdf6;color:#2a2c2f;font-size:17px;box-shadow:0 6px 20px #0005;text-align:center}
+#nombre b{color:#a8322a}
+#nombre[hidden]{display:none}
+#help-overlay{position:absolute;z-index:2;left:50%;bottom:14px;transform:translateX(-50%);max-width:calc(100% - 32px);padding:6px 12px;border-radius:8px;background:#0b1722aa;color:#dbe5ec;font-size:12.5px;text-align:center}
+.vistas{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.vistas button{padding:7px 8px;font-size:12.5px;text-align:left}
+.vistas button.activa{background:#8a5a18;border-color:#efd29a}
+#panel select{max-width:100%}
+#cruceta{position:absolute;z-index:3;left:16px;bottom:60px;display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px);gap:6px}
+#cruceta[hidden]{display:none}
+#cruceta button{font-size:20px;padding:0}
+#cruceta [data-tecla=KeyW]{grid-column:2}
+#cruceta [data-tecla=ArrowLeft]{grid-column:1;grid-row:2}
+#cruceta [data-tecla=KeyS]{grid-column:2;grid-row:2}
+#cruceta [data-tecla=ArrowRight]{grid-column:3;grid-row:2}
+body.tactil #help-overlay{display:none}
+@media (max-width:600px){header span{display:none}header{padding:16px}}
