@@ -1,0 +1,11 @@
+{
+  "rama": "feat/visor-mundo-20261021",
+  "componentes": [
+    "Generador-Mundos",
+    "SpanStories-Ciudades",
+    "features/story-studio",
+    "components/world-lexicon"
+  ],
+  "sin_nuevos_personajes": true,
+  "sin_herramientas_blender": true
+}

@@ -17,7 +17,7 @@ export function treeBillboardAtlas(prototypes,renderer,style){
         if(p.material.userData.urbanTree){
           // The distant card receives the current world light at runtime. Store
           // only its albedo/palette, rather than illuminating the tree twice.
-          const m=p.material.clone();m.fragmentShader=m.fragmentShader.replace('vec3 color = albedo * mix(sombra * hemi, luzColor, lit);','vec3 color = albedo;');
+          const m=p.material.clone();m.fragmentShader=style.fragmentoBase(p.material).replace('vec3 color = albedo * mix(sombra * hemi, luzColor, lit);','vec3 color = albedo;');
           owned.push(m);scene.add(new T.Mesh(p.geometry,m));continue;
         }
         const m=new T.MeshBasicMaterial({color:p.material.uniforms.uColor.value,map:p.material.uniforms.uAlbedo?.value??null,alphaTest:p.material.uniforms.uCorte.value,side:T.DoubleSide});owned.push(m);scene.add(new T.Mesh(p.geometry,m));

@@ -1,0 +1,45 @@
+{
+  "format": "spanstories-lugares",
+  "version": 1,
+  "places": [
+    {
+      "id": "atlas-63aee54a-a63b-424a-870a-18c13c8e9182",
+      "label": "Escuela generada",
+      "revision": "15926703-711f-4cae-b437-4ec6ebd5adb2",
+      "manifest": "atlas-63aee54a-a63b-424a-870a-18c13c8e9182/revisiones/15926703-711f-4cae-b437-4ec6ebd5adb2/zona.json",
+      "updatedAt": "2026-10-26T17:06:13.994Z",
+      "sectors": 36,
+      "entities": 380,
+      "bytes": 27395453,
+      "history": [
+        {
+          "revision": "ba99e8eb-85ac-44e4-be0e-ccd21fe650c4",
+          "createdAt": "2026-10-26T17:01:55.336Z",
+          "packageSha256": "dd143b857a00979c0abccc17c329eeacb0f178865cf5c3f4b27196fb018ce5e2"
+        },
+        {
+          "revision": "15926703-711f-4cae-b437-4ec6ebd5adb2",
+          "createdAt": "2026-10-26T17:06:13.994Z",
+          "packageSha256": "707dc283c947cd4cd4d603bde7f55e8480437880f6117454ead2ae6c601f69a3"
+        }
+      ]
+    },
+    {
+      "id": "atlas-c87800e4-853e-403f-ae5b-f1b6a049e610",
+      "label": "Barcelona · Passeig de Gràcia",
+      "revision": "0ff4259a-7697-4436-8335-3b97bcc1a230",
+      "manifest": "atlas-c87800e4-853e-403f-ae5b-f1b6a049e610/revisiones/0ff4259a-7697-4436-8335-3b97bcc1a230/zona.json",
+      "updatedAt": "2026-10-26T23:12:44.093Z",
+      "sectors": 242,
+      "entities": 3106,
+      "bytes": 225168730,
+      "history": [
+        {
+          "revision": "0ff4259a-7697-4436-8335-3b97bcc1a230",
+          "createdAt": "2026-10-26T23:12:44.093Z",
+          "packageSha256": "2d51ce87012aef264dcd7b754f993d9a8881443621323a47112818791a59667b"
+        }
+      ]
+    }
+  ]
+}

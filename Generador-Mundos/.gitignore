@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.npm-cache/
+.geo-cache/
+exportaciones/
+.trabajo/
+respaldo/
+.style-pool/

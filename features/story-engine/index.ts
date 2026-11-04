@@ -94,3 +94,7 @@ export type { NewVersionInput, StoryRepository } from "./repository/story-reposi
 export { InMemoryStoryRepository } from "./repository/in-memory-story-repository.ts";
 
 export { RandomIdGenerator, SystemClock } from "./runtime/system-ports.ts";
+export { createNarrativeSession } from './engine/narrative-session.ts';
+export type { NarrativeBinding, NarrativeScene } from './engine/narrative-session.ts';
+export { createEditorialDraft } from './engine/editorial-draft.ts';
+export { IndexedDBStoryRepository } from './repository/indexeddb-story-repository.ts';

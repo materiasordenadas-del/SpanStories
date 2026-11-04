@@ -51,6 +51,12 @@ export class DecorSector {
       root.traverse(o=>{if(o.isMesh){o.layers.disable(0);o.raycast=()=>{};}});
       const entry={placement,key,root,lod:undefined};this.entries.push(entry);this.host.add(root);
       root.userData.instanceBinding={sync:(recompute=true)=>{if(recompute)this.flush();},updateBounds:this.flush,bounds:()=>new T.Box3().setFromObject(root)};
+      // Lectura de la representación visible para el contorno léxico, sin alterar batches/LOD.
+      root.userData.instanceBinding.parts=()=>prototypes.get(key)[entry.lod??0].map(part=>{
+        const matrix=root.matrixWorld.clone();
+        if(part.billboard){const p=new T.Vector3(),q=new T.Quaternion(),s=new T.Vector3(),view=this.camera.getWorldPosition(new T.Vector3());matrix.decompose(p,q,s);q.setFromAxisAngle(T.Object3D.DEFAULT_UP,Math.atan2(view.x-p.x,view.z-p.z));matrix.compose(p,q,s);}
+        return {geometry:part.geometry,material:part.material,matrix};
+      });
       objetos.registrar(root,{id:placement.id,tipo:placement.kind,etiqueta:placement.label,sector:placement.sector});
     }
     const counts=new Map();for(const e of this.entries)counts.set(e.key,(counts.get(e.key)||0)+1);

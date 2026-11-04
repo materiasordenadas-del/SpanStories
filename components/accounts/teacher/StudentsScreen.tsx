@@ -9,6 +9,7 @@ import { finishedCount } from "@/features/accounts/progress-summary";
 import type { PublishedStory } from "@/lib/adapters/teacher-lookup";
 import { copyText, formatOn, formatSince, inviteUrl, plural } from "./helpers";
 import { AvatarFigure, MoreMenu, PendingFigure, PlusIcon, avatarTint, tintStyle } from "./parts";
+import { TaskForm } from "./TasksScreen";
 import { TeacherShell } from "./TeacherShell";
 import t from "./teacher.module.css";
 import { lastActivityOf, useTeacherRoster } from "./use-teacher-roster";
@@ -18,6 +19,7 @@ export function TeacherStudentsScreen({ stories, freshCode }: { stories: readonl
   const router = useRouter();
   const { loading, error, students, invites, removeInvite, removeStudent } = useTeacherRoster();
   const [adding, setAdding] = useState(false);
+  const [creatingTask, setCreatingTask] = useState(false);
   const [actionError, setActionError] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
   const published = useMemo(() => new Set(stories.map((story) => story.key)), [stories]);
@@ -77,9 +79,10 @@ export function TeacherStudentsScreen({ stories, freshCode }: { stories: readonl
         </div>
         <div className={t.actions}>
           {addButton}
-          <Link className={`${t.btn} ${t.primary}`} href="/teacher/tareas">Crear tarea</Link>
+          {creatingTask ? null : <button className={`${t.btn} ${t.primary}`} onClick={() => setCreatingTask(true)} type="button">Crear tarea</button>}
         </div>
       </div>
+      {creatingTask ? <TaskForm onClose={() => setCreatingTask(false)} onCreated={() => setCreatingTask(false)} stories={stories} /> : null}
       {error || actionError ? <p className={t.error} role="alert">{error || actionError}</p> : null}
       {loading ? <p className={t.loading}>Cargando estudiantes…</p>
         : students.length === 0 && invites.length === 0

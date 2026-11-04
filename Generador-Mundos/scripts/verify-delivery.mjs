@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {decodeProject} from '../src/core/world.js';
+const [baselinePath,changedPath,glbPath]=process.argv.slice(2),baseline=decodeProject(fs.readFileSync(baselinePath,'utf8')),changed=decodeProject(fs.readFileSync(changedPath,'utf8'));
+for(const key of ['terrain','urban','buildings'])assert.deepEqual(changed.world[key],baseline.world[key],`${key} changed unexpectedly`);
+assert.notDeepEqual(changed.world.vegetation,baseline.world.vegetation);
+assert.ok(Object.values(changed.world.overrides).some(b=>b.height===24.8&&b.floors===8));assert.ok(Object.values(changed.appearance.assignments).includes('atlas-demo-tower'));
+const bytes=fs.readFileSync(glbPath);assert.equal(bytes.toString('ascii',0,4),'glTF');assert.equal(bytes.readUInt32LE(4),2);assert.equal(bytes.readUInt32LE(8),bytes.length);const len=bytes.readUInt32LE(12),json=JSON.parse(bytes.toString('utf8',20,20+len)),nodes=json.nodes??[],buildings=nodes.filter(n=>n.extras?.entityId?.startsWith('building:')),trees=nodes.filter(n=>n.extras?.type==='tree');assert.equal(buildings.length,baseline.world.buildings.length);assert.ok(new Set(trees.map(n=>n.extras.entityId)).size>1000);assert.ok(buildings.every(n=>n.mesh!==undefined));
+const result={format:'atlas-verification',unchanged:['terrain','urban','buildings'],vegetationRegenerated:true,manualEditPreserved:true,individualGLBMappingPreserved:true,glb:{bytes:bytes.length,nodes:nodes.length,buildingEntities:buildings.length,treeEntities:new Set(trees.map(n=>n.extras.entityId)).size,meshes:json.meshes.length,materials:json.materials.length,textures:json.textures?.length??0,extensionsRequired:json.extensionsRequired??[]}};fs.writeFileSync('reports/delivery-proof.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));

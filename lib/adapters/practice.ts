@@ -2,9 +2,11 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { useAuth } from "@/features/accounts/AuthProvider";
+import { db } from "@/lib/firebase/client";
 import { currentLearner, recordKnowledge } from "./lexical-knowledge";
 import { learnerPracticeStorageKey as storageKey } from "@/features/practice/repository/learner-storage-key";
 import {
+  FirestorePracticeItemRepository,
   InMemoryPracticeItemRepository,
   LocalStoragePracticeItemRepository,
   createPracticeItem,
@@ -12,6 +14,7 @@ import {
   practiceTargetKey,
   type PracticeItem,
   type PracticeItemRepository,
+  type PracticeTarget,
   type ReaderWordPractice,
 } from "@/features/practice";
 
@@ -68,18 +71,26 @@ export type PracticeItemsSnapshot = { readonly ready: boolean; readonly items: r
 
 const LOADING: PracticeItemsSnapshot = { ready: false, items: [] };
 const listeners = new Set<() => void>();
-type OwnerStore = { snapshot: PracticeItemsSnapshot; loading: Promise<void> | null; repository: PracticeItemRepository | null };
+type OwnerStore = { snapshot: PracticeItemsSnapshot; loading: Promise<void> | null; repository: PracticeItemRepository | null; isStudent: boolean };
 const stores = new Map<string, OwnerStore>();
 function storeFor(owner: string): OwnerStore {
-  if (!stores.has(owner)) stores.set(owner, { snapshot: LOADING, loading: null, repository: null });
+  if (!stores.has(owner)) stores.set(owner, { snapshot: LOADING, loading: null, repository: null, isStudent: false });
   return stores.get(owner)!;
+}
+
+/** Same convention as `lib/adapters/personal-practice.ts`: a teacher's own saved words (if any) stay local-only. */
+function setStudent(owner: string, isStudent: boolean) {
+  storeFor(owner).isStudent = isStudent;
 }
 
 function getRepository(owner: string): PracticeItemRepository {
   const store = storeFor(owner);
   if (store.repository === null) {
+    const uid = owner.startsWith("user:") ? owner.slice("user:".length) : null;
     try {
-      store.repository = new LocalStoragePracticeItemRepository(window.localStorage, storageKey(owner));
+      store.repository = uid !== null && store.isStudent && db !== null
+        ? new FirestorePracticeItemRepository(db, uid, window.localStorage, storageKey(owner))
+        : new LocalStoragePracticeItemRepository(window.localStorage, storageKey(owner));
     } catch {
       // Sin acceso a localStorage (bloqueado por el navegador): las palabras duran lo que dure la visita.
       store.repository = new InMemoryPracticeItemRepository();
@@ -131,9 +142,14 @@ function subscribe(owner: string, listener: () => void) {
 const getServerSnapshot = () => LOADING;
 
 export function usePracticeItems(): PracticeItemsSnapshot {
-  const { user, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
   const owner = user ? `user:${user.uid}` : "guest";
-  const subscribeOwner = useCallback((listener: () => void) => loading ? () => {} : subscribe(owner, listener), [owner, loading]);
+  const isStudent = profile?.role === "student";
+  const subscribeOwner = useCallback((listener: () => void) => {
+    if (loading) return () => {};
+    setStudent(owner, isStudent);
+    return subscribe(owner, listener);
+  }, [owner, isStudent, loading]);
   const getSnapshot = useCallback(() => loading ? LOADING : storeFor(owner).snapshot, [owner, loading]);
   return useSyncExternalStore(subscribeOwner, getSnapshot, getServerSnapshot);
 }
@@ -157,4 +173,20 @@ export async function togglePracticeWord(word: ReaderWordPractice): Promise<void
     ? target.remove(word.target)
     : target.save(createPracticeItem({ target: word.target, savedAt: new Date(), savedFrom: word.savedFrom })));
   if (!saved) recordKnowledge({ kind: "SAVED", targetKey: practiceTargetKey(word.target), storyVersionId: word.savedFrom.storyVersionId, occurrenceId: word.savedFrom.occurrenceId }, owner);
+}
+
+/**
+ * Guarda un objetivo solo si todavía no estaba guardado; nunca lo quita (a diferencia de `togglePracticeWord`).
+ * Lo usan los flujos que confirman una palabra sin pasar por el lector (p. ej. mundos interactivos).
+ * La palabra queda guardada con `savedFrom: null`: no hay ocurrencia de historia a la que enlazarla.
+ */
+export async function savePracticeTargetIfAbsent(target: PracticeTarget,owner=currentLearner()): Promise<"NEWLY_SAVED" | "ALREADY_SAVED"> {
+  if(owner!==currentLearner())throw new Error('La sesión del estudiante cambió.');
+  // Confirmar guardado exige persistencia real; este flujo no usa el fallback en memoria.
+  const repository=new LocalStoragePracticeItemRepository(window.localStorage,storageKey(owner));
+  const exists=await repository.has(target);
+  if(owner!==currentLearner())throw new Error('La sesión del estudiante cambió.');
+  if(!exists)await repository.save(createPracticeItem({target,savedAt:new Date(),savedFrom:null}));
+  storeFor(owner).repository=repository;await reload(owner);
+  return exists?'ALREADY_SAVED':'NEWLY_SAVED';
 }

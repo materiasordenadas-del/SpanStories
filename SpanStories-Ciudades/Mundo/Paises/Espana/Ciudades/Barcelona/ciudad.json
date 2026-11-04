@@ -1,4 +1,14 @@
 {
-  "version": 1, "id": "barcelona", "countryId": "es", "label": "Barcelona",
-  "zones": [{"id": "barcelona-passeig-gracia", "label": "Passeig de Gràcia", "manifest": "Zonas/PasseigGracia/zona.json"}]
+  "version": 1,
+  "id": "barcelona",
+  "countryId": "es",
+  "label": "Barcelona",
+  "zones": [
+    {
+      "id": "barcelona-passeig-gracia",
+      "label": "Passeig de Gràcia",
+      "manifest": "Zonas/PasseigGracia/zona.json",
+      "lexicon": "Zonas/PasseigGracia/vocabulario.json"
+    }
+  ]
 }

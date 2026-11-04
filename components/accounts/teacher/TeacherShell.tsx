@@ -15,6 +15,12 @@ const SECTIONS = [
   { href: "/teacher/progreso", label: "Progreso", current: (path: string) => path.startsWith("/teacher/progreso") },
 ];
 
+// Vuelta al menú general de la app: sin esto, el área del profesor queda sin salida.
+const GENERAL_LINKS = [
+  { href: "/", label: "Inicio" },
+  { href: "/niveles", label: "Niveles" },
+];
+
 function Brand() {
   return <Link aria-label="SpanStories, tus estudiantes" className={t.brand} href="/teacher">SpanStories<span>.</span></Link>;
 }
@@ -44,6 +50,8 @@ export function TeacherShell({ children }: { children: ReactNode }) {
       <Brand />
       <nav aria-label="Menú del profesor" className={t.tnav} data-open={open} id="menu-profesor">
         {SECTIONS.map((section) => <Link aria-current={section.current(pathname) ? "page" : undefined} href={section.href} key={section.href} onClick={() => setOpen(false)}>{section.label}</Link>)}
+        <span className={t.navSep} aria-hidden="true" />
+        {GENERAL_LINKS.map((link) => <Link className={t.navGeneral} href={link.href} key={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
         <button className={t.navOut} onClick={() => void exit()} type="button">Cerrar sesión</button>
       </nav>
       <div className={t.who}>

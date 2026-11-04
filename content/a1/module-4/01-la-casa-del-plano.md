@@ -1,0 +1,140 @@
+# La casa del plano
+
+## MEANING_SETUP
+
+«Está aquí» = “It is here”. «Está allí» = “It is over there”. «Está lejos» = “It is far away”.
+
+Samuel está aquí, en casa. Su hermano está allí, en la plaza. La plaza no está lejos: está al lado de casa.
+
+¿Tu escuela está lejos de tu casa? ¿Sí o no? Puedes responder con una palabra: «Sí». La frase completa es: «Sí, está lejos».
+
+## CORE_STORY
+
+En la biblioteca de Bogotá hay un plano de la ciudad. Es un plano viejo. En el centro hay una casa pequeña, entre dos edificios grandes.
+
+Samuel conoce esa casa.
+
+Es su casa.
+
+Pero en una ventana del plano está Nico, su hermano pequeño.
+
+Samuel tiene el teléfono en la mano.
+
+—Nico, ¿dónde estás?
+
+—En casa. ¿Dónde estás tú?
+
+—En la biblioteca. En un plano de Bogotá… estás tú.
+
+Silencio.
+
+En el plano, Nico abre la ventana.
+
+En el teléfono:
+
+—Samuel… Hay una mano grande en la ventana.
+
+Samuel no tiene la mano en el teléfono. Tiene la mano al lado de la casa del plano.
+
+Ahora comprende.
+
+—Nico, ¿puedes salir de casa?
+
+—¡No puedo salir! ¡No hay puerta!
+
+Samuel lee unas palabras pequeñas: «Una ciudad para escribir».
+
+Al lado del plano hay un lápiz y una goma.
+
+Samuel hace una puerta con el lápiz.
+
+—¿Y ahora?
+
+—¡Ahora hay una puerta! Pero… ¿dónde está la plaza?
+
+Samuel tiene un mapa de Bogotá en el teléfono. En ese mapa la plaza está al norte de casa. En el plano viejo, al norte no hay plaza. Hay edificios. Al sur, edificios. Al este, una avenida. Al oeste, una escuela.
+
+Samuel escribe «PLAZA» al lado de la casa.
+
+En la ventana, Nico abre los ojos.
+
+—¡Está aquí! ¡La plaza está aquí!
+
+—Ahora puedes salir. Estoy en la biblioteca.
+
+—¿Allí? Está muy lejos.
+
+Samuel tiene el lápiz en la mano. Escribe «BIBLIOTECA» en el edificio al lado de la plaza.
+
+La puerta de la biblioteca se abre.
+
+Nico entra.
+
+Los dos hermanos cierran el plano.
+
+—¿Y nuestra casa? —pregunta Nico.
+
+Samuel abre el teléfono. Su madre está en casa.
+
+—Mamá, ¿estás en casa?
+
+—Estoy en casa. Pero hay una plaza en nuestro jardín.
+
+## PARALLEL_INPUT
+
+En otro plano, la escuela está lejos y la casa está aquí. Ana escribe «ESCUELA» al lado de casa. Ahora la escuela está cerca de su ventana.
+
+—¿Dónde está mi profesor?
+
+—Allí, en tu jardín.
+
+Ana cierra el plano. Mañana tiene un examen.
+
+## FUNCTIONAL_SUPPORT
+
+Bogotá es la capital de Colombia. La biblioteca de esta historia está en un lugar céntrico: en el centro de la ciudad.
+
+Plano de Samuel:
+
+| Lugar | Posición |
+| --- | --- |
+| Casa | En el centro |
+| Plaza | Al lado de la casa |
+| Biblioteca | Al lado de la plaza |
+| Escuela | Al oeste de la casa |
+| Avenida | Al este de la casa |
+
+Samuel tiene el plano en las manos. Nico tiene el teléfono.
+
+—¿Qué es esto? —Samuel abre el plano.
+
+—Eso es un plano. ¿Y aquello, allí, en la ventana?
+
+—Es nuestra casa. Estas ventanas son pequeñas. Esas puertas del edificio de tu teléfono son grandes. Aquellos edificios están muy lejos.
+
+Nico tiene dos planos de la biblioteca: «Este plano es de hoy. Esos planos son viejos. Aquellas casas no están en el plano de hoy».
+
+—¿Y esta casa, acá?
+
+—Es nuestra casa. Ese edificio está ahí, al lado. Aquella escuela está allá.
+
+—¿Cómo puedes hacer una puerta?
+
+—Con el lápiz. Es un lápiz para escribir. La casa de allí no tiene puerta.
+
+## TASK
+
+1. ¿Dónde está Nico al principio: en casa o en la biblioteca? Respuesta: «Está en casa».
+2. ¿La biblioteca está lejos al principio? Respuesta: «Sí, está lejos».
+3. ¿Qué escribe Samuel al lado de la casa: «PLAZA» o «ESCUELA»? Respuesta: «Escribe “PLAZA”».
+4. ¿Dónde está la biblioteca después? Respuesta: «Está al lado de la plaza».
+5. En tu plano, ¿la casa está aquí o allí? Puedes responder «Aquí». Frase completa: «La casa está aquí».
+
+## LISTENING
+
+—Nico, ¿estás en la escuela?
+—No. Estoy aquí, en la biblioteca.
+—¿Y la casa?
+—Está allí, al lado de la plaza. No está lejos.
+
+¿Nico está en la escuela o en la biblioteca? Respuesta: «En la biblioteca».

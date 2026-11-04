@@ -1,0 +1,80 @@
+[
+  {
+    "storyId": "A1-M04-I05-S1",
+    "title": "La casa del plano",
+    "metrics": {
+      "coreTokens": 289,
+      "learnerFacingTokens": 666,
+      "punctuationSegments": 54,
+      "clauseMarkersPerSegmentMax": 0
+    },
+    "firstIntro": 39,
+    "realizedFirstIntro": 39,
+    "pendingFirstIntro": [],
+    "returns": 92,
+    "returnTextCandidates": 11,
+    "requiredModalities": [],
+    "sourceIntegrity": "MATCH_LOCAL_REGISTRY_AND_SKILL",
+    "publicationValidator": "NOT_RUN"
+  },
+  {
+    "storyId": "A1-M04-I05-S2",
+    "title": "El hombre del papel",
+    "metrics": {
+      "coreTokens": 300,
+      "learnerFacingTokens": 617,
+      "punctuationSegments": 70,
+      "clauseMarkersPerSegmentMax": 0
+    },
+    "firstIntro": 30,
+    "realizedFirstIntro": 30,
+    "pendingFirstIntro": [],
+    "returns": 86,
+    "returnTextCandidates": 19,
+    "requiredModalities": [],
+    "sourceIntegrity": "MATCH_LOCAL_REGISTRY_AND_SKILL",
+    "publicationValidator": "NOT_RUN"
+  },
+  {
+    "storyId": "A1-M04-I05-S3",
+    "title": "La llave del sobre",
+    "metrics": {
+      "coreTokens": 301,
+      "learnerFacingTokens": 651,
+      "punctuationSegments": 56,
+      "clauseMarkersPerSegmentMax": 0
+    },
+    "firstIntro": 24,
+    "realizedFirstIntro": 24,
+    "pendingFirstIntro": [],
+    "returns": 93,
+    "returnTextCandidates": 21,
+    "requiredModalities": [
+      "LISTENING",
+      "READING"
+    ],
+    "sourceIntegrity": "MATCH_LOCAL_REGISTRY_AND_SKILL",
+    "publicationValidator": "NOT_RUN"
+  },
+  {
+    "storyId": "A1-M04-I05-S4",
+    "title": "Un billete de ida y vuelta",
+    "metrics": {
+      "coreTokens": 314,
+      "learnerFacingTokens": 695,
+      "punctuationSegments": 57,
+      "clauseMarkersPerSegmentMax": 0
+    },
+    "firstIntro": 29,
+    "realizedFirstIntro": 29,
+    "pendingFirstIntro": [],
+    "returns": 83,
+    "returnTextCandidates": 14,
+    "requiredModalities": [
+      "LISTENING",
+      "READING"
+    ],
+    "sourceIntegrity": "MATCH_LOCAL_REGISTRY_AND_SKILL",
+    "publicationValidator": "NOT_RUN"
+  }
+]

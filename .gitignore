@@ -22,6 +22,7 @@ SpanStories-Ciudades/.npm-cache/
 SpanStories-Ciudades/__pycache__/
 SpanStories-Ciudades/**/__pycache__/
 SpanStories-Ciudades/dist-online/
+SpanStories-Ciudades/dist-web/
 SpanStories-Ciudades/reports/
 SpanStories-Ciudades/SpanStories-online.zip
 SpanStories-Ciudades/tests/
@@ -42,3 +43,33 @@ worlds/**/*.blend*
 worlds/**/*.zip
 worlds/verification.json
 features/worlds/__tests__/
+.next-studio-check/
+# Proyecto integrado: fuentes vigentes, sin caches ni respaldos
+**/__pycache__/
+**/.cache/
+**/.trabajo/
+**/RESPALDO/
+**/respaldo/
+**/.geo-cache/
+**/.style-pool/
+**/.npm-cache/
+**/exportaciones/
+**/*.log
+
+
+# Alcance de sincronización: excluir trabajo local y modelos nuevos
+/herramientas/
+/Generador-Mundos/scripts/blender/
+/Generador-Mundos/scripts/verify-blender.py
+/Generador-Mundos/scripts/verify-geographic-blender.py
+/Generador-Mundos/docs/KIT_ESCAPARATES_BLENDER.md
+/Generador-Mundos/blender/
+/Generador-Mundos/reports/
+/Generador-Mundos/public/personajes/
+/worlds/characters/assets/
+/SpanStories-Ciudades/assets/avatar/
+*.blend
+*.blend[0-9]
+/*.patch
+/SpanStories-Ciudades/scripts/redondear_nubes_blender.py
+/SpanStories-Ciudades/scripts/preparar_nubes_png.mjs

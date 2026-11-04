@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   PRACTICE_MODE_LABELS,
   activityText,
@@ -16,12 +17,14 @@ import { isTaskCompleted, taskContentLabel, taskKindLabel } from "@/features/acc
 import type { PublishedStory } from "@/lib/adapters/teacher-lookup";
 import { formatMoment, formatOn, plural } from "./helpers";
 import { AvatarFigure, ChartIcon, ChevronIcon, TaskIcon, avatarTint, tintStyle } from "./parts";
+import { TaskForm } from "./TasksScreen";
 import { TeacherShell } from "./TeacherShell";
+import { NotesPanel } from "./NotesPanel";
 import t from "./teacher.module.css";
 import { lastActivityOf, useTeacherRoster, type RosterStudent } from "./use-teacher-roster";
 import { useTeacherTasks } from "./use-teacher-tasks";
 
-export type StudentView = "progreso" | "tareas";
+export type StudentView = "progreso" | "tareas" | "notas";
 
 const MODES: readonly PracticeModeKey[] = ["tarjetas", "verbos"];
 
@@ -108,13 +111,13 @@ function ProgressPanel({ student, stories, words }: { student: RosterStudent; st
   </section>;
 }
 
-function TasksPanel({ student, stories, tasks }: { student: RosterStudent; stories: readonly PublishedStory[]; tasks: ReturnType<typeof useTeacherTasks>["tasks"] }) {
+function TasksPanel({ student, stories, tasks, onCreateTask }: { student: RosterStudent; stories: readonly PublishedStory[]; tasks: ReturnType<typeof useTeacherTasks>["tasks"]; onCreateTask: () => void }) {
   const titles = new Map(stories.map((story) => [story.key, story.title]));
   const assigned = tasks.filter((item) => item.assignees.some((assignee) => assignee.studentId === student.link.studentId));
   return <section aria-labelledby="ficha-tareas" className={t.mainCol}>
     <div className={t.mainHead}>
       <h1 className={t.h1s} id="ficha-tareas">Tareas</h1>
-      <Link className={`${t.btn} ${t.primary}`} href="/teacher/tareas">Crear tarea</Link>
+      <button className={`${t.btn} ${t.primary}`} onClick={onCreateTask} type="button">Crear tarea</button>
     </div>
     {assigned.length === 0 ? <section className={t.empty}>
       <h2>Todavía no hay tareas</h2>
@@ -136,6 +139,7 @@ export function TeacherStudentScreen({ studentId, view, stories, words }: {
   const router = useRouter();
   const { loading, error, students } = useTeacherRoster();
   const { tasks } = useTeacherTasks();
+  const [creatingTask, setCreatingTask] = useState(false);
   const student = students.find((item) => item.link.studentId === studentId);
 
   if (loading || student === undefined) {
@@ -159,7 +163,7 @@ export function TeacherStudentScreen({ studentId, view, stories, words }: {
         <div className={t.person}>
           <span className={t.avatarLg} style={tintStyle(avatarTint(studentId))}><AvatarFigure seed={studentId} /></span>
           <div className={t.pick}>
-            <select aria-label="Cambiar de estudiante" onChange={(event) => router.push(`/teacher/estudiantes/${event.target.value}${view === "tareas" ? "?vista=tareas" : ""}`)} value={studentId}>
+            <select aria-label="Cambiar de estudiante" onChange={(event) => router.push(`/teacher/estudiantes/${event.target.value}${view !== "progreso" ? `?vista=${view}` : ""}`)} value={studentId}>
               {students.map((item) => <option key={item.link.studentId} value={item.link.studentId}>{item.link.studentName}</option>)}
             </select>
             <ChevronIcon />
@@ -168,14 +172,17 @@ export function TeacherStudentScreen({ studentId, view, stories, words }: {
         <nav aria-label="Secciones de la ficha" className={t.sideNav}>
           <Link aria-current={view === "progreso" ? "page" : undefined} href={base}><ChartIcon />Progreso</Link>
           <Link aria-current={view === "tareas" ? "page" : undefined} href={`${base}?vista=tareas`}><TaskIcon />Tareas<span className={t.n}>{taskCount}</span></Link>
+          <Link aria-current={view === "notas" ? "page" : undefined} href={`${base}?vista=notas`}><TaskIcon />Notas</Link>
         </nav>
         <dl className={t.facts}>
           <div><dt>Se unió</dt><dd>{capitalize(formatOn(student.link.joinedAt?.toDate() ?? null))}</dd></div>
           <div><dt>Última actividad</dt><dd>{last === null ? "Sin actividad todavía" : formatMoment(last)}</dd></div>
         </dl>
-        <Link className={`${t.btn} ${t.secondary} ${t.small} ${t.sideTask}`} href="/teacher/tareas">Crear tarea</Link>
+        <button className={`${t.btn} ${t.secondary} ${t.small} ${t.sideTask}`} onClick={() => setCreatingTask(true)} type="button">Crear tarea</button>
       </aside>
-      {view === "tareas" ? <TasksPanel stories={stories} student={student} tasks={tasks} /> : <ProgressPanel stories={stories} student={student} words={words} />}
+      {creatingTask
+        ? <TaskForm onClose={() => setCreatingTask(false)} onCreated={() => setCreatingTask(false)} presetStudentId={studentId} stories={stories} />
+        : view === "notas" ? <NotesPanel key={studentId} studentId={studentId} /> : view === "tareas" ? <TasksPanel onCreateTask={() => setCreatingTask(true)} stories={stories} student={student} tasks={tasks} /> : <ProgressPanel stories={stories} student={student} words={words} />}
     </main>
   </TeacherShell>;
 }

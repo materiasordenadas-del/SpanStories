@@ -1,7 +1,30 @@
 #hud-metrics{white-space:pre-line;text-align:right}
+/* Story Studio is a layout mode over this same viewport, not a second viewer. */
+body[data-studio=true]>header{display:none}
+body[data-studio=true]>main{height:100dvh}
+body[data-studio=true] .toolbar,body[data-studio=true] #panel-toggle,body[data-studio=true] .scene-caption,body[data-studio=true] .scene-footer{display:none}
 .toolbar{position:absolute;top:17px;left:20px;z-index:2;display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 170px)}
 .toolbar button{background:#173552ed;box-shadow:0 3px 12px #12202d33}.toolbar button[aria-pressed=true]{border-color:#efd29a;color:#efd29a}
 .scene-caption{position:absolute;left:24px;bottom:70px;z-index:1;display:flex;flex-direction:column;gap:4px;background:#122435d9;border:1px solid #42576b;padding:12px 18px;border-radius:8px;pointer-events:none;max-width:60%}
 .scene-caption small{color:#b7cad6}.scene-footer{position:absolute;left:0;bottom:0;right:0;display:flex;justify-content:space-between;gap:16px;padding:12px 24px;background:#122435e9;font-size:12px;pointer-events:none}
 #panel{width:min(410px,100%)}#panel input:not([type=checkbox]):not([type=range]){padding:7px;max-width:100%;background:#102538;color:#eff5f7;border:1px solid #526c82;border-radius:4px}#panel select{max-width:100%;width:100%}fieldset{border:1px solid #435f74;border-radius:6px;min-width:0;padding:9px}fieldset legend{color:#efd29a}#city-editor button{margin:3px;font-size:12px;padding:8px}#city-editor .edit-grid label{font-size:11px}
 @media(max-width:650px){header{height:54px;padding:14px}header>span{display:none}main{height:calc(100dvh - 54px)}.toolbar{left:10px;max-width:calc(100% - 110px);top:10px}.toolbar button{padding:7px;font-size:11px}#panel-toggle{top:10px;right:10px;padding:7px}.scene-caption{left:12px;bottom:80px;max-width:80%;padding:8px}.scene-footer{flex-direction:column;gap:4px;padding:9px 12px}#panel{width:100%}}
+
+/* Modo aprendizaje: sin controles de editor ni de navegación; solo la escena y la barra de vocabulario. */
+.lexico-ayuda{position:absolute;left:12px;top:8px;max-width:calc(100% - 48px);padding:8px 12px;border-radius:8px;background:#122435de;color:#eff5f7;font:13px system-ui;pointer-events:none;z-index:2}
+body[data-modo=aprendizaje] .toolbar,body[data-modo=aprendizaje] #panel-toggle,body[data-modo=aprendizaje] #panel,
+body[data-modo=aprendizaje] .scene-footer,body[data-modo=aprendizaje] .scene-caption{display:none!important}
+body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:pointer}
+.lexico-barra{position:absolute;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;width:min(560px,calc(100% - 24px));box-sizing:border-box;padding:10px;display:flex;flex-direction:column;gap:6px;background:#122435f2;border:1px solid #42576b;border-radius:14px;box-shadow:0 8px 28px #0008;color:#eff5f7}
+.lexico-barra[hidden]{display:none}
+.lexico-fila{display:flex;gap:8px;align-items:stretch}
+.lexico-barra button,.lexico-campo{min-height:48px;border-radius:10px;font:inherit}
+.lexico-barra button{min-width:48px;padding:0 14px;background:#173552;color:#eff5f7;border:1px solid #526c82;cursor:pointer}
+.lexico-barra button:focus-visible,.lexico-campo:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
+.lexico-barra .lexico-enviar{background:#efd29a;color:#122435;border-color:#efd29a;font-weight:600}
+.lexico-barra button:disabled{opacity:.55;cursor:default}
+.lexico-campo{flex:1;min-width:0;padding:0 14px;background:#102538;color:#eff5f7;border:1px solid #526c82;font-size:16px}
+.lexico-estado{margin:0;min-height:1.4em;padding:0 4px;font-size:14px;color:#b7cad6}
+.lexico-estado[data-tipo=error]{color:#ffb4a2}.lexico-estado[data-tipo=ok]{color:#b7e4a8}.lexico-estado[data-tipo=aviso]{color:#efd29a}
+@media(max-width:650px){.lexico-enviar{padding:0 10px}.lexico-barra{bottom:max(8px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:no-preference){.lexico-barra{animation:lexico-sube .18s ease-out}@keyframes lexico-sube{from{opacity:0;transform:translate(-50%,8px)}}}

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as T from 'three';
+import {generateWorld,DEFAULTS} from '../src/core/world.js';
+import {canStand,groundHeight,PLAYER} from '../src/render/exploration.js';
+import {buildArchitecture} from '../src/render/architecture.js';
+const world=generateWorld({...DEFAULTS,resolution:97,density:0});
+test('human-scale player can stand on roads, but cannot enter buildings or leave the map',()=>{assert.equal(PLAYER.eye,1.66);assert.ok(world.urban.nodes.some(n=>canStand(world,n.x,n.z)));for(const b of world.buildings)assert.equal(canStand(world,b.x,b.z),false);assert.equal(canStand(world,world.config.size,0),false);assert.ok(Number.isFinite(groundHeight(world,0,0)));});
+test('all building facade components preserve owner ID and metric transforms',()=>{const b=world.buildings[0],box=new T.BoxGeometry(),gable=new T.BoxGeometry(),pieces=[];buildArchitecture(b,(geometry,material,matrix,id,x,z,detail,name)=>pieces.push({matrix,id,name}),box,gable,color=>({color}));assert.ok(pieces.length>100);for(const p of pieces){assert.equal(p.id,b.id);assert.ok(p.matrix.elements.every(Number.isFinite));const scale=new T.Vector3();p.matrix.decompose(new T.Vector3(),new T.Quaternion(),scale);assert.ok(scale.x>0&&scale.y>0&&scale.z>0);}assert.ok(pieces.some(p=>p.name==='door'));assert.ok(pieces.some(p=>p.name==='window-sill'));});
+test('doors face the connected front street rather than the courtyard',()=>{for(const p of world.urban.parcels){const street=world.urban.roads.find(r=>r.id===p.roadId);const frontZ=p.z+Math.cos(p.yaw)*p.depth/2;const midZ=(street.points[0].z+street.points.at(-1).z)/2;assert.ok(Math.abs(frontZ-midZ)<Math.abs(p.z-midZ));}});

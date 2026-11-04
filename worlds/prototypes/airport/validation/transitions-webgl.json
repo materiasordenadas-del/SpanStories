@@ -1,0 +1,808 @@
+{
+  "measurements": [
+    {
+      "phase": "baseline",
+      "at": "2026-09-23T01:13:32.114Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.88023952095548,
+      "frameMs": 16.700000000000728,
+      "p95Ms": 16.799999999999272,
+      "calls": 7,
+      "triangles": 396,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1517,
+        "calls": 7,
+        "triangles": 396,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "PREFETCHED",
+          "loaded": false
+        },
+        {
+          "id": "D05",
+          "state": "UNLOADED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:33.614Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.88023952095548,
+      "frameMs": 16.700000000000728,
+      "p95Ms": 16.799999999999272,
+      "calls": 10,
+      "triangles": 564,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1607,
+        "calls": 10,
+        "triangles": 564,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "PREFETCHED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:35.114Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.88023952095548,
+      "frameMs": 16.700000000000728,
+      "p95Ms": 16.80000000000291,
+      "calls": 9,
+      "triangles": 384,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1697,
+        "calls": 9,
+        "triangles": 384,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "LOADED_LOW",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:36.614Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.88023952095548,
+      "frameMs": 16.700000000000728,
+      "p95Ms": 16.799999999999272,
+      "calls": 7,
+      "triangles": 2004,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1787,
+        "calls": 7,
+        "triangles": 2004,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D04",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:38.114Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999999272,
+      "calls": 9,
+      "triangles": 384,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1877,
+        "calls": 9,
+        "triangles": 384,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "RETIRING",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:39.614Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "calls": 10,
+      "triangles": 564,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 1967,
+        "calls": 10,
+        "triangles": 564,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "PREFETCHED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 0,
+      "at": "2026-09-23T01:13:41.114Z",
+      "quality": "HIGH",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999995634,
+      "calls": 7,
+      "triangles": 396,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2057,
+        "calls": 7,
+        "triangles": 396,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "PREFETCHED",
+          "loaded": false
+        },
+        {
+          "id": "D05",
+          "state": "UNLOADED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:42.614Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999995634,
+      "calls": 10,
+      "triangles": 564,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2147,
+        "calls": 10,
+        "triangles": 564,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "PREFETCHED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:44.114Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999995634,
+      "calls": 9,
+      "triangles": 384,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2237,
+        "calls": 9,
+        "triangles": 384,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "LOADED_LOW",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:45.614Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999995634,
+      "calls": 7,
+      "triangles": 2004,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2327,
+        "calls": 7,
+        "triangles": 2004,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D04",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:47.115Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "calls": 9,
+      "triangles": 384,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2417,
+        "calls": 9,
+        "triangles": 384,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "UNLOADED",
+          "loaded": false
+        },
+        {
+          "id": "D02",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "RETIRING",
+          "loaded": true
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:48.616Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.80000000000291,
+      "calls": 10,
+      "triangles": 564,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2507,
+        "calls": 10,
+        "triangles": 564,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "LOADED_LOW",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D05",
+          "state": "PREFETCHED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 3,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    },
+    {
+      "phase": "transition",
+      "lap": 1,
+      "at": "2026-09-23T01:13:50.115Z",
+      "quality": "STANDARD",
+      "viewport": [
+        617,
+        850
+      ],
+      "dpr": 1,
+      "fps": 59.880239520968516,
+      "frameMs": 16.69999999999709,
+      "p95Ms": 16.799999999995634,
+      "calls": 7,
+      "triangles": 396,
+      "geometries": 1,
+      "textures": 1,
+      "render": {
+        "frame": 2597,
+        "calls": 7,
+        "triangles": 396,
+        "points": 0,
+        "lines": 0
+      },
+      "memory": {
+        "geometries": 1,
+        "textures": 1
+      },
+      "zones": [
+        {
+          "id": "D01",
+          "state": "ACTIVE_HIGH",
+          "loaded": true
+        },
+        {
+          "id": "D02",
+          "state": "RETIRING",
+          "loaded": true
+        },
+        {
+          "id": "D04",
+          "state": "PREFETCHED",
+          "loaded": false
+        },
+        {
+          "id": "D05",
+          "state": "UNLOADED",
+          "loaded": false
+        }
+      ],
+      "assets": [
+        {
+          "key": "airport:toon-kit:r180",
+          "refs": 2,
+          "ready": true
+        }
+      ],
+      "samuel": false
+    }
+  ],
+  "scaleReport": {
+    "rawBounds": {
+      "min": [
+        -0.07824625386717621,
+        -0.0870182388337933,
+        -0.56441490284188
+      ],
+      "max": [
+        1.478561662484235,
+        1.6129815703299148,
+        0.0025664383636164745
+      ],
+      "size": [
+        1.5568079163514112,
+        1.699999809163708,
+        0.5669813412054965
+      ]
+    },
+    "scaleApplied": 1,
+    "textures": [
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      },
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      },
+      {
+        "width": 4096,
+        "height": 4096,
+        "estimatedRGBAWithMips": 89478485.33333333
+      }
+    ],
+    "animationClips": 21
+  }
+}

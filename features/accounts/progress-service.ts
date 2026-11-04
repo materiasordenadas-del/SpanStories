@@ -34,6 +34,11 @@ export function setSyncedStudent(uid: string | null) {
   syncedStudentId = uid;
 }
 
+/** El uid de la cuenta de estudiante activa, o null si no hay sesión de estudiante. Lo usan otros sincronizadores (reading-memory) para saber si les toca escribir en Firestore sin depender del orden de montaje de sus propios hooks. */
+export function getSyncedStudentId(): string | null {
+  return syncedStudentId;
+}
+
 export type StudentProgress = {
   readonly finishedStories: readonly string[];
   readonly savedWords: readonly string[];
@@ -43,11 +48,11 @@ export type StudentProgress = {
 
 export const EMPTY_PROGRESS: StudentProgress = { finishedStories: [], savedWords: [], lastActivityAt: null, updatedAt: null };
 
-export async function saveProgressSnapshot(uid: string, snapshot: { finishedStories: readonly string[]; savedWords: readonly string[] }, isActivity: boolean) {
+/** `finishedStories`/`lastStory` no se escriben aquí: son de components/visual/reading-memory.ts, la fuente de verdad de ese estado, para que no compitan dos escritores independientes por el mismo campo. */
+export async function saveProgressSnapshot(uid: string, snapshot: { savedWords: readonly string[] }, isActivity: boolean) {
   if (!db) return;
   await setDoc(doc(db, "studentProgress", uid), {
     studentId: uid,
-    finishedStories: [...snapshot.finishedStories],
     savedWords: [...snapshot.savedWords],
     updatedAt: serverTimestamp(),
     ...(isActivity ? { lastActivityAt: serverTimestamp() } : {}),

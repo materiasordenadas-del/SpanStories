@@ -8,13 +8,23 @@ service cloud.firestore {
     //   Invitación personal de un solo uso. Mientras está activa se previsualiza sin cuenta.
     // teacherStudents/{teacherId_studentId}: teacherId, teacherName, studentId, studentName,
     //   inviteCode, joinedAt. Lo crea el estudiante en el mismo lote que consume la invitación.
-    // studentProgress/{studentId}: studentId, finishedStories, savedWords, updatedAt, lastActivityAt.
+    // studentProgress/{studentId}: studentId, finishedStories, savedWords, updatedAt, lastActivityAt, lastStory.
     // studentProgress/{studentId}/events/{eventId}: historia terminada o sesión de práctica.
     //   Solo el estudiante escribe; leen él y los profesores con los que tiene vínculo.
     // teacherTasks/{taskId}: teacherId, kind, title, content, startsAt, dueAt, createdAt.
     // teacherTasks/{taskId}/assignees/{studentId}: studentId, studentName, assignedAt.
     //   Una tarea se asigna individualmente; la finalización se deriva del progreso, no se escribe aquí.
-    // IDs, dueños y roles son inmutables. Las marcas de tiempo usan request.time.
+    // personalPractice/{studentId}: studentId, items (notas de práctica escritas a mano), updatedAt.
+    // practiceItems/{studentId}: studentId, items (palabras/frases guardadas al leer), updatedAt.
+    //   personalPractice se comparte con profesores vinculados; practiceItems sigue privado.
+    // teacherNotes/{teacherId_studentId}: teacherId, studentId, items (máx. 500),
+    //   privateText (máx. 20000), updatedAt. Solo su profesor vinculado accede.
+    // studentKnowledge/{studentId}/events/{eventId}: un KnowledgeEvent (estado léxico, repetición
+    //   espaciada) por documento, con id de documento = eventId. Solo el estudiante lee y escribe.
+    //   occurredAt es la única marca de tiempo del esquema que no usa request.time (ver validKnowledgeEvent):
+    //   refleja cuándo ocurrió la interacción, no cuándo se sincronizó, así que se acepta con una
+    //   ventana de tolerancia acotada en vez de exigir igualdad exacta.
+    // IDs, dueños y roles son inmutables. Las demás marcas de tiempo usan request.time.
     // ===============================================================
 
     function signedIn() { return request.auth != null; }
@@ -69,13 +79,66 @@ service cloud.firestore {
         get(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.teacherName == data.teacherName &&
         getAfter(/databases/$(database)/documents/teacherInvites/$(data.inviteCode)).data.usedBy == request.auth.uid;
     }
+    function validLastStory(value) {
+      return value == null || (
+        value is map && value.keys().hasOnly(['island','story','title']) && value.keys().hasAll(['island','story','title']) &&
+        validString(value.island, 1, 10) && validString(value.story, 1, 10) && validString(value.title, 1, 200)
+      );
+    }
     function validProgress(data, studentId) {
-      return data.keys().hasOnly(['studentId','finishedStories','savedWords','updatedAt','lastActivityAt']) &&
+      return data.keys().hasOnly(['studentId','finishedStories','savedWords','updatedAt','lastActivityAt','lastStory']) &&
         data.keys().hasAll(['studentId','updatedAt']) && data.studentId == studentId &&
         data.get('finishedStories', []) is list && data.get('finishedStories', []).size() <= 500 &&
         data.get('savedWords', []) is list && data.get('savedWords', []).size() <= 3000 &&
         data.updatedAt == request.time &&
-        (!('lastActivityAt' in data) || data.lastActivityAt is timestamp);
+        (!('lastActivityAt' in data) || data.lastActivityAt is timestamp) &&
+        validLastStory(data.get('lastStory', null));
+    }
+    // personalPractice/practiceItems: item shape (parsed leniently client-side, same paranoia as
+    // localStorage) can't be validated per-element here — Firestore rules have no per-item predicate
+    // over a list of maps, only membership/size checks (hasOnly/hasAny/hasAll, size()).
+    function validItemDoc(data, studentId, maxItems) {
+      return data.keys().hasOnly(['studentId','items','updatedAt']) &&
+        data.keys().hasAll(['studentId','items','updatedAt']) &&
+        data.studentId == studentId && data.items is list && data.items.size() <= maxItems &&
+        data.updatedAt == request.time;
+    }
+    function validPersonalPractice(data, studentId) { return validItemDoc(data, studentId, 500); }
+    function validTeacherNotes(data, linkId) {
+      return data.keys().hasOnly(['teacherId','studentId','items','privateText','updatedAt']) &&
+        data.keys().hasAll(['teacherId','studentId','items','privateText','updatedAt']) &&
+        data.teacherId == request.auth.uid && data.studentId is string &&
+        linkId == data.teacherId + '_' + data.studentId && teachesStudent(data.studentId) &&
+        data.items is list && data.items.size() <= 500 &&
+        validString(data.privateText, 0, 20000) && data.updatedAt == request.time;
+    }
+    function validPracticeItems(data, studentId) { return validItemDoc(data, studentId, 3000); }
+    function validKnowledgeEvent(data, studentId, eventId) {
+      return data.keys().hasOnly([
+          'eventId','learnerId','targetKey','occurredAt','kind','storyVersionId','occurrenceId',
+          'curriculumRelease','lexiconRelease','practiceSessionId','attemptId','evidence','outcome',
+          'assisted','targetProductive','declaredState','source'
+        ]) &&
+        data.keys().hasAll(['eventId','learnerId','targetKey','occurredAt','kind','storyVersionId','occurrenceId','curriculumRelease','lexiconRelease']) &&
+        data.eventId == eventId && data.learnerId == 'user:' + studentId &&
+        validString(data.targetKey, 1, 300) &&
+        data.occurredAt is timestamp &&
+        // occurredAt drives la matemática de repetición espaciada: debe ser cuándo ocurrió la
+        // interacción, no cuándo llegó al servidor. Se acepta con una ventana de tolerancia, no
+        // se exige == request.time como el resto del esquema (ver comentario del bloque de arriba).
+        data.occurredAt <= request.time + duration.value(10, 'm') && data.occurredAt >= timestamp.date(2024, 1, 1) &&
+        data.kind in ['SAVED','OCCURRENCE_ENCOUNTERED','OCCURRENCE_OPENED','MEANING_REVEALED','STATE_DECLARED','PRACTICE'] &&
+        (data.storyVersionId == null || data.storyVersionId is string) &&
+        (data.occurrenceId == null || data.occurrenceId is string) &&
+        validString(data.curriculumRelease, 1, 60) && validString(data.lexiconRelease, 1, 60) &&
+        (data.kind != 'STATE_DECLARED' || data.get('declaredState', '') in ['NEW','RECOGNIZED','FAMILIAR','LEARNED','KNOWN']) &&
+        (data.kind != 'PRACTICE' || (
+          validString(data.get('attemptId', ''), 1, 100) && validString(data.get('practiceSessionId', ''), 1, 100) &&
+          data.get('evidence', '') in ['RECOGNITION','MEANING_RECALL','FORM_RECALL','PRODUCTION'] &&
+          data.get('outcome', '') in ['correct','incorrect','revealed','skipped']
+        )) &&
+        (!('assisted' in data) || data.assisted is bool) && (!('targetProductive' in data) || data.targetProductive is bool) &&
+        (!('source' in data) || data.source == 'LEGACY_MIGRATION');
     }
     function validEvent(data) {
       return data.at == request.time && (
@@ -186,6 +249,38 @@ service cloud.firestore {
     // La consulta del alumno incluye where('studentId', '==', request.auth.uid).
     match /{path=**}/assignees/{studentId} {
       allow list: if signedIn() && resource.data.studentId == request.auth.uid;
+    }
+
+    match /personalPractice/{studentId} {
+      allow get: if isOwner(studentId) || teachesStudent(studentId);
+      allow list: if false;
+      allow create, update: if ((isOwner(studentId) && hasRole('student')) || teachesStudent(studentId)) && validPersonalPractice(request.resource.data, studentId);
+      allow delete: if false;
+    }
+
+    match /teacherNotes/{linkId} {
+      allow get: if hasRole('teacher') &&
+        (resource == null ? exists(/databases/$(database)/documents/teacherStudents/$(linkId)) &&
+          get(/databases/$(database)/documents/teacherStudents/$(linkId)).data.teacherId == request.auth.uid :
+          resource.data.teacherId == request.auth.uid && teachesStudent(resource.data.studentId));
+      allow list, delete: if false;
+      allow create: if hasRole('teacher') && validTeacherNotes(request.resource.data, linkId);
+      allow update: if hasRole('teacher') && resource.data.teacherId == request.auth.uid &&
+        request.resource.data.teacherId == resource.data.teacherId &&
+        request.resource.data.studentId == resource.data.studentId && validTeacherNotes(request.resource.data, linkId);
+    }
+
+    match /practiceItems/{studentId} {
+      allow get: if isOwner(studentId);
+      allow list: if false;
+      allow create, update: if isOwner(studentId) && hasRole('student') && validPracticeItems(request.resource.data, studentId);
+      allow delete: if false;
+    }
+
+    match /studentKnowledge/{studentId}/events/{eventId} {
+      allow read: if isOwner(studentId);
+      allow create: if isOwner(studentId) && hasRole('student') && validKnowledgeEvent(request.resource.data, studentId, eventId);
+      allow update, delete: if false;
     }
 
     match /{document=**} { allow read, write: if false; }

@@ -1,0 +1,2 @@
+// Colors read from the user's active SpanStories Trigun style; no shader copied.
+export const TRIGUN={sky:'#58a9d3',horizon:'#e4d5b7',cloud:'#fff0d5',shadow:'#69759c',terrain:'#849868',rock:'#a69f8b',sand:'#dbc596',water:'#4f9cab',road:'#6c707c',sidewalk:'#c4bba8',walls:['#f0dfbb','#d7cdb1','#e8c995','#b7bcb6','#d7b29a'],roof:['#b4634e','#785f65','#ae7d59'],leaf:['#607c57','#849b65','#4d7163'],wood:'#7d6655',window:'#4e667d',ink:'#333e50'};

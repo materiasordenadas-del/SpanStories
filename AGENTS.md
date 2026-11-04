@@ -1,3 +1,11 @@
+## Visor local: una sola entrada
+
+El visor vigente de objetos y palabras se abre en `http://localhost:3000/mundo/piloto-lexico`.
+Arrancar con `npm run dev:visor` desde esta raíz. Desarrollo y Visor Web son modos de esa misma aplicación.
+`SpanStories-Ciudades` contiene el motor compartido servido internamente en 8877; no abrirlo como una experiencia independiente.
+No crear redirecciones ni servidores alternativos en 8767, 8881 u otros puertos. Las versiones anteriores están en `D:\Español\RESPALDO_NO_CARGAR\versiones-antiguas\visores-anteriores-20261022`; no servirlas ni editarlas como fuentes actuales.
+Conservar los cambios existentes de este worktree; no reemplazarlos por otra carpeta homónima sin comparar primero.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

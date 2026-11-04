@@ -10,6 +10,8 @@ import { makeKnowledgeExercise, isKnowledgeAnswerCorrect, type KnowledgeExercise
 import type { KnowledgeState } from "@/features/learner-progress/domain/knowledge";
 import css from "./knowledge.module.css";
 import styles from "./baseline.module.css";
+import publishedSenses from '@/generated/curriculum/a1/senses.json';
+import { publishedPracticeLabel } from '@/features/practice/engine/published-target-label';
 
 type Review = { owner: string; id: string; exercises: KnowledgeExercise[]; index: number; feedback: "correct" | "incorrect" | "revealed" | null; correct: number };
 export function KnowledgeHub({ occurrences }: { occurrences: readonly PracticeOccurrence[] }) {
@@ -104,7 +106,7 @@ function OwnedKnowledgeHub({ occurrences }: { occurrences: readonly PracticeOccu
         <label>Ejercicio <select value={mode} onChange={e => setMode(e.target.value as typeof mode)}><option value="auto">Según tu progreso</option><option value="recognition">Reconocimiento</option><option value="cloze">Completar frase</option><option value="recall">Recuerdo</option></select></label>
       </div>
       <label>Mostrar <select value={filter} onChange={e => setFilter(e.target.value)}><option value="saved">Todas las guardadas</option><option value="due">Pendientes de repaso</option>{KNOWLEDGE_STATES.map(s => <option key={s} value={s}>{KNOWLEDGE_LABELS[s]} ({rows.filter(r => r.projection.computedState === s).length})</option>)}</select></label>
-      <ul className={css.list}>{visible.map(row => <li key={row.key} className={css.row}><div><strong>{row.occurrence?.lemma ?? (row.item.target.type === "UNRESOLVED_SURFACE" ? row.item.target.surface : "Palabra sin contenido publicado")}</strong>{row.occurrence?.translation && <span> · {row.occurrence.translation}</span>}<div className={css.meta}>{KNOWLEDGE_LABELS[row.projection.computedState]} · {row.projection.contextDiversity} contextos{row.projection.nextReviewAt ? ` · Repaso: ${new Date(row.projection.nextReviewAt).toLocaleDateString("es")}` : " · Sin repaso intensivo"}</div>{row.projection.declaredState && <div className={css.meta}>Autoevaluación: {KNOWLEDGE_LABELS[row.projection.declaredState]}</div>}</div>
+      <ul className={css.list}>{visible.map(row => <li key={row.key} className={css.row}><div><strong>{row.occurrence?.lemma ?? publishedPracticeLabel(row.item.target,publishedSenses) ?? "Palabra sin contenido publicado"}</strong>{row.occurrence?.translation && <span> · {row.occurrence.translation}</span>}<div className={css.meta}>{KNOWLEDGE_LABELS[row.projection.computedState]} · {row.projection.contextDiversity} contextos{row.projection.nextReviewAt ? ` · Repaso: ${new Date(row.projection.nextReviewAt).toLocaleDateString("es")}` : " · Sin repaso intensivo"}</div>{row.projection.declaredState && <div className={css.meta}>Autoevaluación: {KNOWLEDGE_LABELS[row.projection.declaredState]}</div>}</div>
         <label className={css.meta}>Autoevaluación <select aria-label={`Autoevaluación de ${row.occurrence?.lemma ?? "palabra"}`} value={row.projection.declaredState ?? ""} onChange={e => declare(row.item, e.target.value as KnowledgeState, owner)}><option value="" disabled>Sin declarar</option>{KNOWLEDGE_STATES.map(s => <option key={s} value={s}>{KNOWLEDGE_LABELS[s]}</option>)}</select></label></li>)}</ul>
       {!visible.length && <p>Guarda palabras desde las historias o cambia el filtro.</p>}
     </>}

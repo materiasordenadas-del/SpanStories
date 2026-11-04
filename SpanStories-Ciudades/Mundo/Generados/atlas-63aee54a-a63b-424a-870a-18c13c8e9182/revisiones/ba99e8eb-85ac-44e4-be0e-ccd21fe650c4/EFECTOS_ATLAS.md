@@ -1,0 +1,1 @@
+El GLB incluye la geometría estática del escaparate y sus puertas corregidas. El detalle cercano, el paralaje del interior aparente y la composición Trigun son efectos de ejecución de Atlas; no se hornean en el GLB. Su configuración y referencias automáticas se conservan en proyecto.json y lugar.json. No hay dependencias de recursos sin resolver por estos efectos.
