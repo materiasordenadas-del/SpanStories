@@ -3,6 +3,10 @@ import { origenDelAnfitrion } from './LexicoPuertos.js';
 import { LEXICO, STORY_STUDIO } from '../routes.js';
 import { fetchCityGLB } from './CityTransport.js';
 import { cloneCityAvatar } from './CityAvatarClone.js';
+import { crearReproductorVida } from './vida/Reproductor.js';
+import { grabarAmbiente } from './vida/Grabador.js';
+import { crearNavegacionCuadricula } from './vida/Navegacion.js';
+import { validarAmbienteReproducible, validarConfiguracion } from './vida/Ambiente.js';
 
 const CHANNEL='spanstories.studio';
 const vector=v=>Array.isArray(v)&&v.length===3&&v.every(n=>Number.isFinite(n)&&Math.abs(n)<100000);
@@ -12,14 +16,15 @@ export function validStudioStage(s,zoneId){
     Array.isArray(s.actors)&&s.actors.length<=20&&s.actors.every(a=>typeof a.id==='string'&&typeof a.characterId==='string'&&vector(a.position)&&Number.isFinite(a.rotation)&&Number.isFinite(a.height)&&a.height>=.2&&a.height<=5)&&
     Array.isArray(s.performances)&&s.performances.every(p=>s.actors.some(a=>a.id===p.actorId)&&typeof p.action==='string')&&
     Array.isArray(s.entryIds)&&s.entryIds.every(v=>typeof v==='string')&&
-    (s.ambient===undefined||s.ambient===null||STUDIO_AMBIENTS.includes(s.ambient));
+    (s.ambient===undefined||s.ambient===null||STUDIO_AMBIENTS.includes(s.ambient))&&
+    (s.sceneTime===undefined||Number.isFinite(s.sceneTime)&&s.sceneTime>=0);
 }
 export const STUDIO_AMBIENTS=['manana','mediodia','tarde','nublado','noche'];
 /** Story Studio only stages zones that carry a lexicon (atlas previews do not). */
 export const studioZones=zones=>zones.filter(z=>!z.atlas).map(z=>({id:z.id,label:z.label,cityLabel:z.cityLabel,countryLabel:z.countryLabel}));
 
 /** The same city/canvas renders both direction and playback. No new scene or renderer. */
-export async function createStoryStudioBridge({scene,camera,target,renderer,assets,style,estilos=null,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned,win=window,fetcher=fetch}){
+export async function createStoryStudioBridge({scene,camera,target,renderer,assets,style,estilos=null,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned,colliders=null,perfilVida=null,win=window,fetcher=fetch}){
   const origin=origenDelAnfitrion({win,permitidos:LEXICO.hostOrigins});
   if(!origin)throw new Error('Story Studio necesita el anfitrión de SpanStories.');
   const response=await fetcher(new URL('Personajes/personajes.json',world.world.manifestUrl));
@@ -29,6 +34,15 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
   let lookYaw=0,lookPitch=0,placement=null,picking=null,press=null;
   const send=(type,data={})=>win.parent.postMessage({channel:CHANNEL,version:1,type,...data},origin);
   const canvas=renderer.domElement;
+  // Vida ambiental (NPC) grabada por escena. El estudiante solo la reproduce: su
+  // reloj sale del tiempo de la escena y nunca de decisiones tomadas en directo.
+  const vidas=new Map();let vidaEscena=null,vidaReloj=0,vidaUltimo=0;
+  const hablarVida=texto=>{const voz=win.speechSynthesis,Frase=win.SpeechSynthesisUtterance;if(!voz||!Frase)return;voz.cancel();const u=new Frase(texto);u.lang=LEXICO.speechLang;u.rate=LEXICO.speechRate;voz.speak(u);};
+  const vida=crearReproductorVida({scene,camera,cargarPersonaje:id=>template(id),perfil:()=>perfilVida?.(),contenedor:canvas.parentElement||null,lienzo:canvas,hablar:hablarVida});
+  function montarVida(sceneId){
+    vidaEscena=sceneId;const datos=vidas.get(sceneId);
+    return datos?vida.montar(datos).catch(error=>{send('ERROR',{message:'Vida ambiental: '+error.message});}):Promise.resolve(vida.desmontar());
+  }
   function applyLook(){
     if(!lastStage)return;
     const direction=new T.Vector3(...lastStage.shot.target).sub(new T.Vector3(...lastStage.shot.position));
@@ -103,6 +117,28 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
     // One-shot authoring pick: a ground point (walk destinations) or the lexical object under the cursor.
     if(m.type==='PICK'&&!student&&typeof m.requestId==='string'&&(m.mode==='point'||m.mode==='entry')){placement=null;if(picking)send('PICKED',{requestId:picking.requestId,cancelled:true});picking={requestId:m.requestId,mode:m.mode};send('PICKING',{requestId:m.requestId,mode:m.mode});return;}
     if(m.type==='PICK_CANCEL'){if(picking)send('PICKED',{requestId:picking.requestId,cancelled:true});picking=null;placement=null;return;}
+    if(m.type==='LIFE'){
+      if(typeof m.sceneId!=='string')return;
+      if(m.life===null)vidas.delete(m.sceneId);
+      else if(validarAmbienteReproducible(m.life,zone.id))vidas.set(m.sceneId,{cast:m.life.cast,recording:m.life.recording});
+      else{send('ERROR',{message:'La vida ambiental recibida no es válida para este escenario.'});return;}
+      if(m.sceneId===vidaEscena)void montarVida(m.sceneId);
+      return;
+    }
+    if(m.type==='LIFE_RECORD'&&!student){
+      const fail=message=>send('LIFE_ERROR',{requestId:m.requestId,message});
+      if(!validarConfiguracion(m.life)||!Array.isArray(m.center)||m.center.length!==3||!m.center.every(Number.isFinite))return fail('Configuración de la vida ambiental inválida.');
+      if(!colliders)return fail('Este escenario no ofrece colisiones para calcular rutas.');
+      try{
+        const clipsPorPersonaje={};
+        for(const id of new Set(m.life.cast.map(c=>c.characterId)))clipsPorPersonaje[id]=(await template(id)).animations.map(c=>c.name);
+        const centro=[m.center[0],ground(m.center[0],m.center[2]),m.center[2]];
+        const navegacionVida=crearNavegacionCuadricula({centro,radio:m.life.radius,celda:m.life.radius>40?.75:.5,ground,colliders,limites:manifest.bounds||null});
+        const recording=grabarAmbiente({ambiente:m.life,zoneId:zone.id,centro,navegacion:navegacionVida,clipsPorPersonaje});
+        send('LIFE_RECORDED',{requestId:m.requestId,sceneId:m.sceneId,recording});
+      }catch(error){fail(error.message);}
+      return;
+    }
     if(m.type!=='STAGE'||!validStudioStage(m.stage,zone.id))return;
     const current=++revision,s=m.stage;
     win.clearInterval(readyTimer);
@@ -117,6 +153,11 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
       await Promise.all(s.actors.map(ensureActor));
       if(disposed||current!==revision)return;
       const activeIds=new Set(s.actors.map(a=>a.id));for(const [id,actor]of actors)if(!activeIds.has(id)){actor.root.removeFromParent();actor.mixer.stopAllAction();actor.mixer.uncacheRoot(actor.clone.root);actor.clone.dispose();actors.delete(id);}
+      const sceneTime=s.sceneTime??s.time;
+      if(vidaEscena!==s.sceneId){vidaReloj=sceneTime;await montarVida(s.sceneId);}
+      else if((!playing&&!waiting)||sceneTime<vidaUltimo-.01)vidaReloj=sceneTime;
+      vidaUltimo=sceneTime;
+      if(disposed||current!==revision)return;
       for(const data of s.actors){const actor=actors.get(data.id);actor.root.position.fromArray(data.position);actor.root.rotation.y=data.rotation;const scale=data.height/actor.height;actor.carrier.scale.multiplyScalar(scale);actor.carrier.position.multiplyScalar(scale);actor.height=data.height;performanceActor(actor,s.performances.find(p=>p.actorId===data.id),s.time);}
       // Pin authored actor and target sectors while the scene is active.
       pinned.clear();const points=[s.shot.target,...s.actors.map(a=>a.position)];
@@ -146,5 +187,5 @@ export async function createStoryStudioBridge({scene,camera,target,renderer,asse
   win.addEventListener('message',receive);canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);
   const ready=()=>send('READY',{zoneId:zone.id,zones:studioZones(world.zones||[]),ambients:STUDIO_AMBIENTS,characters:catalog.map(c=>({id:c.id,label:c.label})),entries:lexico?.mapa.entries.map(e=>({id:e.id,label:e.speech.text}))||[]});
   const readyTimer=win.setInterval(ready,1500);ready();
-  return {update(dt){if(playing||waiting)for(const actor of actors.values())if(actor.root.visible)actor.mixer.update(dt);},retainedRoots(){return [...templateRoots,...[...actors.values()].map(a=>a.root)];},destroy(){disposed=true;revision++;estilos?.ambienteEscena?.(null);win.clearInterval(readyTimer);win.removeEventListener('message',receive);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);for(const actor of actors.values()){actor.mixer.stopAllAction();actor.mixer.uncacheRoot(actor.clone.root);actor.root.removeFromParent();actor.clone.dispose();}pinned.clear();},setLexicalEvent(event){if(event.tipo==='abierta')send('OBJECT_TOUCHED',{entryId:event.entryId});if(event.tipo==='cerrada')send('OBJECT_CLOSED',{entryId:event.entryId});}};
+  return {update(dt){if(playing||waiting){for(const actor of actors.values())if(actor.root.visible)actor.mixer.update(dt);vidaReloj+=dt;}vida.actualizar(vidaReloj);},retainedRoots(){return [...templateRoots,...[...actors.values()].map(a=>a.root),...vida.raices()];},destroy(){disposed=true;vida.desmontar();revision++;estilos?.ambienteEscena?.(null);win.clearInterval(readyTimer);win.removeEventListener('message',receive);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);for(const actor of actors.values()){actor.mixer.stopAllAction();actor.mixer.uncacheRoot(actor.clone.root);actor.root.removeFromParent();actor.clone.dispose();}pinned.clear();},setLexicalEvent(event){if(event.tipo==='abierta')send('OBJECT_TOUCHED',{entryId:event.entryId});if(event.tipo==='cerrada')send('OBJECT_CLOSED',{entryId:event.entryId});}};
 }

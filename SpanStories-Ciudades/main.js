@@ -249,7 +249,7 @@ async function initialize() {
     lexico=await fase(.55,.6,montarLexico({zone,manifest,scene,camera,renderer,canvas:renderer.domElement,objetos,anfitrion:viewport,estado:status,alEstado:event=>studioBridge?.setLexicalEvent(event),guardado:!studioMode}));
     if(studioMode){
       const {createStoryStudioBridge}=await import('./engine/StoryStudioBridge.js');
-      studioBridge=await createStoryStudioBridge({scene,camera,target,renderer,assets,style,estilos,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned:studioPinned});
+      studioBridge=await createStoryStudioBridge({scene,camera,target,renderer,assets,style,estilos,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned:studioPinned,colliders:(p,r=CITY.playerRadius)=>collisionIndex.query(p,r,[]),perfilVida:()=>quality.profile});
     }else{
     if(exploracion){
       lexico.interaccion.habilitar(lexico.mapa.entries.map(e=>e.id));
