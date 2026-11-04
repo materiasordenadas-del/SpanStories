@@ -1,5 +1,11 @@
 # Estado de Atlas · Estudio de lugares
 
+## Sincronización GitHub · 3/11/2026
+
+Fuentes sincronizadas con el visor y Story Studio en la rama existente `feat/visor-mundo-20261021`. La carpeta `Generador-Mundos/` del repositorio vigente enlaza esta fuente original en Windows; Git versiona sus archivos. Al clonar en otro equipo es una carpeta ordinaria. La biblioteca del visor detecta la raíz del repositorio y permite `SPANSTORIES_VIEWER_ROOT`; conserva la ruta local vigente como alternativa. No se cambió el diseño del generador.
+
+Verificación: compilación correcta (aviso por tamaño de chunks), dos pruebas de biblioteca tras el ajuste de rutas y TypeScript de la aplicación conjunta correcto. Suite previa: 148 pruebas aprobadas. No se añaden modelos de personajes nuevos, herramientas/fuentes Blender, respaldos ni cachés. Se conservan los recursos web de ejecución. Procedimiento de regreso: `docs/SINCRONIZACION.md` en la raíz del repositorio; no extraer un ZIP sobre el trabajo local.
+
 ## 0.17.0 · Integrados Claude y Blender como diseños independientes
 
 El taller procedural y el generador ofrecen «Claude · pintado» / «Blender · volumen». Se conserva el diseño original de cada uno: pinturas, recetas, piezas y materiales; no se mezclan interiores. La conversión inicial de materiales se retiró. El `.blend` no se editó. La opción se guarda en el proyecto y se aplica a cualquier lugar generado; los proyectos anteriores conservan Claude.
