@@ -27,3 +27,5 @@ docs/curriculum/a1-restructure/*.json   -text diff
 worlds/prototypes/**                   -text
 worlds/characters/assets/**            -text
 SpanStories-Ciudades/**                -text
+# El generador enlaza su fuente original; preservar también sus bytes y manifiestos.
+Generador-Mundos/**                    -text
