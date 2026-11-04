@@ -1,4 +1,4 @@
-// Silueta de la geometría, con descarte alfa. Nunca altera los materiales compartidos.
+// Silueta de la geometría (halo) y velo de color sobre el objeto, con descarte alfa. Nunca altera los materiales compartidos.
 import * as T from './three.js';
 import { LEXICO } from '../routes.js';
 
@@ -25,9 +25,9 @@ export function crearResaltador({renderer,camera,config=LEXICO}={}){
   target.texture.minFilter=T.NearestFilter;target.texture.magFilter=T.NearestFilter;
   const overlay=new T.Scene(),ortho=new T.OrthographicCamera(-1,1,1,-1,0,1);
   const material=new T.ShaderMaterial({transparent:true,depthTest:false,depthWrite:false,toneMapped:false,
-    uniforms:{mask:{value:target.texture},pixel:{value:new T.Vector2(1,1)},color:{value:new T.Color(config.highlightColor)},width:{value:config.highlightPixels??2}},
+    uniforms:{mask:{value:target.texture},pixel:{value:new T.Vector2(1,1)},color:{value:new T.Color(config.highlightColor)},width:{value:config.highlightPixels??2},tint:{value:new T.Color(config.highlightTint??config.highlightColor)},tintOpacity:{value:config.highlightTintOpacity??0}},
     vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.0,1.0);}',
-    fragmentShader:'uniform sampler2D mask;uniform vec2 pixel;uniform vec3 color;uniform float width;varying vec2 vUv;void main(){float inside=texture2D(mask,vUv).a;if(inside>0.5)discard;float edge=0.0;for(int x=-2;x<=2;x++){for(int y=-2;y<=2;y++){if(x*x+y*y<=5)edge=max(edge,texture2D(mask,vUv+vec2(float(x),float(y))*pixel*width/2.0).a);}}if(edge<0.01)discard;gl_FragColor=vec4(color,edge);}'
+    fragmentShader:'uniform sampler2D mask;uniform vec2 pixel;uniform vec3 color;uniform float width;uniform vec3 tint;uniform float tintOpacity;varying vec2 vUv;void main(){float inside=texture2D(mask,vUv).a;if(inside>0.5){if(tintOpacity<=0.0)discard;gl_FragColor=vec4(tint,tintOpacity);return;}float edge=0.0;for(int x=-2;x<=2;x++){for(int y=-2;y<=2;y++){if(x*x+y*y<=5)edge=max(edge,texture2D(mask,vUv+vec2(float(x),float(y))*pixel*width/2.0).a);}}if(edge<0.01)discard;gl_FragColor=vec4(color,edge);}'
   });
   const quad=new T.Mesh(new T.PlaneGeometry(2,2),material);quad.frustumCulled=false;overlay.add(quad);
   let active=false,dirty=true;

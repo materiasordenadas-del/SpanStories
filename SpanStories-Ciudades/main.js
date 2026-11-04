@@ -19,6 +19,7 @@ import { CityMultiplayer } from './engine/CityMultiplayer.js';
 import { cityResolution, watchCityResolution } from './engine/CityResolution.js';
 import { CITY } from './routes.js';
 import { montarLexico } from './engine/LexicoMontaje.js';
+import { crearCargaInicial } from './engine/CargaInicial.js';
 import {generatedZones,AtlasAssets,atlasGround,atlasSourcePanel} from './engine/AtlasPlaces.js';
 
 const $ = selector => document.querySelector(selector), viewport = $('#viewport');
@@ -178,8 +179,15 @@ function loadNearby(){
   return assets.sync(overview&&navigation?.mode==='editor'?manifest.sectors:nearbySectors(),zone.manifestUrl,{pinned});
 }
 function loadAll(){if(!assets)return Promise.resolve();overview=true;status('Cargando todos los sectores para la vista general…');return Promise.allSettled(manifest.sectors.map(s=>assets.load(s,zone.manifestUrl))).then(()=>{metrics.reset();status('Vista general lista · '+objetos.entries.size+' objetos editables');});}
+const carga=crearCargaInicial(viewport);
+// Avanza la barra poco a poco mientras dura una fase sin medida propia, y fija su final al terminar.
+async function fase(desde,hasta,promesa){
+  let valor=desde;carga.avance(desde);
+  const reloj=setInterval(()=>{valor+=(hasta-valor)*.08;carga.avance(valor);},120);
+  try{return await promesa;}finally{clearInterval(reloj);carga.avance(hasta);}
+}
 async function initialize() {
-  world=await cargarMundo('./Mundo/mundo.json');
+  world=await fase(0,.04,cargarMundo('./Mundo/mundo.json'));
   try{world.zones.push(...await generatedZones(location.href));}catch(e){if(new URLSearchParams(location.search).get('zone')?.startsWith('atlas-'))throw e;console.warn(e);}
   for(const z of world.zones)$('#zone').add(new Option(z.countryLabel+' / '+z.cityLabel+' / '+z.label,z.id));
   const zoneId=new URLSearchParams(location.search).get('zone')||world.zones[0].id;
@@ -209,7 +217,7 @@ async function initialize() {
   if(zone.id==='barcelona-passeig-gracia'){
     status('Preparando árboles y señalización con LOD…');
     decorations=new CityDecorations({scene,objetos,loader:assets.loader,style,renderer,camera});
-    await decorations.initialize();
+    await fase(.08,.25,decorations.initialize());
   }
   rebuildColliders();
   const spawn=[manifest.spawn[0],ground(manifest.spawn[0],manifest.spawn[2]),manifest.spawn[2]];
@@ -234,9 +242,9 @@ async function initialize() {
   const narrativeSector=()=>manifest.sectors.find(s=>target.x>=s.bounds.min[0]&&target.x<=s.bounds.max[0]&&target.z>=s.bounds.min[2]&&target.z<=s.bounds.max[2])||firstSector(nearbySectors(),target.toArray(),{radius:CITY.streamRadius,transferBudget:CITY.initialTransferBudget});
   const first=aprendizaje?narrativeSector():firstSector(nearbySectors(),spawn,{radius:CITY.streamRadius,transferBudget:CITY.initialTransferBudget});
   // Keep the first visible piece ahead of speculative downloads on slow connections.
-  await assets.load(first,zone.manifestUrl);firstSectorReady=true;performance.mark('city-first-sector-ready');
+  await fase(.25,.55,assets.load(first,zone.manifestUrl));firstSectorReady=true;performance.mark('city-first-sector-ready');
   if((aprendizaje||studioMode)&&!manifest.atlas){
-    lexico=await montarLexico({zone,manifest,scene,camera,renderer,canvas:renderer.domElement,objetos,anfitrion:viewport,estado:status,alEstado:event=>studioBridge?.setLexicalEvent(event)});
+    lexico=await fase(.55,.6,montarLexico({zone,manifest,scene,camera,renderer,canvas:renderer.domElement,objetos,anfitrion:viewport,estado:status,alEstado:event=>studioBridge?.setLexicalEvent(event)}));
     if(studioMode){
       const {createStoryStudioBridge}=await import('./engine/StoryStudioBridge.js');
       studioBridge=await createStoryStudioBridge({scene,camera,target,renderer,assets,style,zone,manifest,world,ground,loadNearby,navigation,lexico,pinned:studioPinned});
@@ -255,7 +263,16 @@ async function initialize() {
     narrativa=await montarPreparacionNarrativa({camera,target,objetos,zone,host:$('#city-editor'),download});
   }
   status(zone.label+' lista para explorar · cargando el entorno…');
-  loadPromise=loadNearby().then(()=>{
+  carga.avance(.6);
+  // La pantalla de carga espera solo a los sectores que entran en el encuadre inicial;
+  // los de alrededor siguen llegando por streaming sin bloquear al estudiante.
+  camera.updateMatrixWorld(true);
+  const encuadre=new T.Frustum().setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));
+  const visibles=nearbySectors().filter(s=>encuadre.intersectsBox(new T.Box3(new T.Vector3(...s.bounds.min),new T.Vector3(...s.bounds.max)))).map(s=>s.id);
+  // Tope: en equipos lentos no se retiene al estudiante; el sector inicial ya está listo.
+  const CARGA_MAX_ENTORNO_MS=20000,inicioEntorno=performance.now();
+  const medir=setInterval(()=>{const listos=visibles.filter(id=>assets.records.get(id)?.state==='ready').length;carga.avance(.6+.38*listos/Math.max(1,visibles.length));if(listos===visibles.length||performance.now()-inicioEntorno>CARGA_MAX_ENTORNO_MS){clearInterval(medir);carga.terminar();}},150);
+  loadPromise=loadNearby().finally(()=>{clearInterval(medir);carga.terminar();}).then(()=>{
     refreshAssetEditor();rebuildColliders();metrics.reset();status(assets.errors.length?'Carga parcial: revisa Diagnóstico.':'Zona cercana lista · Vista general carga toda la ciudad');
     document.body.dataset.ready=String(assets.errors.length===0);
   });
@@ -283,4 +300,4 @@ renderer.setAnimationLoop(now=>{
 function dispose(){destroyed=true;renderer.setAnimationLoop(null);document.removeEventListener('visibilitychange',visibilityChanged);observer.disconnect();stopResolutionWatch();studioBridge?.destroy();multiplayer?.dispose();avatarTemplate?.dispose();lexico?.destruir();navigation?.dispose();editor?.dispose();decorations?.dispose();assets?.dispose();estilos.dispose();lightListener();selections.geometry.dispose();selections.material.dispose();renderer.dispose();}
 window.addEventListener('pagehide',dispose,{once:true});
 window.addEventListener('pagehide',()=>disposeAtlasPanel?.(),{once:true});
-initialize().catch(e=>{status('No se pudo iniciar: '+e.message);console.error(e);document.body.dataset.error=e.message;});
+initialize().catch(e=>{carga.fallar(e.message);status('No se pudo iniciar: '+e.message);console.error(e);document.body.dataset.error=e.message;});

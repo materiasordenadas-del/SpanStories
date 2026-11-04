@@ -40,3 +40,15 @@ body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:po
 .lexico-estado[data-tipo=error]{color:#ffb4a2}.lexico-estado[data-tipo=ok]{color:#b7e4a8;font-weight:600}.lexico-estado[data-tipo=aviso]{color:#efd29a}
 @media(max-width:650px){.lexico-enviar{padding:0 12px}.lexico-barra{bottom:max(8px,env(safe-area-inset-bottom));padding:10px;border-radius:16px}.lexico-barra .lexico-cerrar{min-width:40px;padding:0 6px}}
 @media(prefers-reduced-motion:no-preference){.lexico-barra{animation:lexico-sube .22s ease-out}@keyframes lexico-sube{from{opacity:0;transform:translate(-50%,10px)}}.lexico-barra[data-resultado=error] .lexico-campo{animation:lexico-sacude .3s}@keyframes lexico-sacude{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}}
+
+/* Primera carga: pantalla negra con barra 0–100 %; el mundo no se ve hasta terminar. */
+.carga-inicial{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:#000;color:#eff5f7;font:15px system-ui;transition:opacity .4s ease}
+.carga-inicial[data-salida=true]{opacity:0;pointer-events:none}
+.carga-caja{width:min(420px,calc(100% - 48px));display:grid;gap:12px;text-align:center}
+.carga-titulo{margin:0;letter-spacing:.02em}
+.carga-barra{height:8px;border-radius:999px;background:#1d2a36;overflow:hidden}
+.carga-barra span{display:block;height:100%;width:0;background:#ff8a1f;border-radius:inherit;transition:width .15s linear}
+.carga-cifra{margin:0;color:#b7cad6;font-variant-numeric:tabular-nums}
+.carga-inicial[data-error=true] .carga-barra{display:none}
+.carga-inicial[data-error=true] .carga-cifra{color:#ffb4a2}
+@media(prefers-reduced-motion:reduce){.carga-inicial,.carga-barra span{transition:none}}

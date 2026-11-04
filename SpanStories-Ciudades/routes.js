@@ -39,7 +39,8 @@ export const LEXICO=Object.freeze({
   canal:'spanstories.world-lexicon',version:1,
   // Un toque es un gesto corto y casi inmóvil; arrastrar o pellizcar no abre una palabra.
   tapMaxMs:700,tapMovePx:10,
-  highlightColor:'#ffd166',highlightPixels:2,
+  // Selección: halo anaranjado alrededor del objeto y un velo anaranjado claro sobre él.
+  highlightColor:'#ff8a1f',highlightPixels:3,highlightTint:'#ffc98a',highlightTintOpacity:.5,
   autoCloseMs:3600,replyTimeoutMs:8000,maxTyped:60,speechRate:.85,speechLang:'es-ES',
   // Orígenes de la aplicación anfitriona que pueden recibir intentos. Producción: añadir aquí el dominio de SpanStories.
   hostOrigins:Object.freeze(['http://localhost:3000','http://127.0.0.1:3000','http://localhost:3100','http://127.0.0.1:3100'])
