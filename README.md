@@ -1,3 +1,13 @@
+# SpanStories: proyecto integrado
+
+Aplicación educativa, visor de mundos, Story Studio, Atlas Estudio y herramientas Blender comparten este repositorio.
+
+- Aplicación y Story Studio: raíz del repositorio.
+- Visor: `SpanStories-Ciudades/`; iniciar desde la raíz con `npm run dev:visor`.
+- Atlas Estudio y generador: `Generador-Mundos/`.
+- Herramientas de personajes y GLB: `herramientas/`.
+- [Actualización, uso, pruebas y límites del 3 de noviembre de 2026](docs/actualizaciones/2026-11-03.md).
+
 # SpanStories
 
 SpanStories es una plataforma experimental para aprender español mediante historias conectadas e islas de conocimiento.
