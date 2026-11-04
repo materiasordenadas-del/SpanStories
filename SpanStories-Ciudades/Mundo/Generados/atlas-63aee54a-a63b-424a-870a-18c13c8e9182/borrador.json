@@ -1,0 +1,14 @@
+{
+  "file": "ca60541c-d785-4775-bb0b-87306d37e681.json",
+  "baseRevision": "ba99e8eb-85ac-44e4-be0e-ccd21fe650c4",
+  "createdAt": "2026-10-26T17:05:49.335Z",
+  "changes": [
+    {
+      "layer": "overrides",
+      "id": "gen:edificio:1",
+      "patch": {
+        "height": 14
+      }
+    }
+  ]
+}

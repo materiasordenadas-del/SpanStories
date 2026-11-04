@@ -31,8 +31,9 @@ export function recordKnowledge(input: Omit<KnowledgeEvent, "eventId" | "learner
   // A callback belonging to a previous signed-in session must never write after a switch.
   if (owner !== currentLearner()) return false;
   try {
+    const previous=input.eventId?window.localStorage.getItem(`${KNOWLEDGE_STORAGE_PREFIX}${encodeURIComponent(owner)}:${encodeURIComponent(input.eventId)}`):null;
     new LocalKnowledgeEventRepository(window.localStorage).append(createKnowledgeEvent({ ...input,
-      eventId: input.eventId ?? crypto.randomUUID(), learnerId: owner, occurredAt: input.occurredAt ?? new Date().toISOString(),
+      eventId: input.eventId ?? crypto.randomUUID(), learnerId: owner, occurredAt: input.occurredAt ?? (previous?JSON.parse(previous).occurredAt:new Date().toISOString()),
       curriculumRelease: "A1-CURRICULUM-v1.51", lexiconRelease: "A1-LEXICON-v1.0" }));
     reload(owner);
     return true;

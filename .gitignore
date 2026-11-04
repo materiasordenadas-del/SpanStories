@@ -22,6 +22,7 @@ SpanStories-Ciudades/.npm-cache/
 SpanStories-Ciudades/__pycache__/
 SpanStories-Ciudades/**/__pycache__/
 SpanStories-Ciudades/dist-online/
+SpanStories-Ciudades/dist-web/
 SpanStories-Ciudades/reports/
 SpanStories-Ciudades/SpanStories-online.zip
 SpanStories-Ciudades/tests/
@@ -42,3 +43,4 @@ worlds/**/*.blend*
 worlds/**/*.zip
 worlds/verification.json
 features/worlds/__tests__/
+.next-studio-check/

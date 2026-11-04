@@ -12,6 +12,7 @@ import {
   practiceTargetKey,
   type PracticeItem,
   type PracticeItemRepository,
+  type PracticeTarget,
   type ReaderWordPractice,
 } from "@/features/practice";
 
@@ -157,4 +158,20 @@ export async function togglePracticeWord(word: ReaderWordPractice): Promise<void
     ? target.remove(word.target)
     : target.save(createPracticeItem({ target: word.target, savedAt: new Date(), savedFrom: word.savedFrom })));
   if (!saved) recordKnowledge({ kind: "SAVED", targetKey: practiceTargetKey(word.target), storyVersionId: word.savedFrom.storyVersionId, occurrenceId: word.savedFrom.occurrenceId }, owner);
+}
+
+/**
+ * Guarda un objetivo solo si todavía no estaba guardado; nunca lo quita (a diferencia de `togglePracticeWord`).
+ * Lo usan los flujos que confirman una palabra sin pasar por el lector (p. ej. mundos interactivos).
+ * La palabra queda guardada con `savedFrom: null`: no hay ocurrencia de historia a la que enlazarla.
+ */
+export async function savePracticeTargetIfAbsent(target: PracticeTarget,owner=currentLearner()): Promise<"NEWLY_SAVED" | "ALREADY_SAVED"> {
+  if(owner!==currentLearner())throw new Error('La sesión del estudiante cambió.');
+  // Confirmar guardado exige persistencia real; este flujo no usa el fallback en memoria.
+  const repository=new LocalStoragePracticeItemRepository(window.localStorage,storageKey(owner));
+  const exists=await repository.has(target);
+  if(owner!==currentLearner())throw new Error('La sesión del estudiante cambió.');
+  if(!exists)await repository.save(createPracticeItem({target,savedAt:new Date(),savedFrom:null}));
+  storeFor(owner).repository=repository;await reload(owner);
+  return exists?'ALREADY_SAVED':'NEWLY_SAVED';
 }

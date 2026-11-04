@@ -105,6 +105,8 @@ export function PageEditor({ children }: { children: ReactNode }) {
     parent.insertBefore(source, destination);
   }
 
+  // Este editor de maquetas no interviene en el visor narrativo interactivo.
+  if(pathname.startsWith('/mundo/piloto-lexico'))return <>{children}</>;
   return <>
     <div
       ref={pageRef}

@@ -3,5 +3,5 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test tests/*.test.js", "test:relay":"python -m unittest discover -s tests -p test_online_relay.py", "predev":"node scripts/build_online.mjs", "dev": "python serve.py --port 8767 --root dist-online --profile online", "dev:source":"python serve.py --port 8767 --root . --profile none", "prepare:online":"node scripts/prepare_online.mjs", "build:online":"node scripts/build_online.mjs" }
+  "scripts": { "test": "node --test tests/*.test.js", "test:relay":"python -m unittest discover -s tests -p test_online_relay.py", "dev": "node ../scripts/dev-visor.mjs", "dev:source":"node ../scripts/dev-visor.mjs", "dev:lexico":"node ../scripts/dev-visor.mjs", "prepare:online":"node scripts/prepare_online.mjs", "build:online":"node scripts/build_online.mjs", "build:web":"node scripts/build_online.mjs --web" }
 }

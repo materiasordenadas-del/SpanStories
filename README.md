@@ -2,6 +2,16 @@
 
 SpanStories es una plataforma experimental para aprender español mediante historias conectadas e islas de conocimiento.
 
+## Visor local vigente
+
+Carpeta de trabajo: `D:\Español\SpanStories-worktrees\visor-mundo-20261021`.
+Arranque único: `npm run dev:visor` desde esta raíz (o `npm run dev` desde `SpanStories-Ciudades`).
+Abrir **http://localhost:3000/mundo/piloto-lexico** y cambiar entre Desarrollo y Visor Web dentro de esa página.
+El motor de `SpanStories-Ciudades` es un recurso interno compartido, no otro visor para abrir por separado.
+No hay redirecciones ni servidores de compatibilidad en puertos antiguos. El motor interno se usa dentro de la aplicación.
+`dist-online` y `dist-web` son distribuciones generadas, no fuentes para editar; el arranque local usa los archivos fuente actuales.
+Las versiones anteriores se conservan fuera del área activa en `D:\Español\RESPALDO_NO_CARGAR\versiones-antiguas\visores-anteriores-20261022`.
+
 ## Estado
 
 El proyecto está en construcción. El desarrollo de la primera versión funcional se realiza en ramas de prueba antes de integrar cambios en `main`.

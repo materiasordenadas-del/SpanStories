@@ -18,7 +18,8 @@ export async function cargarMundo(url, fetcher = fetch) {
       if (city.countryId !== country.id || cityRef.id !== city.id) throw new Error('La ciudad no pertenece al país');
       for (const zoneRef of city.zones) {
         zones.push({ ...zoneRef, countryId: country.id, countryLabel: country.label, cityId: city.id,
-          cityLabel: city.label, manifestUrl: new URL(zoneRef.manifest, city.manifestUrl).href });
+          cityLabel: city.label, manifestUrl: new URL(zoneRef.manifest, city.manifestUrl).href,
+          lexiconUrl: zoneRef.lexicon ? new URL(zoneRef.lexicon, city.manifestUrl).href : null });
       }
     }
   }

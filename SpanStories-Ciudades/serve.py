@@ -11,10 +11,15 @@ import re
 import secrets
 import threading
 import time
+import subprocess
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
+
+GENERATOR = next((p / 'Generador-Mundos' for p in Path(__file__).resolve().parents if (p / 'Generador-Mundos/server/style-pool.js').is_file()), None)
+SHARED_FILES = {'pipeline.js', 'ghibli.js', 'dispatch.js', 'commerce-blender-pass.js', 'style-pool.js',
+                'ghibli-assets/nube-ghibli-alta.png', 'ghibli-assets/nube-ghibli-compacta.png', 'ghibli-assets/nube-ghibli-alargada.png'}
 
 PROFILES = {
     'online': {'rttMs': 80, 'jitterMs': 20, 'downloadMbps': 10, 'uploadMbps': 2},
@@ -120,8 +125,22 @@ class Rooms:
 class Handler(SimpleHTTPRequestHandler):
     extensions_map = {**SimpleHTTPRequestHandler.extensions_map, '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.glb': 'model/gltf-binary', '.wasm': 'application/wasm', '.gz': 'application/gzip'}
 
+    def translate_path(self, path):
+        route = urlsplit(path).path
+        if GENERATOR and route.startswith('/shared-styles/'):
+            relative = route.removeprefix('/shared-styles/')
+            if relative in SHARED_FILES:
+                return str(GENERATOR / 'src/estudio/render' / relative)
+            return str(Path(self.directory) / '__shared_style_not_found__')
+        return super().translate_path(path)
+
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path == '/api/style-pool' and GENERATOR:
+            file = GENERATOR / '.style-pool/settings.json'
+            return self.json_response(200, json.loads(file.read_text('utf-8')) if file.exists() else {'revision': -1})
+        if getattr(self.server, 'embedded_only', False) and path in ('/', '/index.html') and self.headers.get('Sec-Fetch-Dest') == 'document':
+            return self.send_error(403, 'Motor interno: abrir el visor desde localhost:3000/mundo/piloto-lexico')
         if path == '/api/health':
             self.server.link.latency(2)
             return self.json_response(200, {'ok': True, 'protocol': 1, 'simulation': self.server.link.profile, 'bandwidthScope': 'all clients and workers combined', 'maxPlayers': 2})
@@ -146,6 +165,11 @@ class Handler(SimpleHTTPRequestHandler):
             if not isinstance(data, dict):
                 raise ValueError()
             path = urlsplit(self.path).path
+            if path == '/api/style-pool' and GENERATOR:
+                result = subprocess.run(['node', str(GENERATOR / 'server/style-pool.js')], input=json.dumps(data), text=True, encoding='utf-8', capture_output=True, timeout=10, creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+                if result.returncode:
+                    return self.json_response(400, {'error': result.stderr})
+                return self.json_response(200, json.loads(result.stdout))
             rooms = self.server.rooms
             if path == '/api/room/join':
                 result = rooms.join(data)
@@ -243,8 +267,9 @@ class Handler(SimpleHTTPRequestHandler):
             super().log_message(format, *args)
 
 
-def create_server(root, port=8767, profile='online'):
+def create_server(root, port=8767, profile='online', embedded_only=False):
     server = ThreadingHTTPServer(('127.0.0.1', port), partial(Handler, directory=str(root)))
+    server.embedded_only = embedded_only
     server.link = Link(dict(PROFILES[profile]))
     server.rooms = Rooms()
     return server
@@ -255,13 +280,15 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=8767)
     parser.add_argument('--root', type=Path)
     parser.add_argument('--profile', choices=PROFILES, default='online')
+    parser.add_argument('--embedded-only', action='store_true', help='Motor interno: impedir abrir otra interfaz fuera del iframe')
     args = parser.parse_args()
     base = Path(__file__).resolve().parent
     root = (args.root or (base / 'dist-online' if (base / 'dist-online/package-info.json').is_file() else base)).resolve()
     if not (root / 'index.html').is_file():
         parser.error('La raíz no contiene el visor. Ejecuta npm run build:online.')
-    server = create_server(root, args.port, args.profile)
-    print(f'SpanStories: http://127.0.0.1:{args.port}/?dev | raíz={root} | red={args.profile} {server.link.profile}', flush=True)
+    server = create_server(root, args.port, args.profile, args.embedded_only)
+    entry = 'http://localhost:3000/mundo/piloto-lexico' if args.embedded_only else f'http://127.0.0.1:{args.port}/?dev'
+    print(f'SpanStories: {entry} | raíz={root} | red={args.profile} {server.link.profile}', flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

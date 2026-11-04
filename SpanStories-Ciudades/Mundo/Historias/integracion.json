@@ -8,7 +8,21 @@
     "generatedCurriculum": "generated/curriculum/a1/story-blueprints.json",
     "curriculumRelease": "A1-CURRICULUM-v1.51"
   },
-  "bindings": [],
+  "bindings": [{
+    "storyId": "story-barcelona-piloto",
+    "storyVersionId": "storyver-barcelona-piloto-1",
+    "storyBlueprintId": null,
+    "technicalFixture": true,
+    "scenarios": [{"countryId":"es","cityId":"barcelona","zoneId":"barcelona-passeig-gracia","objectIds":["decor-tree-bcn-e35edbea02361b89","bcn-c7f2f63030fbf8bd"]}],
+    "characterIds": [],
+    "scenes": [
+      {"id":"arbol","sentenceId":"sent-barcelona-1","zoneId":"barcelona-passeig-gracia","entryIds":["arbol"],"camera":{"position":[10.767677307128906,4,20.64106798171997],"target":[10.767677307128906,3,5.641067981719971]}},
+      {"id":"casa","sentenceId":"sent-barcelona-2","zoneId":"barcelona-passeig-gracia","entryIds":["casa"],"camera":{"position":[-55.16494178771973,16,37],"target":[-55.16494178771973,16,-23.527400493621827]}},
+      {"id":"calle","sentenceId":"sent-barcelona-3","zoneId":"barcelona-passeig-gracia","entryIds":["calle"],"camera":{"position":[18,14,20],"target":[18,0,40]}},
+      {"id":"iglesia","sentenceId":"sent-barcelona-4","zoneId":"barcelona-passeig-gracia","entryIds":["iglesia"],"camera":{"position":[20,28,138.50067901611328],"target":[98,20,138.50067901611328]}},
+      {"id":"puerta","sentenceId":"sent-barcelona-5","zoneId":"barcelona-passeig-gracia","entryIds":["puerta"],"camera":{"position":[48,3,138.50067901611328],"target":[61.86244010925293,2.8552065193653107,138.50067901611328]}}
+    ]
+  }],
   "contract": {
     "storyId": "StoryId existente (story-...)",
     "storyVersionId": "StoryVersionId existente (storyver-...)",

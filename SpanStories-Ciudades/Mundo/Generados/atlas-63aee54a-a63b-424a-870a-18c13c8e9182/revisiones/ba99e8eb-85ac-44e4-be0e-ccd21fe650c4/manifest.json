@@ -1,0 +1,245 @@
+{
+ "format": "atlas-estudio-paquete",
+ "version": 2,
+ "complete": true,
+ "appVersion": "0.16.1",
+ "createdAt": "2026-10-26T17:01:55.016Z",
+ "sectors": "sectores.json",
+ "entities": "entidades.json",
+ "project": "proyecto.json",
+ "resources": "recursos.json",
+ "compression": "Meshopt sin pérdida cuando reduce bytes",
+ "files": [
+  {
+   "path": "S_-2_-2.glb",
+   "bytes": 2003988,
+   "sha256": "545314635c636aad7a7e0675829034fa39132d0b8629e50eb2cf0315d7178ac8"
+  },
+  {
+   "path": "S_-3_-3.glb",
+   "bytes": 4120,
+   "sha256": "1110b6ce2d30bde303c9e3ff93a95c25f290d617b5bc5425010112e5a972c528"
+  },
+  {
+   "path": "S_-2_-3.glb",
+   "bytes": 4464,
+   "sha256": "c86d50718e1905b2d73b951f4a1daa1f21bb36e71008a74ee882e2cc0d470252"
+  },
+  {
+   "path": "S_-3_-2.glb",
+   "bytes": 733908,
+   "sha256": "7ab9c83ab16daabca80692db01dbfab1f98feee7982dfbbebd5590f6616bb351"
+  },
+  {
+   "path": "S_-1_-2.glb",
+   "bytes": 3294344,
+   "sha256": "dd91a416e8765b7a6b00844eb4582204eb08578f1f12f34c1507820a11b8238a"
+  },
+  {
+   "path": "S_-1_-3.glb",
+   "bytes": 3152,
+   "sha256": "ccf798fd5ffb1895676c278131c13368812861961201dc5d76a14ea1a23c7d83"
+  },
+  {
+   "path": "S_0_-2.glb",
+   "bytes": 2300232,
+   "sha256": "07837e2d9e62aa04ae036e025aa3f746b95a42848665a460171f7e5f95827416"
+  },
+  {
+   "path": "S_0_-3.glb",
+   "bytes": 3168,
+   "sha256": "1b0c5daf7641c71a47b176ea2916c616b6d974eed137c838a8148318416f4d11"
+  },
+  {
+   "path": "S_1_-2.glb",
+   "bytes": 2905544,
+   "sha256": "6138dcd11edb059fb3e8facceb984c672fb6911f7c7450ebcf68fe3a54c9fad0"
+  },
+  {
+   "path": "S_1_-3.glb",
+   "bytes": 406160,
+   "sha256": "84243663ce7fc44bcda8339fc1fcfefbf8b8888b271d27d929d2ee9cbad9fc6f"
+  },
+  {
+   "path": "S_2_-2.glb",
+   "bytes": 1624384,
+   "sha256": "4ade2fef5427800f8543918ac805ab213a6444c71ff1a76a822639383eab0d93"
+  },
+  {
+   "path": "S_2_-3.glb",
+   "bytes": 3500,
+   "sha256": "e2c2a5fd16b9482751ab6f2777fbe9df41b23c595ab13d74d0f61952e87aee49"
+  },
+  {
+   "path": "S_-2_-1.glb",
+   "bytes": 76852,
+   "sha256": "fc131b695123cf19f58d1e2448d183d2881c0a421705f8755ac9b40c8c77ebc2"
+  },
+  {
+   "path": "S_-3_-1.glb",
+   "bytes": 335144,
+   "sha256": "96c13947b412a791ff01c858a4ac5f6c1c4a2bdc4c4140a12c7876c7d38de4ca"
+  },
+  {
+   "path": "S_2_-1.glb",
+   "bytes": 303996,
+   "sha256": "4ac8e0402a14dc39df09aff5ceebfc65af98bb563c848705e9473e25b6e71bc0"
+  },
+  {
+   "path": "S_1_-1.glb",
+   "bytes": 3037156,
+   "sha256": "1de689560fbf212095f0fa3c7216133baa28865f7ef3f462906c494dac71d8a3"
+  },
+  {
+   "path": "S_-2_0.glb",
+   "bytes": 50384,
+   "sha256": "f216d88e062f096fc4f12010d4d19bb4f74d8771565996df7a44eb5b27f80ecc"
+  },
+  {
+   "path": "S_-3_0.glb",
+   "bytes": 273244,
+   "sha256": "b23f07020d94f0a161d10f15dede926a91b77a3dd3bffeb6c723db0111664cc4"
+  },
+  {
+   "path": "S_2_0.glb",
+   "bytes": 373080,
+   "sha256": "13e51ac8047eaf4a28e78d8e133fa918763a22d49ed5e83bb04eafbc3e06cbd5"
+  },
+  {
+   "path": "S_1_0.glb",
+   "bytes": 2000168,
+   "sha256": "f852b747af6251d5ab1cdb75c884339f9f350bb80d81e8b869783a325227d64f"
+  },
+  {
+   "path": "S_-3_1.glb",
+   "bytes": 310628,
+   "sha256": "faa0e62326595c9da402ffb4e566ea497f5a1a8a00a65f11d4fa64f0e5bfe62f"
+  },
+  {
+   "path": "S_-2_1.glb",
+   "bytes": 2054476,
+   "sha256": "2379733c0d19ca877579886b66446e36fc68fa4072589c4ff314f6d8bf6a9b11"
+  },
+  {
+   "path": "S_-1_1.glb",
+   "bytes": 1979112,
+   "sha256": "06ba3623fac5cf5ce269dd93e15a48856032446a28db032ea321542a90341727"
+  },
+  {
+   "path": "S_-1_0.glb",
+   "bytes": 17320,
+   "sha256": "04efecf9d75a63b47348bb6abd1e2b0b7b34d93e1147b785acab9a14201eb26b"
+  },
+  {
+   "path": "S_0_1.glb",
+   "bytes": 393972,
+   "sha256": "8aac3494b8fcf8a9ba9be9e4791abac2453f3573e81f2cdc396e2c41b373bcd4"
+  },
+  {
+   "path": "S_0_0.glb",
+   "bytes": 11428,
+   "sha256": "376e637066a5fa0b928b48d382a4c8d2175765524562d73d081440fd55138587"
+  },
+  {
+   "path": "S_1_1.glb",
+   "bytes": 2286392,
+   "sha256": "ad2bf28bc4dc5d94b24f7473d4cdbd1054abe7d7388f5627d480679a6ba50b82"
+  },
+  {
+   "path": "S_2_1.glb",
+   "bytes": 264512,
+   "sha256": "829c38981094f95f7cd694adaf9a10cfd29a0c677264b4f3f155f4281df6003a"
+  },
+  {
+   "path": "S_-2_2.glb",
+   "bytes": 4240,
+   "sha256": "f4d166547f36cdbbde6adba8266fadf766ef55e8bf7601040b23c61d495ef520"
+  },
+  {
+   "path": "S_-3_2.glb",
+   "bytes": 3572,
+   "sha256": "f937479f618e2fa7034428e2b5b7d3129768ed0b243fd4216534ed059d534f69"
+  },
+  {
+   "path": "S_-1_2.glb",
+   "bytes": 3000,
+   "sha256": "740c79caca1c198e5fe118ac3d2a1c8e7a3bbce7119b6ec6cad2d69d69d6c801"
+  },
+  {
+   "path": "S_0_2.glb",
+   "bytes": 3020,
+   "sha256": "253673850d78017956d38ba94c48773812b8577666a37d514665fab174b67b53"
+  },
+  {
+   "path": "S_1_2.glb",
+   "bytes": 4440,
+   "sha256": "fd84368a58115b9d7326192f9c095b1ff2d21c98ad72db4dfbaa6e671521ecb6"
+  },
+  {
+   "path": "S_2_2.glb",
+   "bytes": 3072,
+   "sha256": "7b4c5384e0a09807cb1bc4e52fbb1341efff87a2d6fa3ca182c7f53ca2938dbd"
+  },
+  {
+   "path": "S_-1_-1.glb",
+   "bytes": 72332,
+   "sha256": "a4aa0714ebf85ca5b4e12fcc8422f4dd2a32a9e6d7b3913a7fb1371152f56f01"
+  },
+  {
+   "path": "S_0_-1.glb",
+   "bytes": 62584,
+   "sha256": "dec249bd3aae77f619810c2451a68b7ae40b37dfe7d4ffb96745ba0e746fabf4"
+  },
+  {
+   "path": "lugar.json",
+   "bytes": 66296,
+   "sha256": "81232058860b71718fcb58d49ef4dfda0aafd4d230dffdf0519f053d5d0f73e2"
+  },
+  {
+   "path": "entidades.json",
+   "bytes": 8960,
+   "sha256": "6644c50c95ee31e6436efbb644373b7a3e982d8ab3ab5edae6d2b76c2d510e02"
+  },
+  {
+   "path": "anclas.json",
+   "bytes": 36197,
+   "sha256": "a8d22d7a3c0166eda275247728ddbfd9bfe1f371868270df114d680463d35d94"
+  },
+  {
+   "path": "recursos.json",
+   "bytes": 200,
+   "sha256": "6b1c7a8cb2838bb4ddf0995ca51d5f1c10e10b0173c93bd8df189015725594f9"
+  },
+  {
+   "path": "sectores.json",
+   "bytes": 11266,
+   "sha256": "cf12fadddf14ef50880a59521066a3f29d776e34f24778b237b5f022f948e01b"
+  },
+  {
+   "path": "proyecto.json",
+   "bytes": 52848,
+   "sha256": "06405c9efdb3b29f7c09d0ef5131fda6a18560ff42eb9ecca64a7723ed010507"
+  },
+  {
+   "path": "EFECTOS_ATLAS.md",
+   "bytes": 373,
+   "sha256": "29bcc7c7882b351438417cbed1dfcf37b1062bb2f0dc3b8fe077b59baa366d0a"
+  },
+  {
+   "path": "AtlasPackage.js",
+   "bytes": 4989,
+   "sha256": "da602ae38fbc109f3b81ebfeaf456f7c728d7755af174f4edbafc162b8aacc3c"
+  },
+  {
+   "path": "LEEME.md",
+   "bytes": 1154,
+   "sha256": "05e843a29416c28df09fb3af6d8b319da5ade378df240eed4ede6b836688bd7a"
+  }
+ ],
+ "total": {
+  "sectores": 36,
+  "triangulos": 494547,
+  "bytes": 27211088,
+  "rawBytes": 54474448
+ }
+}

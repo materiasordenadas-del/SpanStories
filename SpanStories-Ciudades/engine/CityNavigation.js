@@ -53,7 +53,7 @@ export function moveWithCollisions(position, dx, dz, {
 export function crearNavegacionCiudad({
   camera, canvas, target = new T.Vector3(), scene = null, spawn = [0, 0, 0],
   bounds = null, colliders = () => [], ground = () => spawn[1], avatar = null,
-  onMode = () => {}, changed = () => {}, speed = 4.8, radius = .32,
+  onMode = () => {}, changed = () => {}, speed = 4.8, radius = .32, pointerLock = true,
   eventRoot = globalThis.window, documentRoot = globalThis.document,
 } = {}) {
   if (!camera || !canvas) throw new Error('Navigation requires camera and canvas');
@@ -127,6 +127,7 @@ export function crearNavegacionCiudad({
   }
   function setMode(next) {
     if (!MODES.has(next)) throw new Error(`Unknown navigation mode: ${next}`);
+    if(next==='editor'&&!editorEnabled)return;
     if (next === mode) return;
     clearKeys();
     if (locked()) documentRoot.exitPointerLock?.();
@@ -213,7 +214,7 @@ export function crearNavegacionCiudad({
     if (mode === 'editor' && (!editorEnabled || !(event.button === 1 || event.button === 2 || event.altKey))) return;
     pointer = { x: event.clientX, y: event.clientY, pan: event.button === 1 || event.shiftKey, id: event.pointerId };
     canvas.setPointerCapture?.(event.pointerId);
-    if (mode === 'first' && event.button === 0 && canvas.requestPointerLock && !locked()) {
+    if (pointerLock && mode === 'first' && event.button === 0 && canvas.requestPointerLock && !locked()) {
       try { const request = canvas.requestPointerLock(); request?.catch?.(() => {}); } catch { /* Drag fallback works without pointer lock. */ }
     }
   });

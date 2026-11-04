@@ -21,6 +21,8 @@ export type KnowledgeEvent = Readonly<{
   targetProductive?: boolean;
   declaredState?: KnowledgeState;
   source?: "LEGACY_MIGRATION";
+  /** Exposición observada en una escena 3D; no equivale a recuperación ni dominio. */
+  exposure?: "OBJECT" | "AUDIO";
 }>;
 
 export type LearnerLexicalKnowledgeProjection = Readonly<{
@@ -55,6 +57,7 @@ export function validateKnowledgeEvent(value: unknown): asserts value is Knowled
     || !(e.storyVersionId === null || typeof e.storyVersionId === "string")
     || !(e.occurrenceId === null || typeof e.occurrenceId === "string")) throw new Error("Invalid lexical event");
   if (e.kind === "STATE_DECLARED" && !KNOWLEDGE_STATES.includes(e.declaredState!)) throw new Error("Invalid declared state");
+  if(e.exposure!==undefined&&(!['OBJECT','AUDIO'].includes(e.exposure)||!['OCCURRENCE_ENCOUNTERED','OCCURRENCE_OPENED'].includes(e.kind)))throw new Error('Invalid exposure');
   if (e.kind === "PRACTICE" && (!e.attemptId || !e.practiceSessionId
     || !["RECOGNITION", "MEANING_RECALL", "FORM_RECALL", "PRODUCTION"].includes(e.evidence!)
     || !["correct", "incorrect", "revealed", "skipped"].includes(e.outcome!))) throw new Error("Invalid practice evidence");

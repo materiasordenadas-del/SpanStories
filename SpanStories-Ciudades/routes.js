@@ -33,3 +33,16 @@ export const URBAN_TREES=Object.freeze({
   atlasCell:512,atlasPadding:8,atlasColumns:4,softness:.28,sunGain:1.22,
   shadow:{resolution:2048,radius:32,distance:110,near:.1,far:230,move:3,margin:14,eyeHeight:1.66,softness:1.5,biasWorld:.008,slopeBiasWorld:.025,groundTint:[.66,.66,.64],foliageTint:[.30,.42,.27],barkTint:[.34,.36,.30]}
 });
+
+// Interacción léxica del visor. El anfitrión (aplicación SpanStories) es la autoridad de la validación y del progreso.
+export const LEXICO=Object.freeze({
+  canal:'spanstories.world-lexicon',version:1,
+  // Un toque es un gesto corto y casi inmóvil; arrastrar o pellizcar no abre una palabra.
+  tapMaxMs:700,tapMovePx:10,
+  highlightColor:'#ffd166',highlightPixels:2,
+  autoCloseMs:3600,replyTimeoutMs:8000,maxTyped:60,speechRate:.85,speechLang:'es-ES',
+  // Orígenes de la aplicación anfitriona que pueden recibir intentos. Producción: añadir aquí el dominio de SpanStories.
+  hostOrigins:Object.freeze(['http://localhost:3000','http://127.0.0.1:3000','http://localhost:3100','http://127.0.0.1:3100'])
+});
+// Framing ratios are relative to the actor's measured bounds, not hand-tuned city coordinates.
+export const STORY_STUDIO=Object.freeze({frameMargin:1.2,shotHeight:{general:1,medio:.65,primero:.32}});

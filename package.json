@@ -7,10 +7,12 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:visor": "node scripts/dev-visor.mjs",
     "worlds:serve": "python scripts/worlds/serve.py",
     "worlds:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/worlds/check.ts",
     "worlds:test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/worlds/__tests__/*.test.ts",
     "build": "next build",
+    "build:studio-check": "node scripts/story-studio/build-check.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -25,6 +27,8 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
+    "@xyflow/react": "^12.12.0",
+    "@xzdarcy/react-timeline-editor": "^1.0.0",
     "firebase": "^12.19.0",
     "next": "16.2.11",
     "pg": "^8.23.0",
@@ -39,6 +43,7 @@
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "16.2.11",
+    "fake-indexeddb": "^6.2.6",
     "typescript": "latest"
   }
 }
