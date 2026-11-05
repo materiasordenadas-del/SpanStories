@@ -1,0 +1,2045 @@
+{
+ "formato": "spanstories-catalogo-vegetacion",
+ "version": 1,
+ "generado": "SpanStories-Ciudades/scripts/catalogo_vegetacion.mjs",
+ "fuente": "Generador-Mundos/src/estudio/data/tree-catalog.js (TREE_CATALOG v1)",
+ "maxTiposPorLugar": 4,
+ "niveles": {
+  "alto": "Alto",
+  "medio": "Medio",
+  "bajo": "Bajo",
+  "muyBajo": "Muy bajo"
+ },
+ "nivelPorDefecto": "medio",
+ "rutas": {
+  "generador": "URL del servidor del generador (public/)",
+  "visor": "relativa a la raíz de SpanStories-Ciudades; arboles-atlas/ la sirve serve.py desde Generador-Mundos/public/assets/arboles/ sin copiar archivos"
+ },
+ "conjuntos": {
+  "mediterraneo": {
+   "nombre": "Mediterráneo",
+   "tipos": [
+    "platano",
+    "encina",
+    "pinonero",
+    "olivo"
+   ]
+  },
+  "atlantico": {
+   "nombre": "Atlántico",
+   "tipos": [
+    "roble",
+    "platano",
+    "abedul",
+    "pino"
+   ]
+  },
+  "montana": {
+   "nombre": "Montaña",
+   "tipos": [
+    "pino",
+    "eucalipto",
+    "abedul",
+    "roble"
+   ]
+  },
+  "tropical": {
+   "nombre": "Tropical",
+   "tipos": [
+    "saman",
+    "jacaranda",
+    "flamboyan",
+    "laurel"
+   ]
+  },
+  "arido": {
+   "nombre": "Árido",
+   "tipos": [
+    "mezquite",
+    "olivo",
+    "pino",
+    "matorral"
+   ]
+  },
+  "clasico": {
+   "nombre": "Clásico (GLB originales)",
+   "tipos": [
+    "anime",
+    "anime2",
+    "jabami",
+    "sakura"
+   ]
+  }
+ },
+ "tipos": [
+  {
+   "id": "anime",
+   "nombre": "Árbol anime",
+   "cientifico": null,
+   "tipo": "arbol",
+   "origen": "original",
+   "alturaM": [
+    7,
+    10
+   ],
+   "peso": 0.35,
+   "calle": true,
+   "conjuntos": [
+    "clasico"
+   ],
+   "archivo": {
+    "generador": "/assets/barcelona-trees/anime_nature_tree_01.glb",
+    "visor": "assets/barcelona-decor/anime_nature_tree_01.glb",
+    "fuente": "Generador-Mundos/public/assets/barcelona-trees/anime_nature_tree_01.glb"
+   },
+   "bytes": 229100,
+   "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4",
+   "triangulos": 1216,
+   "alturaNativa": 13.1267,
+   "partes": [
+    {
+     "material": "trunk_M",
+     "rol": "tronco",
+     "triangulos": 640
+    },
+    {
+     "material": "Leaves_M",
+     "rol": "hojas",
+     "triangulos": 576
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 83007
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 54038
+    }
+   ],
+   "extensiones": [],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/barcelona-trees/anime_nature_tree_01.glb",
+     "visor": "assets/barcelona-decor/anime_nature_tree_01.glb",
+     "bytes": 229100,
+     "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4",
+     "triangulos": 1216,
+     "texturas": [
+      "512×512",
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/barcelona-trees/anime_nature_tree_01.glb",
+     "visor": "assets/barcelona-decor/anime_nature_tree_01.glb",
+     "bytes": 229100,
+     "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4",
+     "triangulos": 1216,
+     "texturas": [
+      "512×512",
+      "512×512"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/barcelona-trees/anime_nature_tree_01.glb",
+     "visor": "assets/barcelona-decor/anime_nature_tree_01.glb",
+     "bytes": 229100,
+     "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4",
+     "triangulos": 1216,
+     "texturas": [
+      "512×512",
+      "512×512"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/barcelona-trees/anime_nature_tree_01.glb",
+     "visor": "assets/barcelona-decor/anime_nature_tree_01.glb",
+     "bytes": 229100,
+     "sha256": "1200cdd47ebebdc2cb2d53298379245818cb9d630aa3e04772f972634f2408c4",
+     "triangulos": 1216,
+     "texturas": [
+      "512×512",
+      "512×512"
+     ]
+    }
+   },
+   "procedencia": "GLB original de SpanStories (prototipos/arbol-urbano)",
+   "uso": [
+    "Visor · Barcelona (decoración, modelo anime)",
+    "Generador · conjunto Clásico (GLB originales)",
+    "Exportado · Escuela generada (22 ejemplares)",
+    "Exportado · Barcelona · Passeig de Gràcia (121 ejemplares)"
+   ]
+  },
+  {
+   "id": "anime2",
+   "nombre": "Árbol anime 2",
+   "cientifico": null,
+   "tipo": "arbol",
+   "origen": "original",
+   "alturaM": [
+    6,
+    9
+   ],
+   "peso": 0.3,
+   "calle": true,
+   "conjuntos": [
+    "clasico"
+   ],
+   "archivo": {
+    "generador": "/assets/barcelona-trees/anime_tree_2.glb",
+    "visor": "assets/barcelona-decor/anime_tree_2.glb",
+    "fuente": "Generador-Mundos/public/assets/barcelona-trees/anime_tree_2.glb"
+   },
+   "bytes": 189812,
+   "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7",
+   "triangulos": 904,
+   "alturaNativa": 2.8856,
+   "partes": [
+    {
+     "material": "Material",
+     "rol": "hojas",
+     "triangulos": 904
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 146558
+    }
+   ],
+   "extensiones": [],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/barcelona-trees/anime_tree_2.glb",
+     "visor": "assets/barcelona-decor/anime_tree_2.glb",
+     "bytes": 189812,
+     "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7",
+     "triangulos": 904,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/barcelona-trees/anime_tree_2.glb",
+     "visor": "assets/barcelona-decor/anime_tree_2.glb",
+     "bytes": 189812,
+     "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7",
+     "triangulos": 904,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/barcelona-trees/anime_tree_2.glb",
+     "visor": "assets/barcelona-decor/anime_tree_2.glb",
+     "bytes": 189812,
+     "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7",
+     "triangulos": 904,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/barcelona-trees/anime_tree_2.glb",
+     "visor": "assets/barcelona-decor/anime_tree_2.glb",
+     "bytes": 189812,
+     "sha256": "b25a288d45c78beaac2873f63556f746f74144721b1aa2cefb4abe0a75564af7",
+     "triangulos": 904,
+     "texturas": [
+      "512×512"
+     ]
+    }
+   },
+   "procedencia": "GLB original de SpanStories (prototipos/arbol-urbano)",
+   "uso": [
+    "Visor · Barcelona (decoración, modelo gold)",
+    "Generador · conjunto Clásico (GLB originales)",
+    "Exportado · Escuela generada (23 ejemplares)",
+    "Exportado · Barcelona · Passeig de Gràcia (88 ejemplares)"
+   ]
+  },
+  {
+   "id": "jabami",
+   "nombre": "Árbol jabami",
+   "cientifico": null,
+   "tipo": "arbol",
+   "origen": "original",
+   "alturaM": [
+    8,
+    12
+   ],
+   "peso": 0.25,
+   "calle": true,
+   "conjuntos": [
+    "clasico"
+   ],
+   "archivo": {
+    "generador": "/assets/barcelona-trees/jabami_anime_tree_v1.glb",
+    "visor": "assets/barcelona-decor/jabami_anime_tree_v1.glb",
+    "fuente": "Generador-Mundos/public/assets/barcelona-trees/jabami_anime_tree_v1.glb"
+   },
+   "bytes": 723780,
+   "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4",
+   "triangulos": 4483,
+   "alturaNativa": 8.0178,
+   "partes": [
+    {
+     "material": "tronc_jabami_tree_mat.001",
+     "rol": "tronco",
+     "triangulos": 2623
+    },
+    {
+     "material": "beauty_jabami_leave_02_mat.001",
+     "rol": "hojas",
+     "triangulos": 420
+    },
+    {
+     "material": "beauty_jabami_leave_00_mat.001",
+     "rol": "hojas",
+     "triangulos": 800
+    },
+    {
+     "material": "beauty_jabami_leave_03_mat.001",
+     "rol": "hojas",
+     "triangulos": 400
+    },
+    {
+     "material": "beauty_jabami_leave_01_mat.001",
+     "rol": "hojas",
+     "triangulos": 240
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 363704
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 36606
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 36606
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 11316
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 36606
+    }
+   ],
+   "extensiones": [],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/barcelona-trees/jabami_anime_tree_v1.glb",
+     "visor": "assets/barcelona-decor/jabami_anime_tree_v1.glb",
+     "bytes": 723780,
+     "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4",
+     "triangulos": 4483,
+     "texturas": [
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/barcelona-trees/jabami_anime_tree_v1.glb",
+     "visor": "assets/barcelona-decor/jabami_anime_tree_v1.glb",
+     "bytes": 723780,
+     "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4",
+     "triangulos": 4483,
+     "texturas": [
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/barcelona-trees/jabami_anime_tree_v1.glb",
+     "visor": "assets/barcelona-decor/jabami_anime_tree_v1.glb",
+     "bytes": 723780,
+     "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4",
+     "triangulos": 4483,
+     "texturas": [
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/barcelona-trees/jabami_anime_tree_v1.glb",
+     "visor": "assets/barcelona-decor/jabami_anime_tree_v1.glb",
+     "bytes": 723780,
+     "sha256": "73c2ba4dd47e87bb7038fe20cf69cf27d8893e40be8c0709850b7137bcaf4ff4",
+     "triangulos": 4483,
+     "texturas": [
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512",
+      "512×512"
+     ]
+    }
+   },
+   "procedencia": "GLB original de SpanStories (prototipos/arbol-urbano)",
+   "uso": [
+    "Visor · Barcelona (decoración, modelo jabami)",
+    "Generador · conjunto Clásico (GLB originales)",
+    "Exportado · Escuela generada (20 ejemplares)",
+    "Exportado · Barcelona · Passeig de Gràcia (90 ejemplares)"
+   ]
+  },
+  {
+   "id": "sakura",
+   "nombre": "Cerezo",
+   "cientifico": null,
+   "tipo": "arbol",
+   "origen": "original",
+   "alturaM": [
+    5,
+    7.5
+   ],
+   "peso": 0.1,
+   "calle": true,
+   "conjuntos": [
+    "clasico"
+   ],
+   "archivo": {
+    "generador": "/assets/barcelona-trees/sakura_tree_01.glb",
+    "visor": "assets/barcelona-decor/sakura_tree_01.glb",
+    "fuente": "Generador-Mundos/public/assets/barcelona-trees/sakura_tree_01.glb"
+   },
+   "bytes": 783984,
+   "sha256": "d45f8d9441565f111e675ee01de7c4bd95e3c3d7f78f7862f3ccc59ba32bac47",
+   "triangulos": 7007,
+   "alturaNativa": 0.4172,
+   "partes": [
+    {
+     "material": "Bark001_2K_JPG_Mat",
+     "rol": "tronco",
+     "triangulos": 4847
+    },
+    {
+     "material": "Sakura_Mat",
+     "rol": "hojas",
+     "triangulos": 2160
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 256,
+     "alto": 512,
+     "bytes": 280455
+    },
+    {
+     "nombre": null,
+     "formato": "png",
+     "ancho": 512,
+     "alto": 512,
+     "bytes": 105389
+    }
+   ],
+   "extensiones": [],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/barcelona-trees/sakura_tree_01.glb",
+     "visor": "assets/barcelona-decor/sakura_tree_01.glb",
+     "bytes": 783984,
+     "sha256": "d45f8d9441565f111e675ee01de7c4bd95e3c3d7f78f7862f3ccc59ba32bac47",
+     "triangulos": 7007,
+     "texturas": [
+      "256×512",
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/barcelona-trees/sakura_tree_01.glb",
+     "visor": "assets/barcelona-decor/sakura_tree_01.glb",
+     "bytes": 783984,
+     "sha256": "d45f8d9441565f111e675ee01de7c4bd95e3c3d7f78f7862f3ccc59ba32bac47",
+     "triangulos": 7007,
+     "texturas": [
+      "256×512",
+      "512×512"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/barcelona-trees/sakura_tree_01.glb",
+     "visor": "assets/barcelona-decor/sakura_tree_01.glb",
+     "bytes": 783984,
+     "sha256": "d45f8d9441565f111e675ee01de7c4bd95e3c3d7f78f7862f3ccc59ba32bac47",
+     "triangulos": 7007,
+     "texturas": [
+      "256×512",
+      "512×512"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/barcelona-trees/sakura_tree_01.glb",
+     "visor": "assets/barcelona-decor/sakura_tree_01.glb",
+     "bytes": 783984,
+     "sha256": "d45f8d9441565f111e675ee01de7c4bd95e3c3d7f78f7862f3ccc59ba32bac47",
+     "triangulos": 7007,
+     "texturas": [
+      "256×512",
+      "512×512"
+     ]
+    }
+   },
+   "procedencia": "GLB original de SpanStories (prototipos/arbol-urbano)",
+   "uso": [
+    "Visor · Barcelona (decoración, modelo sakura)",
+    "Generador · conjunto Clásico (GLB originales)",
+    "Exportado · Escuela generada (8 ejemplares)",
+    "Exportado · Barcelona · Passeig de Gràcia (34 ejemplares)"
+   ]
+  },
+  {
+   "id": "platano",
+   "nombre": "Plátano de sombra",
+   "cientifico": "Platanus × hispanica",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    11,
+    15
+   ],
+   "peso": 0.35,
+   "calle": true,
+   "conjuntos": [
+    "mediterraneo",
+    "atlantico"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/platano.glb",
+    "visor": "arboles-atlas/eztree/platano.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/platano.glb"
+   },
+   "bytes": 167284,
+   "sha256": "e68e1373de3506de616449a229b1fac9c4d29b916443bf2cb41b9de0bf031b84",
+   "triangulos": 3480,
+   "alturaNativa": 13.5071,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1240
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 2240
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-ancha",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 15831
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/platano-alto.glb",
+     "visor": "arboles-atlas/eztree/platano-alto.glb",
+     "bytes": 444984,
+     "sha256": "1dfafba11a611d0ece7762c92146be8cc406551b5e4d0e5dad2e622ab89e921c",
+     "triangulos": 12568,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/platano.glb",
+     "visor": "arboles-atlas/eztree/platano.glb",
+     "bytes": 167284,
+     "sha256": "e68e1373de3506de616449a229b1fac9c4d29b916443bf2cb41b9de0bf031b84",
+     "triangulos": 3480,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/platano-bajo.glb",
+     "visor": "arboles-atlas/eztree/platano-bajo.glb",
+     "bytes": 86724,
+     "sha256": "266c2a0a468943348be79c17e53bc0f7b14c59da5b3563b3a132bd6942258078",
+     "triangulos": 1452,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/platano-muybajo.glb",
+     "visor": "arboles-atlas/eztree/platano-muybajo.glb",
+     "bytes": 41792,
+     "sha256": "a3d8f4960fc15c605e6fc40b53f36004e41a539f77ae43db1cc51e7ce9a310a4",
+     "triangulos": 652,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Mediterráneo",
+    "Generador · conjunto Atlántico"
+   ]
+  },
+  {
+   "id": "encina",
+   "nombre": "Encina",
+   "cientifico": "Quercus ilex",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    6,
+    9
+   ],
+   "peso": 0.25,
+   "calle": true,
+   "conjuntos": [
+    "mediterraneo"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/encina.glb",
+    "visor": "arboles-atlas/eztree/encina.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/encina.glb"
+   },
+   "bytes": 161604,
+   "sha256": "5a86214da2c0d2967fb705908041551b1260bd5250bdc8c453c8008d190d81c1",
+   "triangulos": 3220,
+   "alturaNativa": 8.4926,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1260
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1960
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-menuda",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 18030
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/encina-alto.glb",
+     "visor": "arboles-atlas/eztree/encina-alto.glb",
+     "bytes": 330940,
+     "sha256": "5b0b21b5159664bd3db456e062eaf11a58ed405a134836312d8eb085db83072e",
+     "triangulos": 7086,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/encina.glb",
+     "visor": "arboles-atlas/eztree/encina.glb",
+     "bytes": 161604,
+     "sha256": "5a86214da2c0d2967fb705908041551b1260bd5250bdc8c453c8008d190d81c1",
+     "triangulos": 3220,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/encina-bajo.glb",
+     "visor": "arboles-atlas/eztree/encina-bajo.glb",
+     "bytes": 89224,
+     "sha256": "e4b95cbc9e19c3fec0bc5d038f283b4dabcb706b0c5ef8104910011ed5d10469",
+     "triangulos": 1502,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/encina-muybajo.glb",
+     "visor": "arboles-atlas/eztree/encina-muybajo.glb",
+     "bytes": 39408,
+     "sha256": "34378d721978cf4c50a736b10a7be9d36044779a78f4c2098bf80b7ce42fd54b",
+     "triangulos": 594,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Mediterráneo"
+   ]
+  },
+  {
+   "id": "pinonero",
+   "nombre": "Pino piñonero",
+   "cientifico": "Pinus pinea",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    11,
+    16
+   ],
+   "peso": 0.2,
+   "calle": false,
+   "conjuntos": [
+    "mediterraneo"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/pinonero.glb",
+    "visor": "arboles-atlas/eztree/pinonero.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/pinonero.glb"
+   },
+   "bytes": 177116,
+   "sha256": "336746f8eff3b145987384b8eb249d6e017870bee561a04a9f65a36bbbf2a4cc",
+   "triangulos": 3518,
+   "alturaNativa": 14.2927,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1278
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 2240
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-aguja",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17830
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/pinonero-alto.glb",
+     "visor": "arboles-atlas/eztree/pinonero-alto.glb",
+     "bytes": 370848,
+     "sha256": "9ae73012076b02491f3e2f802d73277e6b5634c308fa96099fe20315eb0db4a3",
+     "triangulos": 8060,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/pinonero.glb",
+     "visor": "arboles-atlas/eztree/pinonero.glb",
+     "bytes": 177116,
+     "sha256": "336746f8eff3b145987384b8eb249d6e017870bee561a04a9f65a36bbbf2a4cc",
+     "triangulos": 3518,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/pinonero-bajo.glb",
+     "visor": "arboles-atlas/eztree/pinonero-bajo.glb",
+     "bytes": 95844,
+     "sha256": "565545e448b44537cfa2df6c03d0e285a7c9cc89c126a003fe5e1d80c3de7959",
+     "triangulos": 1624,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/pinonero-muybajo.glb",
+     "visor": "arboles-atlas/eztree/pinonero-muybajo.glb",
+     "bytes": 40704,
+     "sha256": "d8ee2f0cf1e5817ca324f87183d17246f0d6d7d8b9b4b1b762d889a0af61dcf3",
+     "triangulos": 602,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Mediterráneo"
+   ]
+  },
+  {
+   "id": "olivo",
+   "nombre": "Olivo",
+   "cientifico": "Olea europaea",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    4.5,
+    7
+   ],
+   "peso": 0.2,
+   "calle": true,
+   "conjuntos": [
+    "mediterraneo",
+    "arido"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/olivo.glb",
+    "visor": "arboles-atlas/eztree/olivo.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/olivo.glb"
+   },
+   "bytes": 153840,
+   "sha256": "9b73b5dd9412c7daa278cc5fef5b85befa42dd76b8d404b77b61fc7f5ec3cbc6",
+   "triangulos": 3390,
+   "alturaNativa": 6.8064,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1710
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1680
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-menuda",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 18030
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/olivo-alto.glb",
+     "visor": "arboles-atlas/eztree/olivo-alto.glb",
+     "bytes": 334476,
+     "sha256": "cf95853c5c843564b09a373cf3472f9ec5562c5e29b78e3a9b2634088a35bdd1",
+     "triangulos": 8450,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/olivo.glb",
+     "visor": "arboles-atlas/eztree/olivo.glb",
+     "bytes": 153840,
+     "sha256": "9b73b5dd9412c7daa278cc5fef5b85befa42dd76b8d404b77b61fc7f5ec3cbc6",
+     "triangulos": 3390,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/olivo-bajo.glb",
+     "visor": "arboles-atlas/eztree/olivo-bajo.glb",
+     "bytes": 88844,
+     "sha256": "2b3e2369ff603e4d6f4e429fdd07c5229429090ad39bd99cb2b6295638869c34",
+     "triangulos": 1716,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/olivo-muybajo.glb",
+     "visor": "arboles-atlas/eztree/olivo-muybajo.glb",
+     "bytes": 36612,
+     "sha256": "65cc492fc8a72e12ce0c2ef846474a5e2ee1eef744143b858cded52fae27fcf4",
+     "triangulos": 582,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Mediterráneo",
+    "Generador · conjunto Árido"
+   ]
+  },
+  {
+   "id": "roble",
+   "nombre": "Roble",
+   "cientifico": "Quercus robur",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    12,
+    17
+   ],
+   "peso": 0.3,
+   "calle": false,
+   "conjuntos": [
+    "atlantico",
+    "montana"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/roble.glb",
+    "visor": "arboles-atlas/eztree/roble.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/roble.glb"
+   },
+   "bytes": 201136,
+   "sha256": "dc859910bbe77b4010368f5b20d51b778b00c00ff5b844468225d31234408e2c",
+   "triangulos": 4880,
+   "alturaNativa": 15.4367,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 2640
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 2240
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-ancha",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 15831
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/roble-alto.glb",
+     "visor": "arboles-atlas/eztree/roble-alto.glb",
+     "bytes": 458348,
+     "sha256": "aea4075ddfc9d426464d1cfa456ef6994390d17011cb6a5c7304fe2dfb50b29f",
+     "triangulos": 13138,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/roble.glb",
+     "visor": "arboles-atlas/eztree/roble.glb",
+     "bytes": 201136,
+     "sha256": "dc859910bbe77b4010368f5b20d51b778b00c00ff5b844468225d31234408e2c",
+     "triangulos": 4880,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/roble-bajo.glb",
+     "visor": "arboles-atlas/eztree/roble-bajo.glb",
+     "bytes": 102432,
+     "sha256": "a92519aae17dc96288e7ccc52042beaf8fe533b5afdc92fbe06392c8f04bf716",
+     "triangulos": 2044,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/roble-muybajo.glb",
+     "visor": "arboles-atlas/eztree/roble-muybajo.glb",
+     "bytes": 42436,
+     "sha256": "684cb98b5b541da272f9918617374b2acbdfff95f97ec7b164059447fe979dfb",
+     "triangulos": 674,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Atlántico",
+    "Generador · conjunto Montaña"
+   ]
+  },
+  {
+   "id": "abedul",
+   "nombre": "Abedul",
+   "cientifico": "Betula pendula",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    11,
+    16
+   ],
+   "peso": 0.25,
+   "calle": true,
+   "conjuntos": [
+    "atlantico",
+    "montana"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/abedul.glb",
+    "visor": "arboles-atlas/eztree/abedul.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/abedul.glb"
+   },
+   "bytes": 115968,
+   "sha256": "c08815278893c409eb1be0dfcca3e0aee68c477bd836181fc768b94931ed5087",
+   "triangulos": 2740,
+   "alturaNativa": 14,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1620
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1120
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-menuda",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 18030
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/abedul-alto.glb",
+     "visor": "arboles-atlas/eztree/abedul-alto.glb",
+     "bytes": 194816,
+     "sha256": "5af1ff7140f4e091790871f2e224427972b1ec10d058bd6b8b07185c71c457d7",
+     "triangulos": 5776,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/abedul.glb",
+     "visor": "arboles-atlas/eztree/abedul.glb",
+     "bytes": 115968,
+     "sha256": "c08815278893c409eb1be0dfcca3e0aee68c477bd836181fc768b94931ed5087",
+     "triangulos": 2740,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/abedul-bajo.glb",
+     "visor": "arboles-atlas/eztree/abedul-bajo.glb",
+     "bytes": 74976,
+     "sha256": "8122c2115e971bc6a54ad1fcfb06dd54a07a375ac520fa7197b1826c375adc12",
+     "triangulos": 1610,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/abedul-muybajo.glb",
+     "visor": "arboles-atlas/eztree/abedul-muybajo.glb",
+     "bytes": 27516,
+     "sha256": "36a35620bade490780af3d1a6e3325311fdf2ad12c1d0a1d957b070ef29e6975",
+     "triangulos": 388,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Atlántico",
+    "Generador · conjunto Montaña"
+   ]
+  },
+  {
+   "id": "pino",
+   "nombre": "Pino",
+   "cientifico": "Pinus sylvestris / P. radiata",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    13,
+    19
+   ],
+   "peso": 0.25,
+   "calle": false,
+   "conjuntos": [
+    "atlantico",
+    "montana",
+    "arido"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/pino.glb",
+    "visor": "arboles-atlas/eztree/pino.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/pino.glb"
+   },
+   "bytes": 145324,
+   "sha256": "8396cbaf1193a194a6f95fd73ccdc9342ccfd507f95ee9a796ba3448af2c9867",
+   "triangulos": 3772,
+   "alturaNativa": 16,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 2380
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1392
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-aguja",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17830
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/pino-alto.glb",
+     "visor": "arboles-atlas/eztree/pino-alto.glb",
+     "bytes": 254084,
+     "sha256": "0666ea69c0c17bb40fb1c096512223a0bf6dc159bcdfea8dd4c6c47445576d06",
+     "triangulos": 8544,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/pino.glb",
+     "visor": "arboles-atlas/eztree/pino.glb",
+     "bytes": 145324,
+     "sha256": "8396cbaf1193a194a6f95fd73ccdc9342ccfd507f95ee9a796ba3448af2c9867",
+     "triangulos": 3772,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/pino-bajo.glb",
+     "visor": "arboles-atlas/eztree/pino-bajo.glb",
+     "bytes": 70492,
+     "sha256": "6685dad652b89cdb2b892ded3dfa309216eb3717236283f0578bd009b4b9ba8a",
+     "triangulos": 1256,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/pino-muybajo.glb",
+     "visor": "arboles-atlas/eztree/pino-muybajo.glb",
+     "bytes": 28252,
+     "sha256": "4c5fdfe82e3234a51fe5ba74b5c3bbe500bef087a2ccaaa6876c2554dd6e6ade",
+     "triangulos": 360,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Atlántico",
+    "Generador · conjunto Montaña",
+    "Generador · conjunto Árido"
+   ]
+  },
+  {
+   "id": "eucalipto",
+   "nombre": "Eucalipto",
+   "cientifico": "Eucalyptus globulus",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    16,
+    23
+   ],
+   "peso": 0.25,
+   "calle": false,
+   "conjuntos": [
+    "montana"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/eucalipto.glb",
+    "visor": "arboles-atlas/eztree/eucalipto.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/eucalipto.glb"
+   },
+   "bytes": 106284,
+   "sha256": "c1bdb920736daee69049439a46d8ccbc8590d3a220183423cdb14c7f181b6f46",
+   "triangulos": 2476,
+   "alturaNativa": 20,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1468
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1008
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-pinnada",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17695
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/eucalipto-alto.glb",
+     "visor": "arboles-atlas/eztree/eucalipto-alto.glb",
+     "bytes": 182180,
+     "sha256": "4040b09065caa99691b062a8ff79dd03ec6124825870485ac99351960b60ec75",
+     "triangulos": 5232,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/eucalipto.glb",
+     "visor": "arboles-atlas/eztree/eucalipto.glb",
+     "bytes": 106284,
+     "sha256": "c1bdb920736daee69049439a46d8ccbc8590d3a220183423cdb14c7f181b6f46",
+     "triangulos": 2476,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/eucalipto-bajo.glb",
+     "visor": "arboles-atlas/eztree/eucalipto-bajo.glb",
+     "bytes": 64124,
+     "sha256": "58833c4d49971feeeeea1dc5f5bc30c08dd12da068b722b8393117855133c549",
+     "triangulos": 1236,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/eucalipto-muybajo.glb",
+     "visor": "arboles-atlas/eztree/eucalipto-muybajo.glb",
+     "bytes": 23408,
+     "sha256": "4540bd730d25b50f475ba4e5231046aa0184811a8eb66ba399a4b1a55a403851",
+     "triangulos": 288,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Montaña"
+   ]
+  },
+  {
+   "id": "saman",
+   "nombre": "Samán / ceiba",
+   "cientifico": "Samanea saman",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    12,
+    17
+   ],
+   "peso": 0.25,
+   "calle": false,
+   "conjuntos": [
+    "tropical"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/saman.glb",
+    "visor": "arboles-atlas/eztree/saman.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/saman.glb"
+   },
+   "bytes": 179264,
+   "sha256": "5ef73ca59ce64b562509dbe95b9f1fde9047f2cf3a46bd6e49de14a2c4ec0785",
+   "triangulos": 4240,
+   "alturaNativa": 16.6519,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 2280
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1960
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-pinnada",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17695
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/saman-alto.glb",
+     "visor": "arboles-atlas/eztree/saman-alto.glb",
+     "bytes": 417712,
+     "sha256": "eee32c717b4c2548548d17fd87f3f24578f6b469687db22b7ff0f20c61cca472",
+     "triangulos": 11654,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/saman.glb",
+     "visor": "arboles-atlas/eztree/saman.glb",
+     "bytes": 179264,
+     "sha256": "5ef73ca59ce64b562509dbe95b9f1fde9047f2cf3a46bd6e49de14a2c4ec0785",
+     "triangulos": 4240,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/saman-bajo.glb",
+     "visor": "arboles-atlas/eztree/saman-bajo.glb",
+     "bytes": 88372,
+     "sha256": "e96c1dd398c84a7aa2f114f838ee5f450f78d20d20b15a66e6efc524fc7f1946",
+     "triangulos": 1598,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/saman-muybajo.glb",
+     "visor": "arboles-atlas/eztree/saman-muybajo.glb",
+     "bytes": 36916,
+     "sha256": "334e9d04bc3682b806467dd1204d9c4e4232b3d98fff796fe473425ef822e16d",
+     "triangulos": 552,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Tropical"
+   ]
+  },
+  {
+   "id": "jacaranda",
+   "nombre": "Jacaranda",
+   "cientifico": "Jacaranda mimosifolia",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    9,
+    13
+   ],
+   "peso": 0.3,
+   "calle": true,
+   "conjuntos": [
+    "tropical"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/jacaranda.glb",
+    "visor": "arboles-atlas/eztree/jacaranda.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/jacaranda.glb"
+   },
+   "bytes": 167924,
+   "sha256": "1b28f657168852356142c39dcfb7ec861204f638f6aa73319b591145a1901f22",
+   "triangulos": 3424,
+   "alturaNativa": 11.4985,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1184
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 2240
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-pinnada",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17695
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/jacaranda-alto.glb",
+     "visor": "arboles-atlas/eztree/jacaranda-alto.glb",
+     "bytes": 454292,
+     "sha256": "aaca0c59f755ed826687c7f44317d328a3487667081ae692f83873029a69bb85",
+     "triangulos": 12568,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/jacaranda.glb",
+     "visor": "arboles-atlas/eztree/jacaranda.glb",
+     "bytes": 167924,
+     "sha256": "1b28f657168852356142c39dcfb7ec861204f638f6aa73319b591145a1901f22",
+     "triangulos": 3424,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/jacaranda-bajo.glb",
+     "visor": "arboles-atlas/eztree/jacaranda-bajo.glb",
+     "bytes": 87352,
+     "sha256": "3d3d6973947784939ae39d4dbd83552e2335739122b8372ab2d6aea040c3131d",
+     "triangulos": 1404,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/jacaranda-muybajo.glb",
+     "visor": "arboles-atlas/eztree/jacaranda-muybajo.glb",
+     "bytes": 41152,
+     "sha256": "a521250917d752f50c3e8298511a80b8a73b7cf828f0c0cf65ee9c68bd297de4",
+     "triangulos": 640,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Tropical"
+   ]
+  },
+  {
+   "id": "flamboyan",
+   "nombre": "Flamboyán",
+   "cientifico": "Delonix regia",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    8,
+    12
+   ],
+   "peso": 0.2,
+   "calle": true,
+   "conjuntos": [
+    "tropical"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/flamboyan.glb",
+    "visor": "arboles-atlas/eztree/flamboyan.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/flamboyan.glb"
+   },
+   "bytes": 177076,
+   "sha256": "5f5f2cb65b94d5508bfb6c5ff6b65a28f2c24dafcda41d6de9c6a9d1579f7be0",
+   "triangulos": 4156,
+   "alturaNativa": 10.2724,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 2196
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1960
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-pinnada",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17695
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/flamboyan-alto.glb",
+     "visor": "arboles-atlas/eztree/flamboyan-alto.glb",
+     "bytes": 417724,
+     "sha256": "6a4e9c6d55000a7fbc0ed9a0674f162813391ca27eff072875184f7b67553580",
+     "triangulos": 11654,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/flamboyan.glb",
+     "visor": "arboles-atlas/eztree/flamboyan.glb",
+     "bytes": 177076,
+     "sha256": "5f5f2cb65b94d5508bfb6c5ff6b65a28f2c24dafcda41d6de9c6a9d1579f7be0",
+     "triangulos": 4156,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/flamboyan-bajo.glb",
+     "visor": "arboles-atlas/eztree/flamboyan-bajo.glb",
+     "bytes": 87772,
+     "sha256": "c5182b84f636a89f04ebd6d80537bb0cf829b37cd90481ccd75066ee684a0b31",
+     "triangulos": 1580,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/flamboyan-muybajo.glb",
+     "visor": "arboles-atlas/eztree/flamboyan-muybajo.glb",
+     "bytes": 36916,
+     "sha256": "8b587fe47d4e8d4dce4f1d97ea1b9c9e6f356dc0b68c3e3b3a4d34eb7c94e080",
+     "triangulos": 552,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Tropical"
+   ]
+  },
+  {
+   "id": "laurel",
+   "nombre": "Laurel de Indias",
+   "cientifico": "Ficus microcarpa",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    10,
+    14
+   ],
+   "peso": 0.25,
+   "calle": true,
+   "conjuntos": [
+    "tropical"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/laurel.glb",
+    "visor": "arboles-atlas/eztree/laurel.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/laurel.glb"
+   },
+   "bytes": 198112,
+   "sha256": "59a7f2aaa9ffccaa42300625bff3fc0f24df4139f4de1250148014dc8f21e60d",
+   "triangulos": 3958,
+   "alturaNativa": 12.8153,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1398
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 2560
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-menuda",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 18030
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/laurel-alto.glb",
+     "visor": "arboles-atlas/eztree/laurel-alto.glb",
+     "bytes": 405704,
+     "sha256": "e551a245ff194fa84c47049ca07a38efd7ec9062eeeab701e0c3f7e6db986296",
+     "triangulos": 8700,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/laurel.glb",
+     "visor": "arboles-atlas/eztree/laurel.glb",
+     "bytes": 198112,
+     "sha256": "59a7f2aaa9ffccaa42300625bff3fc0f24df4139f4de1250148014dc8f21e60d",
+     "triangulos": 3958,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/laurel-bajo.glb",
+     "visor": "arboles-atlas/eztree/laurel-bajo.glb",
+     "bytes": 108992,
+     "sha256": "6a26418026db0657c866071fa177c5cc82bc4fcac4be0261a08ca3c43e413194",
+     "triangulos": 1916,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/laurel-muybajo.glb",
+     "visor": "arboles-atlas/eztree/laurel-muybajo.glb",
+     "bytes": 46820,
+     "sha256": "de32997f362dae8189a094a57aa551aa8ab7f71cec9363f9688b7bc6cafee355",
+     "triangulos": 724,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Tropical"
+   ]
+  },
+  {
+   "id": "mezquite",
+   "nombre": "Mezquite / algarrobo",
+   "cientifico": "Prosopis spp.",
+   "tipo": "arbol",
+   "origen": "ez-tree",
+   "alturaM": [
+    5,
+    7.5
+   ],
+   "peso": 0.35,
+   "calle": true,
+   "conjuntos": [
+    "arido"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/mezquite.glb",
+    "visor": "arboles-atlas/eztree/mezquite.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/mezquite.glb"
+   },
+   "bytes": 132156,
+   "sha256": "a545ad2a69bec9dc0b2dc14c92487b87a20af6e27bb0703513affda521445f23",
+   "triangulos": 3096,
+   "alturaNativa": 6.3088,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1896
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1200
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-pinnada",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 17695
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/mezquite-alto.glb",
+     "visor": "arboles-atlas/eztree/mezquite-alto.glb",
+     "bytes": 284412,
+     "sha256": "7752cc9afd8738025be20ec7088ef50efebce53321c59884db34dd755611c0bd",
+     "triangulos": 7490,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/mezquite.glb",
+     "visor": "arboles-atlas/eztree/mezquite.glb",
+     "bytes": 132156,
+     "sha256": "a545ad2a69bec9dc0b2dc14c92487b87a20af6e27bb0703513affda521445f23",
+     "triangulos": 3096,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/mezquite-bajo.glb",
+     "visor": "arboles-atlas/eztree/mezquite-bajo.glb",
+     "bytes": 77328,
+     "sha256": "2646a3d4b57b4175283121587d4ba3264650d07854b232dc64c386eee41fda27",
+     "triangulos": 1530,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/mezquite-muybajo.glb",
+     "visor": "arboles-atlas/eztree/mezquite-muybajo.glb",
+     "bytes": 34064,
+     "sha256": "129292a1add05abd2c095aac786b4569090e1cf4da2362ffc4823681bd06f2ad",
+     "triangulos": 624,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Árido"
+   ]
+  },
+  {
+   "id": "matorral",
+   "nombre": "Matorral (retama, lentisco)",
+   "cientifico": "arbustos de clima seco",
+   "tipo": "arbusto",
+   "origen": "ez-tree",
+   "alturaM": [
+    1.8,
+    3
+   ],
+   "peso": 0.2,
+   "calle": false,
+   "conjuntos": [
+    "arido"
+   ],
+   "archivo": {
+    "generador": "/assets/arboles/eztree/matorral.glb",
+    "visor": "arboles-atlas/eztree/matorral.glb",
+    "fuente": "Generador-Mundos/public/assets/arboles/eztree/matorral.glb"
+   },
+   "bytes": 137776,
+   "sha256": "41dd24b0bc035792d46f94edc79f33f77fa9279218ac087fc93fac80cf26a9c8",
+   "triangulos": 3072,
+   "alturaNativa": 2.7816,
+   "partes": [
+    {
+     "material": "corteza",
+     "rol": "tronco",
+     "triangulos": 1536
+    },
+    {
+     "material": "hojas",
+     "rol": "hojas",
+     "triangulos": 1536
+    }
+   ],
+   "texturas": [
+    {
+     "nombre": "racimo-menuda",
+     "formato": "png",
+     "ancho": 256,
+     "alto": 256,
+     "bytes": 18030
+    }
+   ],
+   "extensiones": [
+    "KHR_mesh_quantization"
+   ],
+   "niveles": {
+    "alto": {
+     "generador": "/assets/arboles/eztree/matorral-alto.glb",
+     "visor": "arboles-atlas/eztree/matorral-alto.glb",
+     "bytes": 390480,
+     "sha256": "607ebc60881add1cda6c0d03cb2d01a6a85a3fc7f7b8bbbcf3671d33bfc7037e",
+     "triangulos": 11952,
+     "texturas": [
+      "512×512"
+     ]
+    },
+    "medio": {
+     "generador": "/assets/arboles/eztree/matorral.glb",
+     "visor": "arboles-atlas/eztree/matorral.glb",
+     "bytes": 137776,
+     "sha256": "41dd24b0bc035792d46f94edc79f33f77fa9279218ac087fc93fac80cf26a9c8",
+     "triangulos": 3072,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "bajo": {
+     "generador": "/assets/arboles/eztree/matorral-bajo.glb",
+     "visor": "arboles-atlas/eztree/matorral-bajo.glb",
+     "bytes": 73004,
+     "sha256": "d9a00db629a780ed88dd82a3304732cff39f704deffe070c1a14b10b9bb8869e",
+     "triangulos": 1236,
+     "texturas": [
+      "256×256"
+     ]
+    },
+    "muyBajo": {
+     "generador": "/assets/arboles/eztree/matorral-muybajo.glb",
+     "visor": "arboles-atlas/eztree/matorral-muybajo.glb",
+     "bytes": 32740,
+     "sha256": "5846d9e13a9d32b6c69d04152f71e9324afe1e1ff33909bdfd0f18c4978812e5",
+     "triangulos": 462,
+     "texturas": [
+      "128×128"
+     ]
+    }
+   },
+   "procedencia": "ez-tree 1.1.0 (MIT, Daniel Greenheck), horneado con Generador-Mundos/scripts/hornear-arboles.mjs",
+   "uso": [
+    "Generador · conjunto Árido"
+   ]
+  }
+ ],
+ "otros": [
+  {
+   "id": "ez-spreading",
+   "nombre": "Copa extendida (ez-tree procedural)",
+   "tipo": "arbol",
+   "origen": "procedural",
+   "archivo": "SpanStories-Ciudades/objetos/ProceduralTree.js",
+   "triangulos": 2828,
+   "uso": [
+    "Sin uso: perfil heredado de TREE_VARIETY (routes.js); ningún módulo importa ProceduralTree.js"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "ez-oval",
+   "nombre": "Copa ovalada (ez-tree procedural)",
+   "tipo": "arbol",
+   "origen": "procedural",
+   "archivo": "SpanStories-Ciudades/objetos/ProceduralTree.js",
+   "triangulos": 2828,
+   "uso": [
+    "Sin uso: perfil heredado de TREE_VARIETY"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "ez-asymmetric",
+   "nombre": "Ramas asimétricas (ez-tree procedural)",
+   "tipo": "arbol",
+   "origen": "procedural",
+   "archivo": "SpanStories-Ciudades/objetos/ProceduralTree.js",
+   "triangulos": 2874,
+   "uso": [
+    "Sin uso: perfil heredado de TREE_VARIETY"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "ez-vase",
+   "nombre": "Copa abierta (ez-tree procedural)",
+   "tipo": "arbol",
+   "origen": "procedural",
+   "archivo": "SpanStories-Ciudades/objetos/ProceduralTree.js",
+   "triangulos": 2818,
+   "uso": [
+    "Sin uso: perfil heredado de TREE_VARIETY"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "atlas-lejano",
+   "nombre": "Imposta lejana de los 4 originales",
+   "tipo": "imposta 2D",
+   "origen": "generado en tiempo de ejecución",
+   "archivo": "SpanStories-Ciudades/objetos/TreeAtlas.js",
+   "triangulos": 2,
+   "uso": [
+    "Visor · Barcelona: LOD lejano de la decoración (atlas de siluetas)"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "cesped",
+   "nombre": "Césped procedural (James)",
+   "tipo": "césped",
+   "origen": "procedural",
+   "archivo": "Generador-Mundos/src/estudio/render/grass.js",
+   "triangulos": null,
+   "uso": [
+    "Generador · suelo ajardinado (no es árbol ni arbusto)"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "palmera-3d",
+   "nombre": "Palmera 3D (aeropuerto)",
+   "tipo": "palmera",
+   "origen": "prototipo",
+   "archivo": "worlds/prototypes/airport/assets/palm-tree-3d.glb",
+   "triangulos": 19992,
+   "bytes": 1875976,
+   "texturas": "3 JPEG (color, normal, rugosidad)",
+   "uso": [
+    "Prototipo del aeropuerto; no lo sirve el visor de ciudades"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "palmera-frontal",
+   "nombre": "Palmera del frente (aeropuerto)",
+   "tipo": "palmera",
+   "origen": "prototipo",
+   "archivo": "worlds/prototypes/airport/assets/palma-frontal.glb",
+   "triangulos": 320,
+   "bytes": 1614860,
+   "texturas": "1 PNG",
+   "uso": [
+    "Prototipo del aeropuerto (EntrancePalms.js)"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "planta-tropical",
+   "nombre": "Planta tropical en maceta (aeropuerto)",
+   "tipo": "planta en maceta",
+   "origen": "prototipo",
+   "archivo": "worlds/prototypes/airport/assets/planta-tropical.glb",
+   "triangulos": 20318,
+   "bytes": 2086588,
+   "texturas": "2 PNG",
+   "uso": [
+    "Prototipo del aeropuerto (TropicalPlants.js)"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "bromelia",
+   "nombre": "Bromelia (aeropuerto)",
+   "tipo": "planta",
+   "origen": "prototipo",
+   "archivo": "worlds/prototypes/airport/assets/bromelia.glb",
+   "triangulos": 15840,
+   "bytes": 2416116,
+   "texturas": "3 PNG",
+   "uso": [
+    "Prototipo del aeropuerto"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "siluetas-aeropuerto",
+   "nombre": "Árboles y arbustos 2D (tree-1…4, bush-1…5)",
+   "tipo": "imposta 2D",
+   "origen": "prototipo",
+   "archivo": "worlds/prototypes/airport/assets/trees/",
+   "triangulos": null,
+   "texturas": "9 PNG + capas",
+   "uso": [
+    "Prototipo del aeropuerto (fondos planos)"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "palma-hotel",
+   "nombre": "Palma en maceta (hotel)",
+   "tipo": "palmera",
+   "origen": "procedural",
+   "archivo": "worlds/prototypes/hotel/objetos/Palma.js",
+   "triangulos": null,
+   "uso": [
+    "Prototipo del hotel"
+   ],
+   "intercambiable": false
+  },
+  {
+   "id": "planta-hotel",
+   "nombre": "Planta en maceta (hotel)",
+   "tipo": "planta en maceta",
+   "origen": "procedural",
+   "archivo": "worlds/prototypes/hotel/objetos/Planta.js",
+   "triangulos": null,
+   "uso": [
+    "Prototipo del hotel"
+   ],
+   "intercambiable": false
+  }
+ ]
+}

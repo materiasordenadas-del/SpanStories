@@ -72,6 +72,8 @@ export class AtlasAssets extends CityAssets{
       const originals=new Set();record.root.traverse(o=>{if(o.isMesh){for(const m of [o.material].flat())originals.add(m);o.userData.atlasAlphaCutout=[o.material].flat().some(m=>m.alphaTest>0);if(o.name==='estructura_terreno')o.userData.ssType='terrain';}});
       preparingRoot=record.root;this.preparingRoots.add(preparingRoot);
       const commerce=captureAtlasCommerce(record.root);await this.style.adaptAsync(record.root,gltf,{signal:record.controller.signal});adaptAtlasCommerce(this.style,commerce,this.shopNight);atlasInstanceColors(this.style,record.root);atlasInstanceOutlines(record.root);for(const m of originals)m.dispose();
+      // Tipos de árbol elegidos en el visor (VegetacionAtlas): mismas matrices e IDs; un fallo no impide cargar el sector.
+      if(this.vegetacion)try{await this.vegetacion.sincronizar(record);}catch(e){this.status('Vegetación: '+e.message);}
       record.controller.signal.throwIfAborted();this.scene.add(record.root);
       for(const [id,bounds]of record.entityBounds){
         if(!this.parts.has(id))this.parts.set(id,new Map());this.parts.get(id).set(record.sector.id,bounds);
@@ -81,6 +83,11 @@ export class AtlasAssets extends CityAssets{
       this.loadedBytes+=transferBytes;record.transferBytes=transferBytes;record.state='ready';this.errors=this.errors.filter(e=>e.sector!==record.sector.id);this.onLoad(record);record.resolve(record);
     }catch(e){if(record.root){this.preparingRoots.delete(record.root);this.detach(record);this.release(record.root);record.root=null;}record.state=e.name==='AbortError'?'cancelled':'error';record.retryAt=performance.now()+1000;record.error=e.message;if(e.name!=='AbortError'){this.errors.push({sector:record.sector.id,error:e.message});this.status('No se pudo cargar el lugar: '+e.message);}record.reject(e);}
     finally{this.preparingRoots.delete(preparingRoot);}
+  }
+  // Límites nuevos de identidades del sector (cambio de tipo de árbol). Antes de registrarse basta el mapa del sector.
+  actualizarLimites(record,boxes){
+    for(const [id,box]of boxes){record.entityBounds?.set(id,box);const parts=this.parts.get(id);if(!parts?.has(record.sector.id))continue;parts.set(record.sector.id,box);
+      const proxy=this.objetos.obtener(id)?.userData.atlasBounds;if(proxy){proxy.makeEmpty();for(const b of parts.values())proxy.union(b);}}
   }
   detach(record){
     for(const id of record.entityBounds?.keys()??[]){const parts=this.parts.get(id);parts?.delete(record.sector.id);if(!parts?.size){this.objetos.retirar(id);this.parts.delete(id);}else{const box=this.objetos.obtener(id).userData.atlasBounds;box.makeEmpty();for(const b of parts.values())box.union(b);}}

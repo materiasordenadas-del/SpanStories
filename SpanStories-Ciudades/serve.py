@@ -20,6 +20,7 @@ from urllib.parse import urlsplit, parse_qs
 GENERATOR = next((p / 'Generador-Mundos' for p in Path(__file__).resolve().parents if (p / 'Generador-Mundos/server/style-pool.js').is_file()), None)
 SHARED_FILES = {'pipeline.js', 'ghibli.js', 'dispatch.js', 'commerce-blender-pass.js', 'style-pool.js',
                 'ghibli-assets/nube-ghibli-alta.png', 'ghibli-assets/nube-ghibli-compacta.png', 'ghibli-assets/nube-ghibli-alargada.png'}
+TREE_FILES = re.compile(r'catalogo\.json|eztree/[a-z0-9-]+\.glb')
 
 PROFILES = {
     'online': {'rttMs': 80, 'jitterMs': 20, 'downloadMbps': 10, 'uploadMbps': 2},
@@ -132,6 +133,12 @@ class Handler(SimpleHTTPRequestHandler):
             if relative in SHARED_FILES:
                 return str(GENERATOR / 'src/estudio/render' / relative)
             return str(Path(self.directory) / '__shared_style_not_found__')
+        # Catálogo de vegetación y GLB ez-tree del generador, servidos sin copiarlos (lista cerrada de rutas).
+        if GENERATOR and route.startswith('/arboles-atlas/'):
+            relative = route.removeprefix('/arboles-atlas/')
+            if TREE_FILES.fullmatch(relative):
+                return str(GENERATOR / 'public/assets/arboles' / relative)
+            return str(Path(self.directory) / '__arboles_not_found__')
         return super().translate_path(path)
 
     def do_GET(self):

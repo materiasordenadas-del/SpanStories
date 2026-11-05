@@ -75,3 +75,6 @@ body[data-modo=aprendizaje] #viewport canvas{touch-action:manipulation;cursor:po
 body[data-modo=aprendizaje] .estaciones-control{top:8px;right:12px}
 body[data-studio=true] .estaciones-control{display:none}
 @media(max-width:650px){.estaciones-control{top:52px;right:10px}}
+/* Selector de tipos de árbol de un lugar del Atlas (engine/SelectorVegetacion.js). */
+.vegetacion-selector{margin-top:12px}.vegetacion-selector .vegetacion-ayuda{font-size:12px;margin:2px 0 6px}.vegetacion-fila{font-size:12px}.vegetacion-fila span{display:block;color:#dbe5ec;margin-bottom:3px}
+.vegetacion-catalogo table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}.vegetacion-catalogo th,.vegetacion-catalogo td{padding:2px 4px;border-bottom:1px solid #2c4255;text-align:left}.vegetacion-catalogo td:nth-child(n+3),.vegetacion-catalogo th:nth-child(n+3){text-align:right}.vegetacion-estado{font-size:12px;min-height:1.5em}

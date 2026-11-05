@@ -32,8 +32,10 @@ if(studioMode)document.body.dataset.studio='true';
 const studioPinned=new Set();
 let studioBridge=null;
 let disposeAtlasPanel=null;
+// Tipos de árbol de los lugares del Atlas (catálogo de vegetación); solo en Desarrollo.
+let vegetacion=null,disposeVegetacion=null;
 // Los módulos exclusivos del editor no se cargan en el Visor Web.
-const { montarEditorCiudad, capturarObjeto } = aprendizaje ? {} : await import('./engine/CityEditor.js');
+const { montarEditorCiudad, capturarObjeto, CiudadProjectStore } = aprendizaje ? {} : await import('./engine/CityEditor.js');
 const { crearNavegacionCiudad, collidesAt } = aprendizaje&&!exploracion ? {} : await import('./engine/CityNavigation.js');
 const { montarPanelEstilo } = aprendizaje ? {} : await import('./panel/PanelEstilo.js');
 if(aprendizaje) document.body.dataset.modo='aprendizaje';
@@ -208,7 +210,7 @@ async function initialize() {
   }
   style=new CityStyle({estilos});const Assets=manifest.atlas?AtlasAssets:CityAssets;assets=new Assets({scene,objetos,style,renderer,camera,status,manifest,concurrency:CITY.concurrency,unloadDelay:CITY.unloadDelay,
     multiDraw:!!renderer.getContext().getExtension('WEBGL_multi_draw'),
-    retainedRoots:()=>[...[...editor?.state.imports.values()||[]].map(r=>r.root),...decorations?.retainedRoots()||[],...studioBridge?.retainedRoots()||[]],
+    retainedRoots:()=>[...[...editor?.state.imports.values()||[]].map(r=>r.root),...decorations?.retainedRoots()||[],...studioBridge?.retainedRoots()||[],...vegetacion?.retainedRoots()||[]],
     onUnload:r=>{
       if(editor)r.root.traverse(o=>{const value=editor.state.overrides.get(o.userData.ssId);if(value)editor.state.pending.set(value.id,structuredClone(value));});
       decorations?.detach(r);
@@ -216,6 +218,13 @@ async function initialize() {
     },
     onLoad:r=>{decorations?.attach(r);refreshAssetEditor();scheduleAssetRefresh();status(zone.label+' · '+[...assets.records.values()].filter(r=>r.state==='ready').length+'/'+manifest.sectors.length+' sectores');}});
   assets.setOptimized(aprendizaje||!new URLSearchParams(location.search).has('unbatched'));if(!aprendizaje)$('#batching').checked=assets.optimized;
+  if(manifest.atlas&&!aprendizaje){
+    const {VegetacionAtlas}=await import('./engine/VegetacionAtlas.js');
+    // Se guarda en el mismo IndexedDB que la edición del mundo (spanstories.ciudades.editor), con clave vegetacion:<lugar>.
+    vegetacion=new VegetacionAtlas({zoneId:zone.id,revision:manifest.revision,detalleExportado:manifest.arboles?.detalle??null,manifestUrl:zone.manifestUrl,baseUrl:location.href,entities:manifest.entities,loader:assets.loader,style,store:new CiudadProjectStore(),
+      records:()=>[...assets.records.values()].filter(r=>r.state==='ready'&&r.root),actualizarLimites:(r,boxes)=>assets.actualizarLimites(r,boxes),status,alCambiar:()=>{colliderBounds.clear();updateSelection();}});
+    assets.vegetacion=vegetacion;void vegetacion.iniciar();
+  }
   if(zone.id==='barcelona-passeig-gracia'){
     status('Preparando árboles y señalización con LOD…');
     decorations=new CityDecorations({scene,objetos,loader:assets.loader,style,renderer,camera});
@@ -230,6 +239,7 @@ async function initialize() {
   }
   if(!aprendizaje&&manifest.atlas){
     disposeAtlasPanel=atlasSourcePanel({host:$('#city-editor'),manifest,objetos,navigation});modeChanged('editor');resize();
+    if(vegetacion){const {montarSelectorVegetacion}=await import('./engine/SelectorVegetacion.js');disposeVegetacion=montarSelectorVegetacion({host:$('#city-editor'),vegetacion,status});}
   }else if(!aprendizaje){
   editor=montarEditorCiudad({scene,objetos,host:$('#city-editor'),cityId:zone.id,loader:assets.loader,
     adaptar:async(root,gltf)=>{await prepararSuperficies(gltf);return style.adaptAsync(root,gltf);},
@@ -281,7 +291,7 @@ async function initialize() {
   if(!aprendizaje&&!studioMode)multiplayer=new CityMultiplayer({scene,navigation,zone:zone.id,room:new URLSearchParams(location.search).get('room')||'principal',
     template:async()=>{const gltf=await avatar();return {root:avatarTemplate.root,animations:gltf.animations};},
     prepare:root=>prepareCityGpu(root,{renderer,camera,scene})});
-  if(!aprendizaje||new URLSearchParams(location.search).has('dev'))window.__escena={scene,renderer,camera,target,luz,estilos,objetos,assets,decorations,editor,navigation,multiplayer,manifest,world,metrics,snapshot,ready:loadPromise,lexico,narrativa,estacionesClima,capturarObjeto,ground,loadAll,loadNearby,loadAvatar:avatar};
+  if(!aprendizaje||new URLSearchParams(location.search).has('dev'))window.__escena={scene,renderer,camera,target,luz,estilos,objetos,assets,decorations,editor,navigation,multiplayer,manifest,world,metrics,snapshot,ready:loadPromise,lexico,narrativa,estacionesClima,capturarObjeto,ground,loadAll,loadNearby,loadAvatar:avatar,vegetacion};
 }
 let narrativa=null;
 let previous=performance.now(),lastHud=0,lastStreaming=0;
@@ -302,4 +312,5 @@ renderer.setAnimationLoop(now=>{
 function dispose(){destroyed=true;renderer.setAnimationLoop(null);document.removeEventListener('visibilitychange',visibilityChanged);observer.disconnect();stopResolutionWatch();studioBridge?.destroy();multiplayer?.dispose();avatarTemplate?.dispose();lexico?.destruir();navigation?.dispose();editor?.dispose();decorations?.dispose();assets?.dispose();estilos.dispose();estacionesClima.destruir();lightListener();selections.geometry.dispose();selections.material.dispose();renderer.dispose();}
 window.addEventListener('pagehide',dispose,{once:true});
 window.addEventListener('pagehide',()=>disposeAtlasPanel?.(),{once:true});
+window.addEventListener('pagehide',()=>{disposeVegetacion?.();vegetacion?.dispose();},{once:true});
 initialize().catch(e=>{carga.fallar(e.message);status('No se pudo iniciar: '+e.message);console.error(e);document.body.dataset.error=e.message;});
