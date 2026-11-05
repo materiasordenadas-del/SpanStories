@@ -1,7 +1,7 @@
 import {estimateHeights} from './place-model.js';
 import {buildInfill} from './infill.js';
 import {CLIMATES,CLIMATE_VARIANTS} from './climate.js';
-import {TREE_SETS} from './tree-catalog.js';
+import {TREE_SETS,TREE_DETAILS,DEFAULT_TREE_DETAIL} from './tree-catalog.js';
 
 // Clima: automático, uno de los cinco o una variante regional concreta («clima:variante»).
 export const CLIMATE_CHOICES={...CLIMATES,...Object.fromEntries(Object.entries(CLIMATE_VARIANTS).map(([k,v])=>[k,CLIMATES[k.split(':')[0]]+' · '+v]))};
@@ -34,12 +34,14 @@ export function validateSettings(settings={}){
   // Árboles: «auto» usa el conjunto del clima; si no, un conjunto del catálogo (máximo 4 tipos).
   const trees=settings.trees??'auto';
   if(trees!=='auto'&&!Object.hasOwn(TREE_SETS,trees))throw Error('Conjunto de árboles no válido');
+  const treeDetail=settings.treeDetail??DEFAULT_TREE_DETAIL;
+  if(!Object.hasOwn(TREE_DETAILS,treeDetail))throw Error('Detalle de árboles no válido');
   // El clima solo se guarda si se corrige a mano: los proyectos anteriores conservan sus ajustes tal cual.
-  return {region,floorHeight,defaultFloors,offline:settings.offline===true,infill:settings.infill===true,terrainSmooth,...(climate!=='auto'?{climate}:{}),...(trees!=='auto'?{trees}:{})};
+  return {region,floorHeight,defaultFloors,offline:settings.offline===true,infill:settings.infill===true,terrainSmooth,...(climate!=='auto'?{climate}:{}),...(trees!=='auto'?{trees}:{}),...(treeDetail!==DEFAULT_TREE_DETAIL?{treeDetail}:{})};
 }
 export function withSettings(model,settings,seed){
   const s=validateSettings(settings);
-  let result={...model,bounds:{...model.bounds,regionOverride:s.region==='auto'?null:s.region},climateOverride:s.climate??null,treeSetOverride:s.trees??null};
+  let result={...model,bounds:{...model.bounds,regionOverride:s.region==='auto'?null:s.region},climateOverride:s.climate??null,treeSetOverride:s.trees??null,treeDetail:s.treeDetail??DEFAULT_TREE_DETAIL};
   const regionChanged=(model.bounds?.regionOverride??null)!==result.bounds.regionOverride;
   if(s.floorHeight!==3.2||s.defaultFloors!==0||regionChanged){result={...result,buildings:model.buildings.map(b=>({...b}))};estimateHeights(result,seed,{floorHeight:s.floorHeight,defaultFloors:s.defaultFloors});}
   // Relieve de proveedor filtrado (σ en metros); un DEM local del usuario se respeta tal cual.

@@ -6,8 +6,6 @@ import {Tree,TreePreset} from '../../src/vendor/ez-tree/index.js';
 
 // Textura de racimo por especie (una celda de 256 px; ver scripts/arboles/racimos.js).
 export const LEAF_TEXTURES=['ancha','menuda','aguja','pinnada'];
-// Detalle reducido para la web: anillos y segmentos mínimos que conservan la silueta.
-const WEB={sections:{0:5,1:3,2:2,3:1},segments:{0:6,1:4,2:3,3:3}};
 
 export const EZTREE_SPECIES=[
   {id:'platano',base:'Ash Medium',seed:4101,height:13,bark:[0x8c8471,0xc7bd9c],leaf:[0x5f8f2e,0x8fb84a],tex:'ancha',mod:{leaves:{count:7,size:5.6,sizeVariance:.35,angle:40},branch:{children:{0:6,1:4,2:3},angle:{1:44}}}},
@@ -29,41 +27,64 @@ export const EZTREE_SPECIES=[
 const deep=(t,s)=>{for(const k in s){if(s[k]&&typeof s[k]==='object'&&!Array.isArray(s[k])){t[k]=t[k]||{};deep(t[k],s[k]);}else t[k]=s[k];}return t;};
 function hash(n){let a=n>>>0;return ()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
 
-// Malla de una especie: {branches, leaves} con posición, normal y color (y uv en las hojas), base en el suelo.
-export function buildSpecies(sp){
+// Cuatro niveles de detalle (LOD) sobre un único esqueleto por especie: la silueta, el giro de cada rama y la
+// posición de cada racimo son los mismos en todos; solo cambian anillos, segmentos y número de racimos.
+// alto = detalle completo de ez-tree; medio ≈ la versión aprobada en la vista previa; bajo y muy bajo para lejos.
+export const LOD_LEVELS=['alto','medio','bajo','muyBajo'];
+export const LOD_NAMES={alto:'Alto',medio:'Medio',bajo:'Bajo',muyBajo:'Muy bajo'};
+export const LOD_TEXTURE_SIZE={alto:512,medio:256,bajo:256,muyBajo:128};
+function lodDetail(sp,level){
+  const base=Math.max(1,Math.round(1/(sp.leafK??.45)));
+  const d={alto:{sectionStride:1,segmentFactor:1,leafStride:1,twig:0},
+    medio:{sectionStride:2,segmentFactor:.6,leafStride:base,twig:sp.twig??.09},
+    bajo:{sectionStride:3,segmentFactor:.45,leafStride:base*2,twig:Math.max(sp.twig??.09,.16)},
+    muyBajo:{sectionStride:6,segmentFactor:.3,leafStride:base*4,twig:Math.max(sp.twig??.09,.3)}}[level];
+  // Menos racimos pero más grandes: el área de copa se conserva (√ del salto).
+  return {...d,leafScale:Math.sqrt(d.leafStride)*(level==='muyBajo'?1.05:1),billboard:'double'};
+}
+
+// Mallas de una especie por nivel: {alto:{branches,leaves,tris},…}, base en el suelo, en metros.
+export function buildSpeciesLODs(sp,levels=LOD_LEVELS){
   const tree=new Tree();tree.options.copy(JSON.parse(JSON.stringify(TreePreset[sp.base])));
-  deep(tree.options,{branch:WEB});deep(tree.options,sp.mod||{});tree.options.seed=sp.seed;
-  // Menos racimos y más grandes: la copa se lee como masas (y cuesta menos).
-  const K=sp.leafK??.45,L=tree.options.leaves;L.count=Math.max(2,Math.round(L.count*K));L.size*=1.08/Math.sqrt(K);L.billboard='double';
+  deep(tree.options,sp.mod||{});tree.options.seed=sp.seed;
+  const L=tree.options.leaves;L.size*=1.08;L.billboard='double';
   tree.createGeometry({});
-  // Ramitas finales ocultas dentro de la copa: no se mallan (las hojas siguen en su sitio).
-  const cut=tree.skeleton.branches[0].baseRadius*(sp.twig??.09);
-  tree.skeleton.branches=tree.skeleton.branches.filter((b,i)=>i===0||b.baseRadius>=cut);
-  const {branches,leaves}=tree.createGeometry({});
-  branches.computeBoundingBox();leaves.computeBoundingBox();
-  const box=branches.boundingBox.clone().union(leaves.boundingBox),k=sp.height/(box.max.y-box.min.y);
-  const cx=(box.min.x+box.max.x)/2,cz=(box.min.z+box.max.z)/2;
-  for(const g of [branches,leaves]){g.translate(-cx,-box.min.y,-cz);g.scale(k,k,k);g.computeBoundingBox();}
-  // Copa aplanada (parasol): por encima de h0 la altura se comprime; el ancho se conserva.
-  if(sp.flat){const h0=sp.height*sp.flat[0],f=sp.flat[1];for(const g of [branches,leaves]){const P=g.attributes.position;
-      for(let i=0;i<P.count;i++){const y=P.getY(i);if(y>h0)P.setY(i,h0+(y-h0)*f);}g.computeBoundingBox();}
-    const kk=sp.height/Math.max(branches.boundingBox.max.y,leaves.boundingBox.max.y);for(const g of [branches,leaves]){g.scale(kk,kk,kk);g.computeBoundingBox();}}
-  // Tronco: degradado de la base (oscura) a las ramas (clara), sin textura.
-  const C=x=>new THREE.Color(x),tmp=new THREE.Color(),b0=C(sp.bark[0]),b1=C(sp.bark[1]),bp=branches.attributes.position,bc=new Float32Array(bp.count*3);
-  for(let i=0;i<bp.count;i++){tmp.copy(b0).lerp(b1,Math.min(1,bp.getY(i)/(sp.height*.45))*.85);bc.set([tmp.r,tmp.g,tmp.b],i*3);}
-  branches.setAttribute('color',new THREE.BufferAttribute(bc,3));branches.deleteAttribute('uv');
-  // Copa: normales esféricas (elipsoide de las hojas), oclusión hacia el interior y tono por racimo.
-  const c=leaves.boundingBox.getCenter(new THREE.Vector3()),R=leaves.boundingBox.getSize(new THREE.Vector3()).multiplyScalar(.5);
-  const lp=leaves.attributes.position,ln=leaves.attributes.normal,lc=new Float32Array(lp.count*3);
-  const l0=C(sp.leaf[0]),l1=C(sp.leaf[1]),acc=sp.accent?C(sp.accent[0]):null,rnd=hash(sp.seed),n=new THREE.Vector3(),d=new THREE.Vector3();
-  let card=null;
-  for(let i=0;i<lp.count;i++){
-    if(i%4===0){const isAcc=acc&&rnd()<sp.accent[1];card={base:isAcc?acc.clone():l0.clone().lerp(l1,rnd()*.5),j:.92+.16*rnd()};}
-    d.set((lp.getX(i)-c.x)/R.x,(lp.getY(i)-c.y)/R.y,(lp.getZ(i)-c.z)/R.z);const r=d.length();
-    n.set(ln.getX(i),ln.getY(i),ln.getZ(i)).multiplyScalar(.12).add(d.clone().normalize().multiplyScalar(.88)).normalize();ln.setXYZ(i,n.x,n.y,n.z);
-    const ao=.62+.38*Math.min(1,Math.max(0,(r-.25)/.75)),top=.5+.5*Math.min(1,Math.max(0,d.y*.5+.5));
-    tmp.copy(card.base).lerp(l1,top*.6).multiplyScalar(ao*card.j);lc.set([tmp.r,tmp.g,tmp.b],i*3);
+  const all=tree.skeleton.branches,r0=all[0].baseRadius;
+  const mesh=level=>{const d=lodDetail(sp,level);tree.skeleton.branches=all.filter((b,i)=>i===0||b.baseRadius>=r0*d.twig);const g=tree.createGeometry(d);tree.skeleton.branches=all;return {...g,detail:d};};
+  // Transformación común (a metros, centrada, copa aplanada) calculada sobre el nivel alto.
+  const ref=mesh('alto');ref.branches.computeBoundingBox();ref.leaves.computeBoundingBox();
+  const box=ref.branches.boundingBox.clone().union(ref.leaves.boundingBox),k=sp.height/(box.max.y-box.min.y);
+  const cx=(box.min.x+box.max.x)/2,cz=(box.min.z+box.max.z)/2,h0=sp.flat?sp.height*sp.flat[0]:Infinity,f=sp.flat?.[1]??1;
+  const place=g=>{g.translate(-cx,-box.min.y,-cz);g.scale(k,k,k);const P=g.attributes.position;for(let i=0;i<P.count;i++){const y=P.getY(i);if(y>h0)P.setY(i,h0+(y-h0)*f);}g.computeBoundingBox();};
+  place(ref.branches);place(ref.leaves);
+  const kk=sp.flat?sp.height/Math.max(ref.branches.boundingBox.max.y,ref.leaves.boundingBox.max.y):1;
+  // Elipsoide de copa común a todos los niveles (sombreado idéntico).
+  const crown=ref.leaves.boundingBox.clone();crown.min.multiplyScalar(kk);crown.max.multiplyScalar(kk);
+  const c=crown.getCenter(new THREE.Vector3()),R=crown.getSize(new THREE.Vector3()).multiplyScalar(.5);
+  // Tono de cada racimo fijado por su índice en el esqueleto: el mismo racimo tiene el mismo color en cada nivel.
+  const C=x=>new THREE.Color(x),l0=C(sp.leaf[0]),l1=C(sp.leaf[1]),acc=sp.accent?C(sp.accent[0]):null,rnd=hash(sp.seed);
+  const tones=Array.from({length:tree.skeleton.leaves.length*2},()=>{const isAcc=acc&&rnd()<sp.accent[1];return {base:isAcc?acc.clone():l0.clone().lerp(l1,rnd()*.5),j:.92+.16*rnd()};});
+  const out={};
+  for(const level of levels){
+    const g=level==='alto'?ref:mesh(level);if(level!=='alto'){place(g.branches);place(g.leaves);}
+    for(const x of [g.branches,g.leaves]){x.scale(kk,kk,kk);x.computeBoundingBox();}
+    const {branches,leaves,detail}=g;
+    // Tronco: degradado de la base (oscura) a las ramas (clara), sin textura.
+    const tmp=new THREE.Color(),b0=C(sp.bark[0]),b1=C(sp.bark[1]),bp=branches.attributes.position,bc=new Float32Array(bp.count*3);
+    for(let i=0;i<bp.count;i++){tmp.copy(b0).lerp(b1,Math.min(1,bp.getY(i)/(sp.height*.45))*.85);bc.set([tmp.r,tmp.g,tmp.b],i*3);}
+    branches.setAttribute('color',new THREE.BufferAttribute(bc,3));branches.deleteAttribute('uv');
+    // Copa: normales esféricas, oclusión hacia el interior y tono por racimo.
+    const lp=leaves.attributes.position,ln=leaves.attributes.normal,lc=new Float32Array(lp.count*3),n=new THREE.Vector3(),d=new THREE.Vector3();
+    const quadsPerLeaf=detail.billboard==='double'?2:1;
+    for(let i=0;i<lp.count;i++){
+      const q=Math.floor(i/4),tone=tones[(Math.floor(q/quadsPerLeaf)*detail.leafStride)*2+(q%quadsPerLeaf)];
+      d.set((lp.getX(i)-c.x)/R.x,(lp.getY(i)-c.y)/R.y,(lp.getZ(i)-c.z)/R.z);const r=d.length();
+      n.set(ln.getX(i),ln.getY(i),ln.getZ(i)).multiplyScalar(.12).add(d.clone().normalize().multiplyScalar(.88)).normalize();ln.setXYZ(i,n.x,n.y,n.z);
+      const ao=.62+.38*Math.min(1,Math.max(0,(r-.25)/.75)),top=.5+.5*Math.min(1,Math.max(0,d.y*.5+.5));
+      tmp.copy(tone.base).lerp(l1,top*.6).multiplyScalar(ao*tone.j);lc.set([tmp.r,tmp.g,tmp.b],i*3);
+    }
+    leaves.setAttribute('color',new THREE.BufferAttribute(lc,3));
+    out[level]={branches,leaves,tris:(branches.index.count+leaves.index.count)/3};
   }
-  leaves.setAttribute('color',new THREE.BufferAttribute(lc,3));
-  return {branches,leaves,tris:(branches.index.count+leaves.index.count)/3};
+  return out;
 }

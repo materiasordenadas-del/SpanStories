@@ -4,73 +4,395 @@
   "especies": [
     {
       "id": "platano",
-      "triangulos": 3050,
-      "bytes": 158960
+      "nivel": "alto",
+      "archivo": "platano-alto.glb",
+      "triangulos": 12568,
+      "bytes": 444984
+    },
+    {
+      "id": "platano",
+      "nivel": "medio",
+      "archivo": "platano.glb",
+      "triangulos": 3480,
+      "bytes": 167284
+    },
+    {
+      "id": "platano",
+      "nivel": "bajo",
+      "archivo": "platano-bajo.glb",
+      "triangulos": 1452,
+      "bytes": 86724
+    },
+    {
+      "id": "platano",
+      "nivel": "muyBajo",
+      "archivo": "platano-muybajo.glb",
+      "triangulos": 652,
+      "bytes": 41792
     },
     {
       "id": "encina",
-      "triangulos": 3674,
-      "bytes": 180264
+      "nivel": "alto",
+      "archivo": "encina-alto.glb",
+      "triangulos": 7086,
+      "bytes": 330940
+    },
+    {
+      "id": "encina",
+      "nivel": "medio",
+      "archivo": "encina.glb",
+      "triangulos": 3220,
+      "bytes": 161604
+    },
+    {
+      "id": "encina",
+      "nivel": "bajo",
+      "archivo": "encina-bajo.glb",
+      "triangulos": 1502,
+      "bytes": 89224
+    },
+    {
+      "id": "encina",
+      "nivel": "muyBajo",
+      "archivo": "encina-muybajo.glb",
+      "triangulos": 594,
+      "bytes": 39408
     },
     {
       "id": "pinonero",
-      "triangulos": 4024,
-      "bytes": 198088
+      "nivel": "alto",
+      "archivo": "pinonero-alto.glb",
+      "triangulos": 8060,
+      "bytes": 370848
+    },
+    {
+      "id": "pinonero",
+      "nivel": "medio",
+      "archivo": "pinonero.glb",
+      "triangulos": 3518,
+      "bytes": 177116
+    },
+    {
+      "id": "pinonero",
+      "nivel": "bajo",
+      "archivo": "pinonero-bajo.glb",
+      "triangulos": 1624,
+      "bytes": 95844
+    },
+    {
+      "id": "pinonero",
+      "nivel": "muyBajo",
+      "archivo": "pinonero-muybajo.glb",
+      "triangulos": 602,
+      "bytes": 40704
     },
     {
       "id": "olivo",
-      "triangulos": 3192,
-      "bytes": 158248
+      "nivel": "alto",
+      "archivo": "olivo-alto.glb",
+      "triangulos": 8450,
+      "bytes": 334476
+    },
+    {
+      "id": "olivo",
+      "nivel": "medio",
+      "archivo": "olivo.glb",
+      "triangulos": 3390,
+      "bytes": 153840
+    },
+    {
+      "id": "olivo",
+      "nivel": "bajo",
+      "archivo": "olivo-bajo.glb",
+      "triangulos": 1716,
+      "bytes": 88844
+    },
+    {
+      "id": "olivo",
+      "nivel": "muyBajo",
+      "archivo": "olivo-muybajo.glb",
+      "triangulos": 582,
+      "bytes": 36612
     },
     {
       "id": "roble",
-      "triangulos": 4060,
-      "bytes": 197172
+      "nivel": "alto",
+      "archivo": "roble-alto.glb",
+      "triangulos": 13138,
+      "bytes": 458348
+    },
+    {
+      "id": "roble",
+      "nivel": "medio",
+      "archivo": "roble.glb",
+      "triangulos": 4880,
+      "bytes": 201136
+    },
+    {
+      "id": "roble",
+      "nivel": "bajo",
+      "archivo": "roble-bajo.glb",
+      "triangulos": 2044,
+      "bytes": 102432
+    },
+    {
+      "id": "roble",
+      "nivel": "muyBajo",
+      "archivo": "roble-muybajo.glb",
+      "triangulos": 674,
+      "bytes": 42436
     },
     {
       "id": "abedul",
-      "triangulos": 1932,
-      "bytes": 95004
+      "nivel": "alto",
+      "archivo": "abedul-alto.glb",
+      "triangulos": 5776,
+      "bytes": 194816
+    },
+    {
+      "id": "abedul",
+      "nivel": "medio",
+      "archivo": "abedul.glb",
+      "triangulos": 2740,
+      "bytes": 115968
+    },
+    {
+      "id": "abedul",
+      "nivel": "bajo",
+      "archivo": "abedul-bajo.glb",
+      "triangulos": 1610,
+      "bytes": 74976
+    },
+    {
+      "id": "abedul",
+      "nivel": "muyBajo",
+      "archivo": "abedul-muybajo.glb",
+      "triangulos": 388,
+      "bytes": 27516
     },
     {
       "id": "pino",
-      "triangulos": 2844,
-      "bytes": 128124
+      "nivel": "alto",
+      "archivo": "pino-alto.glb",
+      "triangulos": 8544,
+      "bytes": 254084
+    },
+    {
+      "id": "pino",
+      "nivel": "medio",
+      "archivo": "pino.glb",
+      "triangulos": 3772,
+      "bytes": 145324
+    },
+    {
+      "id": "pino",
+      "nivel": "bajo",
+      "archivo": "pino-bajo.glb",
+      "triangulos": 1256,
+      "bytes": 70492
+    },
+    {
+      "id": "pino",
+      "nivel": "muyBajo",
+      "archivo": "pino-muybajo.glb",
+      "triangulos": 360,
+      "bytes": 28252
     },
     {
       "id": "eucalipto",
-      "triangulos": 1752,
-      "bytes": 87468
+      "nivel": "alto",
+      "archivo": "eucalipto-alto.glb",
+      "triangulos": 5232,
+      "bytes": 182180
+    },
+    {
+      "id": "eucalipto",
+      "nivel": "medio",
+      "archivo": "eucalipto.glb",
+      "triangulos": 2476,
+      "bytes": 106284
+    },
+    {
+      "id": "eucalipto",
+      "nivel": "bajo",
+      "archivo": "eucalipto-bajo.glb",
+      "triangulos": 1236,
+      "bytes": 64124
+    },
+    {
+      "id": "eucalipto",
+      "nivel": "muyBajo",
+      "archivo": "eucalipto-muybajo.glb",
+      "triangulos": 288,
+      "bytes": 23408
     },
     {
       "id": "saman",
-      "triangulos": 3476,
-      "bytes": 174016
+      "nivel": "alto",
+      "archivo": "saman-alto.glb",
+      "triangulos": 11654,
+      "bytes": 417712
+    },
+    {
+      "id": "saman",
+      "nivel": "medio",
+      "archivo": "saman.glb",
+      "triangulos": 4240,
+      "bytes": 179264
+    },
+    {
+      "id": "saman",
+      "nivel": "bajo",
+      "archivo": "saman-bajo.glb",
+      "triangulos": 1598,
+      "bytes": 88372
+    },
+    {
+      "id": "saman",
+      "nivel": "muyBajo",
+      "archivo": "saman-muybajo.glb",
+      "triangulos": 552,
+      "bytes": 36916
     },
     {
       "id": "jacaranda",
-      "triangulos": 3050,
-      "bytes": 160836
+      "nivel": "alto",
+      "archivo": "jacaranda-alto.glb",
+      "triangulos": 12568,
+      "bytes": 454292
+    },
+    {
+      "id": "jacaranda",
+      "nivel": "medio",
+      "archivo": "jacaranda.glb",
+      "triangulos": 3424,
+      "bytes": 167924
+    },
+    {
+      "id": "jacaranda",
+      "nivel": "bajo",
+      "archivo": "jacaranda-bajo.glb",
+      "triangulos": 1404,
+      "bytes": 87352
+    },
+    {
+      "id": "jacaranda",
+      "nivel": "muyBajo",
+      "archivo": "jacaranda-muybajo.glb",
+      "triangulos": 640,
+      "bytes": 41152
     },
     {
       "id": "flamboyan",
-      "triangulos": 3452,
-      "bytes": 173324
+      "nivel": "alto",
+      "archivo": "flamboyan-alto.glb",
+      "triangulos": 11654,
+      "bytes": 417724
+    },
+    {
+      "id": "flamboyan",
+      "nivel": "medio",
+      "archivo": "flamboyan.glb",
+      "triangulos": 4156,
+      "bytes": 177076
+    },
+    {
+      "id": "flamboyan",
+      "nivel": "bajo",
+      "archivo": "flamboyan-bajo.glb",
+      "triangulos": 1580,
+      "bytes": 87772
+    },
+    {
+      "id": "flamboyan",
+      "nivel": "muyBajo",
+      "archivo": "flamboyan-muybajo.glb",
+      "triangulos": 552,
+      "bytes": 36916
     },
     {
       "id": "laurel",
-      "triangulos": 4156,
-      "bytes": 201888
+      "nivel": "alto",
+      "archivo": "laurel-alto.glb",
+      "triangulos": 8700,
+      "bytes": 405704
+    },
+    {
+      "id": "laurel",
+      "nivel": "medio",
+      "archivo": "laurel.glb",
+      "triangulos": 3958,
+      "bytes": 198112
+    },
+    {
+      "id": "laurel",
+      "nivel": "bajo",
+      "archivo": "laurel-bajo.glb",
+      "triangulos": 1916,
+      "bytes": 108992
+    },
+    {
+      "id": "laurel",
+      "nivel": "muyBajo",
+      "archivo": "laurel-muybajo.glb",
+      "triangulos": 724,
+      "bytes": 46820
     },
     {
       "id": "mezquite",
-      "triangulos": 2820,
-      "bytes": 135048
+      "nivel": "alto",
+      "archivo": "mezquite-alto.glb",
+      "triangulos": 7490,
+      "bytes": 284412
+    },
+    {
+      "id": "mezquite",
+      "nivel": "medio",
+      "archivo": "mezquite.glb",
+      "triangulos": 3096,
+      "bytes": 132156
+    },
+    {
+      "id": "mezquite",
+      "nivel": "bajo",
+      "archivo": "mezquite-bajo.glb",
+      "triangulos": 1530,
+      "bytes": 77328
+    },
+    {
+      "id": "mezquite",
+      "nivel": "muyBajo",
+      "archivo": "mezquite-muybajo.glb",
+      "triangulos": 624,
+      "bytes": 34064
     },
     {
       "id": "matorral",
-      "triangulos": 2382,
-      "bytes": 123944
+      "nivel": "alto",
+      "archivo": "matorral-alto.glb",
+      "triangulos": 11952,
+      "bytes": 390480
+    },
+    {
+      "id": "matorral",
+      "nivel": "medio",
+      "archivo": "matorral.glb",
+      "triangulos": 3072,
+      "bytes": 137776
+    },
+    {
+      "id": "matorral",
+      "nivel": "bajo",
+      "archivo": "matorral-bajo.glb",
+      "triangulos": 1236,
+      "bytes": 73004
+    },
+    {
+      "id": "matorral",
+      "nivel": "muyBajo",
+      "archivo": "matorral-muybajo.glb",
+      "triangulos": 462,
+      "bytes": 32740
     }
   ]
 }

@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {createGMaterial,createLeafDepthMaterial} from './gmaterial.js';
-import {TREE_SETS,MAX_TREE_TYPES,treeEntry} from '../data/tree-catalog.js';
+import {TREE_SETS,MAX_TREE_TYPES,DEFAULT_TREE_DETAIL,treeEntry,treeUrl} from '../data/tree-catalog.js';
 
 export const TREE_MODELS=[
   {id:'anime',file:'anime_nature_tree_01.glb',height:[7,10],weight:.35},
@@ -18,15 +18,16 @@ function toFloat(g){for(const [name,a] of Object.entries(g.attributes)){if(a.arr
 
 const cache=new Map();
 // ids: tipos del catálogo que usa el lugar (máximo 4). Sin ids: el conjunto clásico (GLB originales).
-export function loadTrees(ids=TREE_SETS.clasico){
+// detail: nivel fijo (alto, medio, bajo, muyBajo) para todos los árboles del lugar.
+export function loadTrees(ids=TREE_SETS.clasico,detail=DEFAULT_TREE_DETAIL){
   const loader=new GLTFLoader();
   return Promise.all(ids.slice(0,MAX_TREE_TYPES).map(id=>treeEntry(id)).filter(Boolean).map(entry=>{
-    if(!cache.has(entry.id))cache.set(entry.id,loadModel(loader,entry));return cache.get(entry.id);}));
+    const url=treeUrl(entry,detail);if(!cache.has(url))cache.set(url,loadModel(loader,entry,url,detail));return cache.get(url);}));
 }
-async function loadModel(loader,entry){
+async function loadModel(loader,entry,url,detail){
   const m={...entry,...(TREE_MODELS.find(t=>t.id===entry.id)??{})};
   {
-    const gltf=await loader.loadAsync(entry.url);
+    const gltf=await loader.loadAsync(url);
     gltf.scene.updateMatrixWorld(true);
     const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3());
     const parts=[];
@@ -44,7 +45,7 @@ async function loadModel(loader,entry){
       g.setAttribute('aSurf',new THREE.Float32BufferAttribute(new Float32Array(n).fill(leaf?2:0),1));
       g.setAttribute('aId',new THREE.Float32BufferAttribute(new Float32Array(n).fill(0),1));
       const base=src.color?src.color.clone():new THREE.Color(1,1,1);
-      g.userData.key='arbol:'+m.id+':'+parts.length;
+      g.userData.key='arbol:'+m.id+(entry.origin==='ez-tree'&&detail!==DEFAULT_TREE_DETAIL?'@'+detail:'')+':'+parts.length;
       g.userData.libraryOwned=true;
       // Elipsoide de la copa (caja de las hojas) para el sombreado por volumen.
       g.computeBoundingBox();
@@ -61,8 +62,8 @@ function variation(x,z){let a=(Math.imul(Math.round(x*100),73856093)^Math.imul(M
 
 // positions: [{x,y,z,model?,scale?,rot?,pit?}] -> grupo de InstancedMesh (una por parte de modelo).
 // set: ids del catálogo para este lugar (máximo 4); los alcorques (pit) solo reciben tipos aptos para calle.
-export async function buildTrees(points,{sun,seedRandom=Math.random,set}={}){
-  const models=await loadTrees(set);
+export async function buildTrees(points,{sun,seedRandom=Math.random,set,detail}={}){
+  const models=await loadTrees(set,detail);
   const group=new THREE.Group();group.name='arboles';
   const byModel=new Map(models.map(m=>[m.id,[]]));
   const pick=list=>{const totalW=list.reduce((s,m)=>s+m.weight,0);let x=seedRandom()*totalW;for(const m of list){x-=m.weight;if(x<=0)return m.id;}return list[0].id;};

@@ -6,6 +6,11 @@ import {climateOf} from './climate.js';
 
 export const TREE_CATALOG_VERSION=1;
 export const MAX_TREE_TYPES=4;
+// Nivel de detalle de los árboles del lugar (uno fijo para todos; medio por defecto). Las especies ez-tree tienen
+// los cuatro horneados sobre el mismo esqueleto; los GLB originales tienen un único modelo para todos los niveles.
+export const TREE_DETAILS={alto:'Alto',medio:'Medio',bajo:'Bajo',muyBajo:'Muy bajo'};
+export const DEFAULT_TREE_DETAIL='medio';
+const lodFile=(id,level)=>id+(level==='medio'?'':'-'+level.toLowerCase())+'.glb';
 const ORIGINAL='/assets/barcelona-trees/',EZTREE='/assets/arboles/eztree/';
 
 // height: [mín, máx] en metros. weight: frecuencia relativa dentro del conjunto. street: apto para alcorque.
@@ -28,7 +33,9 @@ export const TREE_CATALOG=[
   {id:'laurel',name:'Laurel de Indias',sci:'Ficus microcarpa',origin:'ez-tree',height:[10,14],weight:.25,street:true},
   {id:'mezquite',name:'Mezquite / algarrobo',sci:'Prosopis spp.',origin:'ez-tree',height:[5,7.5],weight:.35,street:true},
   {id:'matorral',name:'Matorral (retama, lentisco)',sci:'arbustos de clima seco',origin:'ez-tree',kind:'arbusto',height:[1.8,3],weight:.2,street:false},
-].map(t=>({kind:'arbol',...t,url:t.url??EZTREE+t.id+'.glb'}));
+].map(t=>{const url=t.url??EZTREE+t.id+'.glb';
+  const lods=Object.fromEntries(Object.keys(TREE_DETAILS).map(level=>[level,t.origin==='ez-tree'?EZTREE+lodFile(t.id,level):url]));
+  return {kind:'arbol',...t,url,lods};});
 
 export const TREE_SETS={
   mediterraneo:['platano','encina','pinonero','olivo'],
@@ -42,6 +49,8 @@ export const TREE_SET_NAMES={mediterraneo:'Mediterráneo',atlantico:'Atlántico'
 
 const byId=new Map(TREE_CATALOG.map(t=>[t.id,t]));
 export const treeEntry=id=>byId.get(id)??null;
+export const treeDetailOf=model=>Object.hasOwn(TREE_DETAILS,model?.treeDetail)?model.treeDetail:DEFAULT_TREE_DETAIL;
+export const treeUrl=(entry,detail=DEFAULT_TREE_DETAIL)=>entry.lods?.[detail]??entry.url;
 
 // Conjunto vigente del lugar: elección manual válida (1 a 4 ids del catálogo, sin repetir) o el del clima.
 export function treeSetOf(model){
@@ -59,6 +68,6 @@ export function validTreeSet(value){
 // Descripción exportable (visor): catálogo completo y conjunto elegido.
 export function treeCatalogExport(model){
   const set=treeSetOf(model);
-  return {formato:'spanstories-arboles',version:TREE_CATALOG_VERSION,maxTipos:MAX_TREE_TYPES,conjunto:set.ids,origen:set.source,
-    conjuntos:TREE_SETS,especies:TREE_CATALOG.map(({id,name,sci,origin,kind,url,height,street})=>({id,nombre:name,cientifico:sci??null,origen:origin,tipo:kind,url,altura:height,calle:street}))};
+  return {formato:'spanstories-arboles',version:TREE_CATALOG_VERSION,maxTipos:MAX_TREE_TYPES,conjunto:set.ids,origen:set.source,detalle:treeDetailOf(model),niveles:TREE_DETAILS,
+    conjuntos:TREE_SETS,especies:TREE_CATALOG.map(({id,name,sci,origin,kind,url,lods,height,street})=>({id,nombre:name,cientifico:sci??null,origen:origin,tipo:kind,url,lods,altura:height,calle:street}))};
 }

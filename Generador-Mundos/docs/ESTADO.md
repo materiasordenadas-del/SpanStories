@@ -14,7 +14,13 @@
   - cada lugar usa como máximo 4 tipos: por defecto el conjunto de su clima (mediterráneo, atlántico, montaña, tropical o árido), o uno elegido en «Datos → Árboles del lugar», que solo se guarda si no es automático;
   - en los alcorques solo van tipos aptos para calle.
   Se exporta al visor (`lugar.json` → `arboles`, y `especie` en cada ancla de árbol) para poder cambiarlo allí.
-- `buildTrees(points,{set})`: un InstancedMesh por parte y tipo, como antes. Los GLB cuantizados se pasan a Float32 al cargarlos. Los originales siguen en blanco por vértice; las especies ez-tree conservan su color horneado.
+- **4 niveles de detalle por especie** (aprobados en el visor 3D), horneados sobre un único esqueleto, de modo que silueta, ramas, posición y color de cada racimo coinciden en todos:
+  - alto: detalle completo de ez-tree, 5.200-13.100 triángulos, racimo de 512 px, `<id>-alto.glb`;
+  - medio: unos 3.500 triángulos, 256 px, `<id>.glb`;
+  - bajo: unos 1.550 triángulos, 256 px, `<id>-bajo.glb`;
+  - muy bajo: unos 550 triángulos, 128 px, `<id>-muybajo.glb`.
+  El nivel es uno fijo para todo el lugar, elegido en «Datos → Detalle de los árboles» (medio por defecto; solo se guarda si cambia). El catálogo exporta `lods` y `detalle`. Los GLB originales tienen un único modelo para todos los niveles.
+- `buildTrees(points,{set,detail})`: un InstancedMesh por parte y tipo, como antes. Los GLB cuantizados se pasan a Float32 al cargarlos. Los originales siguen en blanco por vértice; las especies ez-tree conservan su color horneado.
 
 ## 0.18.0 · Zona climática y variación de árboles · 5/11/2026
 
