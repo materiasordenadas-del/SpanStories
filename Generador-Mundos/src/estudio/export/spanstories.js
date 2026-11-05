@@ -10,6 +10,7 @@ import {disposeScene} from '../render/resources.js';
 import packageInfo from '../../../package.json' with {type:'json'};
 import {commerceMetadata} from '../data/commerces.js';
 import {climateOf} from '../data/climate.js';
+import {treeCatalogExport} from '../data/tree-catalog.js';
 import {commerceTextureExporter} from './commerce-textures.js';
 
 const SECTOR=50,BAKE_BELOW=12;
@@ -68,7 +69,7 @@ async function exportGroup(state,{prefix,save,onProgress,table}){
       im.getMatrixAt(i,m);m.premultiply(im.matrixWorld);m.decompose(p,q,s);
       const building=state.model.buildings[im.userData.buildings?.[i]],id=im.userData.commerceIds?.[i]??building?.id??(type+':'+hash(key+':'+p.toArray().map(v=>v.toFixed(3)).join(':'))),owner=table.add(id),sec=bucket(sectors,Math.floor(p.x/SECTOR)+'_'+Math.floor(p.z/SECTOR));
       if(!sec.instances.has(key))sec.instances.set(key,[]);sec.instances.get(key).push({matrix:m.clone(),owner,c1:im.instanceColor?[im.instanceColor.getX(i),im.instanceColor.getY(i),im.instanceColor.getZ(i)]:[1,1,1],c2:im.geometry.attributes.aTint2?[im.geometry.attributes.aTint2.getX(i),im.geometry.attributes.aTint2.getY(i),im.geometry.attributes.aTint2.getZ(i)]:[1,1,1]});
-      if(['bench','parkedCar','terrace','statue','arbol','kiosk','bikes'].includes(type)){e.setFromQuaternion(q,'YXZ');anchors.push({id,tipo:type,x:p.x,y:p.y,z:p.z,ry:e.y,embedded:true,resource:key});}
+      if(['bench','parkedCar','terrace','statue','arbol','kiosk','bikes'].includes(type)){e.setFromQuaternion(q,'YXZ');anchors.push({id,tipo:type,x:p.x,y:p.y,z:p.z,ry:e.y,embedded:true,resource:key,...(tree?{especie:im.userData.species??null}:{})});}
     }
   });
   const exporter=new GLTFExporter().register(commerceTextureExporter),materials=new Map(),index=[];
@@ -106,7 +107,7 @@ export async function exportSpanStories(state,{name,onProgress=()=>{}}={}){
   const m=state.model,lugar={formato:'atlas-estudio-spanstories',version:2,nombre:m.label??name,tipo:m.kind,semilla:m.seed,tamano:m.size,limites:m.bounds,unidades:'metros; X este, Y arriba, Z sur; origen en el centro del área',origenAltura:m.terrain.origin,
     relieve:{resolucion:m.terrain.n,ancho:m.terrain.width,fondo:m.terrain.depth,fuente:m.terrainSource??null,alturas:Array.from(m.terrain.h)},
     edificios:m.buildings.map(b=>({id:b.id,nombre:b.name,uso:b.use,estilo:prepared.get(b.id)?.styleId??b.forceStyle??null,plantas:b.levels,altura:b.height,alturaEstimada:!!b.estimated,ajusteApoyo:b.baseOffset??0,huella:b.rings,interior:b.interiorConfig??null,apariencia:{...appearancePolicy(b),colour:b.colour??null,material:b.material??null,roof:b.roof,profile:b.facadeProfile??null,reference:b.reference??null,assetId:b.modelId??null,representation:prepared.get(b.id)?.roofRepresentation??null}})),
-    calles:m.roads.map(r=>({id:r.id,clase:r.cls,tipo:r.type,ancho:r.width,nombre:r.name,puente:!!r.bridge,tunel:!!r.tunnel,elevacion:r.elevationOffset??0,profundidad:r.depth??null,alturaLibre:r.clearance??null,eje:r.points})),zonas:m.areas,clima:climateOf(m),atribucion:m.attribution??null,
+    calles:m.roads.map(r=>({id:r.id,clase:r.cls,tipo:r.type,ancho:r.width,nombre:r.name,puente:!!r.bridge,tunel:!!r.tunnel,elevacion:r.elevationOffset??0,profundidad:r.depth??null,alturaLibre:r.clearance??null,eje:r.points})),zonas:m.areas,clima:climateOf(m),arboles:treeCatalogExport(m),atribucion:m.attribution??null,
     comercios:[...commerces.values()],referenciasAutomaticas:state.automaticReferences??{},singulares:m.landmarks??[],efectosAtlas:{escaparates:'Caja somera, capas pintadas, vidrio, persianas y rótulos autocontenidos en cada GLB; luz ambiente modulable en el receptor'}};
   const total={sectores:index.length,triangulos:index.reduce((s,x)=>s+x.triangulos,0),bytes:index.reduce((s,x)=>s+x.bytes,0),rawBytes:index.reduce((s,x)=>s+x.rawBytes,0)};
   await save('lugar','json',JSON.stringify(lugar));await save('entidades','json',JSON.stringify({format:'atlas-entities',version:1,entities:table.entities,comercios:[...commerces.values()]}));

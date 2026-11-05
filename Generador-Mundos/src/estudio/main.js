@@ -347,7 +347,7 @@ function renderSteps(){
   $('#steps').innerHTML=STEPS.map(s=>`<div class="step"><b>${s.name}</b><span>${s.info()}</span><button data-s="${s.id}" title="${s.tip}">🎲</button></div>`).join('');
   $('#steps').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(!state.busy)STEPS.find(s=>s.id===b.dataset.s).roll();});
   const st=state.built?.stats;
-  $('#stats').innerHTML=st?Object.entries({'Edificios':st.buildings,'Huecos':st.windows,'Balcones':st.balconies,'Comercios':st.shops,'Elementos':st.elements,'Tipos instanciados':st.elementTypes,'Árboles':st.trees,'Farolas':st.lamps,'Coches':st.cars,'Edificios lejanos':st.far??0,'Tiempo':st.ms+' ms'}).map(([k,v])=>`<span>${k}</span><b>${v}</b>`).join(''):'';
+  $('#stats').innerHTML=st?Object.entries({'Edificios':st.buildings,'Huecos':st.windows,'Balcones':st.balconies,'Comercios':st.shops,'Elementos':st.elements,'Tipos instanciados':st.elementTypes,'Árboles':st.trees,'Tipos de árbol':st.treeSet??'—','Farolas':st.lamps,'Coches':st.cars,'Edificios lejanos':st.far??0,'Tiempo':st.ms+' ms'}).map(([k,v])=>`<span>${k}</span><b>${v}</b>`).join(''):'';
   if(state.built){
     const counts={};for(const pb of state.built.buildings.prepared)counts[pb.styleId]=(counts[pb.styleId]??0)+1;
     $('#legend').innerHTML='Estilos: '+Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${STYLES[k]?.name??k} ${v}`).join(' · ')+`<br>Región: ${regionOf(state.effectiveModel?.bounds??state.model.bounds)}`+(state.effectiveModel?.context?` · contexto: ${PROFILE_NAMES[state.effectiveModel.context.profile]??state.effectiveModel.context.profile}`:'')+(state.effectiveModel?.infill?.lots?` · relleno: ${state.effectiveModel.infill.lots} parcelas generadas`:'');

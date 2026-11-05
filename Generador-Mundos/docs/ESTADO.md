@@ -1,5 +1,21 @@
 # Estado de Atlas · Estudio de lugares
 
+## 0.18.0 · Catálogo de árboles: especies ez-tree por clima · 5/11/2026
+
+- **Especies nuevas aprobadas por el usuario** (vista previa en el visor 3D): 14 tipos hechos con ez-tree 1.1.0 (MIT, Daniel Greenheck) en el estilo del creador de mundos. Las hojas van en racimos planos teñidos por vértice, el tronco es liso y sin foto-textura, y la copa se sombrea con normales esféricas. Son el plátano de sombra, la encina, el pino piñonero, el olivo, el roble, el abedul, el pino, el eucalipto, el samán, la jacaranda, el flamboyán, el laurel de Indias, el mezquite y el matorral.
+- **Horneado para la web** (`npm run arboles:hornear`, `scripts/hornear-arboles.mjs` y `scripts/arboles/`):
+  - un GLB por especie en `public/assets/arboles/eztree/`, de 87 a 202 KB y de 1.750 a 4.160 triángulos;
+  - normales int8 y uv/color normalizados (KHR_mesh_quantization);
+  - una textura de racimo de 256 px embebida;
+  - las ramitas ocultas dentro de la copa no se mallan.
+  El generador no ejecuta ez-tree: solo carga los GLB. La copa recortada de ez-tree está en `src/vendor/ez-tree/` con su licencia.
+- **Catálogo** (`src/estudio/data/tree-catalog.js`):
+  - reúne los 4 GLB originales, que se conservan (conjunto «Clásico»), y las 14 especies;
+  - cada lugar usa como máximo 4 tipos: por defecto el conjunto de su clima (mediterráneo, atlántico, montaña, tropical o árido), o uno elegido en «Datos → Árboles del lugar», que solo se guarda si no es automático;
+  - en los alcorques solo van tipos aptos para calle.
+  Se exporta al visor (`lugar.json` → `arboles`, y `especie` en cada ancla de árbol) para poder cambiarlo allí.
+- `buildTrees(points,{set})`: un InstancedMesh por parte y tipo, como antes. Los GLB cuantizados se pasan a Float32 al cargarlos. Los originales siguen en blanco por vértice; las especies ez-tree conservan su color horneado.
+
 ## 0.18.0 · Zona climática y variación de árboles · 5/11/2026
 
 - **Zona climática como dato base** (`src/estudio/data/climate.js`): tropical, árido, montaña, mediterráneo o atlántico, con variante regional, deducida sin proveedores a partir de país, latitud, longitud y altitud media del relieve (pisos térmicos andinos, desierto costero del Pacífico, cornisa cantábrica, sureste ibérico, Cono Sur…). Se guarda en el lugar (`model.climate`), se muestra en «Datos», admite corrección manual y se exporta al visor (`lugar.json` → `clima`). El generador no aplica efectos de clima: estaciones, lluvia, nieve o niebla son del visor (`SpanStories-Ciudades/engine/EstacionesClima.js`).

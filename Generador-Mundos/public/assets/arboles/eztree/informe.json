@@ -1,0 +1,76 @@
+{
+  "generado": "scripts/hornear-arboles.mjs",
+  "fuente": "ez-tree 1.1.0 (MIT)",
+  "especies": [
+    {
+      "id": "platano",
+      "triangulos": 3050,
+      "bytes": 158960
+    },
+    {
+      "id": "encina",
+      "triangulos": 3674,
+      "bytes": 180264
+    },
+    {
+      "id": "pinonero",
+      "triangulos": 4024,
+      "bytes": 198088
+    },
+    {
+      "id": "olivo",
+      "triangulos": 3192,
+      "bytes": 158248
+    },
+    {
+      "id": "roble",
+      "triangulos": 4060,
+      "bytes": 197172
+    },
+    {
+      "id": "abedul",
+      "triangulos": 1932,
+      "bytes": 95004
+    },
+    {
+      "id": "pino",
+      "triangulos": 2844,
+      "bytes": 128124
+    },
+    {
+      "id": "eucalipto",
+      "triangulos": 1752,
+      "bytes": 87468
+    },
+    {
+      "id": "saman",
+      "triangulos": 3476,
+      "bytes": 174016
+    },
+    {
+      "id": "jacaranda",
+      "triangulos": 3050,
+      "bytes": 160836
+    },
+    {
+      "id": "flamboyan",
+      "triangulos": 3452,
+      "bytes": 173324
+    },
+    {
+      "id": "laurel",
+      "triangulos": 4156,
+      "bytes": 201888
+    },
+    {
+      "id": "mezquite",
+      "triangulos": 2820,
+      "bytes": 135048
+    },
+    {
+      "id": "matorral",
+      "triangulos": 2382,
+      "bytes": 123944
+    }
+  ]
+}

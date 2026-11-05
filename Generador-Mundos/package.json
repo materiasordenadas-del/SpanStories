@@ -8,6 +8,7 @@
     "build": "vite build",
     "test": "node --test tests/*.test.js",
     "respaldo": "node scripts/respaldo-version.mjs",
+    "arboles:hornear": "node scripts/hornear-arboles.mjs",
     "kit:escaparate": "node scripts/construir-kit-escaparate.mjs"
   },
   "dependencies": {

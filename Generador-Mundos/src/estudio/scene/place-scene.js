@@ -11,6 +11,7 @@ import {buildInfra} from '../arq/infra.js';
 import {MeshBuilder} from '../geom/mesh.js';
 import {createGMaterial} from '../render/gmaterial.js';
 import {buildTrees} from '../render/trees.js';
+import {treeSetOf} from '../data/tree-catalog.js';
 import {rng} from '../data/rng.js';
 import '../arq/proxies.js';
 import {ElementLOD} from '../render/lod.js';
@@ -78,12 +79,13 @@ export async function buildPlaceScene(model,{sun,seed=model.seed,seeds={},option
   const lod=combineCommerceLOD(new ElementLOD(eGroup,{near:options.lodNear??95}),commerce.lod);
   onProgress('Árboles…');await tick();
   const r=rng(S.calle+':arboles');
-  const trees=await buildTrees(street.trees,{sun,seedRandom:r});
+  const treeSet=treeSetOf(model);
+  const trees=await buildTrees(street.trees,{sun,seedRandom:r,set:treeSet.ids});
   group.add(trees);
   const stats={
     ms:Math.round(performance.now()-t0),
     buildings:bld.stats.buildings,windows:bld.stats.windows,shops:bld.stats.shops,balconies:bld.stats.balconies,
-    elements:bld.instances.count,elementTypes:elements.length,trees:street.trees.length,...street.counts,
+    elements:bld.instances.count,elementTypes:elements.length,trees:street.trees.length,treeSet:treeSet.ids.join(', '),...street.counts,
     groundMs:ground.stats.ms,buildingMs:bld.stats.ms,barriers,...infra,
   };
   stats.commerce=commerce.stats;return {group,stats,ground,buildings:bld,street,lod,interiors,infra,commerce,warnings};

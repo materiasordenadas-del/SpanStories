@@ -1,7 +1,9 @@
-// Árboles de Barcelona (GLB originales de SpanStories) instanciados con el material del Estudio.
+// Árboles del catálogo (GLB originales de SpanStories y especies ez-tree horneadas) instanciados con el
+// material del Estudio. Cada lugar usa como máximo 4 tipos (ver data/tree-catalog.js).
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {createGMaterial,createLeafDepthMaterial} from './gmaterial.js';
+import {TREE_SETS,MAX_TREE_TYPES,treeEntry} from '../data/tree-catalog.js';
 
 export const TREE_MODELS=[
   {id:'anime',file:'anime_nature_tree_01.glb',height:[7,10],weight:.35},
@@ -10,26 +12,35 @@ export const TREE_MODELS=[
   {id:'sakura',file:'sakura_tree_01.glb',height:[5,7.5],weight:.1},
 ];
 
-let loaded=null;
-export function loadTrees(base='/assets/barcelona-trees/'){
-  if(loaded)return loaded;
+// Atributos cuantizados (int8/uint16 normalizados) a Float32: el tinte y la matriz se aplican sin recortes.
+function toFloat(g){for(const [name,a] of Object.entries(g.attributes)){if(a.array instanceof Float32Array&&!a.normalized&&!a.isInterleavedBufferAttribute)continue;
+  const out=new Float32Array(a.count*a.itemSize);for(let i=0;i<a.count;i++)for(let k=0;k<a.itemSize;k++)out[i*a.itemSize+k]=a.getComponent(i,k);g.setAttribute(name,new THREE.BufferAttribute(out,a.itemSize));}return g;}
+
+const cache=new Map();
+// ids: tipos del catálogo que usa el lugar (máximo 4). Sin ids: el conjunto clásico (GLB originales).
+export function loadTrees(ids=TREE_SETS.clasico){
   const loader=new GLTFLoader();
-  loaded=Promise.all(TREE_MODELS.map(async m=>{
-    const gltf=await loader.loadAsync(base+m.file);
+  return Promise.all(ids.slice(0,MAX_TREE_TYPES).map(id=>treeEntry(id)).filter(Boolean).map(entry=>{
+    if(!cache.has(entry.id))cache.set(entry.id,loadModel(loader,entry));return cache.get(entry.id);}));
+}
+async function loadModel(loader,entry){
+  const m={...entry,...(TREE_MODELS.find(t=>t.id===entry.id)??{})};
+  {
+    const gltf=await loader.loadAsync(entry.url);
     gltf.scene.updateMatrixWorld(true);
     const box=new THREE.Box3().setFromObject(gltf.scene),size=box.getSize(new THREE.Vector3());
     const parts=[];
     gltf.scene.traverse(o=>{
       if(!o.isMesh)return;
-      const g=o.geometry.clone();g.applyMatrix4(o.matrixWorld);
+      const g=toFloat(o.geometry.clone());g.applyMatrix4(o.matrixWorld);
       // base en el suelo y centrado en XZ
       g.translate(-(box.min.x+box.max.x)/2,-box.min.y,-(box.min.z+box.max.z)/2);
       const src=Array.isArray(o.material)?o.material[0]:o.material;
       const leaf=src.transparent||src.alphaTest>0||/leav|leaf|hoja|sakura|follaje/i.test(src.name)||src.alphaMode==='BLEND';
       if(src.map)src.map.colorSpace=THREE.SRGBColorSpace;
-      // color por vértice blanco (el material multiplica)
+      // color por vértice blanco (el material multiplica); las especies ez-tree traen su color horneado.
       const n=g.attributes.position.count;
-      g.setAttribute('color',new THREE.Float32BufferAttribute(new Float32Array(n*3).fill(1),3));
+      if(entry.origin!=='ez-tree'||!g.attributes.color)g.setAttribute('color',new THREE.Float32BufferAttribute(new Float32Array(n*3).fill(1),3));
       g.setAttribute('aSurf',new THREE.Float32BufferAttribute(new Float32Array(n).fill(leaf?2:0),1));
       g.setAttribute('aId',new THREE.Float32BufferAttribute(new Float32Array(n).fill(0),1));
       const base=src.color?src.color.clone():new THREE.Color(1,1,1);
@@ -41,24 +52,25 @@ export function loadTrees(base='/assets/barcelona-trees/'){
       parts.push({geometry:g,map:src.map??null,leaf,color:base,name:src.name,crown});
     });
     return {...m,parts,nativeHeight:size.y};
-  }));
-  return loaded;
+  }
 }
 
 // Azar determinista por posición del árbol (no consume la secuencia de seedRandom).
 function variation(x,z){let a=(Math.imul(Math.round(x*100),73856093)^Math.imul(Math.round(z*100),19349663))>>>0;
   return ()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
 
-// positions: [{x,y,z,model?,scale?,rot?}] -> grupo de InstancedMesh (una por parte de modelo).
-export async function buildTrees(points,{sun,seedRandom=Math.random}={}){
-  const models=await loadTrees();
+// positions: [{x,y,z,model?,scale?,rot?,pit?}] -> grupo de InstancedMesh (una por parte de modelo).
+// set: ids del catálogo para este lugar (máximo 4); los alcorques (pit) solo reciben tipos aptos para calle.
+export async function buildTrees(points,{sun,seedRandom=Math.random,set}={}){
+  const models=await loadTrees(set);
   const group=new THREE.Group();group.name='arboles';
   const byModel=new Map(models.map(m=>[m.id,[]]));
-  const totalW=models.reduce((s,m)=>s+m.weight,0);
+  const pick=list=>{const totalW=list.reduce((s,m)=>s+m.weight,0);let x=seedRandom()*totalW;for(const m of list){x-=m.weight;if(x<=0)return m.id;}return list[0].id;};
+  const street=models.filter(m=>m.street!==false);
   for(const p of points){
-    let id=p.model;
-    if(!id){let x=seedRandom()*totalW;for(const m of models){x-=m.weight;if(x<=0){id=m.id;break;}}id??=models[0].id;}
-    byModel.get(id)?.push(p);
+    let id=byModel.has(p.model)?p.model:null;
+    if(!id)id=pick(p.pit&&street.length?street:models);
+    byModel.get(id).push(p);
   }
   const mtx=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new THREE.Vector3(),pos=new THREE.Vector3(),up=new THREE.Vector3(0,1,0),tilt=new THREE.Quaternion(),axis=new THREE.Vector3();
   for(const m of models){
@@ -88,7 +100,7 @@ export async function buildTrees(points,{sun,seedRandom=Math.random}={}){
       im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;
       im.castShadow=true;im.receiveShadow=true;
       if(part.map&&part.leaf)im.customDepthMaterial=createLeafDepthMaterial(part.map,.45);
-      im.name='arbol:'+m.id+':'+part.name;im.userData={kind:'tree',model:m.id};
+      im.name='arbol:'+m.id+':'+part.name;im.userData={kind:'tree',model:m.id,species:m.id};
       im.computeBoundingSphere();
       group.add(im);
     }
