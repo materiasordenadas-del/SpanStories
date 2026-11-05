@@ -1,5 +1,10 @@
 # Estado de Atlas · Estudio de lugares
 
+## 0.18.0 · Zona climática y variación de árboles · 5/11/2026
+
+- **Zona climática como dato base** (`src/estudio/data/climate.js`): tropical, árido, montaña, mediterráneo o atlántico, con variante regional, deducida sin proveedores a partir de país, latitud, longitud y altitud media del relieve (pisos térmicos andinos, desierto costero del Pacífico, cornisa cantábrica, sureste ibérico, Cono Sur…). Se guarda en el lugar (`model.climate`), se muestra en «Datos», admite corrección manual y se exporta al visor (`lugar.json` → `clima`). El generador no aplica efectos de clima: estaciones, lluvia, nieve o niebla son del visor (`SpanStories-Ciudades/engine/EstacionesClima.js`).
+- **Árboles**: se conservan los cuatro GLB existentes. Por petición del usuario se descartaron por completo las especies procedurales de la sesión. Cada instancia recibe ancho de copa propio (±14 %), inclinación ligera (≤ 4°) y tono de hoja algo distinto con un azar por posición, sin cambiar modelo, altura ni giro asignados. Corregido: el giro se sorteaba por separado para cada parte del GLB, así que tronco y copa de un mismo árbol podían quedar con orientaciones distintas; ahora hay una transformación por árbol.
+
 ## 0.18.0 · País hispanohablante, mar y bordes cuadrados · 5/11/2026
 
 Petición del usuario: Atlas solo se optimiza para lugares donde el español es la primera lengua (sin bloquear los demás); añadir el mar; los lugares terminan siempre en un cuadrado recto (los horizontes se tratarán después).

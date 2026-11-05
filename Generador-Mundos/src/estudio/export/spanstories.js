@@ -9,6 +9,7 @@ import {buildPlaceScene} from '../scene/place-scene.js';
 import {disposeScene} from '../render/resources.js';
 import packageInfo from '../../../package.json' with {type:'json'};
 import {commerceMetadata} from '../data/commerces.js';
+import {climateOf} from '../data/climate.js';
 import {commerceTextureExporter} from './commerce-textures.js';
 
 const SECTOR=50,BAKE_BELOW=12;
@@ -105,7 +106,7 @@ export async function exportSpanStories(state,{name,onProgress=()=>{}}={}){
   const m=state.model,lugar={formato:'atlas-estudio-spanstories',version:2,nombre:m.label??name,tipo:m.kind,semilla:m.seed,tamano:m.size,limites:m.bounds,unidades:'metros; X este, Y arriba, Z sur; origen en el centro del área',origenAltura:m.terrain.origin,
     relieve:{resolucion:m.terrain.n,ancho:m.terrain.width,fondo:m.terrain.depth,fuente:m.terrainSource??null,alturas:Array.from(m.terrain.h)},
     edificios:m.buildings.map(b=>({id:b.id,nombre:b.name,uso:b.use,estilo:prepared.get(b.id)?.styleId??b.forceStyle??null,plantas:b.levels,altura:b.height,alturaEstimada:!!b.estimated,ajusteApoyo:b.baseOffset??0,huella:b.rings,interior:b.interiorConfig??null,apariencia:{...appearancePolicy(b),colour:b.colour??null,material:b.material??null,roof:b.roof,profile:b.facadeProfile??null,reference:b.reference??null,assetId:b.modelId??null,representation:prepared.get(b.id)?.roofRepresentation??null}})),
-    calles:m.roads.map(r=>({id:r.id,clase:r.cls,tipo:r.type,ancho:r.width,nombre:r.name,puente:!!r.bridge,tunel:!!r.tunnel,elevacion:r.elevationOffset??0,profundidad:r.depth??null,alturaLibre:r.clearance??null,eje:r.points})),zonas:m.areas,atribucion:m.attribution??null,
+    calles:m.roads.map(r=>({id:r.id,clase:r.cls,tipo:r.type,ancho:r.width,nombre:r.name,puente:!!r.bridge,tunel:!!r.tunnel,elevacion:r.elevationOffset??0,profundidad:r.depth??null,alturaLibre:r.clearance??null,eje:r.points})),zonas:m.areas,clima:climateOf(m),atribucion:m.attribution??null,
     comercios:[...commerces.values()],referenciasAutomaticas:state.automaticReferences??{},singulares:m.landmarks??[],efectosAtlas:{escaparates:'Caja somera, capas pintadas, vidrio, persianas y rótulos autocontenidos en cada GLB; luz ambiente modulable en el receptor'}};
   const total={sectores:index.length,triangulos:index.reduce((s,x)=>s+x.triangulos,0),bytes:index.reduce((s,x)=>s+x.bytes,0),rawBytes:index.reduce((s,x)=>s+x.rawBytes,0)};
   await save('lugar','json',JSON.stringify(lugar));await save('entidades','json',JSON.stringify({format:'atlas-entities',version:1,entities:table.entities,comercios:[...commerces.values()]}));

@@ -7,7 +7,7 @@ export class DataPanel{
   constructor(host,{settings,importSource,removeSource}){
     host.innerHTML=`<details><summary>Datos, cobertura y fuentes</summary><div id="data-quality" class="small"></div><p class="small">Registrado no significa comprobado en el terreno. Los huecos de fachada siguen siendo generados.</p>
       <div class="field"><label>Biblioteca regional<select id="data-region">${Object.entries(REGIONS).map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></label></div>
-      <div class="field"><label>Clima (árboles, césped, suelo y materiales)<select id="data-climate"><option value="auto">Automático (deducido)</option>${Object.entries(CLIMATE_CHOICES).map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></label></div>
+      <div class="field"><label>Zona climática (dato del lugar para el visor)<select id="data-climate"><option value="auto">Automático (deducido)</option>${Object.entries(CLIMATE_CHOICES).map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></label></div>
       <div class="field"><label>Metros por planta estimada<input id="data-floor-height" type="number" min="2.6" max="6" step="0.1"></label></div>
       <div class="field"><label>Plantas sin datos (0 = contexto)<input id="data-floors" type="number" min="0" max="60" step="1"></label></div>
       <div class="field"><label>Relieve del proveedor<select id="data-terrain"><option value="0">Original (sin filtrar)</option><option value="18">Filtrado urbano · quita bultos del DEM (18 m)</option><option value="30">Filtrado fuerte (30 m)</option></select></label></div>
