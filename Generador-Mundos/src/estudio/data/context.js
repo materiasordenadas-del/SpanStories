@@ -21,7 +21,8 @@ export function urbanContext(model){
   const score=historic+religious*2+(civic?2:0)+Math.min(3,portals)+Math.min(4,Math.floor(identities/4));
   const historicCore=lowRise&&score>=5;
   const profile=region==='latam'?(historicCore?'historico-latam':'latam'):historicCore&&['espana','andalucia','canarias'].includes(region)?'historico':'general';
-  return {version:1,region,profile,signals:{buildings:source.length,known:known.length,knownLevels:knownLevels&&Math.round(knownLevels*10)/10,religious,historic,civic,portals,identities,score}};
+  const c=model.bounds?.country??null;
+  return {version:1,region,profile,country:c?{code:c.code,name:c.name,subdivision:c.subdivision,hispanic:c.hispanic,subregion:c.subregion,source:c.source}:null,signals:{buildings:source.length,known:known.length,knownLevels:knownLevels&&Math.round(knownLevels*10)/10,religious,historic,civic,portals,identities,score}};
 }
 
 export const PROFILE_NAMES={'historico-latam':'Centro histórico latinoamericano',latam:'Ciudad latinoamericana',historico:'Casco histórico',general:'General'};

@@ -49,9 +49,15 @@ export function buildGround(model,{seed=model.seed}={}){
     ['path',union(offsetLines(ped.filter(insidePark).map(r=>({points:r.points,width:r.width})))),GROUND.albero,SURF.paving],
     ['walk',union(offsetLines(ped.filter(r=>!insidePark(r)&&r.cls!=='pedestrian').map(r=>({points:r.points,width:r.width})))),GROUND.pavingAlt,SURF.paving],
     ['pedestrian',union(offsetLines(ped.filter(r=>r.cls==='pedestrian').map(r=>({points:r.points,width:r.width})))),GROUND.pedestrian,15],
-    ['water',areaPaths(areasBy('water')),GROUND.water,SURF.water],
+    ['sea',areaPaths(model.areas.filter(a=>a.kind==='water'&&a.sea)),GROUND.sea,SURF.water],
+    ['water',areaPaths(model.areas.filter(a=>a.kind==='water'&&!a.sea)),GROUND.water,SURF.water],
     ['pool',areaPaths(areasBy('pool')),GROUND.pool,SURF.water],
+    // Muelles y espigones sobre el agua: tablero de madera/hormigón y escollera.
+    ['breakwater',areaPaths(areasBy('breakwater')),GROUND.breakwater,SURF.paving],
+    ['pier',areaPaths(areasBy('pier')),GROUND.pier,SURF.paving],
   ];
+  // El mar es plano al nivel del mar (las celdas marinas del relieve ya están fijadas a 0 m).
+  const seaY=(model.sea?.level??0)-.45;
   // Regiones exclusivas: cada capa pierde lo que tapan las de encima, la calzada y el bordillo.
   let above=union(asphalt.concat(curbBand));
   const exclusive=[];
@@ -69,17 +75,18 @@ export function buildGround(model,{seed=model.seed}={}){
   const builder=(x,z)=>{const k=Math.floor((x+W/2)/SECTOR)+':'+Math.floor((z+D/2)/SECTOR);if(!builders.has(k))builders.set(k,new MeshBuilder());return builders.get(k);};
   const r=rng(seed+':suelo');
   const jitter=(c,amt)=>shade(c,1+(r()-.5)*amt);
-  const lay=(paths,yOff,col,surf,{maxEdge=7,vary=0}={})=>{
+  const lay=(paths,yOff,col,surf,{maxEdge=7,vary=0,flatY=null}={})=>{
     if(model.groundHoles?.length)paths=difference(paths,model.groundHoles);
     if(model.terrainSource?.kind==='local-dem')maxEdge=Math.max(.75,Math.min(maxEdge,Math.max(T.width,T.depth)/(T.n-1)*2));
     for(const tile of tiles(paths,50,W,D)){
       const mb=builder((tile.x0+tile.x1)/2,(tile.z0+tile.z1)/2);
-      for(const p of tile.polys)mb.polygon(p.outer,p.holes,(x,z)=>T.height(x,z)+yOff,vary?jitter(col,vary):col,surf,{maxEdge});
+      for(const p of tile.polys)mb.polygon(p.outer,p.holes,flatY!=null?()=>flatY:(x,z)=>T.height(x,z)+yOff,vary?jitter(col,vary):col,surf,{maxEdge});
     }
   };
   lay(base,CURB,GROUND.paving,SURF.paving,{vary:.04});
   for(const l of exclusive){
     const y=l.name==='water'?-.45:l.name==='pool'?-.1:l.name==='flush'||l.name==='parking'?CURB-.005:CURB;
+    if(l.name==='sea'){lay(l.paths,0,l.color,l.surf,{vary:.015,flatY:seaY,maxEdge:25});continue;}
     lay(l.paths,y,l.color,l.surf,{vary:l.name==='grass'||l.name==='forest'?.05:.02});
   }
   lay(asphalt,0,GROUND.asphalt,SURF.asphalt);
@@ -87,7 +94,7 @@ export function buildGround(model,{seed=model.seed}={}){
 
   // --- Paredes verticales: bordillos (calzada) y orillas (agua) ---
   const walls=new MeshBuilder();
-  const rim=(paths,yTop,yBottom,col,faceInside)=>{
+  const rim=(paths,yTop,yBottom,col,faceInside,{bottomAbs=null}={})=>{
     for(const p of toExPolygons(paths))for(const ring of [p.outer,...p.holes]){
       const sgn=Math.sign(signedArea(ring));
       for(let i=0;i<ring.length;i++){
@@ -98,7 +105,8 @@ export function buildGround(model,{seed=model.seed}={}){
           const u0=s/steps,u1=(s+1)/steps,p0=[a[0]+(b[0]-a[0])*u0,a[1]+(b[1]-a[1])*u0],p1=[a[0]+(b[0]-a[0])*u1,a[1]+(b[1]-a[1])*u1];
           const h0=T.height(...p0),h1=T.height(...p1);
           // El interior del anillo exterior queda a la izquierda si el área es positiva.
-          const A=[p0[0],h0+yBottom,p0[1]],B=[p1[0],h1+yBottom,p1[1]],Cc=[p1[0],h1+yTop,p1[1]],Dd=[p0[0],h0+yTop,p0[1]];
+          const b0=bottomAbs??h0+yBottom,b1=bottomAbs??h1+yBottom;if(bottomAbs!=null&&h0+yTop<=bottomAbs&&h1+yTop<=bottomAbs)continue;
+          const A=[p0[0],b0,p0[1]],B=[p1[0],b1,p1[1]],Cc=[p1[0],h1+yTop,p1[1]],Dd=[p0[0],h0+yTop,p0[1]];
           const facesLeft=(sgn>0)===faceInside;
           if(facesLeft)walls.quad(A,B,Cc,Dd,col,SURF.paving);else walls.quad(B,A,Dd,Cc,col,SURF.paving);
         }
@@ -107,7 +115,8 @@ export function buildGround(model,{seed=model.seed}={}){
   };
   rim(asphalt,CURB,0,GROUND.curbSide,true);
   const water=exclusive.find(l=>l.name==='water');if(water)rim(water.paths,CURB,-.45,shade(GROUND.curbSide,.95),true);
-  const pool=exclusive.find(l=>l.name==='pool');if(pool)rim(pool.paths,CURB,-.1,GROUND.poolRim,true);
+  const sea=exclusive.find(l=>l.name==='sea');if(sea)rim(sea.paths,CURB,0,shade(GROUND.curbSide,.9),true,{bottomAbs:seaY-.6});
+    const pool=exclusive.find(l=>l.name==='pool');if(pool)rim(pool.paths,CURB,-.1,GROUND.poolRim,true);
 
   // --- Marcas viales ---
   const marks=new MeshBuilder();

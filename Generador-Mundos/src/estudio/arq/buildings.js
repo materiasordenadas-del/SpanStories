@@ -2,7 +2,7 @@
 // gramática de fachada por estilo (plantas, crujías, huecos, balcones, comercios) y cubiertas.
 import * as THREE from 'three';
 import {MeshBuilder,SURF,shade,simplifyRing,ringSignedArea} from '../geom/mesh.js';
-import {offset,toPaths,toExPolygons} from '../geom/clip.js';
+import {offset,toPaths,toExPolygons,polygonPaths,intersection,rectPath} from '../geom/clip.js';
 import {ROOF,SIGN,AWNING,FACADE} from '../geom/palette.js';
 import {rng,pick,range,weighted} from '../data/rng.js';
 import {STYLES,regionOf,chooseStyle} from './styles.js';
@@ -92,14 +92,18 @@ export function buildBuildings(model,{seed=model.seed,roadSegments=[],plazas=[],
   const region=regionOf(model.bounds),T=model.terrain;
   const inst=new InstanceSet();
   const sectors=new Map(),W=model.size.width,D=model.size.depth;
+  // Cuadrado del lugar (en modo por sectores, el del área completa en coordenadas del sector).
+  const P=model.placementBounds,cutBox=P?[P.x0,P.z0,P.x1,P.z1]:[-W/2,-D/2,W/2,D/2];inst.bounds=cutBox;
   const sectorOf=(x,z)=>{const k=Math.floor((x+W/2)/SECTOR)+':'+Math.floor((z+D/2)/SECTOR);if(!sectors.has(k))sectors.set(k,new MeshBuilder());return sectors.get(k);};
 
   // Preparación
   const prepared=[];
   model.buildings.forEach((b,index)=>{
     const rings=[];
-    for(let k=0;k<b.rings.length;k++){
-      let r=simplifyRing(b.rings[k],.3,.03);
+    // Huella recortada en el borde: el lugar termina en línea recta y el corte queda como pared lisa.
+    const square=squareRings(b.rings,cutBox);if(!square)return;
+    for(let k=0;k<square.rings.length;k++){
+      let r=simplifyRing(square.rings[k],.3,.03);
       if(r.length<3)continue;
       const area=ringSignedArea(r);
       if(k===0&&area<0||k>0&&area>0)r=r.slice().reverse();
@@ -116,7 +120,7 @@ export function buildBuildings(model,{seed=model.seed,roadSegments=[],plazas=[],
     const base=(b.minHeight>0?gmax+b.minHeight:gmax)+(b.baseOffset??0);
     const top=gmax+b.minHeight+b.height+(b.baseOffset??0);
     const cx=rings[0].reduce((s,p)=>s+p[0],0)/rings[0].length,cz=rings[0].reduce((s,p)=>s+p[1],0)/rings[0].length;
-    prepared.push({b,index,rings,r,styleId,st,gmin,gmax,base,top,cx,cz,
+    prepared.push({b,index,rings,r,styleId,st,gmin,gmax,base,top,cx,cz,cutBox:square.cut?cutBox:null,
       bbox:[Math.min(...rings[0].map(p=>p[0])),Math.min(...rings[0].map(p=>p[1])),Math.max(...rings[0].map(p=>p[0])),Math.max(...rings[0].map(p=>p[1]))]});
   });
 
@@ -208,11 +212,12 @@ function emitBuilding(pb,mb,ctx,counts){
   rings.forEach((ring,k)=>ring.forEach((a,i)=>{
     const bpt=ring[(i+1)%ring.length],dx=bpt[0]-a[0],dz=bpt[1]-a[1],len=Math.hypot(dx,dz);if(len<.05)return;
     const d=[dx/len,dz/len],n=[d[1],-d[0]],mid=[(a[0]+bpt[0])/2,(a[1]+bpt[1])/2];
-    E.push({a,b:bpt,len,d,n,mid,k,i,yaw:Math.atan2(n[0],n[1]),exp:k>0?'court':'side'});
+    E.push({a,b:bpt,len,d,n,mid,k,i,yaw:Math.atan2(n[0],n[1]),exp:k>0?'court':'side',cut:Boolean(pb.cutBox&&onBoxSide(a,bpt,pb.cutBox))});
   }));
   // Un vecino «volado» (parte con min_height) delante deja la planta baja al aire: soportal.
   const floating=o=>o.b.minHeight>=2.5&&o.base-pb.base>=2.5;
   for(const e of E){
+    if(e.cut){e.exp='party';continue;}
     let shared=0,sharedAbove=0,above=Infinity,sharedTop=0;
     for(const o of ctx.edges.near(e.mid[0],e.mid[1],e.len/2+1)){
       if(o.pb===pb||!ctx.overlapY(o.pb,pb))continue;
@@ -615,6 +620,19 @@ function buildRuns(E){
   }
   return runs;
 }
+
+// Recorta la huella al cuadrado del lugar. Sin cruce devuelve los anillos originales; si el recorte
+// deja varias piezas se conserva la mayor (el resto queda fuera de la representación, no de los datos).
+function squareRings(rings,box){
+  const [x0,z0,x1,z1]=box,outer=rings[0];
+  if(outer.every(p=>p[0]>=x0&&p[0]<=x1&&p[1]>=z0&&p[1]<=z1))return {rings,cut:false};
+  const pieces=toExPolygons(intersection(polygonPaths(rings),[rectPath(x0,z0,x1,z1)]));
+  if(!pieces.length)return null;
+  const area=p=>Math.abs(ringSignedArea(p.outer))-p.holes.reduce((s,h)=>s+Math.abs(ringSignedArea(h)),0);
+  const best=pieces.sort((a,b)=>area(b)-area(a))[0];
+  return {rings:[best.outer,...best.holes],cut:true};
+}
+const onBoxSide=(a,b,[x0,z0,x1,z1],tol=.05)=>[[0,x0],[0,x1],[1,z0],[1,z1]].some(([k,v])=>Math.abs(a[k]-v)<tol&&Math.abs(b[k]-v)<tol);
 
 // Anillo del ático: cada arista vista se desplaza d hacia dentro; las medianeras se quedan.
 function insetRing(ring,E,d){

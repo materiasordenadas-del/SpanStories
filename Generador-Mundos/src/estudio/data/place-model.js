@@ -8,6 +8,9 @@ import {appearancePolicy} from './appearance-policy.js';
 import {urbanContext,contextLevels} from './context.js';
 import {polygonPaths,intersection,union,pathsArea,rectPath} from '../geom/clip.js';
 import {commercialRecord} from './shop-categories.js';
+import {resolveCountry} from './country.js';
+import {buildSea} from './coast.js';
+import {offsetLines,toExPolygons} from '../geom/clip.js';
 
 export const FLOOR_HEIGHT=3.2;
 
@@ -39,6 +42,8 @@ function areaKind(t){
   if(['school','college','university','kindergarten'].includes(t.amenity))return 'school';
   if(t.landuse==='railway')return 'gravel';
   if(['farmland','orchard','vineyard'].includes(t.landuse))return 'farmland';
+  if(t.man_made==='pier')return 'pier';
+  if(['breakwater','groyne'].includes(t.man_made))return 'breakwater';
   return null;
 }
 
@@ -68,12 +73,14 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
   for(const cached of source.osm?.cache??[])if(cached.stale)warnings.push('Fuente OSM en caché, sin actualizar desde '+cached.savedAt+'; '+cached.reason);
   warnings.push(...(source.osm?.warnings??[]));
   const W=frame.width,D=frame.depth,half={x:W/2,z:D/2};
+  // País del lugar: decide la región de estilos. Fuera del ámbito hispanohablante se generan estilos genéricos.
+  const country=resolveCountry(source);
+  if(!country.hispanic)warnings.push('Lugar fuera del ámbito hispanohablante: Atlas se optimiza para lugares donde el español es la primera lengua; se usan estilos genéricos.');
   const selection=[rectPath(-half.x,-half.z,half.x,half.z)];
   const e=source.elevation;
-  const terrain=e?new Terrain({width:e.width,depth:e.depth,resolution:e.resolution,heights:e.heights}):Terrain.flat(W,D);
   const inArea=(x,z,m=0)=>Math.abs(x)<=half.x+m&&Math.abs(z)<=half.z+m;
 
-  const buildings=[],parts=[],roads=[],areas=[],points=[],lines=[],pois=[],landmarks=[];
+  const buildings=[],parts=[],roads=[],areas=[],points=[],lines=[],pois=[],landmarks=[],coastLines=[],piers=[];
   for(const f of features){
     const t=f.tags||{};
     // Conserva también identidades de contornos sustituidos por sus partes y monumentos sin huella edificable.
@@ -103,6 +110,11 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
         if(['proposed','construction','abandoned','platform','elevator','bus_stop'].includes(t.highway))continue;
         if(!VEHICLE[t.highway]&&!FLUSH[t.highway]&&!PEDESTRIAN[t.highway])continue;
         roads.push(roadFrom(f.id,t,pts));
+      }else if(t.natural==='coastline'){coastLines.push(pts);
+      }else if(['pier','breakwater','groyne'].includes(t.man_made)&&t.area!=='no'){
+        // Muelles y espigones: una vía cerrada es su contorno; una abierta, su eje con la anchura registrada.
+        const kind=t.man_made==='pier'?'pier':'breakwater',closed=pts.length>3&&Math.hypot(pts[0][0]-pts.at(-1)[0],pts[0][1]-pts.at(-1)[1])<.01;
+        piers.push({id:f.id,kind,closed,points:pts,width:metric(t.width)??(kind==='pier'?3:5),name:t.name||null,tags:pickTags(t,['man_made','name','surface','width'])});
       }else if(t.natural==='tree_row'||t.barrier||t.railway||t.waterway){
         if(t.railway&&(['subway','abandoned','disused','razed','proposed'].includes(t.railway)||t.tunnel&&t.tunnel!=='no'))continue;
         lines.push({id:f.id,kind:t.natural==='tree_row'?'tree_row':t.barrier?'barrier':t.railway?'rail':'waterway',
@@ -115,6 +127,23 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
         pois.push(commercialRecord(f.id,f.x,f.z,t));
     }
   }
+
+  // Mar: líneas de costa cerradas por el borde del cuadrado. Muelles y espigones lineales: franjas con su anchura.
+  const sea=buildSea(coastLines,W,D);
+  if(sea.warning)warnings.push(sea.warning);
+  sea.polygons.forEach((rings,i)=>areas.push({id:'osm:costa:mar:'+i,kind:'water',sea:true,rings,name:'Mar',tags:{natural:'coastline'},area:polygonAreaNet(rings),c:centroid(rings[0]),representation:'derivado de natural=coastline'}));
+  for(const p of piers){
+    const polys=p.closed?[{outer:p.points.slice(0,-1),holes:[]}]:toExPolygons(offsetLines([{points:p.points,width:p.width}],{join:'miter',end:'butt'}));
+    polys.forEach((poly,i)=>{const rings=[poly.outer,...poly.holes];areas.push({id:p.id+(polys.length>1?':'+i:''),kind:p.kind,rings,name:p.name,tags:p.tags,area:polygonAreaNet(rings),c:centroid(rings[0])});});
+  }
+  // Relieve: el proveedor incluye batimetría bajo el mar. Las celdas marinas se fijan al nivel del mar (0 m) para
+  // que el agua quede plana y el origen local no dependa de la profundidad del fondo; la tierra queda al menos a 0,5 m.
+  let heights=e?.heights;
+  if(e&&sea.polygons.length){const n=e.resolution,seaPolys=sea.polygons.map(r=>r.map(ring=>ring));heights=e.heights.slice();
+    for(let j=0;j<n;j++)for(let i=0;i<n;i++){const x=(i/(n-1)-.5)*e.width,z=(j/(n-1)-.5)*e.depth;if(seaPolys.some(rings=>inPolygon(x,z,rings)))heights[j*n+i]=0;
+      // La batimetría del proveedor no coincide exactamente con la costa de OSM: la tierra no queda bajo el agua.
+      else heights[j*n+i]=Math.max(heights[j*n+i],.5);}}
+  const terrain=e?new Terrain({width:e.width,depth:e.depth,resolution:e.resolution,heights}):Terrain.flat(W,D);
 
   // Partes de edificio (Simple 3D Buildings): si un contorno tiene partes, se dibujan las partes.
   const outlinesWithParts=new Set(),partOf=new Map();
@@ -137,8 +166,9 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
 
   const model={
     format:'atlas-estudio-lugar',version:1,kind:'real',seed:String(seed),
-    label:source.label,bounds:source.bounds,size:{width:W,depth:D},
+    label:source.label,bounds:{...source.bounds,country},size:{width:W,depth:D},
     terrain,buildings:[],roads,areas,points,lines,pois,landmarks,warnings,
+    sea:{status:sea.status,area:Math.round(sea.area),level:sea.polygons.length?0-terrain.origin:null},
     // Contornos dibujados por sus partes: ocupan suelo aunque las partes no cubran toda la huella.
     outlines:buildings.filter(b=>outlinesWithParts.has(b.f.id)).map(b=>({id:b.f.id,rings:b.rings})),
     attribution:source.attribution,retrievedAt:source.retrievedAt,

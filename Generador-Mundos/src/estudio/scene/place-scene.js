@@ -16,6 +16,7 @@ import '../arq/proxies.js';
 import {ElementLOD} from '../render/lod.js';
 import {buildInteriorGroup} from '../arq/interior.js';
 import {tunnelGroundHoles} from '../geom/road-surface.js';
+import {cropGeometry} from '../geom/crop.js';
 import {buildCommerceScene} from '../render/commerce-scene.js';
 import {loadCommerceBlenderKit} from '../render/commerce-blender-scene.js';
 import {combineCommerceLOD} from '../render/commerce-distance-lod.js';
@@ -60,7 +61,8 @@ export async function buildPlaceScene(model,{sun,seed=model.seed,seeds={},option
   const barriers=buildBarriers(model.lines.filter(l=>l.kind==='barrier'||['wall','fence','hedge','wall_fence','city_wall','railing'].includes(l.kind)),{T:model.terrain,mb:siteMB,inst:bld.instances,seed:S.calle});
   equipSports(model.areas.filter(a=>['pitch','pool','playground'].includes(a.kind)),{T:model.terrain,inst:bld.instances,seed:S.calle});
   const infra=buildInfra(model,{mb:siteMB,inst:bld.instances,seed:S.calle});
-  if(siteMB.vertexCount){const m=new THREE.Mesh(siteMB.build(),bMat);m.name='recinto';m.userData.kind='infrastructure';m.castShadow=true;m.receiveShadow=true;group.add(m);}
+  // Muros, puentes y vías se recortan al cuadrado del lugar (en modo por sectores lo hace cada sector).
+  if(siteMB.vertexCount){const built=siteMB.build(),{width:W,depth:D}=model.size,geometry=model.placementBounds?built:cropGeometry(built,[-W/2,-D/2,W/2,D/2]);if(geometry!==built)built.dispose();const m=new THREE.Mesh(geometry,bMat);m.name='recinto';m.userData.kind='infrastructure';m.castShadow=true;m.receiveShadow=true;group.add(m);}
   onProgress('Mobiliario urbano y arbolado…');await tick();
   const street=placeStreet(model,{asphalt:toExPolygons(ground.asphalt),buildingsInfo:bld.prepared,inst:bld.instances,seed:S.calle,options});
   const warnings=[];

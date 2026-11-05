@@ -1,5 +1,6 @@
 import {REGIONS,dataQuality} from '../data/quality.js';
 import {PROFILE_NAMES} from '../data/context.js';
+import {SUBREGION_NAMES} from '../data/country.js';
 
 export class DataPanel{
   constructor(host,{settings,importSource,removeSource}){
@@ -20,7 +21,7 @@ export class DataPanel{
     host.querySelector('#data-file').onchange=async e=>{const file=e.target.files[0];e.target.value='';if(file)try{if(file.size>40*1024*1024)throw Error('Fuente local demasiado grande');await importSource(await file.text());}catch(error){host.querySelector('#data-error').textContent=error.message;}};
   }
   update(model,settings,supplements){
-    const q=dataQuality(model),lines=[`${q.buildings} entidades · altura registrada ${q.heightRecorded} · documentada en Wikidata ${q.heightDocumented} · derivada de plantas ${q.heightFromLevels} · estimada ${q.heightEstimated} · corregida ${q.heightCorrected}`,`Color disponible ${q.wallColour} · material ${q.wallMaterial} · cubierta con datos/corrección ${q.roofShape}`,`${q.singular} singulares · ${q.roadsEstimated} vías con anchura deducida`,...(model?.context?[`Contexto: ${PROFILE_NAMES[model.context.profile]??model.context.profile}${q.inferred?` · ${q.inferred} parcelas de relleno generadas`:''}`]:[]),...supplements.map(s=>'Fuente local: '+s.source.name+' · '+s.source.license),...q.warnings];
+    const q=dataQuality(model),lines=[`${q.buildings} entidades · altura registrada ${q.heightRecorded} · documentada en Wikidata ${q.heightDocumented} · derivada de plantas ${q.heightFromLevels} · estimada ${q.heightEstimated} · corregida ${q.heightCorrected}`,`Color disponible ${q.wallColour} · material ${q.wallMaterial} · cubierta con datos/corrección ${q.roofShape}`,`${q.singular} singulares · ${q.roadsEstimated} vías con anchura deducida`,...(model?.context?.country?[`País: ${model.context.country.name??'sin identificar'}${model.context.country.subregion?' · '+(SUBREGION_NAMES[model.context.country.subregion]??model.context.country.subregion):''}${model.context.country.hispanic?'':' · fuera del ámbito hispanohablante (estilos genéricos)'} · fuente: ${model.context.country.source}`]:[]),...(model?.context?[`Contexto: ${PROFILE_NAMES[model.context.profile]??model.context.profile}${q.inferred?` · ${q.inferred} parcelas de relleno generadas`:''}`]:[]),...supplements.map(s=>'Fuente local: '+s.source.name+' · '+s.source.license),...q.warnings];
     this.host.querySelector('#data-quality').textContent=lines.join('\n');
     this.sourceList.replaceChildren();for(const s of supplements){const button=document.createElement('button');button.className='btn';button.textContent='Retirar fuente '+s.source.name;button.onclick=()=>this.removeSource(s.source.id);this.sourceList.append(button);}
     this.references.replaceChildren();

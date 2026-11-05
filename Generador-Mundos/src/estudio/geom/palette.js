@@ -9,7 +9,7 @@ export const GROUND={
   curb:C('#c7c1b5'),curbSide:C('#a7a196'),
   grass:C('#9fc46a'),grassDark:C('#86b158'),park:C('#a3c96c'),forest:C('#78a352'),scrub:C('#9cb767'),
   sand:C('#e8d29f'),albero:C('#e4c27c'),gravel:C('#c9c0ae'),farmland:C('#c9cf86'),
-  water:C('#58a9d3'),waterDeep:C('#3f8fbe'),pool:C('#5fc4e0'),poolRim:C('#eeeae2'),
+  water:C('#58a9d3'),waterDeep:C('#3f8fbe'),sea:C('#4c9ccc'),pier:C('#a57a52'),breakwater:C('#a9a397'),pool:C('#5fc4e0'),poolRim:C('#eeeae2'),
   pitch:C('#71b257'),pitchLine:C('#f6f4ee'),track:C('#c86d52'),court:C('#5f8fb8'),playground:C('#e2b98c'),
   parking:C('#8b8e97'),marking:C('#f5f2ea'),markingYellow:C('#ebc24c'),
   school:C('#dccfb8'),rail:C('#a69d90'),railSteel:C('#7a7a80'),

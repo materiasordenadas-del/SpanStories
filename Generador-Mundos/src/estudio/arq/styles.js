@@ -2,18 +2,14 @@
 // cornisas, cubiertas y detalles. La región y el uso del edificio eligen el estilo; la semilla varía.
 import {FACADE} from '../geom/palette.js';
 import {pick,weighted} from '../data/rng.js';
+import {approximateCountry} from '../data/country.js';
 
+// Región de estilos: corrección manual > país registrado en la fuente (OSM) > aproximación por coordenadas.
+// Solo los lugares hispanohablantes reciben estilos regionales; el resto usa los genéricos.
 export function regionOf(bounds){
   if(['espana','catalunya','andalucia','canarias','latam','europa','generic'].includes(bounds?.regionOverride))return bounds.regionOverride;
-  const lat=bounds?.centerLat??40,lon=bounds?.centerLon??-3.7;
-  if(lat>35.5&&lat<44&&lon>-9.6&&lon<4.5){
-    if(lat>40.9&&lon>.4)return 'catalunya';
-    if(lat<38.6)return 'andalucia';
-    return 'espana';
-  }
-  if(lat>27.5&&lat<29.5&&lon>-18.5&&lon<-13)return 'canarias';
-  if(lon<-30&&lon>-120&&lat<33)return 'latam';
-  return 'generic';
+  if(bounds?.country?.region)return bounds.country.region;
+  return approximateCountry(bounds?.centerLat??40,bounds?.centerLon??-3.7).region;
 }
 
 const FRAMES={white:'#f6f3ec',green:'#3e6a52',brown:'#6a4a34',dark:'#3a3a3e',cream:'#ece2c9',blue:'#3c6488',red:'#8a3b33',wood:'#8b5a36',grey:'#9aa0a6'};

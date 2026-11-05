@@ -30,6 +30,8 @@ export class InstanceSet{
   constructor(){this.groups=new Map();this.count=0;this.currentBuilding=-1;this.currentOpening=null;this.suppressedTypes={};this.shopfronts=[];}
   // pos [x,y,z] en mundo, yaw: giro Y que lleva +Z local a la normal exterior del muro.
   add(type,params,pos,yaw,tint,{scale=null,tint2=null,building=this.currentBuilding}={}){
+    // Límite cuadrado del lugar: nada se coloca fuera (bordes rectos, sin piezas sueltas más allá).
+    const B=this.bounds;if(B&&(pos[0]<B[0]-.01||pos[0]>B[2]+.01||pos[2]<B[1]-.01||pos[2]>B[3]+.01))return false;
     const opening=this.currentOpening;
     if(opening&&['door','shopfront','window'].includes(type)){
       const dx=pos[0]-opening.center[0],dz=pos[2]-opening.center[1],along=Math.abs(dx*opening.entry.d[0]+dz*opening.entry.d[1]),off=Math.abs(dx*opening.entry.n[0]+dz*opening.entry.n[1]);
