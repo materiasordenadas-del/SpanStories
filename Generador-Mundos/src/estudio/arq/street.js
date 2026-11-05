@@ -59,9 +59,9 @@ export function placeStreet(model,{asphalt,buildingsInfo,inst,seed=model.seed,op
   for(const p of model.points.filter(p=>p.kind==='tree')){
     const issue=treeConflict(p.x,p.z,{observed:true});if(issue){treeConflicts.push({id:p.id,x:p.x,z:p.z,reason:issue});continue;}
     const paved=!inPark(p.x,p.z);
-    trees.push({x:p.x,y:T.height(p.x,p.z)+.15,z:p.z,k:r(),pit:paved,sourceId:p.id});used.add(p.x,p.z,'tree');
+    trees.push({x:p.x,y:T.height(p.x,p.z)+.15,z:p.z,k:r(),pit:paved,sourceId:p.id,ctx:paved?'calle':'parque',tags:p.tags});used.add(p.x,p.z,'tree');
   }
-  for(const l of model.lines.filter(l=>l.kind==='tree_row'))walk(l.points,8,(x,z)=>{if(!treeConflict(x,z)&&!used.near(x,z,3,'tree')){trees.push({x,y:y(x,z),z,k:r(),pit:!inPark(x,z)});used.add(x,z,'tree');}});
+  for(const l of model.lines.filter(l=>l.kind==='tree_row'))walk(l.points,8,(x,z)=>{if(!treeConflict(x,z)&&!used.near(x,z,3,'tree')){const pit=!inPark(x,z);trees.push({x,y:y(x,z),z,k:r(),pit,ctx:pit?'calle':'parque'});used.add(x,z,'tree');}});
   // ---- Parques y bosques: dispersión con distancia mínima
   for(const a of model.areas.filter(a=>['park','forest','village_green','grass'].includes(a.kind))){
     if(a.area<120)continue;
@@ -73,8 +73,16 @@ export function placeStreet(model,{asphalt,buildingsInfo,inst,seed=model.seed,op
     for(let t=0;t<n*6&&placed<n;t++){
       const x=range(r,box[0],box[2]),z=range(r,box[1],box[3]);
       if(!pointInRings(x,z,a.rings)||treeConflict(x,z)||onPath(x,z,1.2)||used.near(x,z,a.kind==='forest'?4:6.5,'tree'))continue;
-      trees.push({x,y:T.height(x,z)+.15,z,k:r()});used.add(x,z,'tree');placed++;
+      trees.push({x,y:T.height(x,z)+.15,z,k:r(),ctx:a.kind==='forest'?'bosque':'parque'});used.add(x,z,'tree');placed++;
     }
+  }
+  // ---- Matorral: arbustos y árboles dispersos según el clima (cactus, agaves, acacias, olivos…).
+  for(const a of model.areas.filter(a=>a.kind==='scrub'&&a.area>=150)){
+    const rs=rng(seed+':matorral:'+a.id),n=Math.min(300,Math.round(a.area/110*(options.treeDensity??1)));
+    const xs=a.rings[0].map(p=>p[0]),zs=a.rings[0].map(p=>p[1]),box=[Math.min(...xs),Math.min(...zs),Math.max(...xs),Math.max(...zs)];let placed=0;
+    for(let t=0;t<n*6&&placed<n;t++){const x=range(rs,box[0],box[2]),z=range(rs,box[1],box[3]);
+      if(!pointInRings(x,z,a.rings)||treeConflict(x,z)||onPath(x,z,1)||used.near(x,z,5,'tree'))continue;
+      trees.push({x,y:T.height(x,z)+.15,z,k:rs(),ctx:'matorral'});used.add(x,z,'tree');placed++;}
   }
   // ---- Arbolado de aceras
   if(options.streetTrees!==false){
@@ -88,7 +96,7 @@ export function placeStreet(model,{asphalt,buildingsInfo,inst,seed=model.seed,op
         walk(rd.points,range(rr,7,9),(x,z,dx,dz)=>{
           const off=rd.width/2+1.7,px=x-dz*off*side,pz=z+dx*off*side;
           if(treeConflict(px,pz)||nearJ(px,pz,rd.width+4)||used.near(px,pz,5,'tree')||inPark(px,pz))return;
-          trees.push({x:px,y:y(px,pz),z:pz,k:rr(),pit:true});used.add(px,pz,'tree');
+          trees.push({x:px,y:y(px,pz),z:pz,k:rr(),pit:true,ctx:'calle'});used.add(px,pz,'tree');
         });
       }
     }
@@ -183,7 +191,8 @@ export function placeStreet(model,{asphalt,buildingsInfo,inst,seed=model.seed,op
       }
     }
   }
-  return {trees,counts,anchors,treeConflicts};
+  // Funciones de ocupación para el paisaje (cementerios, humedales, puertos): mismos criterios y rejilla.
+  return {trees,counts,anchors,treeConflicts,space:{used,treeConflict,inBuilding,onAsphalt,clearOf,onPath,inArea}};
 }
 
 export function walk(points,step,fn){

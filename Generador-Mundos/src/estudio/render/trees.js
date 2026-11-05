@@ -2,6 +2,8 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {createGMaterial,createLeafDepthMaterial} from './gmaterial.js';
+import {speciesGeometry,DOUBLE_SIDED,VARIANTS,PROCEDURAL_SPECIES} from './tree-species.js';
+import {SHADOW_LAYER} from './lod.js';
 
 export const TREE_MODELS=[
   {id:'anime',file:'anime_nature_tree_01.glb',height:[7,10],weight:.35},
@@ -45,18 +47,33 @@ export function loadTrees(base='/assets/barcelona-trees/'){
   return loaded;
 }
 
-// positions: [{x,y,z,model?,scale?,rot?}] -> grupo de InstancedMesh (una por parte de modelo).
-export async function buildTrees(points,{sun,seedRandom=Math.random}={}){
-  const models=await loadTrees();
+// positions: [{x,y,z,model?,species?,scale?,rot?}] -> grupo de InstancedMesh.
+// Sin especie: árboles GLB del visor (comportamiento anterior). «frondoso» y «sakura» también son GLB;
+// el resto son especies procedurales por clima (tree-species.js), con LOD por distancia.
+const GLB_FRONDOSO=['anime','anime2','jabami'];
+export async function buildTrees(points,{sun,seedRandom=Math.random,leafTint=null,near=75}={}){
   const group=new THREE.Group();group.name='arboles';
+  const glbPoints=points.filter(p=>!p.species||p.species==='frondoso'||p.species==='sakura');
+  const procedural=points.filter(p=>p.species&&PROCEDURAL_SPECIES.includes(p.species));
+  if(glbPoints.length)await addGLBTrees(group,glbPoints,{sun,seedRandom,leafTint});
+  const lod=procedural.length?addProceduralTrees(group,procedural,{sun,seedRandom,near}):null;
+  group.userData.treeLOD=lod;
+  return group;
+}
+
+async function addGLBTrees(group,points,{sun,seedRandom,leafTint}){
+  const models=await loadTrees();
   const byModel=new Map(models.map(m=>[m.id,[]]));
-  const totalW=models.reduce((s,m)=>s+m.weight,0);
+  const totalW=models.reduce((s,m)=>s+m.weight,0),frondoso=models.filter(m=>GLB_FRONDOSO.includes(m.id)),frondW=frondoso.reduce((s,m)=>s+m.weight,0);
   for(const p of points){
     let id=p.model;
-    if(!id){let x=seedRandom()*totalW;for(const m of models){x-=m.weight;if(x<=0){id=m.id;break;}}id??=models[0].id;}
+    if(!id&&p.species==='sakura')id='sakura';
+    else if(!id&&p.species==='frondoso'){let x=seedRandom()*frondW;for(const m of frondoso){x-=m.weight;if(x<=0){id=m.id;break;}}id??=frondoso[0].id;}
+    else if(!id){let x=seedRandom()*totalW;for(const m of models){x-=m.weight;if(x<=0){id=m.id;break;}}id??=models[0].id;}
     byModel.get(id)?.push(p);
   }
   const mtx=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new THREE.Vector3(),pos=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
+  const leafColor=leafTint?new THREE.Color(...leafTint):null;
   for(const m of models){
     const list=byModel.get(m.id);if(!list.length)continue;
     for(const part of m.parts){
@@ -71,6 +88,7 @@ export async function buildTrees(points,{sun,seedRandom=Math.random}={}){
         q.setFromAxisAngle(up,p.rot??seedRandom()*Math.PI*2);s.set(k,k,k);pos.set(p.x,p.y,p.z);
         mtx.compose(pos,q,s);im.setMatrixAt(i,mtx);
         const tint=part.color.clone().multiplyScalar(p.tint??1);
+        if(part.leaf&&leafColor)tint.multiply(leafColor);
         im.setColorAt(i,tint);
       });
       im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;
@@ -81,5 +99,56 @@ export async function buildTrees(points,{sun,seedRandom=Math.random}={}){
       group.add(im);
     }
   }
-  return group;
+}
+
+// Especies procedurales: una malla por especie y variante (tronco y copa juntos), versión lejana y una
+// capa solo-sombra fija con la geometría ligera (cambiar el LOD no obliga a rehacer el mapa de sombras).
+function addProceduralTrees(group,points,{sun,seedRandom,near}){
+  const buckets=new Map();
+  for(const p of points){const v=p.variant??Math.floor(seedRandom()*VARIANTS)%VARIANTS,key=p.species+':'+v;(buckets.get(key)??buckets.set(key,[]).get(key)).push(p);}
+  const mtx=new THREE.Matrix4(),q=new THREE.Quaternion(),s=new THREE.Vector3(),pos=new THREE.Vector3(),up=new THREE.Vector3(0,1,0),col=new THREE.Color();
+  const lod=new TreeLOD(near);
+  let index=0;
+  for(const [key,list]of buckets){
+    const [id,variant]=key.split(':'),hi=speciesGeometry(id,+variant,0),lo=speciesGeometry(id,+variant,1);
+    const mat=createGMaterial({foliage:true,crown:hi.crown,doubleSided:DOUBLE_SIDED.has(id),sun,surf:-1});mat.uniforms.uMeshId.value=(.21+index++*.0617)%1;
+    const n=list.length,M=new Float32Array(n*16),Cc=new Float32Array(n*3),P=new Float32Array(n*3);
+    list.forEach((p,i)=>{
+      const k=(p.scale??1)*(.86+.28*(p.k??seedRandom()));
+      q.setFromAxisAngle(up,p.rot??seedRandom()*Math.PI*2);s.set(k,k*(.94+.12*seedRandom()),k);pos.set(p.x,p.y,p.z);
+      mtx.compose(pos,q,s);mtx.toArray(M,i*16);
+      const b=.9+.2*seedRandom();col.setRGB(b*(.97+.06*seedRandom()),b,b*(.97+.06*seedRandom()));col.toArray(Cc,i*3);
+      P[i*3]=p.x;P[i*3+1]=p.y;P[i*3+2]=p.z;
+    });
+    const make=(geometry,name,kind)=>{const im=new THREE.InstancedMesh(geometry,mat,n);im.instanceMatrix.array.set(M);im.instanceColor=new THREE.InstancedBufferAttribute(Cc.slice(),3);
+      im.name=name;im.userData={kind,species:id,variant:+variant};im.receiveShadow=true;im.castShadow=false;im.computeBoundingSphere();group.add(im);return im;};
+    const nearMesh=make(hi.geometry,'arbol:'+key,'tree'),farMesh=make(lo.geometry,'arbol:'+key+':lejos','tree-far');farMesh.count=0;
+    const shadow=make(lo.geometry,'arbol:'+key+':sombra','tree-shadow');shadow.layers.set(SHADOW_LAYER);shadow.castShadow=true;shadow.receiveShadow=false;
+    lod.add(nearMesh,farMesh,M,Cc,P);
+  }
+  return lod;
+}
+
+// LOD de árboles: cerca la especie completa, lejos su versión ligera (mismas posiciones y tintes).
+export class TreeLOD{
+  constructor(near=75){this.near=near;this.entries=[];this.last=new THREE.Vector3(1e9,0,0);this.lastT=0;this.pending=false;}
+  add(nearMesh,farMesh,M,C,P){this.entries.push({nearMesh,farMesh,M,C,P,n:P.length/3});}
+  update(cam,force=false){
+    const now=performance.now();
+    if(!force&&cam.distanceToSquared(this.last)<9)return false;
+    if(!force&&now-this.lastT<220){this.pending=true;return false;}
+    this.pending=false;this.lastT=now;this.last.copy(cam);
+    const r2=this.near*this.near;
+    for(const e of this.entries){
+      const nm=e.nearMesh.instanceMatrix.array,nc=e.nearMesh.instanceColor.array,fm=e.farMesh.instanceMatrix.array,fc=e.farMesh.instanceColor.array;let a=0,b=0;
+      for(let i=0;i<e.n;i++){const dx=e.P[i*3]-cam.x,dy=e.P[i*3+1]-cam.y,dz=e.P[i*3+2]-cam.z,close=dx*dx+dy*dy+dz*dz<r2;
+        const m=close?nm:fm,c=close?nc:fc,j=close?a++:b++;
+        for(let k=0;k<16;k++)m[j*16+k]=e.M[i*16+k];for(let k=0;k<3;k++)c[j*3+k]=e.C[i*3+k];}
+      e.nearMesh.count=a;e.farMesh.count=b;
+      for(const im of [e.nearMesh,e.farMesh]){im.instanceMatrix.needsUpdate=true;im.instanceColor.needsUpdate=true;}
+    }
+    return true;
+  }
+  // Exportación o captura sin LOD: todo en detalle.
+  full(){const n=this.near;this.near=1e7;this.update(new THREE.Vector3(),true);this.near=n;}
 }

@@ -11,6 +11,8 @@ import {buildInfra} from '../arq/infra.js';
 import {MeshBuilder} from '../geom/mesh.js';
 import {createGMaterial} from '../render/gmaterial.js';
 import {buildTrees} from '../render/trees.js';
+import {assignSpecies} from '../data/vegetation.js';
+import {FOLIAGE_TINT} from '../data/climate.js';
 import {rng} from '../data/rng.js';
 import '../arq/proxies.js';
 import {ElementLOD} from '../render/lod.js';
@@ -77,16 +79,19 @@ export async function buildPlaceScene(model,{sun,seed=model.seed,seeds={},option
   const eGroup=new THREE.Group();eGroup.name='elementos';elements.forEach(e=>eGroup.add(e));group.add(eGroup);
   const lod=combineCommerceLOD(new ElementLOD(eGroup,{near:options.lodNear??95}),commerce.lod);
   onProgress('Árboles…');await tick();
+  // Especies por clima y contexto (las registradas en OSM se respetan); copas GLB matizadas por clima.
+  const vegetation=assignSpecies(street.trees,model,{seed:S.calle});
   const r=rng(S.calle+':arboles');
-  const trees=await buildTrees(street.trees,{sun,seedRandom:r});
+  const trees=await buildTrees(street.trees,{sun,seedRandom:r,leafTint:FOLIAGE_TINT[vegetation.climate.id]});
   group.add(trees);
+  const allLod=trees.userData.treeLOD?combineCommerceLOD(lod,trees.userData.treeLOD):lod;
   const stats={
     ms:Math.round(performance.now()-t0),
     buildings:bld.stats.buildings,windows:bld.stats.windows,shops:bld.stats.shops,balconies:bld.stats.balconies,
     elements:bld.instances.count,elementTypes:elements.length,trees:street.trees.length,...street.counts,
-    groundMs:ground.stats.ms,buildingMs:bld.stats.ms,barriers,...infra,
+    groundMs:ground.stats.ms,buildingMs:bld.stats.ms,barriers,...infra,climate:vegetation.climate.variant,species:vegetation.counts,
   };
-  stats.commerce=commerce.stats;return {group,stats,ground,buildings:bld,street,lod,interiors,infra,commerce,warnings};
+  stats.commerce=commerce.stats;return {group,stats,ground,buildings:bld,street,lod:allLod,interiors,infra,commerce,warnings,climate:vegetation.climate};
 }
 
 const tick=()=>new Promise(r=>setTimeout(r,0));

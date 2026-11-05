@@ -131,12 +131,15 @@ void main(){
   #ifdef USE_FOLIAGE
     // Copas: normal esférica aproximada para que el árbol se ilumine como un volumen.
     // Zelda: la copa se ilumina como masas (normal de hoja + volumen), con lado en sombra real.
+    // Árboles procedurales: tronco y copa comparten malla; solo el follaje (aSurf 2) se sombrea como volumen.
+    if(vSurf>1.5&&vSurf<2.5){
     if(uFoliageVolume>0.0){
       vec3 cn=normalize(vCrownNormal);
       vec3 bn=normalize(mix(wn*(dot(wn,cn)<0.0?-1.0:1.0),cn,.72));
       nl=mix(nl*.45+.35,dot(bn,uSunDir),uFoliageVolume);
       vn=normalize(mix(vn,normalize(mat3(viewMatrix)*bn),uFoliageVolume));
     }else nl=nl*.45+.35;
+    }
   #endif
   float shadow=1.0;
   #if defined(USE_SHADOWMAP) && NUM_DIR_LIGHT_SHADOWS > 0

@@ -10,6 +10,7 @@ import {polygonPaths,intersection,union,pathsArea,rectPath} from '../geom/clip.j
 import {commercialRecord} from './shop-categories.js';
 import {resolveCountry} from './country.js';
 import {buildSea} from './coast.js';
+import {deduceClimate} from './climate.js';
 import {offsetLines,toExPolygons} from '../geom/clip.js';
 
 export const FLOOR_HEIGHT=3.2;
@@ -146,6 +147,9 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
       // La batimetría del proveedor no coincide exactamente con la costa de OSM: la tierra no queda bajo el agua.
       else heights[j*n+i]=Math.max(heights[j*n+i],.5);}}
   const terrain=e?new Terrain({width:e.width,depth:e.depth,resolution:e.resolution,heights}):Terrain.flat(W,D);
+  // Clima: altitud media de la tierra (sin las celdas de mar) + país y coordenadas.
+  let land=0,landN=0;if(e)for(const v of heights)if(v>.4||!sea.polygons.length){land+=v;landN++;}
+  const climate=deduceClimate({lat:source.bounds?.centerLat,lon:source.bounds?.centerLon,altitude:landN?land/landN:null,country});
 
   // Partes de edificio (Simple 3D Buildings): si un contorno tiene partes, se dibujan las partes.
   const outlinesWithParts=new Set(),partOf=new Map();
@@ -170,7 +174,7 @@ export function buildPlaceModel(source,{seed='atlas'}={}){
     format:'atlas-estudio-lugar',version:1,kind:'real',seed:String(seed),
     label:source.label,bounds:{...source.bounds,country},size:{width:W,depth:D},
     terrain,buildings:[],roads,areas,points,lines,pois,landmarks,warnings,
-    sea:{status:sea.status,area:Math.round(sea.area),level:sea.polygons.length?0-terrain.origin:null},
+    sea:{status:sea.status,area:Math.round(sea.area),level:sea.polygons.length?0-terrain.origin:null},climate,
     // Contornos dibujados por sus partes: ocupan suelo aunque las partes no cubran toda la huella.
     outlines:buildings.filter(b=>outlinesWithParts.has(b.f.id)).map(b=>({id:b.f.id,rings:b.rings})),
     attribution:source.attribution,retrievedAt:source.retrievedAt,
