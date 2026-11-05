@@ -2,8 +2,8 @@
 import * as THREE from 'three';
 import {SURF,shade} from '../geom/mesh.js';
 import {GROUND} from '../geom/palette.js';
-import {offsetLines,union,toExPolygons,difference,toPaths} from '../geom/clip.js';
-import {pointInRings} from '../geom/ground.js';
+import {offsetLines,union,toExPolygons,difference,toPaths,polygonPaths} from '../geom/clip.js';
+import {pointInRings,pointInPaths,seaSurfaceY,CURB} from '../geom/ground.js';
 import {registerBuilders} from './elements.js';
 import {sampleRoad as sample,roadHeightFunction} from '../geom/road-surface.js';
 
@@ -94,5 +94,31 @@ export function buildInfra(model,{mb,inst,seed}){
       inst.add('sleeper',{},[p.x,y(p)-.02,p.z],-Math.atan2(p.dz,p.dx)+Math.PI/2,null);}
     counts.rails++;
   }
+  counts.piers=buildPiers(model,{mb,inst});
   return {...counts,walkSurfaces};
+}
+
+// Muelles sobre el mar: pilotes bajo el tablero y barandilla en los costados que dan al agua.
+const PILE=col('#6d5038');
+function buildPiers(model,{mb,inst}){
+  const piers=model.areas.filter(a=>a.kind==='pier');if(!piers.length)return 0;
+  const T=model.terrain,seaEx=toExPolygons(union(model.areas.filter(a=>a.kind==='water'&&a.sea).flatMap(a=>polygonPaths(a.rings))));
+  if(!seaEx.length)return 0;
+  const pierEx=toExPolygons(union(piers.flatMap(a=>polygonPaths(a.rings)))),seaY=seaSurfaceY(model),{width:W,depth:D}=model.size;
+  const inside=(x,z)=>Math.abs(x)<W/2-.3&&Math.abs(z)<D/2-.3;
+  let piles=0;
+  for(const p of pierEx)for(const ring of [p.outer,...p.holes])for(let i=0;i<ring.length;i++){
+    const a=ring[i],b=ring[(i+1)%ring.length],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(len<.5)continue;
+    const d=[(b[0]-a[0])/len,(b[1]-a[1])/len];let n=[-d[1],d[0]];
+    const m=[(a[0]+b[0])/2,(a[1]+b[1])/2];if(pointInPaths(m[0]+n[0]*.3,m[1]+n[1]*.3,pierEx))n=[-n[0],-n[1]]; // n: hacia fuera del muelle
+    const k=Math.max(1,Math.round(len/3.5)),yaw=-Math.atan2(d[1],d[0]);
+    for(let s=0;s<k;s++){
+      const t=(s+.5)/k*len,x=a[0]+d[0]*t,z=a[1]+d[1]*t;if(!inside(x,z))continue;
+      if(!pointInPaths(x+n[0]*.6,z+n[1]*.6,seaEx))continue; // costado contra tierra: sin pilotes ni barandilla
+      const top=T.height(x,z)+CURB,px=x-n[0]*.35,pz=z-n[1]*.35;
+      mb.box(px,(top-.25+seaY-1.4)/2,pz,.16,(top-.25-(seaY-1.4))/2,.16,yaw,PILE,SURF.base);piles++;
+      inst.add('fence',{h:1.0},[x-n[0]*.12,top,z-n[1]*.12],yaw,null,{scale:[len/k/2.5,1,1]});
+    }
+  }
+  return piles;
 }

@@ -152,6 +152,14 @@ vec3 surfacePattern(vec3 albedo,float surf,vec3 wp,vec3 wn,float depth){
   }else if(surf==16.0&&wn.y>.6){ // adoquín
     vec2 b=bond(floorUV,vec2(.22,.12),.02,.5);
     albedo*=mix(1.0,.88+.2*b.y,.8)*(1.0-b.x*.2);
+  }else if(surf==3.0&&wn.y>.6){ // agua: ondas pintadas (estáticas, sin coste de animación) que se apagan a lo lejos
+    vec2 q=floorUV+vec2(vnoise(floorUV*.045)*9.0,0.0);
+    float ph=q.y*.9+sin(q.x*.21)*1.6+vnoise(floorUV*.11)*2.4;
+    float crest=smoothstep(.9,.985,sin(ph*6.2831853*.35));
+    float fw=fwidth(ph*.35);
+    float broken=smoothstep(.42,.62,vnoise(floorUV*vec2(.09,.22)));
+    albedo=mix(albedo,albedo*1.18+vec3(.06,.08,.08),crest*broken*(1.0-smoothstep(.25,.7,fw))*.8);
+    albedo*=.97+.06*vnoise(floorUV*.07);
   }else if(surf==6.0&&wn.y>.6){ // asfalto
     float n=vnoise(floorUV*2.3)*.5+vnoise(floorUV*.21)*.5;
     albedo*=.95+n*.1;

@@ -41,6 +41,8 @@ export function buildGround(model,{seed=model.seed}={}){
     ['forest',areaPaths(areasBy('forest')),GROUND.forest,SURF.grass],
     ['gravel',areaPaths(areasBy('gravel')),GROUND.gravel,SURF.paving],
     ['sand',areaPaths(areasBy('sand','playground')),GROUND.sand,SURF.paving],
+    ['shingle',areaPaths(areasBy('shingle')),GROUND.shingle,SURF.paving],
+    ['rock',areaPaths(areasBy('rock')),GROUND.rock,SURF.paving],
     ['parking',areaPaths(areasBy('parking')),GROUND.parking,SURF.asphalt],
     ['pitch',areaPaths(model.areas.filter(a=>a.kind==='pitch'&&!isCourt(a))),GROUND.pitch,SURF.grass],
     ['court',areaPaths(model.areas.filter(a=>a.kind==='pitch'&&isCourt(a))),GROUND.court,SURF.paving],
@@ -56,8 +58,7 @@ export function buildGround(model,{seed=model.seed}={}){
     ['breakwater',areaPaths(areasBy('breakwater')),GROUND.breakwater,SURF.paving],
     ['pier',areaPaths(areasBy('pier')),GROUND.pier,SURF.paving],
   ];
-  // El mar es plano al nivel del mar (las celdas marinas del relieve ya están fijadas a 0 m).
-  const seaY=(model.sea?.level??0)-.45;
+  const seaY=seaSurfaceY(model),seaRaw=areaPaths(model.areas.filter(a=>a.kind==='water'&&a.sea));
   // Regiones exclusivas: cada capa pierde lo que tapan las de encima, la calzada y el bordillo.
   let above=union(asphalt.concat(curbBand));
   const exclusive=[];
@@ -86,7 +87,7 @@ export function buildGround(model,{seed=model.seed}={}){
   lay(base,CURB,GROUND.paving,SURF.paving,{vary:.04});
   for(const l of exclusive){
     const y=l.name==='water'?-.45:l.name==='pool'?-.1:l.name==='flush'||l.name==='parking'?CURB-.005:CURB;
-    if(l.name==='sea'){lay(l.paths,0,l.color,l.surf,{vary:.015,flatY:seaY,maxEdge:25});continue;}
+    if(l.name==='sea'){for(const band of seaBands(l.paths,seaRaw,area))lay(band.paths,0,band.color,SURF.water,{vary:.012,flatY:seaY,maxEdge:25});continue;}
     lay(l.paths,y,l.color,l.surf,{vary:l.name==='grass'||l.name==='forest'?.05:.02});
   }
   lay(asphalt,0,GROUND.asphalt,SURF.asphalt);
@@ -115,7 +116,10 @@ export function buildGround(model,{seed=model.seed}={}){
   };
   rim(asphalt,CURB,0,GROUND.curbSide,true);
   const water=exclusive.find(l=>l.name==='water');if(water)rim(water.paths,CURB,-.45,shade(GROUND.curbSide,.95),true);
-  const sea=exclusive.find(l=>l.name==='sea');if(sea)rim(sea.paths,CURB,0,shade(GROUND.curbSide,.9),true,{bottomAbs:seaY-.6});
+  const sea=exclusive.find(l=>l.name==='sea');
+  if(sea)seaShore(walls,sea.paths,T,seaY,{sand:toExPolygons(union(exclusive.filter(l=>['sand','shingle'].includes(l.name)).flatMap(l=>l.paths))),rock:toExPolygons(union(exclusive.filter(l=>l.name==='rock').flatMap(l=>l.paths))),piers:toExPolygons(union(exclusive.filter(l=>['pier','breakwater'].includes(l.name)).flatMap(l=>l.paths))),half:[W/2,D/2]});
+  // Zócalo del lugar: el cuadrado termina en una cara vertical limpia (tierra o agua profunda), sin bordes deshilachados.
+  const skirt=new MeshBuilder();placeSkirt(skirt,model,T,seaY,seaRaw,toExPolygons(asphalt));
     const pool=exclusive.find(l=>l.name==='pool');if(pool)rim(pool.paths,CURB,-.1,GROUND.poolRim,true);
 
   // --- Marcas viales ---
@@ -128,8 +132,78 @@ export function buildGround(model,{seed=model.seed}={}){
   const meshes=[];
   for(const [key,mb]of builders)if(mb.vertexCount)meshes.push({key:'suelo:'+key,geometry:mb.build(),kind:'ground'});
   if(walls.vertexCount)meshes.push({key:'bordillos',geometry:walls.build(),kind:'ground'});
+  if(skirt.vertexCount)meshes.push({key:'zocalo',geometry:skirt.build(),kind:'ground'});
   if(marks.vertexCount)meshes.push({key:'marcas',geometry:marks.build(),kind:'marks'});
   return {meshes,asphalt,curbBand,exclusive,stats:{ms:Math.round(performance.now()-t0),asphaltPaths:asphalt.length,roadBuildingOverlap}};
+}
+
+// ---------------------------------------------------------------- mar
+// Superficie del mar: ~1 m bajo la tierra fijada (malecón y muelles quedan a una altura creíble sobre el agua).
+export const seaSurfaceY=model=>(model.sea?.level??0)-1.0;
+const SEA_BANDS=[[1.4,'seaFoam'],[9,'seaShallow'],[28,'seaMid'],[Infinity,'sea']];
+// Franjas por distancia a la costa: espuma, agua somera, media y profunda (dibujo plano, sin batimetría inventada).
+export function seaBands(seaPaths,seaRaw,area){
+  const land=difference(area,seaRaw),out=[];let inner=[];
+  for(const [d,key]of SEA_BANDS){
+    const reach=d===Infinity||!land.length?seaPaths:intersection(seaPaths,offset(land,d));
+    const paths=inner.length?difference(reach,inner):reach;
+    if(paths.length&&pathsArea(paths)>.01)out.push({key,paths,color:GROUND[key]});
+    inner=union(inner.concat(reach));
+  }
+  return out;
+}
+// Cuadrilátero orientado hacia la normal n (ordena el giro según el producto vectorial).
+function faceQuad(mb,A,B,C,D,n,col,surf){
+  const u=[B[0]-A[0],B[1]-A[1],B[2]-A[2]],v=[C[0]-A[0],C[1]-A[1],C[2]-A[2]],c=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+  if(c[0]*n[0]+c[1]*n[1]+c[2]*n[2]>=0)mb.quad(A,B,C,D,col,surf);else mb.quad(B,A,D,C,col,surf);
+}
+// Orilla: playa en pendiente bajo el agua, costado de madera/piedra en muelles y malecón vertical en el resto.
+function seaShore(mb,seaPaths,T,seaY,{sand,rock,piers,half}){
+  const seaEx=toExPolygons(seaPaths);
+  for(const p of seaEx)for(const ring of [p.outer,...p.holes])for(let i=0;i<ring.length;i++){
+    const a=ring[i],b=ring[(i+1)%ring.length],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(len<1e-3)continue;
+    const d=[(b[0]-a[0])/len,(b[1]-a[1])/len];let n=[-d[1],d[0]];
+    const m=[(a[0]+b[0])/2,(a[1]+b[1])/2];if(!pointInPaths(m[0]+n[0]*.3,m[1]+n[1]*.3,seaEx))n=[-n[0],-n[1]];
+    const steps=Math.max(1,Math.ceil(len/4));
+    for(let s=0;s<steps;s++){
+      const p0=[a[0]+(b[0]-a[0])*s/steps,a[1]+(b[1]-a[1])*s/steps],p1=[a[0]+(b[0]-a[0])*(s+1)/steps,a[1]+(b[1]-a[1])*(s+1)/steps];
+      const q=[(p0[0]+p1[0])/2-n[0]*.5,(p0[1]+p1[1])/2-n[1]*.5];
+      // El propio borde del cuadrado no es orilla: lo cierra el zócalo.
+      if(Math.abs(q[0])>half[0]||Math.abs(q[1])>half[1])continue;
+      const h0=T.height(...p0)+CURB,h1=T.height(...p1)+CURB;if(h0<=seaY&&h1<=seaY)continue;
+      if(pointInPaths(q[0],q[1],sand)){
+        // Playa: la arena desciende 5 m mar adentro hasta quedar bajo el agua.
+        const run=5,B0=[p0[0]+n[0]*run,seaY-.5,p0[1]+n[1]*run],B1=[p1[0]+n[0]*run,seaY-.5,p1[1]+n[1]*run];
+        faceQuad(mb,[p0[0],h0,p0[1]],[p1[0],h1,p1[1]],B1,B0,[n[0]*.4,1,n[1]*.4],GROUND.sandWet,SURF.paving);
+      }else{
+        const pier=pointInPaths(q[0],q[1],piers),col=pier?shade(GROUND.pier,.72):pointInPaths(q[0],q[1],rock)?shade(GROUND.rock,.85):GROUND.quay;
+        faceQuad(mb,[p0[0],seaY-.6,p0[1]],[p1[0],seaY-.6,p1[1]],[p1[0],h1,p1[1]],[p0[0],h0,p0[1]],[n[0],0,n[1]],col,SURF.paving);
+      }
+    }
+  }
+}
+// Caras exteriores del cuadrado (solo en los lados que son límite del lugar, también en modo por sectores).
+function placeSkirt(mb,model,T,seaY,seaRaw,asphaltEx){
+  const {width:W,depth:D}=model.size,P=model.placementBounds,seaEx=toExPolygons(seaRaw);
+  const [lo]=T.range(),base=Math.min(lo,seaY)-6,step=4;
+  const sides=[[[-W/2,-D/2],[W/2,-D/2],[0,0,-1]],[[W/2,-D/2],[W/2,D/2],[1,0,0]],[[W/2,D/2],[-W/2,D/2],[0,0,1]],[[-W/2,D/2],[-W/2,-D/2],[-1,0,0]]];
+  const onLimit=(a,b)=>!P||(a[0]===b[0]?Math.abs(a[0]-(a[0]<0?P.x0:P.x1))<.01:Math.abs(a[1]-(a[1]<0?P.z0:P.z1))<.01);
+  for(const [a,b,n]of sides){
+    if(!onLimit(a,b))continue;
+    const len=Math.hypot(b[0]-a[0],b[1]-a[1]),k=Math.max(1,Math.ceil(len/step));
+    for(let s=0;s<k;s++){
+      const p0=[a[0]+(b[0]-a[0])*s/k,a[1]+(b[1]-a[1])*s/k],p1=[a[0]+(b[0]-a[0])*(s+1)/k,a[1]+(b[1]-a[1])*(s+1)/k];
+      const mid=[(p0[0]+p1[0])/2-n[0]*.05,(p0[1]+p1[1])/2-n[2]*.05],wet=pointInPaths(mid[0],mid[1],seaEx);
+      // Calzadas al ras del borde (sin bordillo falso); aceras y resto a la cota del suelo.
+      const road=pointInPaths(mid[0],mid[1],asphaltEx),top=p=>wet?seaY:T.height(p[0],p[1])+(road?0:CURB)-.01,t0=top(p0),t1=top(p1);
+      if(wet){faceQuad(mb,[p0[0],base,p0[1]],[p1[0],base,p1[1]],[p1[0],t1,p1[1]],[p0[0],t0,p0[1]],n,GROUND.seaSide,SURF.ground);continue;}
+      // Banda superior de suelo y cuerpo de tierra más claro. La línea de la banda depende solo del relieve en
+      // cada vértice: los tramos vecinos comparten vértices y no quedan rendijas que el entintado marque.
+      const soil=p=>T.height(p[0],p[1])-.55,s0=soil(p0),s1=soil(p1);
+      faceQuad(mb,[p0[0],s0,p0[1]],[p1[0],s1,p1[1]],[p1[0],t1,p1[1]],[p0[0],t0,p0[1]],n,GROUND.soil,SURF.ground);
+      faceQuad(mb,[p0[0],base,p0[1]],[p1[0],base,p1[1]],[p1[0],s1,p1[1]],[p0[0],s0,p0[1]],n,GROUND.earth,SURF.ground);
+    }
+  }
 }
 
 function signedArea(r){let s=0;for(let i=0,j=r.length-1;i<r.length;j=i++)s+=r[j][0]*r[i][1]-r[i][0]*r[j][1];return s/2;}

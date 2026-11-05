@@ -114,3 +114,35 @@ test('bordes cuadrados: un edificio que cruza el límite se corta en línea rect
   // El otro edificio, dentro del cuadrado, no se toca.
   const inner=built.prepared.find(p=>p.b.id!==crossing.id);assert.equal(inner.cutBox,null);assert.ok(inner.edges.every(e=>!e.cut));
 });
+
+test('mar con profundidad pintada, orilla de playa, muelle con pilotes y zócalo en el borde del cuadrado',async()=>{
+  const {seaBands}=await import('../src/estudio/geom/ground.js');
+  const {buildInfra}=await import('../src/estudio/arq/infra.js');
+  const {MeshBuilder}=await import('../src/estudio/geom/mesh.js');
+  const {InstanceSet}=await import('../src/estudio/arq/instances.js');
+  const {polygonPaths,union,rectPath}=await import('../src/estudio/geom/clip.js');
+  const source=coastSource(),P=projection(source.bounds);
+  source.osm.elements.push({type:'way',id:900,tags:{natural:'beach'},nodes:[1,2,3,4,1],geometry:[[-200,42],[-60,62],[-60,100],[-200,100],[-200,42]].map(([x,z])=>P.unproject(x,z))});
+  const model=buildPlaceModel(source,{seed:'costa'}),half=model.size.width/2;
+  const sea=union(model.areas.filter(a=>a.sea).flatMap(a=>polygonPaths(a.rings)));
+  const bands=seaBands(sea,sea,[rectPath(-half,-half,half,half)]).map(b=>b.key);
+  assert.deepEqual(bands,['seaFoam','seaShallow','seaMid','sea']);
+  const ground=buildGround(model,{seed:'costa'}),keys=ground.meshes.map(m=>m.key);
+  assert.ok(keys.includes('zocalo'));
+  // El zócalo ocupa exactamente los cuatro lados del cuadrado y baja por debajo del agua.
+  const skirt=ground.meshes.find(m=>m.key==='zocalo').geometry.attributes.position;let onEdge=0;
+  for(let i=0;i<skirt.count;i++){const x=skirt.getX(i),z=skirt.getZ(i);if(Math.abs(Math.abs(x)-half)<1e-3||Math.abs(Math.abs(z)-half)<1e-3)onEdge++;}
+  assert.equal(onEdge,skirt.count);
+  const mb=new MeshBuilder(),inst=new InstanceSet();inst.bounds=[-half,-half,half,half];
+  const infra=buildInfra(model,{mb,inst,seed:'costa'});assert.ok(infra.piers>10,'pilotes bajo el muelle');
+});
+
+test('al caminar no se entra en el mar, pero sí se recorre el muelle',async()=>{
+  const {Walker}=await import('../src/estudio/render/walk.js');
+  const model=buildPlaceModel(coastSource(),{seed:'costa'});
+  const w=Object.create(Walker.prototype);w.radius=.3;w.eye=1.6;w.pos={x:0,y:0,z:0};
+  w.setWorld({model,buildings:[],asphalt:[],trees:[],lines:[],surfaces:[]});
+  assert.equal(w.inWater(-150,-150,0),true);
+  assert.equal(w.inWater(10,-20,0),false);   // sobre el muelle
+  assert.equal(w.inWater(-150,150,0),false); // tierra
+});

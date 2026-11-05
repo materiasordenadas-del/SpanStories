@@ -37,6 +37,8 @@ function areaKind(t){
   if(t.natural==='scrub')return 'scrub';
   if(t.landuse==='forest'||t.natural==='wood')return 'forest';
   if(['sand','beach'].includes(t.natural))return 'sand';
+  if(['bare_rock','scree','rock'].includes(t.natural))return 'rock';
+  if(t.natural==='shingle')return 'shingle';
   if(t.highway==='pedestrian'||t.place==='square'||t['area:highway']||t.amenity==='marketplace'||t.highway==='footway'&&t.area==='yes')return 'plaza';
   if(t.amenity==='parking'&&!['underground','multi-storey','rooftop'].includes(t.parking))return 'parking';
   if(['school','college','university','kindergarten'].includes(t.amenity))return 'school';

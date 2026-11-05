@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import {pointInPaths,pointInRings} from '../geom/ground.js';
 import {surfaceHeightAt} from '../geom/road-surface.js';
-import {toExPolygons} from '../geom/clip.js';
+import {toExPolygons,union,difference,polygonPaths} from '../geom/clip.js';
 import {createGMaterial} from './gmaterial.js';
 
 export class Walker{
@@ -50,6 +50,10 @@ export class Walker{
       if(plan)wall(plan.doorA,plan.doorB,plan.floor+plan.doorHeight,pb.top);
     }
     for(const t of world.trees??[])add(t.x-1,t.z-1,t.x+1,t.z+1,{circle:[t.x,t.z,.35]});
+    // Mar y láminas de agua: no se camina por ellos salvo sobre muelles, espigones o puentes.
+    const areas=world.model.areas??[],paths=list=>union(list.flatMap(a=>polygonPaths(a.rings)));
+    const wet=areas.filter(a=>a.kind==='water'),dry=areas.filter(a=>['pier','breakwater'].includes(a.kind));
+    this.waterEx=wet.length?toExPolygons(dry.length?difference(paths(wet),paths(dry)):paths(wet)):[];
     for(const l of world.lines??[])for(let i=1;i<l.points.length;i++){const a=l.points[i-1],b=l.points[i];add(Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(a[0],b[0]),Math.max(a[1],b[1]),{seg:[a,b]});}
   }
   groundAt(x,z,reference=this.pos?.y??0){const T=this.world.model.terrain;let y=T.height(x,z)+(this.asphaltEx.length&&pointInPaths(x,z,this.asphaltEx)?0:.15);for(const floor of this.world.interiors?.floors??[])if(pointInRings(x,z,floor.rings)&&Math.abs(reference-floor.y)<2)y=floor.y;return surfaceHeightAt(this.world.surfaces,x,z,reference,y);}
@@ -86,8 +90,14 @@ export class Walker{
         else{const [cx,cz,cr]=it.circle,ex=p.x-cx,ez=p.z-cz,d=Math.hypot(ex,ez),m=cr+r;if(d<m&&d>1e-6){p.x=cx+ex/d*m;p.z=cz+ez/d*m;}}
       }
     }
+    if(this.inWater(p.x,p.z,p.y)){p.x=this.pos.x;p.z=this.pos.z;}
     const size=this.world.model.size;
     if(size){p.x=THREE.MathUtils.clamp(p.x,-size.width/2+r,size.width/2-r);p.z=THREE.MathUtils.clamp(p.z,-size.depth/2+r,size.depth/2-r);}
+  }
+  inWater(x,z,reference){
+    if(!this.waterEx?.length||!pointInPaths(x,z,this.waterEx))return false;
+    // Sobre un puente u otra superficie elevada sí se puede pasar.
+    const T=this.world.model.terrain,base=T.height(x,z)+.15;return surfaceHeightAt(this.world.surfaces,x,z,reference,base)<=base+.01;
   }
   nearObstacles(x,z,r){const out=new Set();for(let i=Math.floor((x-r)/this.cell);i<=Math.floor((x+r)/this.cell);i++)for(let j=Math.floor((z-r)/this.cell);j<=Math.floor((z+r)/this.cell);j++)for(const it of this.grid.get(i+':'+j)??[])out.add(it);return out;}
   findSpawn(p){
