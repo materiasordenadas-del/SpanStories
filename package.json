@@ -1,0 +1,51 @@
+{
+  "name": "spanstories",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "node scripts/ai-studio.mjs",
+    "dev:visor": "node scripts/ai-studio.mjs",
+    "worlds:serve": "python scripts/worlds/serve.py",
+    "worlds:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/worlds/check.ts",
+    "worlds:test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/worlds/__tests__/*.test.ts",
+    "build": "next build",
+    "build:studio-check": "node scripts/story-studio/build-check.mjs",
+    "start": "node scripts/ai-studio.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project spanstories-test \"node --test tests/firestore.rules.test.mjs\"",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"features/**/*.test.ts\" \"lib/**/*.test.ts\"",
+    "curriculum:import": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts",
+    "curriculum:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/curriculum/import-a1.ts --check",
+    "lexical-media:build": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/lexical-media/build-registry.ts",
+    "lexical-media:find-candidates": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/lexical-media/find-candidates.ts",
+    "db:setup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db/migrate-and-seed.ts",
+    "db:test:server": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/persistence/__tests__/server-parity.test.ts",
+    "sync:proyecto": "node scripts/sync-proyecto.mjs",
+    "postinstall": "npm --prefix Estudio/Talleres/taller-animacion ci"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@xyflow/react": "^12.12.0",
+    "@xzdarcy/react-timeline-editor": "^1.0.0",
+    "firebase": "^12.19.0",
+    "next": "16.2.11",
+    "pg": "^8.23.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "@types/node": "latest",
+    "@types/pg": "^8.23.1",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "16.2.11",
+    "fake-indexeddb": "^6.2.6",
+    "typescript": "latest"
+  }
+}

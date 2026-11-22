@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Taller de Animación</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo">◆</span> TALLER <b>DE ANIMACIÓN</b> <span class="badge">local</span></div>
+    <nav class="ws" id="workspaces">
+      <button data-ws="preparar">PREPARAR</button>
+      <button data-ws="animar" class="on">ANIMAR</button>
+      <button data-ws="explorar">EXPLORAR</button>
+      <button data-ws="escena">ESCENA</button>
+      <button data-ws="lab">MOTION LAB</button>
+    </nav>
+    <div class="grow"></div>
+    <div class="modesw" id="modeSwitch"></div>
+    <div class="menu" id="menuGuardar"><button class="btn acc">GUARDAR ▾</button><div class="drop" id="dropGuardar"></div></div>
+    <div class="menu" id="menuVentana"><button class="btn">VENTANA ▾</button><div class="drop" id="dropVentana"></div></div>
+    <div class="menu" id="menuDescargar"><button class="btn">DESCARGAR ▾</button><div class="drop" id="dropDescargar"></div></div>
+  </header>
+  <nav class="menubar" id="menubar" aria-label="Herramientas de animación"></nav>
+
+  <main class="work" id="work">
+    <aside class="col left hidden" id="colLeft">
+      <div class="tabs" data-tabs="left">
+        <button data-tab="esquema" class="on">Esquema</button>
+        <button data-tab="preparar">Preparar</button>
+      </div>
+      <section class="pane" data-pane="esquema">
+        <div class="row tight">
+          <label><input type="checkbox" id="olIK" checked /> Controles IK</label>
+          <label><input type="checkbox" id="olPole" checked /> Polos</label>
+          <label><input type="checkbox" id="olFingers" /> Dedos</label>
+        </div>
+        <input class="search" id="olSearch" placeholder="Buscar hueso…" />
+        <div class="tree" id="outliner"></div>
+      </section>
+      <section class="pane hidden" data-pane="preparar">
+        <div class="subtabs" id="setupTabs">
+          <button data-sub="personaje" class="on">Personaje</button>
+          <button data-sub="importar">Importar</button>
+          <button data-sub="proyectos">Proyectos</button>
+          <button data-sub="selector">Selector</button>
+          <button data-sub="mascara">Máscara</button>
+          <button data-sub="conjunto">Conjunto</button>
+          <button data-sub="camara">Cámara</button>
+          <button data-sub="lab">Motion Lab</button>
+          <button data-sub="prefs">Preferencias</button>
+        </div>
+        <div class="subpane" data-subpane="personaje" id="spPersonaje"></div>
+        <div class="subpane hidden" data-subpane="importar" id="spImportar"></div>
+        <div class="subpane hidden" data-subpane="proyectos" id="spProyectos"></div>
+        <div class="subpane hidden" data-subpane="selector" id="spSelector"></div>
+        <div class="subpane hidden" data-subpane="mascara" id="spMascara"></div>
+        <div class="subpane hidden" data-subpane="conjunto" id="spConjunto"></div>
+        <div class="subpane hidden" data-subpane="camara" id="spCamara"></div>
+        <div class="subpane hidden" data-subpane="lab" id="spLab"></div>
+        <div class="subpane hidden" data-subpane="prefs" id="spPrefs"></div>
+      </section>
+    </aside>
+    <div class="gutter" data-gutter="left"></div>
+
+    <section class="center">
+      <div class="vtools" id="vtools"></div>
+      <div class="viewport" id="viewport">
+        <div class="vhint">ARRASTRA PARA ORBITAR · RUEDA PARA ACERCAR · ESPACIO REPRODUCE</div>
+        <div class="vframe" id="vframe">[0]</div>
+        <div class="vcredit" id="vcredit"></div>
+        <div class="vaxes" id="vaxes">
+          <button data-view="top" title="Vista superior">Y</button>
+          <button data-view="front" title="Vista frontal">Z</button>
+          <button data-view="right" title="Vista lateral">X</button>
+          <button data-view="persp" title="Perspectiva">◎</button>
+        </div>
+        <div class="toast" id="toast"></div>
+        <div class="dropzone" id="dropzone">Suelta aquí .glb / .fbx / .json</div>
+      </div>
+    </section>
+
+    <div class="gutter" data-gutter="right"></div>
+    <aside class="col right" id="colRight">
+      <div class="tabs" data-tabs="right">
+        <button data-tab="animar" class="on">Animar</button>
+        <button data-tab="biblioteca">Biblioteca</button>
+        <button data-tab="texto" title="Escribe la animación y Kimodo la genera">Texto</button>
+        <button data-tab="comportamientos" title="Comportamientos · cuerpo + rostro">Comport.</button>
+      </div>
+      <section class="pane hidden" data-pane="comportamientos" id="paneComportamientos"></section>
+      <section class="pane hidden" data-pane="texto">
+        <div class="panel" id="pTexto"></div>
+      </section>
+      <section class="pane" data-pane="animar">
+        <div class="panel" id="pMotion"></div>
+        <div class="panel" id="pTransform"></div>
+        <div class="subtabs" id="animTabs">
+          <button data-sub="rig" class="on">Rig</button>
+          <button data-sub="ajustar">Ajustar</button>
+          <button data-sub="tira">Tira</button>
+        </div>
+        <div class="subpane" data-subpane="rig" id="spRig"></div>
+        <div class="subpane hidden" data-subpane="ajustar" id="spAjustar"></div>
+        <div class="subpane hidden" data-subpane="tira" id="spTira"></div>
+        <div class="panel layers" id="pLayers"></div>
+      </section>
+      <section class="pane hidden" data-pane="biblioteca">
+        <div class="libinfo" id="libInfo"></div>
+        <div class="subtabs" id="libTabs">
+          <button data-sub="animaciones" class="on">Animaciones</button>
+          <button data-sub="poses">Poses</button>
+          <button data-sub="personajes">Personajes</button>
+          <button data-sub="objetos">Objetos</button>
+          <button data-sub="animales" title="Animales con su propio esqueleto: caballo">Animales</button>
+        </div>
+        <div class="subpane" data-subpane="animaciones" id="spAnim"></div>
+        <div class="subpane hidden" data-subpane="poses" id="spPoses"></div>
+        <div class="subpane hidden" data-subpane="personajes" id="spChars"></div>
+        <div class="subpane hidden" data-subpane="objetos" id="spProps"></div>
+        <div class="subpane hidden" data-subpane="animales" id="spAnimales"></div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="timeline" id="timelineWrap">
+    <div class="tbar" id="tbar"></div>
+    <div class="tcanvas" id="tcanvas"></div>
+  </footer>
+
+  <div class="modal hidden" id="modal"><div class="box" id="modalBox"></div></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

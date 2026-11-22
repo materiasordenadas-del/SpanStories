@@ -1,0 +1,35 @@
+{
+  "taller": {
+    "nombre": "Taller de animación",
+    "url": "http://127.0.0.1:5189/",
+    "puerto": 5189,
+    "titulo": "<title>Taller de Animaci",
+    "directorio": "D:\\Español\\Generador,visor, estudio\\Estudio\\Talleres\\taller-animacion",
+    "ejecutable": "C:\\Program Files\\nodejs\\node.exe",
+    "argumentos": [
+      "D:\\Español\\Generador,visor, estudio\\Estudio\\Talleres\\taller-animacion\\node_modules\\vite\\bin\\vite.js",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "5189",
+      "--strictPort"
+    ]
+  },
+  "rachel": {
+    "nombre": "Editor facial - Rachel",
+    "url": "http://127.0.0.1:8797/",
+    "puerto": 8797,
+    "titulo": "<title>Rachel three.js</title>",
+    "directorio": "D:\\Español\\imagen para animación\\Vale 2\\rachel_threejs",
+    "ejecutable": "C:\\Users\\AdrielPereira\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "argumentos": [
+      "-m",
+      "http.server",
+      "8797",
+      "--bind",
+      "127.0.0.1",
+      "--directory",
+      "D:\\Español\\imagen para animación\\Vale 2\\rachel_threejs"
+    ]
+  }
+}

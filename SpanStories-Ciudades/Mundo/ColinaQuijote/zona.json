@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "id": "colina-don-quijote",
+  "label": "Colina de Don Quijote",
+  "objects": [],
+  "bounds": {"min": [-90, -6, -84], "max": [90, 12, 38]},
+  "spawn": [0, 0.02, 14],
+  "studioShot": {"position": [0, 0.78, 14], "target": [0, 2.9, -30], "fov": 42, "transition": 0},
+  "sectors": [
+    {"id": "colina-quijote", "label": "Colina", "url": "procedural:colina-don-quijote", "bytes": 0, "bounds": {"min": [-260, -9, -260], "max": [260, 10, 260]}}
+  ]
+}

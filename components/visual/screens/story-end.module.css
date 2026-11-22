@@ -1,0 +1,12 @@
+/* Final de historia: un cierre claro, las palabras consultadas y una sola acción principal. */
+.section { max-width:40em; margin-top:72px; padding-top:28px; border-top:2px solid var(--ink); }
+.label { margin:0 0 6px; color:var(--muted); font-size:13px; font-weight:700; }
+.section h2 { margin:0 0 24px; font-size:clamp(28px,3.2vw,44px); line-height:1.02; letter-spacing:-.045em; text-wrap:balance; }
+.words h3 { margin:0 0 10px; font-size:14px; font-weight:800; }
+.words ul { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 28px; padding:0; list-style:none; }
+.words button { min-height:44px; border:1px solid var(--divider); padding:6px 14px; color:var(--ink); background:transparent; font:inherit; font-size:15px; font-weight:600; cursor:pointer; }
+.words button:hover { border-color:var(--ink); }
+.words button:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:2px; }
+.actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.actions a { min-height:44px; }
+.note { flex-basis:100%; max-width:38em; margin:0 0 4px; font-size:17px; line-height:1.45; }

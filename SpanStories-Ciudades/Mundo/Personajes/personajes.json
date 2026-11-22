@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "spanstories-personajes",
+  "avatarTerceraPersona": "don-quijote",
+  "characters": [
+    {
+      "id": "don-quijote",
+      "label": "Don Quijote",
+      "url": "../../assets/avatar/don-quijote.glb",
+      "reusable": true,
+      "source": "Personajes/don-quijote/fuentes/quijote.blend",
+      "materialesPropios": true,
+      "alturaM": 1.85
+    },
+    {
+      "id": "rocinante",
+      "label": "Rocinante",
+      "url": "../../assets/avatar/rocinante.glb",
+      "reusable": true,
+      "source": "Personajes/rocinante/fuentes/Rocinante.blend",
+      "materialesPropios": true,
+      "alturaM": 2.0,
+      "alturaCruzM": 1.49
+    }
+  ],
+  "notaAlturas": "alturaM: altura real del personaje en metros (de los pies a lo más alto; en Rocinante, hasta la cabeza). alturaCruzM: altura a la cruz. Fuente: ficha de diseño de los personajes. Los GLB no se reescalan; la aplicación usa estas medidas."
+}

@@ -1,0 +1,15 @@
+/* Un solo motor: va primero en el árbol (z-index 0) para que los diálogos y paneles posteriores queden encima. */
+.stage{min-height:100dvh;background:#0b121b}
+.engine{position:fixed;z-index:0;overflow:hidden;pointer-events:auto}
+.stage[data-mode=estudio] .engine{border-radius:11px}
+.engine iframe{display:block;width:100%;height:100%;border:0}
+/* El hueco y las capas transparentes encima del motor dejan pasar ratón y teclado al motor;
+   solo sus controles (botones, enlaces, selectores…) reciben clics. */
+.slot{position:absolute;inset:0;pointer-events:none}
+.hidden{display:none}
+.transparent{background:transparent !important;pointer-events:none}
+.transparent :is(nav,button,a,select,input,textarea,label,details,summary,[role=dialog],[role=menu]){pointer-events:auto}
+
+/* Error al cambiar de modo (MODE_ERROR del motor). */
+.modeError{position:fixed;z-index:90;left:50%;top:12px;transform:translateX(-50%);max-width:min(560px,calc(100vw - 32px));padding:10px 14px;border-radius:8px;background:#3b1219;color:#ffe4e6;border:1px solid #9f1239;font:14px/1.4 system-ui,sans-serif;box-shadow:0 6px 20px #0006}
+.modeError button{margin-left:8px;font:inherit;color:inherit;background:#9f123955;border:1px solid #fda4af66;border-radius:6px;padding:2px 8px;cursor:pointer}

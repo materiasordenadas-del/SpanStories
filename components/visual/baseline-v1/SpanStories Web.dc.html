@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-a1746c15-b95b-4a38-ba95-7efef5ec2223/styles.css">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); }
+  a { color: var(--color-accent); }
+  a:hover { color: var(--color-accent-700); }
+  .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: none; } }
+  @keyframes lineUp { from { transform: translateY(108%); } to { transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes growRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes zoomOut { from { transform: scale(1.16); } to { transform: scale(1); } }
+  @keyframes slideLeft { from { transform: translateX(60px); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001s !important; animation-delay: 0s !important; }
+  }
+</style>
+</helmet>
+
+<div style="--m: {{ motionMul }}; background: var(--color-bg); color: var(--color-text); overflow-x: clip;">
+
+  <!-- NAV -->
+  <div style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); display: flex; align-items: center; gap: 28px; padding: 18px 40px; border-bottom: 1px solid transparent; animation: fadeIn 0.01s linear both; animation-timeline: scroll(); animation-range: 0 90px;">
+    <a href="#top" style="display: flex; align-items: center; margin-right: auto;"><img src="uploads/pasted-1787632380073-0.png" alt="Spanish Stories" style="height: 16px; width: auto;"></a>
+    <a href="#metodo" style="color: inherit; text-decoration: none; font-size: 14px;" style-hover="color: var(--color-accent)">El método</a>
+    <a href="Islas.dc.html#islas" style="color: inherit; text-decoration: none; font-size: 14px;" style-hover="color: var(--color-accent)">Islas</a>
+    <a href="Niveles.dc.html#niveles" style="color: inherit; text-decoration: none; font-size: 14px;" style-hover="color: var(--color-accent)">Niveles</a>
+    <div class="seg"><label class="seg-opt"><input type="radio" name="lang" checked="checked">ES</label><label class="seg-opt"><input type="radio" name="lang">EN</label></div>
+    <a href="#aviso" class="btn btn-primary">Empezar</a>
+  </div>
+
+  <!-- HERO -->
+  <div id="top" style="padding: 96px 40px 72px; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: end;">
+    <div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 40px; animation: fadeIn calc(0.9s * var(--m, 1)) ease both; animation-delay: 0.1s;">Pre-alfa · A1 → C1</div>
+      <h1 style="font-size: clamp(48px, 8.2vw, 132px); line-height: 0.9; letter-spacing: -0.045em; margin: 0 0 36px;">
+        <span style="display: block; overflow: hidden; padding-bottom: 0.04em;"><span style="display: block; animation: lineUp calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both;">Aprende español</span></span>
+        <span style="display: block; overflow: hidden; padding-bottom: 0.04em;"><span style="display: block; animation: lineUp calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.09s;">leyendo historias</span></span>
+        <span style="display: block; overflow: hidden; padding-bottom: 0.04em;"><span style="display: block; animation: lineUp calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.18s; color: var(--color-accent);">que se conectan.</span></span>
+      </h1>
+      <div style="display: flex; align-items: flex-end; gap: 48px; flex-wrap: wrap; animation: riseIn calc(1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.32s;">
+        <p style="font-size: 19px; line-height: 1.5; margin: 0; max-width: 40ch;">Cada historia te deja palabras. Vuelven dentro de otra historia, en otra isla, cuando ya casi las habías olvidado. Ese es todo el método.</p>
+        <div style="display: flex; gap: 10px;">
+          <a href="#aviso" class="btn btn-primary" style="font-size: 15px; padding: 13px 18px;">Empezar por A1<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+          <a href="#niveles" class="btn btn-secondary" style="font-size: 15px; padding: 13px 18px;">No sé mi nivel</a>
+        </div>
+      </div>
+    </div>
+    <div style="height: 380px; position: relative; overflow: hidden; animation: fadeIn calc(1.2s * var(--m, 1)) ease both; animation-delay: 0.4s;">
+      <div class="grayscale" style="position: absolute; inset: 0; animation: zoomOut calc(1.6s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.4s;">
+        <image-slot id="w-hero" shape="rect" fit="cover" placeholder="Retrato vertical · b/n"></image-slot>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div style="background: var(--color-accent); color: var(--color-bg); overflow: hidden; padding: 14px 0; white-space: nowrap;">
+    <div style="display: inline-flex; gap: 0; animation: marquee calc(48s * var(--m, 1)) linear infinite;">
+      <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; padding-right: 0;">El mercado&nbsp; · &nbsp;La casa de la abuela&nbsp; · &nbsp;Trámites&nbsp; · &nbsp;El último autobús&nbsp; · &nbsp;Vecinos&nbsp; · &nbsp;La cocina de la tía&nbsp; · &nbsp;El barrio en obras&nbsp; · &nbsp;Cartas sin enviar&nbsp; · &nbsp;</span>
+      <span style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">El mercado&nbsp; · &nbsp;La casa de la abuela&nbsp; · &nbsp;Trámites&nbsp; · &nbsp;El último autobús&nbsp; · &nbsp;Vecinos&nbsp; · &nbsp;La cocina de la tía&nbsp; · &nbsp;El barrio en obras&nbsp; · &nbsp;Cartas sin enviar&nbsp; · &nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ANTI-GAMIFICACION -->
+  <div style="padding: 88px 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; align-items: start;">
+    <div style="animation: riseIn calc(0.9s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 10% cover 26%;">
+      <div style="font-family: var(--font-heading); font-weight: 800; font-size: 74px; line-height: 0.9; letter-spacing: -0.04em;">0</div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700); margin-top: 12px;">rachas que perder</div>
+    </div>
+    <div style="animation: riseIn calc(0.9s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 10% cover 28%;">
+      <div style="font-family: var(--font-heading); font-weight: 800; font-size: 74px; line-height: 0.9; letter-spacing: -0.04em;">0</div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700); margin-top: 12px;">vidas, corazones, medallas</div>
+    </div>
+    <div style="animation: riseIn calc(0.9s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 10% cover 30%;">
+      <div style="font-family: var(--font-heading); font-weight: 800; font-size: 74px; line-height: 0.9; letter-spacing: -0.04em; color: var(--color-accent);">38</div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700); margin-top: 12px;">historias escritas a mano</div>
+    </div>
+    <div style="animation: riseIn calc(0.9s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 10% cover 32%;">
+      <div style="font-family: var(--font-heading); font-weight: 800; font-size: 74px; line-height: 0.9; letter-spacing: -0.04em;">5</div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-700); margin-top: 12px;">niveles, de A1 a C1</div>
+    </div>
+  </div>
+
+  <!-- METODO -->
+  <div id="metodo" style="padding: 0 40px 40px;">
+    <div style="height: 2px; background: var(--color-divider); transform-origin: left; animation: growRule calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 0% entry 100%;"></div>
+    <h2 style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; margin: 28px 0 64px;">Cómo funciona</h2>
+
+    <div style="display: grid; grid-template-columns: 120px minmax(0, 460px) 1fr; gap: 40px; align-items: start; padding-bottom: 56px; animation: riseIn calc(1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 5% cover 25%;">
+      <div class="mono" style="font-size: 13px; color: var(--color-accent);">01</div>
+      <h3 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; letter-spacing: -0.03em;">Eliges tu nivel</h3>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 46ch; color: var(--color-neutral-800);">De A1 a C1. Si dudas, lees un párrafo y me dices qué te pasa con él: en un minuto sabemos por dónde empiezas. Y se cambia cuando quieras, desde cualquier historia.</p>
+    </div>
+    <div style="height: 1px; background: var(--color-divider); transform-origin: left; animation: growRule calc(1s * var(--m, 1)) ease both; animation-timeline: view(); animation-range: entry 0% cover 20%;"></div>
+
+    <div style="display: grid; grid-template-columns: 120px minmax(0, 460px) 1fr; gap: 40px; align-items: start; padding: 56px 0; animation: riseIn calc(1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 5% cover 25%;">
+      <div class="mono" style="font-size: 13px; color: var(--color-accent);">02</div>
+      <h3 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; letter-spacing: -0.03em;">Lees una historia</h3>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 46ch; color: var(--color-neutral-800);">Escrita para tu nivel, con gente que se repite y un barrio que reconoces. Tocas cualquier palabra y la traducción aparece al lado, sin sacarte del texto.</p>
+    </div>
+    <div style="height: 1px; background: var(--color-divider); transform-origin: left; animation: growRule calc(1s * var(--m, 1)) ease both; animation-timeline: view(); animation-range: entry 0% cover 20%;"></div>
+
+    <div style="display: grid; grid-template-columns: 120px minmax(0, 460px) 1fr; gap: 40px; align-items: start; padding: 56px 0; animation: riseIn calc(1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 5% cover 25%;">
+      <div class="mono" style="font-size: 13px; color: var(--color-accent);">03</div>
+      <h3 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; letter-spacing: -0.03em;">Las palabras vuelven</h3>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 46ch; color: var(--color-neutral-800);">Lo que tocaste reaparece días después, en otra historia y en otro contexto, hasta que dejas de tocarlo. Nadie te examina: lo notas al leer.</p>
+    </div>
+    <div style="height: 1px; background: var(--color-divider); transform-origin: left; animation: growRule calc(1s * var(--m, 1)) ease both; animation-timeline: view(); animation-range: entry 0% cover 20%;"></div>
+
+    <div style="display: grid; grid-template-columns: 120px minmax(0, 460px) 1fr; gap: 40px; align-items: start; padding: 56px 0 0; animation: riseIn calc(1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 5% cover 25%;">
+      <div class="mono" style="font-size: 13px; color: var(--color-accent);">04</div>
+      <h3 style="margin: 0; font-size: clamp(28px, 3.2vw, 46px); line-height: 1; letter-spacing: -0.03em;">Se abre una isla</h3>
+      <p style="margin: 0; font-size: 17px; line-height: 1.6; max-width: 46ch; color: var(--color-neutral-800);">Cada isla son cinco o seis piezas que comparten mundo: historias, una conversación grabada, algo que escribes tú. Se abre cuando su vocabulario ya te suena.</p>
+    </div>
+  </div>
+
+  <!-- FRANJA FOTO -->
+  <div style="margin: 96px 0; height: 46vh; min-height: 320px; overflow: hidden;">
+    <div class="grayscale" style="height: 100%; animation: zoomOut calc(1.6s * var(--m, 1)) linear both; animation-timeline: view(); animation-range: cover 0% cover 100%;">
+      <image-slot id="w-band" shape="rect" fit="cover" placeholder="Foto ancha b/n · mercado, calle, cocina"></image-slot>
+    </div>
+  </div>
+
+  <!-- LECTOR EN VIVO -->
+  <div style="padding: 0 40px 96px; display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 72px; align-items: start;">
+    <div style="position: sticky; top: 120px;">
+      <h2 style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 24px;">Toca una palabra</h2>
+      <p style="font-size: 17px; line-height: 1.55; color: var(--color-neutral-800); margin: 0 0 32px;">Así se lee aquí. Baja despacio o toca las palabras en rojo: el panel te sigue.</p>
+      <div style="border-top: 2px solid var(--color-accent); padding-top: 20px;">
+        <div class="mono" style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px;">{{ sel.gram }}</div>
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -0.03em; margin-bottom: 16px;">{{ sel.palabra }}</div>
+        <div style="font-size: 17px; line-height: 1.5; margin-bottom: 20px;">{{ sel.trad }}</div>
+        <div style="font-size: 14px; line-height: 1.6; color: var(--color-neutral-700); border-left: 2px solid var(--color-divider); padding-left: 14px; margin-bottom: 24px;">{{ sel.ejemplo }}</div>
+        <div class="mono" style="font-size: 11px; line-height: 1.9; color: var(--color-neutral-700);">{{ sel.veces }}<br>{{ sel.vuelve }}</div>
+      </div>
+    </div>
+    <div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-700); margin-bottom: 20px;">A2 · Isla 02 · La casa de la abuela</div>
+      <h3 style="font-size: clamp(30px, 4vw, 52px); line-height: 1; letter-spacing: -0.03em; margin: 0 0 40px;">La mesa de la cocina</h3>
+      <div style="font-size: clamp(19px, 1.6vw, 24px); line-height: 1.8; max-width: 34em;">
+        <p>Cuando llegué, la casa ya estaba <span id="w-vacia" onClick="{{ picks.vacia }}" style="{{ markStyle }}">vacía</span>. Mi tía había vendido los muebles sin avisar a nadie y solo quedaba la mesa de la cocina, donde alguien había dejado dos tazas sin lavar.</p>
+        <p>Me senté igual que cuando era niño, en la silla que <span id="w-cojeaba" onClick="{{ picks.cojeaba }}" style="{{ markStyle }}">cojeaba</span>. Desde ahí se veía el <span id="w-patio" onClick="{{ picks.patio }}" style="{{ markStyle }}">patio</span>: la cuerda de la ropa, la maceta partida, el gato de la vecina haciendo lo que quiere desde 1998.</p>
+        <p>—¿Te llevas algo? —preguntó mi tía desde la puerta, sin entrar.</p>
+        <p>Abrí el <span id="w-cajon" onClick="{{ picks.cajon }}" style="{{ markStyle }}">cajón</span> de siempre. Dentro había recibos, un carrete de hilo negro y una foto en la que mi abuela no está mirando a la cámara.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div id="aviso" style="background: var(--color-accent); color: var(--color-bg); padding: 104px 40px;">
+    <h2 style="font-size: clamp(38px, 6.4vw, 92px); line-height: 0.95; letter-spacing: -0.04em; margin: 0 0 48px; max-width: 24ch;">
+      <span style="display: block; overflow: hidden; padding-bottom: 0.04em;"><span style="display: block; animation: lineUp calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 10% cover 32%;">Las primeras islas</span></span>
+      <span style="display: block; overflow: hidden; padding-bottom: 0.04em;"><span style="display: block; animation: lineUp calc(1.1s * var(--m, 1)) cubic-bezier(0.16, 1, 0.3, 1) both; animation-timeline: view(); animation-range: entry 14% cover 36%;">se están escribiendo.</span></span>
+    </h2>
+    <div style="display: flex; gap: 48px; flex-wrap: wrap; align-items: end; justify-content: space-between; border-top: 2px solid color-mix(in srgb, #f3f2f2 45%, transparent); padding-top: 32px;">
+      <p style="font-size: 18px; line-height: 1.5; margin: 0; max-width: 40ch;">Estamos en pre-alfa. Déjame tu correo y te aviso cuando A1 se pueda leer de principio a fin.</p>
+      <div style="display: flex; gap: 8px; min-width: 380px;">
+        <input class="input" type="email" placeholder="tu@correo.com" style="background: var(--color-bg); border-color: var(--color-bg);">
+        <button class="btn" type="button" style="background: var(--color-text); color: var(--color-bg); white-space: nowrap;">Avísame</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding: 32px 40px; display: flex; align-items: center; gap: 24px;">
+    <img src="uploads/pasted-1787632380073-0.png" alt="Spanish Stories" style="height: 13px; width: auto; margin-right: auto;">
+    <span class="mono" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-700);">Pre-alfa · 2026</span>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;completo&quot;,&quot;sutil&quot;,&quot;ninguno&quot;],&quot;default&quot;:&quot;completo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;wordMark&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;subrayado&quot;,&quot;fondo&quot;,&quot;punteado&quot;],&quot;default&quot;:&quot;subrayado&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lector&quot;}}">
+const WORDS = {
+  vacia: { palabra: 'vacía', gram: 'adjetivo · femenino', trad: 'empty — sin nada dentro; también «una tarde vacía».', ejemplo: '«Cuando llegué, la casa ya estaba vacía.»', veces: 'Primera vez aquí', vuelve: 'Vuelve en la isla Vecinos' },
+  cojeaba: { palabra: 'cojear', gram: 'verbo · imperfecto', trad: 'to limp — de una persona; de un mueble, cabecear o bailar.', ejemplo: '«Me senté en la silla que cojeaba.»', veces: 'Primera vez aquí', vuelve: 'Vuelve en El barrio en obras' },
+  patio: { palabra: 'el patio', gram: 'sustantivo · masculino', trad: 'the courtyard — el espacio abierto dentro de la casa.', ejemplo: '«Desde ahí se veía el patio: la cuerda de la ropa, la maceta partida.»', veces: 'Vista 3 veces', vuelve: 'Vuelve en Vecinos' },
+  cajon: { palabra: 'el cajón', gram: 'sustantivo · masculino', trad: 'the drawer — el de la cómoda, el de la mesa; el de las cosas que no se tiran.', ejemplo: '«Abrí el cajón de siempre. Dentro había recibos y un carrete de hilo negro.»', veces: 'Primera vez aquí', vuelve: 'Vuelve en Cartas sin enviar' }
+};
+
+const ORDER = ['vacia', 'cojeaba', 'patio', 'cajon'];
+
+class Component extends DCLogic {
+  state = { key: 'vacia' };
+
+  componentDidMount() {
+    this.io = new IntersectionObserver(entries => {
+      const hit = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (hit) {
+        const key = hit.target.id.replace('w-', '');
+        if (WORDS[key] && key !== this.state.key) this.setState({ key });
+      }
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    ORDER.forEach(k => {
+      const el = document.getElementById('w-' + k);
+      if (el) this.io.observe(el);
+    });
+  }
+
+  componentWillUnmount() { if (this.io) this.io.disconnect(); }
+
+  renderVals() {
+    const level = this.props.motion ?? 'completo';
+    const mul = { completo: 1, sutil: 0.55, ninguno: 0 }[level] ?? 1;
+    const mark = this.props.wordMark ?? 'subrayado';
+    const base = { cursor: 'pointer', color: 'var(--color-accent-700)', transition: 'background 0.25s ease, color 0.25s ease' };
+    const marks = {
+      subrayado: { ...base, borderBottom: '2px solid var(--color-accent)' },
+      fondo: { ...base, background: 'var(--color-accent-200)', color: 'var(--color-accent-900)', boxShadow: '0 0 0 3px var(--color-accent-200)' },
+      punteado: { ...base, borderBottom: '2px dotted var(--color-accent)' }
+    };
+    const picks = {};
+    ORDER.forEach(k => { picks[k] = () => this.setState({ key: k }); });
+    return { sel: WORDS[this.state.key], picks, picksList: ORDER, markStyle: marks[mark] || marks.subrayado, motionMul: mul };
+  }
+}
+</script>
+</body>
+</html>

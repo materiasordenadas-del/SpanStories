@@ -1,0 +1,19 @@
+{
+  "esquema": "spanstories.perfiles-personaje/1",
+  "nota": "Datos por personaje para el Taller facial general (no código). La clave es el id del personaje en la biblioteca o en la historia. «glb» (ruta relativa a esta carpeta) apunta al modelo en la carpeta de modelos del estudio (SpanStories-Ciudades/assets/avatar); no se copia. «estilo» propone la configuración de las 50 actuaciones (F femenina, M masculina); el panel deja elegir la otra. Lo que se ajuste en el panel «Físicas de personaje» se guarda en el navegador y tiene prioridad. «cuerpo» (opcional) ajusta para ese modelo lo general del motor: «articulaciones» (extension, flexion, cubital, radial, pronacion, supinacion, humero, claviculaDesde, claviculaParte, en grados), «axilas» (radio, iteraciones, fuerza; false = sin suavizar) y «accesorios» (margen; false = sin detectar mochila/capa). Lo que falte usa el valor general (taller-animacion/src/core/bodyprofile.js). «cuerpo.dientesConSonrisa» ({sube, retrae, hueso}) retrae la arcada inferior al sonreír en modelos cuyos morphs no la mueven.",
+  "personajes": {
+    "don-quijote": {
+      "nombre": "Don Quijote",
+      "glb": "../../../../SpanStories-Ciudades/assets/avatar/don-quijote.glb",
+      "estilo": "M",
+      "fisica": {
+        "cuerpo": false,
+        "pelo": null
+      },
+      "cuerpo": {
+        "axilas": false,
+        "accesorios": false
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.shade{position:fixed;inset:0;z-index:80;padding:12px;background:#07121bea;display:grid;place-items:center}.dialog{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;background:#12232f;border:1px solid #4e7c90;border-radius:8px;overflow:hidden}.dialog header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 14px;color:#dcebf6;font:12px 'Segoe UI',sans-serif}.dialog header div{display:flex;gap:8px}.dialog button{background:#214257;border:1px solid #648496;color:#e1eff9;border-radius:5px;padding:7px 10px;cursor:pointer}.dialog iframe{width:100%;flex:1;min-height:0;border:0}.dialog p{margin:0;padding:7px 14px;color:#b1d8cc;font:11px 'Segoe UI',sans-serif}
+.shade{padding:0}.dialog{border:0;border-radius:0}.dialog header{min-height:54px;box-sizing:border-box;background:#121e2b;border-bottom:1px solid #30445a}.dialog header strong{font-size:16px;white-space:nowrap}.dialog header small{font-size:11px;color:#a6bdd6;font-weight:400}.dialog nav{display:flex;gap:5px}.dialog nav button{background:transparent;border-color:transparent;min-height:36px}.dialog nav button[aria-pressed=true]{background:#223d61;border-color:#4379b6;box-shadow:inset 0 -2px #75b1ff}.dialog p{background:#111c28;color:#a6bdd6}.dialog header>div{margin-left:auto}
+@media(max-width:950px){.dialog header{gap:6px;flex-wrap:wrap}.dialog header strong{font-size:12px}.dialog nav button{padding:5px 7px;font-size:11px}.dialog header small{display:none}}
+.dialog>header{height:56px;min-height:56px;flex:0 0 56px;border:0;box-sizing:border-box}.dialog>p{height:28px;flex:0 0 28px;box-sizing:border-box}.dialog>iframe{display:block}
+.dialog>iframe[hidden]{display:none}
+.dialog nav a{display:flex;align-items:center;padding:0 10px;min-height:36px;color:#c7d4e1;text-decoration:none;font-size:12px;border-radius:5px}.dialog nav a:hover{background:#1b2c3b}
+/* Dentro de la barra común: el taller ocupa el espacio bajo la barra, que sigue visible. */
+.shade.inShell{top:var(--shell-bar,0px)}
+
+/* «En escena»: el visor del Taller deja ver el escenario vivo, que se coloca justo debajo (hueco .hole). */
+.hole{position:fixed;pointer-events:none;left:0;top:0;width:0;height:0}
+.shade.live{background:transparent}.shade.live .dialog{background:transparent}
+.shade.fixedStage,.fixedStage .dialog{background:transparent}
+.fixedStage .dialog>header{display:none}
+.fixedStage .dialog>p{height:24px;flex-basis:24px;padding-block:4px}
+
+/* Precargado: el Taller está montado y listo pero no se ve ni recibe clics hasta abrir «Animación». */
+.shade.warm{opacity:0;pointer-events:none}
+/* (opacidad 0 y no visibility: así el navegador lo sigue pintando y al mostrarlo no hay ni un fotograma vacío) */
+
+/* Cerrar el Taller no pudo llevar los cambios a la historia: aviso con salida (reintentar, seguir o descartar y cerrar). */
+.dialog{position:relative}
+.closeFailure{position:absolute;z-index:5;left:50%;top:72px;transform:translateX(-50%);width:min(540px,calc(100% - 32px));box-sizing:border-box;background:#16293a;border:1px solid #d7a14f;border-radius:8px;box-shadow:0 12px 40px #000a;padding:14px 16px;color:#e4eef8;font:13px 'Segoe UI',sans-serif}
+.closeFailure strong{display:block;margin-bottom:2px;color:#ffd48a;font-size:14px}
+.closeFailure p{padding:4px 0;height:auto;font-size:12px;line-height:1.45;color:#cfe0ec;background:transparent}
+.closeFailure>div{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.closeFailure .discard{margin-left:auto;border-color:#b86a6a;color:#ffd3d3;background:#3a2326}

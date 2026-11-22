@@ -1,0 +1,2192 @@
+{
+  "storyId": "A1-M04-I05-S1",
+  "metrics": {
+    "coreTokens": 289,
+    "learnerFacingTokens": 666,
+    "punctuationSegments": 54,
+    "clauseMarkersPerSegmentMax": 0
+  },
+  "budgetPass": {
+    "coreTokens": true
+  },
+  "firstIntroCount": 39,
+  "returnCount": 92,
+  "countIntegrity": {
+    "pass": true,
+    "mismatches": []
+  },
+  "coverage": [
+    {
+      "targetId": "SENSE-A1-000011",
+      "item": "acá",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "acá"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000021",
+      "item": "ahí",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "ahí"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000027",
+      "item": "al lado",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "al lado"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000031",
+      "item": "allá",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "allá"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000032",
+      "item": "allí",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "allí"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000048",
+      "item": "aquel",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "aquellas",
+        "aquellos",
+        "aquello",
+        "aquella"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000049",
+      "item": "aquí",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "aquí"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000055",
+      "item": "avenida",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "avenida"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000106",
+      "item": "capital",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "capital"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000126",
+      "item": "céntrico",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "céntrico"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000138",
+      "item": "ciudad",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "ciudad"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000225",
+      "item": "entre",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "entre"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000230",
+      "item": "ese",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "esos",
+        "esas",
+        "esa",
+        "eso",
+        "ese"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000239",
+      "item": "este",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "estas",
+        "esto",
+        "este",
+        "esta"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000334",
+      "item": "lejos",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "lejos"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000344",
+      "item": "lugar",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "lugar"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000353",
+      "item": "mapa",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "mapa"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000449",
+      "item": "plano",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "plano"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000452",
+      "item": "plaza",
+      "targetType": "SENSE",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "plaza"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "GRAM-A1-007",
+      "item": "Ciudades y localidades: uso como nombre propio",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-043",
+      "item": "Incompatibilidad con demostrativos, numerales e indefinidos en el mismo determinante",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-046",
+      "item": "Paradigma masculino/femenino singular/plural de este, ese, aquel",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-047",
+      "item": "Formas neutras esto, eso, aquello",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-048",
+      "item": "Neutro demostrativo en posición inicial con ser/estar",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-049",
+      "item": "Deixis espacial: proximidad y distancia respecto de interlocutores",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-050",
+      "item": "Demostrativo neutro para identificar objeto desconocido",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-051",
+      "item": "Demostrativo prenominal e incompatibilidad con artículo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-092",
+      "item": "Adverbios interrogativos de A1 se completan en 8.8",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-094",
+      "item": "Deícticos aquí, ahí, allí",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-096",
+      "item": "Muy + lejos/cerca como intensificación",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-106",
+      "item": "Dónde para lugar y cómo para modo; forma invariable y posición inicial/aislada",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-120",
+      "item": "Sintagma preposicional restrictivo con término nominal, infinitivo o adverbial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-131",
+      "item": "Estar para localización espacial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0146",
+      "item": "al este",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "al este"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0148",
+      "item": "al lado",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "al lado"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0149",
+      "item": "al norte",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "al norte"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0150",
+      "item": "al oeste",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "al oeste"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0151",
+      "item": "al sur",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [
+        "al sur"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0158",
+      "item": "en el centro",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [
+        "en el centro"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000004",
+      "item": "a mediodía",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000022",
+      "item": "ahora",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "ahora"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000023",
+      "item": "ahoy",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000040",
+      "item": "año",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000175",
+      "item": "cuarto",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000179",
+      "item": "décimo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000189",
+      "item": "día",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000288",
+      "item": "hasta",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000294",
+      "item": "hora",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000351",
+      "item": "mañana",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "mañana"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000369",
+      "item": "mes",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000378",
+      "item": "momento",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000402",
+      "item": "noche",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000414",
+      "item": "octavo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000456",
+      "item": "por la mañana",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000458",
+      "item": "por la tarde",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000473",
+      "item": "primero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000496",
+      "item": "reloj",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000513",
+      "item": "segundo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000519",
+      "item": "séptimo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000522",
+      "item": "sexto",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000558",
+      "item": "tercero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000561",
+      "item": "tiempo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "GRAM-A1-008",
+      "item": "Nombres comunes de periodos temporales básicos",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-060",
+      "item": "Cardinales",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-061",
+      "item": "Variación de género/número de cardinales que la presentan",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-062",
+      "item": "Ordinales hasta décimo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-063",
+      "item": "Variación de género de ordinales",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0143",
+      "item": "a mediodía",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0145",
+      "item": "a veces",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0159",
+      "item": "en la mañana",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0160",
+      "item": "en la noche",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0172",
+      "item": "por la mañana",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0173",
+      "item": "por la noche",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0187",
+      "item": "todos los días",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000009",
+      "item": "abrir",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000013",
+      "item": "actividad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000047",
+      "item": "aprender",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000071",
+      "item": "biblioteca",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "biblioteca"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000079",
+      "item": "bolígrafo",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000131",
+      "item": "cerrar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000140",
+      "item": "clase",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000146",
+      "item": "colegio",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000155",
+      "item": "computadora",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000190",
+      "item": "diccionario",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000214",
+      "item": "empezar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000224",
+      "item": "entrar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000227",
+      "item": "escribir",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "escribir"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000229",
+      "item": "escuela",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "escuela"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000241",
+      "item": "estudiante",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000242",
+      "item": "estudiar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000245",
+      "item": "examen",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "examen"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000263",
+      "item": "fotocopia",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000273",
+      "item": "goma",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "goma"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000307",
+      "item": "instituto",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000327",
+      "item": "lápiz",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "lápiz"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000331",
+      "item": "lección",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000333",
+      "item": "leer",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000431",
+      "item": "papel",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000447",
+      "item": "pizarra",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000448",
+      "item": "pizarrón",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000476",
+      "item": "profesor",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "profesor"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000508",
+      "item": "salir",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "salir"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "SENSE-A1-000559",
+      "item": "terminar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000577",
+      "item": "unidad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000578",
+      "item": "universidad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "GRAM-A1-115",
+      "item": "Infinitivo independiente como respuesta fragmentaria",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "12B1-MWU-0020",
+      "item": "clase de español",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0021",
+      "item": "clase de historia",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0022",
+      "item": "clase de matemáticas",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0023",
+      "item": "en grupos",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0024",
+      "item": "en parejas",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0025",
+      "item": "hacer los deberes",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0026",
+      "item": "hacer un ejercicio",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0027",
+      "item": "hacer un examen",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0028",
+      "item": "hacer una actividad",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0029",
+      "item": "ir a clase",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0030",
+      "item": "tener un examen",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000120",
+      "item": "celular",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000161",
+      "item": "conocer",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000209",
+      "item": "ejercicio",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000454",
+      "item": "poder",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000465",
+      "item": "practicar",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000504",
+      "item": "saber",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "GRAM-A1-039",
+      "item": "Ausencia con saber + lengua/disciplina en los usos básicos señalados",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-114",
+      "item": "Infinitivo simple en -ar/-er/-ir",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-136",
+      "item": "OD de persona sin preposición en el patrón A1 especificado por PCIC",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-137",
+      "item": "OD de cosa",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-148",
+      "item": "Oraciones transitivas e intransitivas básicas",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "SENSE-A1-000432",
+      "item": "para",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [
+        "para"
+      ],
+      "status": "TEXT_EVIDENCE_CANDIDATE"
+    },
+    {
+      "targetId": "12B1-MWU-0183",
+      "item": "ser pronto",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0184",
+      "item": "ser tarde",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    }
+  ],
+  "missingTextEvidence": [
+    {
+      "targetId": "SENSE-A1-000004",
+      "item": "a mediodía",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000023",
+      "item": "ahoy",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000040",
+      "item": "año",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000175",
+      "item": "cuarto",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000179",
+      "item": "décimo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000189",
+      "item": "día",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000288",
+      "item": "hasta",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000294",
+      "item": "hora",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000369",
+      "item": "mes",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000378",
+      "item": "momento",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000402",
+      "item": "noche",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000414",
+      "item": "octavo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000456",
+      "item": "por la mañana",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000458",
+      "item": "por la tarde",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000473",
+      "item": "primero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000496",
+      "item": "reloj",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000513",
+      "item": "segundo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000519",
+      "item": "séptimo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000522",
+      "item": "sexto",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000558",
+      "item": "tercero",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000561",
+      "item": "tiempo",
+      "targetType": "SENSE",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0143",
+      "item": "a mediodía",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0145",
+      "item": "a veces",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0159",
+      "item": "en la mañana",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0160",
+      "item": "en la noche",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0172",
+      "item": "por la mañana",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0173",
+      "item": "por la noche",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0187",
+      "item": "todos los días",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000009",
+      "item": "abrir",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000013",
+      "item": "actividad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000047",
+      "item": "aprender",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000079",
+      "item": "bolígrafo",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000131",
+      "item": "cerrar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000140",
+      "item": "clase",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000146",
+      "item": "colegio",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000155",
+      "item": "computadora",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000190",
+      "item": "diccionario",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000214",
+      "item": "empezar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000224",
+      "item": "entrar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000241",
+      "item": "estudiante",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000242",
+      "item": "estudiar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000263",
+      "item": "fotocopia",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000307",
+      "item": "instituto",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000331",
+      "item": "lección",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000333",
+      "item": "leer",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000431",
+      "item": "papel",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000447",
+      "item": "pizarra",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000448",
+      "item": "pizarrón",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000559",
+      "item": "terminar",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000577",
+      "item": "unidad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000578",
+      "item": "universidad",
+      "targetType": "SENSE",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0020",
+      "item": "clase de español",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0021",
+      "item": "clase de historia",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0022",
+      "item": "clase de matemáticas",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0023",
+      "item": "en grupos",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0024",
+      "item": "en parejas",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0025",
+      "item": "hacer los deberes",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0026",
+      "item": "hacer un ejercicio",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0027",
+      "item": "hacer un examen",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0028",
+      "item": "hacer una actividad",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0029",
+      "item": "ir a clase",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0030",
+      "item": "tener un examen",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000120",
+      "item": "celular",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000161",
+      "item": "conocer",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000209",
+      "item": "ejercicio",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000454",
+      "item": "poder",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000465",
+      "item": "practicar",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "SENSE-A1-000504",
+      "item": "saber",
+      "targetType": "SENSE",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0183",
+      "item": "ser pronto",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    },
+    {
+      "targetId": "12B1-MWU-0184",
+      "item": "ser tarde",
+      "targetType": "MWU_SOURCE_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "MISSING_TEXT_EVIDENCE"
+    }
+  ],
+  "humanGrammarEvidenceRequired": [
+    {
+      "targetId": "GRAM-A1-007",
+      "item": "Ciudades y localidades: uso como nombre propio",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-043",
+      "item": "Incompatibilidad con demostrativos, numerales e indefinidos en el mismo determinante",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-046",
+      "item": "Paradigma masculino/femenino singular/plural de este, ese, aquel",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-047",
+      "item": "Formas neutras esto, eso, aquello",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-048",
+      "item": "Neutro demostrativo en posición inicial con ser/estar",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-049",
+      "item": "Deixis espacial: proximidad y distancia respecto de interlocutores",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-050",
+      "item": "Demostrativo neutro para identificar objeto desconocido",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-051",
+      "item": "Demostrativo prenominal e incompatibilidad con artículo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-092",
+      "item": "Adverbios interrogativos de A1 se completan en 8.8",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-094",
+      "item": "Deícticos aquí, ahí, allí",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-096",
+      "item": "Muy + lejos/cerca como intensificación",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-106",
+      "item": "Dónde para lugar y cómo para modo; forma invariable y posición inicial/aislada",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "FOCUS",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-120",
+      "item": "Sintagma preposicional restrictivo con término nominal, infinitivo o adverbial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-131",
+      "item": "Estar para localización espacial",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_INTRO",
+      "salience": "SUPPORTED",
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-008",
+      "item": "Nombres comunes de periodos temporales básicos",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-060",
+      "item": "Cardinales",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-061",
+      "item": "Variación de género/número de cardinales que la presentan",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-062",
+      "item": "Ordinales hasta décimo",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-063",
+      "item": "Variación de género de ordinales",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "THIRD_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-115",
+      "item": "Infinitivo independiente como respuesta fragmentaria",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "SECOND_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-039",
+      "item": "Ausencia con saber + lengua/disciplina en los usos básicos señalados",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-114",
+      "item": "Infinitivo simple en -ar/-er/-ir",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-136",
+      "item": "OD de persona sin preposición en el patrón A1 especificado por PCIC",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-137",
+      "item": "OD de cosa",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    },
+    {
+      "targetId": "GRAM-A1-148",
+      "item": "Oraciones transitivas e intransitivas básicas",
+      "targetType": "GRAMMAR_UNIT",
+      "stage": "FIRST_RETURN",
+      "salience": null,
+      "candidateForms": [],
+      "status": "HUMAN_GRAMMAR_EVIDENCE_REQUIRED"
+    }
+  ],
+  "ignoredDeprecatedArguments": [],
+  "futureCollisionCandidates": [
+    {
+      "surface": "cerca",
+      "targetId": "SENSE-A1-000129",
+      "item": "cerca",
+      "introducedIn": "A1-M04-I05-S2"
+    },
+    {
+      "surface": "en",
+      "targetId": "SENSE-A1-000216",
+      "item": "en",
+      "introducedIn": "A1-M04-I05-S2"
+    },
+    {
+      "surface": "este",
+      "targetId": "SENSE-A1-000240",
+      "item": "este",
+      "introducedIn": "A1-M04-I05-S2"
+    },
+    {
+      "surface": "muy",
+      "targetId": "SENSE-A1-000391",
+      "item": "muy",
+      "introducedIn": "A1-M06-I05-S1"
+    },
+    {
+      "surface": "mañana",
+      "targetId": "SENSE-A1-000350",
+      "item": "mañana",
+      "introducedIn": "A1-M07-I05-S3"
+    },
+    {
+      "surface": "o",
+      "targetId": "SENSE-A1-000413",
+      "item": "o",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "pero",
+      "targetId": "SENSE-A1-000444",
+      "item": "pero",
+      "introducedIn": "A1-M08-I05-S2"
+    },
+    {
+      "surface": "y",
+      "targetId": "SENSE-A1-000606",
+      "item": "y",
+      "introducedIn": "A1-M08-I05-S2"
+    }
+  ],
+  "editorialStatus": "REVIEW_REQUIRED"
+}

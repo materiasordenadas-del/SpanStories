@@ -1,0 +1,33 @@
+destination_story,title,module,island,first_intro_count,first_return_in,second_return_in,third_return_in,total_recycle_in,checkpoint_type,load_review
+B32-S01,Primer día en la escuela,M01,B32-I01,33,0,0,0,0,—,—
+B32-S02,La ficha del grupo,M01,B32-I01,18,33,0,0,33,—,—
+B32-S03,Conocer a un compañero,M01,B32-I01,54,18,33,0,51,—,—
+B32-S04,No entiendo,M01,B32-I01,23,54,18,0,72,ISLAND+MODULE,—
+B32-S05,Una foto de familia,M02,B32-I02,45,23,54,0,77,—,—
+B32-S06,Así es Ana,M02,B32-I02,49,45,0,18,63,—,—
+B32-S07,¿Quién es quién?,M02,B32-I02,0,49,23,33,105,ISLAND,—
+B32-S08,Mi apartamento,M02,B32-I03,49,0,49,23,72,—,—
+B32-S09,"Dos personas, dos actividades",M02,B32-I03,24,49,45,0,94,ISLAND+MODULE,—
+B32-S10,Una cita a las diez,M03,B32-I04,37,24,49,54,127,—,REVIEWED_PASS
+B32-S11,Un día normal,M03,B32-I04,18,37,24,45,106,—,—
+B32-S12,Hoy cambia el horario,M03,B32-I04,36,18,37,49,104,ISLAND,—
+B32-S13,En clase,M03,B32-I05,44,36,18,49,103,—,—
+B32-S14,¿Sabes hacerlo?,M03,B32-I05,11,44,36,0,80,ISLAND+MODULE,—
+B32-S15,En el centro,M04,B32-I06,39,11,44,37,92,—,—
+B32-S16,Cómo llegar,M04,B32-I06,30,39,11,36,86,—,—
+B32-S17,Necesito información,M04,B32-I06,24,30,39,24,93,—,—
+B32-S18,Llegar a tiempo,M04,B32-I06,29,24,30,29,83,ISLAND+MODULE,—
+B32-S19,¿Qué comemos?,M05,B32-I07,38,29,24,39,92,—,—
+B32-S20,En el restaurante,M05,B32-I07,22,38,29,44,111,—,—
+B32-S21,La compra con problema,M05,B32-I07,58,22,38,24,84,ISLAND+MODULE,—
+B32-S22,¿Qué te gusta?,M06,B32-I08,24,58,22,0,80,—,—
+B32-S23,Después de clase,M06,B32-I08,32,24,58,0,82,—,—
+B32-S24,El cumpleaños del sábado,M06,B32-I08,36,32,24,52,108,ISLAND+MODULE,—
+B32-S25,Viaje en tren,M07,B32-I09,27,36,32,58,126,—,REVIEWED_PASS
+B32-S26,Buscar hotel,M07,B32-I09,23,27,36,53,116,—,—
+B32-S27,Mañana cambia el plan,M07,B32-I09,43,23,27,70,120,ISLAND+MODULE,REVIEWED_PASS
+B32-S28,¿Qué opinas?,M08,B32-I10,31,43,23,36,102,—,—
+B32-S29,"Sí, pero...",M08,B32-I10,35,31,43,27,101,ISLAND,—
+B32-S30,Una ficha del mundo hispano,M08,B32-I11,18,35,31,23,89,—,—
+B32-S31,"Otra ciudad, otra información",M08,B32-I11,35,18,35,74,127,—,REVIEWED_PASS
+B32-S32,"Capstone: llegar, resolver y contar",M08,B32-I11,0,35,18,35,88,ISLAND+MODULE+CAPSTONE,—

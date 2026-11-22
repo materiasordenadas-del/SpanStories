@@ -1,0 +1,9 @@
+"use client";
+import {useState} from 'react';
+import type {Actor} from '@/features/story-studio/model';
+import {snapActor,alignActor,actorDistance} from '@/features/story-studio/staging';
+export function StudioActorPlacement({actor,actors,onChange,onError}:{actor:Actor;actors:Actor[];onChange:(actor:Actor)=>void;onError:(message:string)=>void}){
+  const [step,setStep]=useState(.25),[targetId,setTargetId]=useState(''),others=actors.filter(a=>a.id!==actor.id),target=others.find(a=>a.id===targetId)??others[0];
+  const apply=(fn:()=>Actor)=>{try{onChange(fn());}catch(error){onError(error instanceof Error?error.message:'Colocación inválida.');}};
+  return <details><summary>Colocación precisa</summary><label>Altura del personaje (m)<input aria-label="Altura del personaje" type="number" min=".2" max="5" step=".05" value={actor.height} onChange={e=>{const height=Number(e.target.value);if(Number.isFinite(height)&&height>=.2&&height<=5)onChange({...actor,height});}}/></label><label>Paso de rejilla (m)<select aria-label="Paso de rejilla de personajes" value={step} onChange={e=>setStep(Number(e.target.value))}>{[.1,.25,.5,1].map(value=><option key={value} value={value}>{value} m</option>)}</select></label><button onClick={()=>apply(()=>snapActor(actor,step))}>Ajustar a rejilla y giro de 15°</button><p>Se ajustan X y Z; la altura sobre el suelo se conserva.</p>{target&&<><label>Personaje de referencia<select aria-label="Referencia para alinear personaje" value={target.id} onChange={e=>setTargetId(e.target.value)}>{others.map(a=><option key={a.id} value={a.id}>{a.name}</option>)}</select></label><p>Distancia en planta: {actorDistance(actor,target).toFixed(2)} m</p><div><button onClick={()=>apply(()=>alignActor(actor,target,'x'))}>Alinear X</button><button onClick={()=>apply(()=>alignActor(actor,target,'z'))}>Alinear Z</button><button onClick={()=>apply(()=>alignActor(actor,target,'face'))}>Orientar hacia {target.name}</button></div></>}</details>;
+}

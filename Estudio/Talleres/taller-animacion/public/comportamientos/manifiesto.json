@@ -1,0 +1,45 @@
+{
+  "schema": "spanstories.acting-section-manifest",
+  "version": 3,
+  "section": "Expresiones y actuaciones / 50 emociones y comportamientos",
+  "contract": "Cada actuación es una combinación inseparable de gesto corporal con huesos Mixamo y expresión facial con shape keys FACEIT/ARKit-52, en el mismo reloj. Un preset facial aislado o un Idle genérico no constituye una actuación completa.",
+  "visualDirection": "Actuación de personaje estilo animación de estudio (Pixar/anime): poses claras con silueta legible, anticipación, sobrepaso y asentamiento, arrastre por articulación, rostro que se adelanta al cuerpo (ojos y cejas antes que boca), asimetría y parpadeos en los cambios de idea. Se exagera con el control de intensidad, no con valores fijos.",
+  "catalog": "catalogo.json",
+  "count": 50,
+  "stableIds": "behavior-01 a behavior-50; conservar nombres y orden",
+  "recipes": "Vale 2/rachel_threejs/ActingLibrary.mjs: ACTINGS (rostro por actitudes + cuerpo por poses clave), ACTING_BY_ID, actingProject(id, intensidad), ARM (vocabulario de brazos y contactos), FACE (vocabulario facial)",
+  "body": {
+    "source": "taller-animacion/src/core/acting.js",
+    "rig": "Cualquier humanoide que el Rig canónico detecte (Mixamo y compatibles). Nada depende del personaje de origen.",
+    "authoring": "Poses clave {t, ease, ov} con giros de tronco/cabeza/cadera en grados, brazos como direcciones de brazo y antebrazo o como contactos con puntos medidos del receptor (mentón, boca, oreja, nuca, esternón, cintura, bíceps…), forma de mano y pies (paso, talón, giro).",
+    "motion": "Entre poses: curvas con sobrepaso y asentamiento; arrastre escalonado cadera→columna→cabeza→hombro→brazo→mano→dedos; mano adelantada por lado; capas rítmicas (risa, sollozo, saludo, temblor); respiración y microvariaciones durante las pausas.",
+    "contacts": "Los puntos de contacto se miden en cada personaje (ojos, boca y mentón desde sus shape keys; pecho y cintura desde su malla) y se vuelven a resolver por IK en cada fotograma para que la mano siga a la cabeza o al pecho.",
+    "ground": "Cadera desplazada con el peso; pies plantados por IK sobre el suelo real (no sobre el eje inclinado del reposo).",
+    "instance": "facialProject.instances[].acting = {version:1, id:behavior-NN, intensity:0..1}",
+    "intensity": "0,75 = actuación de referencia. Por encima crecen tronco, cabeza, hombros y peso; por debajo la mano se acerca a su reposo doblando el codo (no se abre en cruz). Los contactos se conservan a partir del 30 %. 0 = postura de reposo exacta."
+  },
+  "face": {
+    "rig": "Shape keys FACEIT exportadas como morph targets, con nombres canónicos ARKit-52",
+    "binding": "Por nombre de canal, nunca por índice de morph ni por UUID de la malla; facialPlayerForRig y rigMap por personaje",
+    "authoring": "Actitudes {t, in, pose}: el compilador adelanta cejas y ojos, retrasa la mandíbula, añade sobrepaso y desgaste en la pausa, desfasa los lados y coloca parpadeos en los cambios.",
+    "interpolation": "spline monótona (pasa por las claves sin frenar en cada una ni salirse de 0..1)",
+    "intensity": "Las curvas guardan el aspecto a la intensidad de referencia (preset.intensity.reference = 0,75). instance.intensity / referencia escala cada canal; parpadeos y mirada (preset.intensity.soft) apenas cambian.",
+    "calibration": "project.rigGain = {canal: factor, all: factor general}, 0..3. Corrige la fuerza de las shape keys de cada personaje. suggestGain la propone midiendo el recorrido de cada shape key frente a la distancia entre ojos. Se edita en el panel «Fuerza de las shape keys en este personaje» y se guarda por personaje; viaja con la actuación al Taller y al horneado.",
+    "controls": "Intensidad de la actuación (rostro + cuerpo), rostro y cuerpo por separado, fuerza general de las shape keys, y por cada shape key: pico en la actuación y fuerza en el personaje.",
+    "missingChannels": "Deshabilitar sliders ausentes/sin deformación, informar incompatibilidad e impedir guardar como actuación completa. No inventar shape keys",
+    "speech": "En discusión, explicación y teléfono no se genera habla falsa; los visemas pertenecen a la pista de voz"
+  },
+  "transfer": {
+    "portable": "Receta corporal canónica + curvas faciales por nombres, con duración, recorte, intensidad y fundidos",
+    "characterSpecific": "El AnimationClip horneado y el rigMap manual pertenecen al personaje receptor. Recalcular contactos y hornear de nuevo al transferir; nunca usar directamente el bake de otro modelo",
+    "savedVariant": "recipe.body y recipe.facial conservan fuentes editables. Cada guardado crea una versión nueva; review.status permanece unreviewed hasta aprobación visual"
+  },
+  "sceneRequirements": {
+    "behavior-07": "Silla y altura de asiento coherente con el personaje; no insertar ni modificar mobiliario automáticamente",
+    "behavior-45": "Gesto hacia la derecha del personaje; objetivo espacial de escena todavía no editable desde esta sección",
+    "behavior-48": "Teléfono unido a la mano; el gesto no crea el objeto ni sintetiza voz"
+  },
+  "regressionScope": "Preservar expresiones originales, variantes previas, curvas, exportación, materiales, GLB originales, escenario y cámara del visor. Cambiar solo la sección y el transporte de su receta conjunta.",
+  "verification": "taller-animacion: npm test (50 identidades, neutralidad, rangos, intensidad, curvas, calibración, pies y contactos en dos esqueletos Mixamo de distinto tamaño, sin saltos a 60 fps, horneado). rachel_threejs: node --test *.test.mjs.",
+  "review": "Revisado en hojas de contacto con Rachel (pico de las 50, secuencias, intensidades 30/50/75/100 %, perfiles de pies). Aprobación artística del usuario pendiente. ActingContactSheet.mjs permite repetir la revisión con cualquier personaje."
+}

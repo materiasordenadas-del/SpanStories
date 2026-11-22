@@ -1,0 +1,629 @@
+[
+  {
+    "senseId": "SENSE-A1-000370",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Parsons Table.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/68/Parsons_Table.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Parsons_Table.jpg/330px-Parsons_Table.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Parsons_Table.jpg",
+        "creator": "Jean-Michel Frank",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una mesa de madera",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000117",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Colonial house Rua Tristão Mariano 175, São Paulo, Brazil.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Colonial_house_Rua_Trist%C3%A3o_Mariano_175%2C_S%C3%A3o_Paulo%2C_Brazil.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Colonial_house_Rua_Trist%C3%A3o_Mariano_175%2C_S%C3%A3o_Paulo%2C_Brazil.jpg/330px-Colonial_house_Rua_Trist%C3%A3o_Mariano_175%2C_S%C3%A3o_Paulo%2C_Brazil.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Colonial_house_Rua_Trist%C3%A3o_Mariano_175,_S%C3%A3o_Paulo,_Brazil.jpg",
+        "creator": "Wilfredor",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una casa de estilo colonial",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000141",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Abandoned car in Marine Park (10852p).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Abandoned_car_in_Marine_Park_%2810852p%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Abandoned_car_in_Marine_Park_%2810852p%29.jpg/330px-Abandoned_car_in_Marine_Park_%2810852p%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Abandoned_car_in_Marine_Park_(10852p).jpg",
+        "creator": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un coche aparcado",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000337",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Aufgeschlagenes Buch -- 2020 -- 4195-201.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Aufgeschlagenes_Buch_--_2020_--_4195-201.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Aufgeschlagenes_Buch_--_2020_--_4195-201.jpg/330px-Aufgeschlagenes_Buch_--_2020_--_4195-201.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Aufgeschlagenes_Buch_--_2020_--_4195-201.jpg",
+        "creator": "Dietmar Rabich",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un libro abierto",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000097",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Bed in hotel room 6.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Bed_in_hotel_room_6.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Bed_in_hotel_room_6.jpg/330px-Bed_in_hotel_room_6.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Bed_in_hotel_room_6.jpg",
+        "creator": "Kurt Kaiser",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "altText": "una cama de hotel",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000480",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Houten deur van een woonhuis in Guarda. 20-09-2019. (actm.).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Houten_deur_van_een_woonhuis_in_Guarda._20-09-2019._%28actm.%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/13/Houten_deur_van_een_woonhuis_in_Guarda._20-09-2019._%28actm.%29.jpg/330px-Houten_deur_van_een_woonhuis_in_Guarda._20-09-2019._%28actm.%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Houten_deur_van_een_woonhuis_in_Guarda._20-09-2019._(actm.).jpg",
+        "creator": "Agnes Monkelbaan",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una puerta de madera",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000551",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Black smartphone in hand (Unsplash).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Black_smartphone_in_hand_%28Unsplash%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Black_smartphone_in_hand_%28Unsplash%29.jpg/330px-Black_smartphone_in_hand_%28Unsplash%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Black_smartphone_in_hand_(Unsplash).jpg",
+        "creator": "Dennis Cortés cortes",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "altText": "un teléfono en una mano",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000149",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Parboiled rice with chicken, peppers, cucurbita, peas and tomato.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Parboiled_rice_with_chicken%2C_peppers%2C_cucurbita%2C_peas_and_tomato.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Parboiled_rice_with_chicken%2C_peppers%2C_cucurbita%2C_peas_and_tomato.jpg/330px-Parboiled_rice_with_chicken%2C_peppers%2C_cucurbita%2C_peas_and_tomato.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Parboiled_rice_with_chicken,_peppers,_cucurbita,_peas_and_tomato.jpg",
+        "creator": "Petar Milošević",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un plato de comida",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000526",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Buerostuhl (fcm).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Buerostuhl_%28fcm%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Buerostuhl_%28fcm%29.jpg/330px-Buerostuhl_%28fcm%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Buerostuhl_(fcm).jpg",
+        "creator": "Photograph:  Frank C. Müller, Baden-Baden",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una silla de oficina",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000585",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Window in a cafe in San Gimignano (02182)2.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/Window_in_a_cafe_in_San_Gimignano_%2802182%292.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Window_in_a_cafe_in_San_Gimignano_%2802182%292.jpg/330px-Window_in_a_cafe_in_San_Gimignano_%2802182%292.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Window_in_a_cafe_in_San_Gimignano_(02182)2.jpg",
+        "creator": "Rhododendrites",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una ventana",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000147",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:A convalescing man happily eating a meal Wellcome V0011198.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/A_convalescing_man_happily_eating_a_meal_Wellcome_V0011198.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/A_convalescing_man_happily_eating_a_meal_Wellcome_V0011198.jpg/330px-A_convalescing_man_happily_eating_a_meal_Wellcome_V0011198.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:A_convalescing_man_happily_eating_a_meal_Wellcome_V0011198.jpg",
+        "creator": "Wellcome Collection",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "altText": "un hombre comiendo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000070",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Woman drinking water.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Woman_drinking_water.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Woman_drinking_water.jpg/330px-Woman_drinking_water.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Woman_drinking_water.jpg",
+        "creator": "Kristiaan from Haarlem, The Netherlands",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "altText": "una mujer bebiendo agua",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000164",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Man Running with Dogs.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Man_Running_with_Dogs.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Man_Running_with_Dogs.jpg/330px-Man_Running_with_Dogs.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Man_Running_with_Dogs.jpg",
+        "creator": "Visitor7",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "altText": "un hombre corriendo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000333",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Woman Reading a Book.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Woman_Reading_a_Book.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Woman_Reading_a_Book.jpg/330px-Woman_Reading_a_Book.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Woman_Reading_a_Book.jpg",
+        "creator": "Nefrit Lazurit",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "una mujer leyendo un libro",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000227",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Woman writing on a notebook with a pen.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Woman_writing_on_a_notebook_with_a_pen.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Woman_writing_on_a_notebook_with_a_pen.jpg/330px-Woman_writing_on_a_notebook_with_a_pen.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Woman_writing_on_a_notebook_with_a_pen.jpg",
+        "creator": "Kristin Hardwick",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "altText": "una mujer escribiendo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000009",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Portrait of woman opening car door (AM 81849-1).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Portrait_of_woman_opening_car_door_%28AM_81849-1%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Portrait_of_woman_opening_car_door_%28AM_81849-1%29.jpg/330px-Portrait_of_woman_opening_car_door_%28AM_81849-1%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Portrait_of_woman_opening_car_door_(AM_81849-1).jpg",
+        "creator": "Collins, Tudor Washington, 1898-1970, photographer",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "altText": "una mujer abriendo una puerta",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000131",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Close-up view of closed wooden door of Gangkou Community Center.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Close-up_view_of_closed_wooden_door_of_Gangkou_Community_Center.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Close-up_view_of_closed_wooden_door_of_Gangkou_Community_Center.jpg/330px-Close-up_view_of_closed_wooden_door_of_Gangkou_Community_Center.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Close-up_view_of_closed_wooden_door_of_Gangkou_Community_Center.jpg",
+        "creator": "Paul Arps",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "altText": "una puerta cerrada",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000285",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Petra, People in conversation, Jordan.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Petra%2C_People_in_conversation%2C_Jordan.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Petra%2C_People_in_conversation%2C_Jordan.jpg/330px-Petra%2C_People_in_conversation%2C_Jordan.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Petra,_People_in_conversation,_Jordan.jpg",
+        "creator": "Vyacheslav Argenberg",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "altText": "dos personas hablando",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000393",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Professional swimmer (35609151296).jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Professional_swimmer_%2835609151296%29.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Professional_swimmer_%2835609151296%29.jpg/330px-Professional_swimmer_%2835609151296%29.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Professional_swimmer_(35609151296).jpg",
+        "creator": "Oleg Dubyna from Poltava, Ukraine",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "altText": "una persona nadando",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000059",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Two dancers.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/38/Two_dancers.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Two_dancers.jpg/330px-Two_dancers.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Two_dancers.jpg",
+        "creator": "Barry Goyette from San Luis Obispo, USA",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "altText": "dos personas bailando",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000229",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Taipei Taiwan Fuxing-Elementary-School-04.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Taipei_Taiwan_Fuxing-Elementary-School-04.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Taipei_Taiwan_Fuxing-Elementary-School-04.jpg/330px-Taipei_Taiwan_Fuxing-Elementary-School-04.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Fuxing-Elementary-School-04.jpg",
+        "creator": "CEphoto, Uwe Aranas",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "altText": "una escuela",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000140",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Classroom in the U.S.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Classroom_in_the_U.S.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Classroom_in_the_U.S.jpg/330px-Classroom_in_the_U.S.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Classroom_in_the_U.S.jpg",
+        "creator": "Marie from Malang, East Java, Indonesia",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "altText": "un aula de clase",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000476",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:A public high school teacher in a classroom in the United States 04.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8f/A_public_high_school_teacher_in_a_classroom_in_the_United_States_04.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/A_public_high_school_teacher_in_a_classroom_in_the_United_States_04.jpg/330px-A_public_high_school_teacher_in_a_classroom_in_the_United_States_04.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:A_public_high_school_teacher_in_a_classroom_in_the_United_States_04.jpg",
+        "creator": "Harrison Keely",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "altText": "un profesor en el aula",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000134",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Happy Young Smiling Teenage Boy.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Happy_Young_Smiling_Teenage_Boy.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Happy_Young_Smiling_Teenage_Boy.jpg/330px-Happy_Young_Smiling_Teenage_Boy.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Happy_Young_Smiling_Teenage_Boy.jpg",
+        "creator": "ProperAndPolite",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un chico sonriendo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000353",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Mercator projection SW.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Mercator_projection_SW.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Mercator_projection_SW.jpg/330px-Mercator_projection_SW.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Mercator_projection_SW.jpg",
+        "creator": "Strebe",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "altText": "un mapa del mundo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000228",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Girl in headphones.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/Girl_in_headphones.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Girl_in_headphones.jpg/330px-Girl_in_headphones.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Girl_in_headphones.jpg",
+        "creator": "Bruce Mars",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "altText": "una persona escuchando",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000517",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Norberto Pazzini, Portrait of a Young Gentleman wearing an elite wool suit and waistcoat. 1895.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Norberto_Pazzini%2C_Portrait_of_a_Young_Gentleman_wearing_an_elite_wool_suit_and_waistcoat._1895.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Norberto_Pazzini%2C_Portrait_of_a_Young_Gentleman_wearing_an_elite_wool_suit_and_waistcoat._1895.jpg/330px-Norberto_Pazzini%2C_Portrait_of_a_Young_Gentleman_wearing_an_elite_wool_suit_and_waistcoat._1895.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Norberto_Pazzini,_Portrait_of_a_Young_Gentleman_wearing_an_elite_wool_suit_and_waistcoat._1895.jpg",
+        "creator": "Jorge Patrão",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "altText": "un señor con traje formal",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000350",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Sunrise over Benmore Range, New Zealand.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Sunrise_over_Benmore_Range%2C_New_Zealand.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Sunrise_over_Benmore_Range%2C_New_Zealand.jpg/330px-Sunrise_over_Benmore_Range%2C_New_Zealand.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Sunrise_over_Benmore_Range,_New_Zealand.jpg",
+        "creator": "Michal Klajban",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un amanecer, como mañana",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000217",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Indein, Handshake, Shan State, Shan Hills, Myanmar.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Indein%2C_Handshake%2C_Shan_State%2C_Shan_Hills%2C_Myanmar.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Indein%2C_Handshake%2C_Shan_State%2C_Shan_Hills%2C_Myanmar.jpg/330px-Indein%2C_Handshake%2C_Shan_State%2C_Shan_Hills%2C_Myanmar.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Indein,_Handshake,_Shan_State,_Shan_Hills,_Myanmar.jpg",
+        "creator": "Vyacheslav Argenberg",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "altText": "un saludo de manos, encantado de conocerte",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000493",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Speed 2 - Running Cheetah.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Speed_2_-_Running_Cheetah.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Speed_2_-_Running_Cheetah.jpg/330px-Speed_2_-_Running_Cheetah.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Speed_2_-_Running_Cheetah.jpg",
+        "creator": "Sarahrichards001",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un guepardo corriendo muy rápido",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000206",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Italy - birthday cake with candles 1.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/Italy_-_birthday_cake_with_candles_1.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Italy_-_birthday_cake_with_candles_1.jpg/330px-Italy_-_birthday_cake_with_candles_1.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Italy_-_birthday_cake_with_candles_1.jpg",
+        "creator": "Francesca Cesa Bianchi, Milano",
+        "license": "CC BY-SA 3.0 it",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/it/deed.en",
+        "altText": "una tarta de cumpleaños con velas, para la edad",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000040",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:2020 calendar.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/2020_calendar.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/2020_calendar.jpg/330px-2020_calendar.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:2020_calendar.jpg",
+        "creator": "Alhassan Abdul-Manan",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "altText": "un calendario de un año",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  },
+  {
+    "senseId": "SENSE-A1-000556",
+    "candidates": [
+      {
+        "rank": 1,
+        "provider": "wikimedia",
+        "providerAssetId": "File:Old man hand holding tool keys in garage.jpg",
+        "remoteImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Old_man_hand_holding_tool_keys_in_garage.jpg",
+        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Old_man_hand_holding_tool_keys_in_garage.jpg/330px-Old_man_hand_holding_tool_keys_in_garage.jpg",
+        "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Old_man_hand_holding_tool_keys_in_garage.jpg",
+        "creator": "Shixart1985",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "altText": "una mano sosteniendo unas llaves, para tener algo",
+        "status": "APPROVED",
+        "validatedAt": "2026-09-16"
+      }
+    ]
+  }
+]

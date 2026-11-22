@@ -1,0 +1,38 @@
+/* Sistema de diseño del Editor de escenarios. UNA sola fuente de color, tipografía, espaciado y estados.
+   Reglas: un único acento (ámbar, el mismo de la selección en la escena); rojo/ámbar/verde solo para estado;
+   ejes con color fijo X rojo · Y verde · Z azul; superficies por elevación (sin degradados ni vidrio). */
+.ed {
+  /* TEMA CLARO por defecto (coherente con el Estudio). Superficies por elevación, sin degradados. */
+  --ed-bg: #dfe5ea;        /* fondo del visor / hueco */
+  --ed-panel: #f4f6f8;     /* paneles */
+  --ed-panel-2: #e8ecf0;   /* cabeceras, barras */
+  --ed-campo: #ffffff;     /* campos de texto y números */
+  --ed-hover: #dde3e9;
+  --ed-activo: #ccd5dd;
+  --ed-borde: #c8d0d8;
+  --ed-borde-fuerte: #a7b3bd;
+  --ed-texto: #19212a;
+  --ed-texto-2: #46535f;
+  --ed-texto-3: #6b7a86;
+  /* acento único (ámbar, el mismo de la selección en la escena) + estados */
+  --ed-acento: #b86e12;
+  --ed-acento-fondo: #fbeacf;
+  --ed-acento-texto: #ffffff;
+  --ed-ok: #2f8a3f; --ed-aviso: #b86e12; --ed-error: #c4372c;
+  /* ejes: color fijo */
+  --ed-x: #d83a3a; --ed-y: #2f9c3a; --ed-z: #2f63d6;
+  --ed-sombra: 0 6px 18px #1b27333a;
+  --ed-fila: 26px; --ed-fila-lg: 30px; --ed-radio: 4px; --ed-gap: 6px; --ed-pad: 8px;
+  --ed-barra: 34px; --ed-icono: 16px;
+  --ed-fuente: Inter, "Segoe UI", system-ui, sans-serif;
+  --ed-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color: var(--ed-texto); font: 12px/1.35 var(--ed-fuente); font-variant-numeric: tabular-nums;
+}
+.ed *, .ed *::before, .ed *::after { box-sizing: border-box; }
+.ed[data-tema="oscuro"] {
+  --ed-bg: #12171d; --ed-panel: #1a2128; --ed-panel-2: #212a33; --ed-campo: #0f141a; --ed-hover: #2a3540; --ed-activo: #34424f;
+  --ed-borde: #2e3a46; --ed-borde-fuerte: #44525f; --ed-texto: #e6ecf1; --ed-texto-2: #a3b1bd; --ed-texto-3: #76858f;
+  --ed-acento: #e0a458; --ed-acento-fondo: #3a2f1f; --ed-acento-texto: #1c1308;
+  --ed-ok: #6bbf7a; --ed-aviso: #e0a458; --ed-error: #e5736a;
+  --ed-x: #ff5a5a; --ed-y: #5fe05f; --ed-z: #5a8dff; --ed-sombra: 0 6px 18px #0007;
+}

@@ -1,0 +1,42 @@
+.board{min-height:0;height:100%;display:flex;flex-direction:column;background:#101a25}.summary{padding:9px 14px;display:flex;gap:8px;justify-content:space-between;align-items:center;color:#bccbdb;border-bottom:1px solid #25364a;font-size:10px}.summary b{padding:0 5px;color:#506882}.summary small{font-size:10px;color:#8298ad}.cards{display:flex;gap:12px;min-height:0;overflow:auto;padding:14px;align-items:start;scrollbar-width:thin;scrollbar-color:#40566c transparent}.card{flex:0 0 216px;min-width:0;background:#182637;border:1px solid #30445c;border-radius:8px;overflow:hidden;transition:border-color .15s,box-shadow .15s}.card[data-active=true]{border-color:#64a8ff;box-shadow:0 0 0 1px #3d71ae}.card[draggable=true]{cursor:grab}.card[draggable=true]:active{cursor:grabbing}.card .selectCard{display:flex;flex-direction:column;align-items:stretch;gap:7px;width:100%;border:0;border-radius:0;padding:0 11px 11px;text-align:left;background:transparent;color:#e6eff9;min-height:0;cursor:pointer}.card .selectCard:hover{background:#1d3045}.poster{height:62px;margin:0 -11px 4px;padding:9px 10px;display:flex;align-items:flex-start;justify-content:space-between;background:linear-gradient(135deg,#263d56,#1a2c40 65%,#345a77);position:relative;overflow:hidden}.number{font:600 10px ui-monospace,SFMono-Regular,Consolas,monospace;background:#0c192a99;color:#d2e5ff;padding:3px 5px;border:1px solid #53718f;border-radius:4px;align-self:flex-start}.sceneSymbol{position:absolute;left:44%;top:3px;font-size:53px;line-height:1;color:#7da7ca55}.time{font:10px ui-monospace,Consolas,monospace;padding:4px;background:#0c192a99;border-radius:4px}.selectCard strong{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.selectCard small{font-size:10px;color:#afc0d2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:10px;color:#92a9be}.transition{font-size:9px;color:#a6c6e8;padding:4px 6px;background:#112033;border-radius:4px;align-self:flex-start}.cardTools{display:flex;gap:4px;padding:7px 8px;border-top:1px solid #2b3f54;background:#132130}.cardTools button{font-size:9px!important;padding:3px 5px!important;min-height:24px!important;background:transparent!important;white-space:nowrap}.cardTools button:last-child{margin-left:auto}.addCard{display:flex!important;flex:0 0 145px;min-height:177px!important;flex-direction:column;gap:9px!important;border-style:dashed!important;color:#a8c6e9!important;background:#122032!important;font-size:11px!important}.addCard span{font-size:24px;color:#7eaee9}.moment{flex-basis:190px}.moment .selectCard{padding-top:10px;min-height:150px}.momentTop{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#bdd1e7}.moment .transition{margin-top:auto}.board button:focus-visible{outline:2px solid #9ccaff;outline-offset:-3px}
+@media(max-height:800px){.poster{height:40px}.cards{padding:9px;gap:9px}.card .selectCard{gap:4px;padding-bottom:7px}.addCard{min-height:150px!important}.summary small{display:none}}
+.poster{height:30px;padding:4px 8px;margin-bottom:3px}.poster .number,.poster .time{padding:2px 4px}.sceneSymbol{font-size:35px;top:-4px}.card .selectCard{gap:4px;padding-bottom:7px}.selectCard strong{line-height:16px}.selectCard small,.meta{font-size:9px;line-height:12px}.transition{padding:2px 5px;line-height:13px}.cardTools{padding:4px 6px}.cardTools button{min-height:22px!important}.summary small{display:none}.addCard{min-height:155px!important}.moment .selectCard{min-height:126px}
+.poster{height:24px}.poster .sceneSymbol{display:none}.card .selectCard{gap:2px;padding-bottom:6px}.cardTools{padding:2px 5px}.cardTools button{min-height:20px!important}.cards{padding:8px;gap:10px}.addCard{min-height:128px!important}.moment .selectCard{min-height:114px}
+.addCard{min-height:126px!important}
+.moment .selectCard{min-height:98px}
+
+/* Propuesta v1 · estilo claro: tarjetas de escenas y momentos del panel Dirección. */
+.board{background:#fff;color:#111110}
+.summary{padding:0 18px 6px;border-bottom:0;color:#4f4f4a;font-size:12.5px}
+.summary b{color:#d4d4cf}
+.summary small{color:#686862;font-size:12px}
+.cards{gap:12px;padding:2px 18px 14px;scrollbar-color:#d4d4cf transparent}
+.card{flex-basis:260px;background:#fafaf9;border:1px solid #e7e7e3;border-radius:12px}
+.card[data-active=true]{background:#fff;border-color:#111110;box-shadow:0 0 0 1px #111110}
+.card .selectCard{gap:2px;padding:10px 14px;color:#111110;font-weight:400}
+.card .selectCard:hover{background:#efefec}
+.card[data-active=true] .selectCard:hover{background:none}
+.poster{height:auto;margin:0 0 4px;padding:0;background:none;align-items:center}
+.poster .sceneSymbol{display:none}
+.number{padding:3px 8px;border:0;border-radius:7px;background:#f3f3f1;color:#4f4f4a;font:600 12px Inter,"Segoe UI",sans-serif}
+.card[data-active=true] .number{background:#111110;color:#fff}
+.time{padding:0;background:none;color:#686862;font:12px Inter,"Segoe UI",sans-serif}
+.selectCard strong{font-size:14px;font-weight:600;line-height:1.35}
+.selectCard small{font-size:12.5px;color:#4f4f4a;line-height:1.4}
+.meta{font-size:12px;color:#686862;line-height:1.4}
+.transition{margin-top:6px;padding:2px 9px;border:1px solid #e7e7e3;border-radius:999px;background:#fff;color:#4f4f4a;font-size:12px;line-height:1.5}
+.momentTop{color:#686862;font-size:12px}
+.cardTools{gap:2px;padding:6px 8px;border-top:1px solid #e7e7e3;background:transparent}
+.cardTools button{min-height:28px!important;padding:0 10px!important;border:0!important;border-radius:7px!important;color:#111110!important;font-size:12px!important}
+.cardTools button:hover{background:#efefec!important}
+.addCard{flex-basis:170px;border:1px dashed #d4d4cf!important;border-radius:12px!important;background:#fff!important;color:#4f4f4a!important;font-size:13px!important;font-weight:500}
+.addCard:hover{background:#efefec!important;color:#111110!important}
+.addCard span{color:#686862}
+.board button:focus-visible{outline:2px solid #111110}
+.summary{padding:0 18px 4px}
+.cards{padding:2px 18px 10px}
+.card .selectCard{padding:8px 12px}
+.transition{margin-top:4px}
+.cardTools{padding:4px 6px}
+.moment .selectCard{min-height:0}
+.addCard{min-height:120px!important}

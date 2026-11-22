@@ -1,0 +1,685 @@
+{
+  "releaseId": "A1-CURRICULUM-v1.51",
+  "schemaVersion": "curriculum-registry/2.0.0",
+  "level": "A1",
+  "curriculumVersions": {
+    "normalizationMaster": "1.37",
+    "sourceAssertions": "1.40"
+  },
+  "sourceFiles": [
+    {
+      "file": "spanishstories_a1_ws_normalization_master_v1.37.csv",
+      "sha256": "18e522742d59a00221512514ded72d23e0c005ff96ddd8ca419496ba1f5dfe4b",
+      "byteLength": 2272995,
+      "recordCount": 2773,
+      "declaredCurriculumVersion": "1.37"
+    },
+    {
+      "file": "spanishstories_a1_ws_source_assertions_modes_v1.40.csv",
+      "sha256": "24a19adf242f1c6f0fdc7d16347529addacc62c160a32d2df9650709b85cd33b",
+      "byteLength": 1779241,
+      "recordCount": 1760,
+      "declaredCurriculumVersion": "1.40"
+    },
+    {
+      "file": "spanishstories_a1_ws_sequencing_architecture_v1.51.csv",
+      "sha256": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd",
+      "byteLength": 5434,
+      "recordCount": 11,
+      "declaredCurriculumVersion": null
+    },
+    {
+      "file": "spanishstories_a1_ws_sequencing_allocation_v1.51.csv",
+      "sha256": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d",
+      "byteLength": 549463,
+      "recordCount": 985,
+      "declaredCurriculumVersion": null
+    },
+    {
+      "file": "spanishstories_a1_ws_story_blueprints_v1.51.csv",
+      "sha256": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd",
+      "byteLength": 21029,
+      "recordCount": 32,
+      "declaredCurriculumVersion": null
+    },
+    {
+      "file": "spanishstories_a1_ws_recycling_edges_v1.51.csv",
+      "sha256": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065",
+      "byteLength": 632248,
+      "recordCount": 2867,
+      "declaredCurriculumVersion": null
+    },
+    {
+      "file": "spanishstories_a1_ws_coverage_final_v1.40.csv",
+      "sha256": "263d67bb0a95a4ca9d766cf139e466d22b9227c8d2ef961f94fe34f9fd26babc",
+      "byteLength": 18572,
+      "recordCount": 77,
+      "declaredCurriculumVersion": null
+    },
+    {
+      "file": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv",
+      "sha256": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63",
+      "byteLength": 6037,
+      "recordCount": 39,
+      "declaredCurriculumVersion": null
+    }
+  ],
+  "sourceHashes": {
+    "spanishstories_a1_ws_normalization_master_v1.37.csv": "18e522742d59a00221512514ded72d23e0c005ff96ddd8ca419496ba1f5dfe4b",
+    "spanishstories_a1_ws_source_assertions_modes_v1.40.csv": "24a19adf242f1c6f0fdc7d16347529addacc62c160a32d2df9650709b85cd33b",
+    "spanishstories_a1_ws_sequencing_architecture_v1.51.csv": "f92ef63b83cb39f938cac35dcb107c6242bee20cf64dd96a51bb681bb2d517cd",
+    "spanishstories_a1_ws_sequencing_allocation_v1.51.csv": "fa49a85a7ecbeda98159b937fa8c258126ecedcebd748605a23dcdfd66d01c3d",
+    "spanishstories_a1_ws_story_blueprints_v1.51.csv": "c0e7248e008cc46f369d5ce32ce6a6602b483328ac3b105adcd06dd817e40afd",
+    "spanishstories_a1_ws_recycling_edges_v1.51.csv": "ad4c84f6130f235ec295db1487ca0ded9be00194f0b8dbb2b1fe8770e1bfb065",
+    "spanishstories_a1_ws_coverage_final_v1.40.csv": "263d67bb0a95a4ca9d766cf139e466d22b9227c8d2ef961f94fe34f9fd26babc",
+    "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv": "0fceba0f9117bb4b7991d56e90d39015f36f60a4f31765b3b0b1a5cdfefebf63"
+  },
+  "generatedAt": "2026-09-06T23:53:20.477Z",
+  "contentHash": "e019ccc4675316f37772d214f1a058a5414ba1ef8796579fe20a25372f6dd464",
+  "expectedCounts": {
+    "lexemes": 599,
+    "lexemeForms": 666,
+    "senseRegistry": 608,
+    "a1Senses": 602,
+    "a2BoundarySenses": 6,
+    "mwuUnits": 214,
+    "grammarUnits": 169,
+    "modules": 8,
+    "islands": 11,
+    "storyBlueprints": 32,
+    "firstIntroductions": 985,
+    "focusFirstIntroductions": 448,
+    "supportedFirstIntroductions": 537,
+    "maxFocusPerStory": 20,
+    "islandCheckpoints": 11,
+    "moduleCheckpoints": 8,
+    "dedicatedFinalTransferStories": 1,
+    "capstoneFirstIntroductions": 0,
+    "deleTaskStructures": 13,
+    "recycleEdges": 2867,
+    "firstReturnEdges": 985,
+    "secondReturnEdges": 950,
+    "thirdReturnEdges": 932,
+    "orphanSenses": 0,
+    "orphanForms": 0,
+    "a2BoundaryScheduledAsA1": 0,
+    "backwardRecycleEdges": 0,
+    "routeOrderViolations": 0,
+    "duplicatePublishedIds": 0,
+    "regionalTargetsWithUniversalProductiveDemand": 0,
+    "recycleEdgesClaimingMastery": 0,
+    "versionStampedColumns": 0,
+    "regionalReceptiveTargets": 16
+  },
+  "actualCounts": {
+    "lexemes": 599,
+    "lexemeForms": 666,
+    "senseRegistry": 608,
+    "a1Senses": 602,
+    "a2BoundarySenses": 6,
+    "mwuUnits": 214,
+    "grammarUnits": 169,
+    "modules": 8,
+    "islands": 11,
+    "storyBlueprints": 32,
+    "firstIntroductions": 985,
+    "focusFirstIntroductions": 448,
+    "supportedFirstIntroductions": 537,
+    "maxFocusPerStory": 20,
+    "islandCheckpoints": 11,
+    "moduleCheckpoints": 8,
+    "dedicatedFinalTransferStories": 1,
+    "capstoneFirstIntroductions": 0,
+    "deleTaskStructures": 13,
+    "recycleEdges": 2867,
+    "firstReturnEdges": 985,
+    "secondReturnEdges": 950,
+    "thirdReturnEdges": 932,
+    "orphanSenses": 0,
+    "orphanForms": 0,
+    "a2BoundaryScheduledAsA1": 0,
+    "backwardRecycleEdges": 0,
+    "routeOrderViolations": 0,
+    "duplicatePublishedIds": 0,
+    "regionalTargetsWithUniversalProductiveDemand": 0,
+    "recycleEdgesClaimingMastery": 0,
+    "versionStampedColumns": 0,
+    "regionalReceptiveTargets": 16
+  },
+  "countChecks": [
+    {
+      "key": "lexemes",
+      "expected": 599,
+      "actual": 599,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "lexemeForms",
+      "expected": 666,
+      "actual": 666,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "senseRegistry",
+      "expected": 608,
+      "actual": 608,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "a1Senses",
+      "expected": 602,
+      "actual": 602,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "a2BoundarySenses",
+      "expected": 6,
+      "actual": 6,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "mwuUnits",
+      "expected": 214,
+      "actual": 214,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "grammarUnits",
+      "expected": 169,
+      "actual": 169,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "modules",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "islands",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "storyBlueprints",
+      "expected": 32,
+      "actual": 32,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "firstIntroductions",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "focusFirstIntroductions",
+      "expected": 448,
+      "actual": 448,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "supportedFirstIntroductions",
+      "expected": 537,
+      "actual": 537,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "maxFocusPerStory",
+      "expected": 20,
+      "actual": 20,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "islandCheckpoints",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "moduleCheckpoints",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "dedicatedFinalTransferStories",
+      "expected": 1,
+      "actual": 1,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "capstoneFirstIntroductions",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "deleTaskStructures",
+      "expected": 13,
+      "actual": 13,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "recycleEdges",
+      "expected": 2867,
+      "actual": 2867,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "firstReturnEdges",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "secondReturnEdges",
+      "expected": 950,
+      "actual": 950,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "thirdReturnEdges",
+      "expected": 932,
+      "actual": 932,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "orphanSenses",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "orphanForms",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "a2BoundaryScheduledAsA1",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "backwardRecycleEdges",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "routeOrderViolations",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "duplicatePublishedIds",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "regionalTargetsWithUniversalProductiveDemand",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "recycleEdgesClaimingMastery",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "versionStampedColumns",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "regionalReceptiveTargets",
+      "expected": 16,
+      "actual": 16,
+      "matches": true,
+      "expectationSource": "engine architecture, phase 1 acceptance criteria"
+    },
+    {
+      "key": "firstIntroductions",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-001 (Exact allocation count)"
+    },
+    {
+      "key": "a1Senses",
+      "expected": 602,
+      "actual": 602,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-002 (A1 Sense allocation)"
+    },
+    {
+      "key": "grammarUnits",
+      "expected": 169,
+      "actual": 169,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-003 (Grammar allocation)"
+    },
+    {
+      "key": "mwuUnits",
+      "expected": 214,
+      "actual": 214,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-004 (MWU allocation)"
+    },
+    {
+      "key": "modules",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-005 (Module count)"
+    },
+    {
+      "key": "islands",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-006 (Island count)"
+    },
+    {
+      "key": "storyBlueprints",
+      "expected": 32,
+      "actual": 32,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-007 (Story blueprint count)"
+    },
+    {
+      "key": "firstIntroductions",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-008 (First-introduction objects)"
+    },
+    {
+      "key": "capstoneFirstIntroductions",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-010 (Capstone first introductions)"
+    },
+    {
+      "key": "dedicatedFinalTransferStories",
+      "expected": 1,
+      "actual": 1,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-011 (Dedicated final-transfer Stories)"
+    },
+    {
+      "key": "islandCheckpoints",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-012 (Island checkpoints)"
+    },
+    {
+      "key": "moduleCheckpoints",
+      "expected": 8,
+      "actual": 8,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-013 (Module checkpoints)"
+    },
+    {
+      "key": "recycleEdges",
+      "expected": 2867,
+      "actual": 2867,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-014 (Recycle edges)"
+    },
+    {
+      "key": "firstReturnEdges",
+      "expected": 985,
+      "actual": 985,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-015 (FIRST_RETURN edges)"
+    },
+    {
+      "key": "secondReturnEdges",
+      "expected": 950,
+      "actual": 950,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-016 (SECOND_RETURN edges)"
+    },
+    {
+      "key": "thirdReturnEdges",
+      "expected": 932,
+      "actual": 932,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-017 (THIRD_RETURN edges)"
+    },
+    {
+      "key": "backwardRecycleEdges",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-018 (Backward edges)"
+    },
+    {
+      "key": "routeOrderViolations",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-019 (Route-order/duplicate-destination violations)"
+    },
+    {
+      "key": "recycleEdgesClaimingMastery",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-020 (Recycle edges claiming mastery)"
+    },
+    {
+      "key": "storyBlueprints",
+      "expected": 32,
+      "actual": 32,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-021 (New Story IDs)"
+    },
+    {
+      "key": "islands",
+      "expected": 11,
+      "actual": 11,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-023 (New Island IDs)"
+    },
+    {
+      "key": "versionStampedColumns",
+      "expected": 0,
+      "actual": 0,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-024 (Version-specific v1_* column names)"
+    },
+    {
+      "key": "deleTaskStructures",
+      "expected": 13,
+      "actual": 13,
+      "matches": true,
+      "expectationSource": "spanishstories_a1_ws_sequencing_final_audit_v1.51.csv H-025 (DELE task structures)"
+    }
+  ],
+  "validationResult": {
+    "status": "PASS",
+    "issueCount": 0,
+    "issues": [],
+    "invariants": [
+      {
+        "name": "published id duplicates",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "orphan senses",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "orphan forms",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "MWU identity links resolved",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "orphan source assertions",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "topology reference errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "island ordering errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "island prerequisite errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "checkpoint errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "duplicate first introductions",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "unknown scheduled targets",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "A2 boundary scheduled as A1",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "allocation/sense status mismatches",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "regional targets with universal productive demand",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "allocation reference errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "unresolved source assertion references",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "capstone first introductions",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "backward recycle edges",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "recycle edge reference errors",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "recycle edges claiming mastery",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "regional edges with universal productive demand",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "recycle edges altering target mode policy",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "recycle edge relation-scope mismatches",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "return route violations",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "story load mismatches",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "FOCUS guardrail breaches",
+        "status": "PASS",
+        "observed": 0
+      },
+      {
+        "name": "island and module load mismatches",
+        "status": "PASS",
+        "observed": 0
+      }
+    ]
+  }
+}

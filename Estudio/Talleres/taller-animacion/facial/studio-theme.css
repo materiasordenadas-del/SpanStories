@@ -1,0 +1,36 @@
+/* color-scheme «light» siempre, igual que el Estudio: con un esquema distinto al de la página que lo aloja, el marco se pinta opaco y tapa el escenario vivo. */
+:root{--bg:#0e141d;--panel:#17212d;--txt:#e6edf5;--sub:#9aabbe;--acc:#8bb8f8;color-scheme:light}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif}
+#panel{width:360px;padding:16px;background:linear-gradient(160deg,#192431,#121b26);border-left:1px solid #304153;scrollbar-width:thin;scrollbar-color:#415267 transparent}
+#vista{right:360px}
+button,select,input,textarea{font:inherit}
+button{min-height:29px;cursor:pointer;transition:background .15s,border-color .15s}
+button:hover{border-color:#7da0c5;background:#30445b}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #82b7ff;outline-offset:2px}
+#panel button,#panel select{background:#213144;border-color:#3a4e64;border-radius:5px;padding:5px 8px}
+#panel h2{font-weight:600;letter-spacing:.02em;color:#b8d3f7}
+.facial-panel-nav{position:sticky;top:-16px;z-index:10;display:flex;flex-wrap:wrap;gap:5px;margin:-16px -16px 12px;padding:10px 12px;background:#152131;border-bottom:1px solid #39506b}
+#panel .facial-panel-nav button{font-size:11px;flex:1 0 auto;margin:0;min-height:32px}
+#panel .facial-panel-nav button[data-active=true]{background:#245ca4;border-color:#7daff0;color:#fff}
+#panel .cl-section,#panel>section{scroll-margin-top:76px}
+#panel #facial-library{border:1px solid #32475c;background:#14202e;border-radius:8px;padding:12px;margin:10px 0 18px}
+#facial-library h2{font-size:13px;padding-bottom:9px;border-bottom:1px solid #304257}
+#facial-library #fl-apply,#facial-library #fl-update{background:#245ca4;border-color:#4f8cdb}
+#facial-library #fl-track{border-radius:6px;background-color:#0f1925}
+#facial-library #fl-track button{background:#3c5686;border-color:#638ac0}
+#facial-library #fl-chart{border:1px solid #30445b;border-radius:5px}
+#facial-library #fl-chart path{stroke:#86b8ff}
+#facial-library #fl-presets{padding:4px;line-height:1.7}
+#facial-library #fl-presets option{padding:5px 6px}
+#workshop-return{height:48px;position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 16px;background:#152131;border-bottom:1px solid #39506b;box-sizing:border-box;font-size:12px}
+#workshop-return span{color:#b5c9df}
+#workshop-return button{background:#2869b9;border:1px solid #5e99e1;color:#fff;padding:6px 14px;border-radius:5px}
+body:has(#workshop-return) #vista{top:48px}
+body:has(#workshop-return) #panel{top:48px}
+@media(max-width:700px){#vista{right:0}#panel{width:100%}#workshop-return{height:auto;min-height:48px}#workshop-return span{max-width:50%}}
+html.shared-stage,.shared-stage body{background:transparent}
+.shared-stage body{--facial-menu-top:min(var(--stage-bottom),calc(100% - 120px))}
+.shared-stage body #vista{inset:var(--stage-top) auto auto var(--stage-left);width:var(--stage-width);height:var(--stage-height)}
+.shared-stage body #workshop-return{top:var(--facial-menu-top);height:auto;min-height:48px;flex-wrap:wrap}
+.shared-stage body #panel{top:0;right:0;bottom:calc(100% - var(--facial-menu-top));width:max(215px,calc(100% - var(--stage-right)))}
+.shared-stage body:not(.escena-viva,.scene-preview) #vista canvas{visibility:hidden}

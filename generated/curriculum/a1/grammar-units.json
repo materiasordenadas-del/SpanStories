@@ -1,0 +1,1185 @@
+[
+  {
+    "id": "GRAM-A1-001",
+    "item": "Nombres de pila: uso general sin artículo",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "forma/distribución"
+  },
+  {
+    "id": "GRAM-A1-002",
+    "item": "Hipocorísticos y diminutivos de nombres propios: reconocimiento de formas frecuentes",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "variante léxica"
+  },
+  {
+    "id": "GRAM-A1-003",
+    "item": "Apellidos: uso general sin artículo",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "forma/distribución"
+  },
+  {
+    "id": "GRAM-A1-004",
+    "item": "Formas de tratamiento nominales con Sr./Sra. y don/doña",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "tratamiento"
+  },
+  {
+    "id": "GRAM-A1-005",
+    "item": "Países: regla general sin artículo",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "toponimia"
+  },
+  {
+    "id": "GRAM-A1-006",
+    "item": "Excepciones lexicalizadas de países con artículo incorporado",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "toponimia"
+  },
+  {
+    "id": "GRAM-A1-007",
+    "item": "Ciudades y localidades: uso como nombre propio",
+    "pcicSection": "1.1.1",
+    "category": "Sustantivo",
+    "kind": "toponimia"
+  },
+  {
+    "id": "GRAM-A1-008",
+    "item": "Nombres comunes de periodos temporales básicos",
+    "pcicSection": "1.1.2",
+    "category": "Sustantivo",
+    "kind": "clase semántica"
+  },
+  {
+    "id": "GRAM-A1-009",
+    "item": "Género regular: masculino -o / femenino -a",
+    "pcicSection": "1.2",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-010",
+    "item": "Género léxico con terminaciones vocálicas distintas de -o/-a",
+    "pcicSection": "1.2",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-011",
+    "item": "Género léxico en sustantivos terminados en consonante",
+    "pcicSection": "1.2",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-012",
+    "item": "Sustantivos femeninos terminados en -o procedentes de abreviación",
+    "pcicSection": "1.2",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-013",
+    "item": "Heteronimia de sexo/género en pares léxicos frecuentes",
+    "pcicSection": "1.2",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-014",
+    "item": "Plural de sustantivos terminados en vocal: -s",
+    "pcicSection": "1.3",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-015",
+    "item": "Plural de sustantivos terminados en consonante: -es",
+    "pcicSection": "1.3",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-016",
+    "item": "Plural de monosílabos o agudos terminados en -s: -es",
+    "pcicSection": "1.3",
+    "category": "Sustantivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-017",
+    "item": "Valor básico del plural como suma de individuos de una misma clase",
+    "pcicSection": "1.3",
+    "category": "Sustantivo",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-018",
+    "item": "Adjetivo calificativo como complemento del nombre",
+    "pcicSection": "2.1.1",
+    "category": "Adjetivo",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-019",
+    "item": "Adjetivo calificativo como atributo",
+    "pcicSection": "2.1.1",
+    "category": "Adjetivo",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-020",
+    "item": "Incompatibilidad del adjetivo calificativo aislado con posesivo como determinante",
+    "pcicSection": "2.1.1",
+    "category": "Adjetivo",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-021",
+    "item": "Gentilicios frecuentes como adjetivos relacionales",
+    "pcicSection": "2.1.2",
+    "category": "Adjetivo",
+    "kind": "clase"
+  },
+  {
+    "id": "GRAM-A1-022",
+    "item": "Género regular -o/-a",
+    "pcicSection": "2.2",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-023",
+    "item": "Gentilicios con masculino consonántico y femenino en -a",
+    "pcicSection": "2.2",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-024",
+    "item": "Adjetivos terminados en consonante sin variación de género",
+    "pcicSection": "2.2",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-025",
+    "item": "Gentilicios terminados en -í/-ú sin variación de género en A1",
+    "pcicSection": "2.2",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-026",
+    "item": "Plural de adjetivos terminados en vocal: -s",
+    "pcicSection": "2.3",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-027",
+    "item": "Plural de adjetivos terminados en consonante: -es",
+    "pcicSection": "2.3",
+    "category": "Adjetivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-028",
+    "item": "Posición postnominal de adjetivos especificativos/restrictivos",
+    "pcicSection": "2.4",
+    "category": "Adjetivo",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-029",
+    "item": "Grado positivo",
+    "pcicSection": "2.5",
+    "category": "Adjetivo",
+    "kind": "grado"
+  },
+  {
+    "id": "GRAM-A1-030",
+    "item": "Superlativo absoluto analítico con muy",
+    "pcicSection": "2.5",
+    "category": "Adjetivo",
+    "kind": "grado"
+  },
+  {
+    "id": "GRAM-A1-031",
+    "item": "Paradigma el/la/los/las",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-032",
+    "item": "Contracciones al y del",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-033",
+    "item": "Ausencia general con nombres propios de persona",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-034",
+    "item": "Artículo en primera posición del SN frente a otros determinantes pospuestos compatibles",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-035",
+    "item": "Incompatibilidad con posesivos y demostrativos prenominales",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-036",
+    "item": "Uso obligatorio con sujeto nominal en construcciones con gustar",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-037",
+    "item": "Incompatibilidad general del artículo definido con haber impersonal",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-038",
+    "item": "Compatibilidad con estar para localización de referente definido",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-039",
+    "item": "Ausencia con saber + lengua/disciplina en los usos básicos señalados",
+    "pcicSection": "3.1",
+    "category": "Artículo definido",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-040",
+    "item": "Paradigma un/una/unos/unas",
+    "pcicSection": "3.2",
+    "category": "Artículo indefinido",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-041",
+    "item": "Indefinición y primera mención de referente nuevo",
+    "pcicSection": "3.2",
+    "category": "Artículo indefinido",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-042",
+    "item": "Incompatibilidad general con nombres propios",
+    "pcicSection": "3.2",
+    "category": "Artículo indefinido",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-043",
+    "item": "Incompatibilidad con demostrativos, numerales e indefinidos en el mismo determinante",
+    "pcicSection": "3.2",
+    "category": "Artículo indefinido",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-044",
+    "item": "Nombre escueto incompatible con gustar en el patrón básico",
+    "pcicSection": "3.3",
+    "category": "Nombre escueto",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-045",
+    "item": "Nombre escueto compatible con haber impersonal",
+    "pcicSection": "3.3",
+    "category": "Nombre escueto",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-046",
+    "item": "Paradigma masculino/femenino singular/plural de este, ese, aquel",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-047",
+    "item": "Formas neutras esto, eso, aquello",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-048",
+    "item": "Neutro demostrativo en posición inicial con ser/estar",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-049",
+    "item": "Deixis espacial: proximidad y distancia respecto de interlocutores",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-050",
+    "item": "Demostrativo neutro para identificar objeto desconocido",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-051",
+    "item": "Demostrativo prenominal e incompatibilidad con artículo",
+    "pcicSection": "4",
+    "category": "Demostrativo",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-052",
+    "item": "Formas átonas de un poseedor: mi/mis, tu/tus, su/sus",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-053",
+    "item": "Formas de varios poseedores: nuestro/a/os/as, vuestro/a/os/as, su/sus",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-054",
+    "item": "Concordancia de género y número en nuestro/vuestro",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-055",
+    "item": "Coincidencia formal de su/sus para varios referentes de 3.ª persona",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "ambigüedad"
+  },
+  {
+    "id": "GRAM-A1-056",
+    "item": "Posesivo átono en posición prenominal",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "distribución"
+  },
+  {
+    "id": "GRAM-A1-057",
+    "item": "Posesivo átono no puede aparecer solo",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-058",
+    "item": "Incompatibilidad del posesivo átono con artículo",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-059",
+    "item": "Incompatibilidad del posesivo átono con haber impersonal",
+    "pcicSection": "5",
+    "category": "Posesivo",
+    "kind": "restricción"
+  },
+  {
+    "id": "GRAM-A1-060",
+    "item": "Cardinales",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "numeral"
+  },
+  {
+    "id": "GRAM-A1-061",
+    "item": "Variación de género/número de cardinales que la presentan",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-062",
+    "item": "Ordinales hasta décimo",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "numeral"
+  },
+  {
+    "id": "GRAM-A1-063",
+    "item": "Variación de género de ordinales",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-064",
+    "item": "Poco y mucho con variación de género/número",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "cantidad"
+  },
+  {
+    "id": "GRAM-A1-065",
+    "item": "Bastante con variación de número",
+    "pcicSection": "6.1",
+    "category": "Cuantificador",
+    "kind": "cantidad"
+  },
+  {
+    "id": "GRAM-A1-066",
+    "item": "También y tampoco como incluyentes focales",
+    "pcicSection": "6.2",
+    "category": "Cuantificador focal",
+    "kind": "polaridad"
+  },
+  {
+    "id": "GRAM-A1-067",
+    "item": "Personas gramaticales: yo, tú, él/ella, nosotros/as, vosotros/as, ellos/ellas",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "paradigma"
+  },
+  {
+    "id": "GRAM-A1-068",
+    "item": "Variación de género en 3.ª persona y en plurales de 1.ª/2.ª",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "morfología"
+  },
+  {
+    "id": "GRAM-A1-069",
+    "item": "Vos como 2.ª persona singular en zonas voseantes",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-070",
+    "item": "Usted/ustedes y distribución regional de ustedes/vosotros",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "tratamiento"
+  },
+  {
+    "id": "GRAM-A1-071",
+    "item": "Sujeto pronominal normalmente omitible en español",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-072",
+    "item": "Presencia de pronombre sujeto con valor contrastivo",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "pragmática gramatical"
+  },
+  {
+    "id": "GRAM-A1-073",
+    "item": "Ausencia de sujeto expletivo con haber impersonal",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "impersonalidad"
+  },
+  {
+    "id": "GRAM-A1-074",
+    "item": "Pronombres personales sujeto con referente humano; demostrativo para cosas en el patrón básico",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "referencia"
+  },
+  {
+    "id": "GRAM-A1-075",
+    "item": "Nosotros inclusivo vs. no inclusivo como interpretación referencial",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "referencia"
+  },
+  {
+    "id": "GRAM-A1-076",
+    "item": "Vosotros como plural de interlocutores según combinación de participantes",
+    "pcicSection": "7.1.1",
+    "category": "Pronombre sujeto",
+    "kind": "referencia"
+  },
+  {
+    "id": "GRAM-A1-077",
+    "item": "Ausencia de clítico de OD con haber",
+    "pcicSection": "7.1.2",
+    "category": "Pronombre OD",
+    "kind": "elipsis"
+  },
+  {
+    "id": "GRAM-A1-078",
+    "item": "Ausencia de clítico en respuestas con antecedente nominal inespecífico sin determinante/cuantiﬁcador",
+    "pcicSection": "7.1.2",
+    "category": "Pronombre OD",
+    "kind": "elipsis"
+  },
+  {
+    "id": "GRAM-A1-079",
+    "item": "Me como pronombre de OI de 1.ª persona singular en patrón con gustar",
+    "pcicSection": "7.1.3",
+    "category": "Pronombre OI",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-080",
+    "item": "Me como experimentante semántico con gustar",
+    "pcicSection": "7.1.3",
+    "category": "Pronombre OI",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-081",
+    "item": "Se reflexivo: una forma para singular/plural",
+    "pcicSection": "7.1.4",
+    "category": "Pronombre se",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-082",
+    "item": "Reflexividad básica en verbos pronominales/reflexivos",
+    "pcicSection": "7.1.4",
+    "category": "Pronombre se",
+    "kind": "valor"
+  },
+  {
+    "id": "GRAM-A1-083",
+    "item": "Que relativo invariable y átono",
+    "pcicSection": "7.2",
+    "category": "Relativo",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-084",
+    "item": "Que en relativas especificativas con antecedente expreso",
+    "pcicSection": "7.2",
+    "category": "Relativo",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-085",
+    "item": "Antecedente humano o no humano",
+    "pcicSection": "7.2",
+    "category": "Relativo",
+    "kind": "referencia"
+  },
+  {
+    "id": "GRAM-A1-086",
+    "item": "Que relativo como sujeto u OD",
+    "pcicSection": "7.2",
+    "category": "Relativo",
+    "kind": "función"
+  },
+  {
+    "id": "GRAM-A1-087",
+    "item": "Qué tónico con tilde, posición inicial; aislado o seguido de verbo/SN",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-088",
+    "item": "Qué para preguntar por objetos o acciones",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-089",
+    "item": "Quién en singular, tónico y normalmente inicial",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-090",
+    "item": "Quién para preguntar por personas",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "semántica"
+  },
+  {
+    "id": "GRAM-A1-091",
+    "item": "Cuánto/a/os/as con concordancia de género/número",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-092",
+    "item": "Adverbios interrogativos de A1 se completan en 8.8",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "remisión"
+  },
+  {
+    "id": "GRAM-A1-093",
+    "item": "Locución interrogativa de A1 se completa en 8.9",
+    "pcicSection": "7.3",
+    "category": "Interrogativo",
+    "kind": "remisión"
+  },
+  {
+    "id": "GRAM-A1-094",
+    "item": "Deícticos aquí, ahí, allí",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "lugar"
+  },
+  {
+    "id": "GRAM-A1-095",
+    "item": "Preferencia regional por acá/allá",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-096",
+    "item": "Muy + lejos/cerca como intensificación",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "grado"
+  },
+  {
+    "id": "GRAM-A1-097",
+    "item": "Deícticos ahora, hoy, mañana",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "tiempo"
+  },
+  {
+    "id": "GRAM-A1-098",
+    "item": "Variantes regionales temporales señaladas por PCIC",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-099",
+    "item": "Poco, mucho, bastante en posición postverbal básica",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "cantidad"
+  },
+  {
+    "id": "GRAM-A1-100",
+    "item": "Contraste mucho vs. muy",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "grado"
+  },
+  {
+    "id": "GRAM-A1-101",
+    "item": "Uso regional de demasiado con valor de mucho/muy",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-102",
+    "item": "Bien y mal como resultativos postverbales",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "modo/resultado"
+  },
+  {
+    "id": "GRAM-A1-103",
+    "item": "Sí y no como identificativos polares",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "polaridad"
+  },
+  {
+    "id": "GRAM-A1-104",
+    "item": "También y tampoco en respuestas/afirmación-negación",
+    "pcicSection": "8.2",
+    "category": "Adverbio",
+    "kind": "polaridad"
+  },
+  {
+    "id": "GRAM-A1-105",
+    "item": "Entonces, también, tampoco con restricciones de polaridad",
+    "pcicSection": "8.5",
+    "category": "Adverbio conjuntivo",
+    "kind": "conexión"
+  },
+  {
+    "id": "GRAM-A1-106",
+    "item": "Dónde para lugar y cómo para modo; forma invariable y posición inicial/aislada",
+    "pcicSection": "8.8",
+    "category": "Adverbio interrogativo",
+    "kind": "interrogación"
+  },
+  {
+    "id": "GRAM-A1-107",
+    "item": "Por qué como locución interrogativa; contraste formal con porque",
+    "pcicSection": "8.9",
+    "category": "Locución adverbial",
+    "kind": "interrogación"
+  },
+  {
+    "id": "GRAM-A1-108",
+    "item": "Presente de indicativo: paradigma de verbos regulares",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "tiempo/forma"
+  },
+  {
+    "id": "GRAM-A1-109",
+    "item": "Formas de presente voseantes en regiones pertinentes",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-110",
+    "item": "Presente: irregularidades propias de ser, estar, haber e ir",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "irregularidad"
+  },
+  {
+    "id": "GRAM-A1-111",
+    "item": "Forma voseante de ser (sos)",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "variación"
+  },
+  {
+    "id": "GRAM-A1-112",
+    "item": "Presente actual",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "valor temporal"
+  },
+  {
+    "id": "GRAM-A1-113",
+    "item": "Presente durativo",
+    "pcicSection": "9.1.1",
+    "category": "Verbo",
+    "kind": "valor temporal"
+  },
+  {
+    "id": "GRAM-A1-114",
+    "item": "Infinitivo simple en -ar/-er/-ir",
+    "pcicSection": "9.4.1",
+    "category": "Verbo no personal",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-115",
+    "item": "Infinitivo independiente como respuesta fragmentaria",
+    "pcicSection": "9.4.1",
+    "category": "Verbo no personal",
+    "kind": "uso"
+  },
+  {
+    "id": "GRAM-A1-116",
+    "item": "Infinitivo en subordinada sustantiva como sujeto u OD",
+    "pcicSection": "9.4.1",
+    "category": "Verbo no personal",
+    "kind": "sintaxis"
+  },
+  {
+    "id": "GRAM-A1-117",
+    "item": "Participio regular de las tres conjugaciones con variación de género/número",
+    "pcicSection": "9.4.3",
+    "category": "Verbo no personal",
+    "kind": "forma"
+  },
+  {
+    "id": "GRAM-A1-118",
+    "item": "Participio con valor adjetival",
+    "pcicSection": "9.4.3",
+    "category": "Verbo no personal",
+    "kind": "uso"
+  },
+  {
+    "id": "GRAM-A1-119",
+    "item": "Adjetivos no relacionales como modificadores restrictivos",
+    "pcicSection": "10.2",
+    "category": "Sintagma nominal",
+    "kind": "modificación"
+  },
+  {
+    "id": "GRAM-A1-120",
+    "item": "Sintagma preposicional restrictivo con término nominal, infinitivo o adverbial",
+    "pcicSection": "10.2",
+    "category": "Sintagma nominal",
+    "kind": "modificación"
+  },
+  {
+    "id": "GRAM-A1-121",
+    "item": "Relativa especificativa en indicativo como modificador del nombre",
+    "pcicSection": "10.2",
+    "category": "Sintagma nominal",
+    "kind": "modificación"
+  },
+  {
+    "id": "GRAM-A1-122",
+    "item": "Concordancia general determinante-núcleo-adjetivo",
+    "pcicSection": "10.3",
+    "category": "Sintagma nominal",
+    "kind": "concordancia"
+  },
+  {
+    "id": "GRAM-A1-123",
+    "item": "Concordancia general del SN sujeto con el verbo",
+    "pcicSection": "10.4",
+    "category": "Sintagma nominal",
+    "kind": "concordancia"
+  },
+  {
+    "id": "GRAM-A1-124",
+    "item": "Vocativo en posición inicial o final",
+    "pcicSection": "10.5",
+    "category": "Sintagma nominal",
+    "kind": "vocativo"
+  },
+  {
+    "id": "GRAM-A1-125",
+    "item": "Modificadores de grado muy, poco, bastante",
+    "pcicSection": "11.2",
+    "category": "Sintagma adjetival",
+    "kind": "modificación"
+  },
+  {
+    "id": "GRAM-A1-126",
+    "item": "Gustar como verbo psicológico con experimentante",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "núcleo verbal"
+  },
+  {
+    "id": "GRAM-A1-127",
+    "item": "Ser identificativo",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "ser"
+  },
+  {
+    "id": "GRAM-A1-128",
+    "item": "Ser para pertenencia a clase: origen, profesión, ideología, materia, etc.",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "ser"
+  },
+  {
+    "id": "GRAM-A1-129",
+    "item": "Ser para localización temporal básica",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "ser"
+  },
+  {
+    "id": "GRAM-A1-130",
+    "item": "Ser para identificación con sustantivo o pronombre",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "ser"
+  },
+  {
+    "id": "GRAM-A1-131",
+    "item": "Estar para localización espacial",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "estar"
+  },
+  {
+    "id": "GRAM-A1-132",
+    "item": "Estar + bien/mal",
+    "pcicSection": "12.1",
+    "category": "Sintagma verbal",
+    "kind": "estar"
+  },
+  {
+    "id": "GRAM-A1-133",
+    "item": "Concordancia sujeto-atributo",
+    "pcicSection": "12.2.1",
+    "category": "Sintagma verbal",
+    "kind": "atributo"
+  },
+  {
+    "id": "GRAM-A1-134",
+    "item": "Atributo nominal",
+    "pcicSection": "12.2.1",
+    "category": "Sintagma verbal",
+    "kind": "atributo"
+  },
+  {
+    "id": "GRAM-A1-135",
+    "item": "Atributo adjetival",
+    "pcicSection": "12.2.1",
+    "category": "Sintagma verbal",
+    "kind": "atributo"
+  },
+  {
+    "id": "GRAM-A1-136",
+    "item": "OD de persona sin preposición en el patrón A1 especificado por PCIC",
+    "pcicSection": "12.2.2",
+    "category": "Sintagma verbal",
+    "kind": "objeto directo"
+  },
+  {
+    "id": "GRAM-A1-137",
+    "item": "OD de cosa",
+    "pcicSection": "12.2.2",
+    "category": "Sintagma verbal",
+    "kind": "objeto directo"
+  },
+  {
+    "id": "GRAM-A1-138",
+    "item": "Proposición subordinada como OD",
+    "pcicSection": "12.2.2",
+    "category": "Sintagma verbal",
+    "kind": "objeto directo"
+  },
+  {
+    "id": "GRAM-A1-139",
+    "item": "Pronombre me de OI con gustar",
+    "pcicSection": "12.2.3",
+    "category": "Sintagma verbal",
+    "kind": "objeto indirecto"
+  },
+  {
+    "id": "GRAM-A1-140",
+    "item": "Concordancia sujeto-verbo",
+    "pcicSection": "13.1",
+    "category": "Oración simple",
+    "kind": "concordancia"
+  },
+  {
+    "id": "GRAM-A1-141",
+    "item": "Concordancia sujeto-atributo",
+    "pcicSection": "13.1",
+    "category": "Oración simple",
+    "kind": "concordancia"
+  },
+  {
+    "id": "GRAM-A1-142",
+    "item": "Orden neutro/canónico SVO",
+    "pcicSection": "13.2",
+    "category": "Oración simple",
+    "kind": "orden"
+  },
+  {
+    "id": "GRAM-A1-143",
+    "item": "Enunciativas afirmativas y negativas",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "modalidad"
+  },
+  {
+    "id": "GRAM-A1-144",
+    "item": "Interrogativas directas totales literales",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "interrogación"
+  },
+  {
+    "id": "GRAM-A1-145",
+    "item": "Interrogativas directas parciales literales",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "interrogación"
+  },
+  {
+    "id": "GRAM-A1-146",
+    "item": "Oraciones impersonales con haber",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "impersonalidad"
+  },
+  {
+    "id": "GRAM-A1-147",
+    "item": "Oraciones copulativas/atributivas",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "predicación"
+  },
+  {
+    "id": "GRAM-A1-148",
+    "item": "Oraciones transitivas e intransitivas básicas",
+    "pcicSection": "13.3",
+    "category": "Oración simple",
+    "kind": "predicación"
+  },
+  {
+    "id": "GRAM-A1-149",
+    "item": "Coordinación afirmativa con y",
+    "pcicSection": "14.1",
+    "category": "Coordinación",
+    "kind": "copulativa"
+  },
+  {
+    "id": "GRAM-A1-150",
+    "item": "Coordinación negativa con ni",
+    "pcicSection": "14.1",
+    "category": "Coordinación",
+    "kind": "copulativa"
+  },
+  {
+    "id": "GRAM-A1-151",
+    "item": "Coordinación con o",
+    "pcicSection": "14.2",
+    "category": "Coordinación",
+    "kind": "disyuntiva"
+  },
+  {
+    "id": "GRAM-A1-152",
+    "item": "Coordinación con pero",
+    "pcicSection": "14.3",
+    "category": "Coordinación",
+    "kind": "adversativa"
+  },
+  {
+    "id": "GRAM-A1-153",
+    "item": "Construcción distributiva uno...otro",
+    "pcicSection": "14.4",
+    "category": "Coordinación",
+    "kind": "distributiva"
+  },
+  {
+    "id": "GRAM-A1-154",
+    "item": "Infinitivo en función de sujeto con ser",
+    "pcicSection": "15.1.1",
+    "category": "Subordinación sustantiva",
+    "kind": "infinitivo"
+  },
+  {
+    "id": "GRAM-A1-155",
+    "item": "Infinitivo en función de sujeto con gustar",
+    "pcicSection": "15.1.1",
+    "category": "Subordinación sustantiva",
+    "kind": "infinitivo"
+  },
+  {
+    "id": "GRAM-A1-156",
+    "item": "Infinitivo en función de OD con verbos de actividad mental/volición tipo querer",
+    "pcicSection": "15.1.1",
+    "category": "Subordinación sustantiva",
+    "kind": "infinitivo"
+  },
+  {
+    "id": "GRAM-A1-157",
+    "item": "Subordinada con que como OD de creer afirmativo",
+    "pcicSection": "15.1.2",
+    "category": "Subordinación sustantiva",
+    "kind": "flexionada"
+  },
+  {
+    "id": "GRAM-A1-158",
+    "item": "Relativa especificativa/restrictiva con antecedente expreso",
+    "pcicSection": "15.2",
+    "category": "Subordinación relativa",
+    "kind": "tipo"
+  },
+  {
+    "id": "GRAM-A1-159",
+    "item": "Que relativo con antecedente expreso como sujeto u OD",
+    "pcicSection": "15.2",
+    "category": "Subordinación relativa",
+    "kind": "relativo"
+  },
+  {
+    "id": "GRAM-A1-160",
+    "item": "Relativa A1 en presente de indicativo",
+    "pcicSection": "15.2",
+    "category": "Subordinación relativa",
+    "kind": "modo"
+  },
+  {
+    "id": "GRAM-A1-161",
+    "item": "Causal del enunciado en posición pospuesta",
+    "pcicSection": "15.3.4",
+    "category": "Subordinación adverbial",
+    "kind": "causal"
+  },
+  {
+    "id": "GRAM-A1-162",
+    "item": "Causal de motivación con sujeto agentivo",
+    "pcicSection": "15.3.4",
+    "category": "Subordinación adverbial",
+    "kind": "causal"
+  },
+  {
+    "id": "GRAM-A1-163",
+    "item": "Porque como nexo causal pospuesto",
+    "pcicSection": "15.3.4",
+    "category": "Subordinación adverbial",
+    "kind": "conector"
+  },
+  {
+    "id": "GRAM-A1-164",
+    "item": "Contraste por qué interrogativo / porque causal",
+    "pcicSection": "15.3.4",
+    "category": "Subordinación adverbial",
+    "kind": "contraste formal"
+  },
+  {
+    "id": "GRAM-A1-165",
+    "item": "Causales A1 en indicativo",
+    "pcicSection": "15.3.4",
+    "category": "Subordinación adverbial",
+    "kind": "modo verbal"
+  },
+  {
+    "id": "GRAM-A1-166",
+    "item": "Final integrada en infinitivo",
+    "pcicSection": "15.3.5",
+    "category": "Subordinación adverbial",
+    "kind": "final"
+  },
+  {
+    "id": "GRAM-A1-167",
+    "item": "Final de objetivo/utilidad con sujeto agentivo",
+    "pcicSection": "15.3.5",
+    "category": "Subordinación adverbial",
+    "kind": "final"
+  },
+  {
+    "id": "GRAM-A1-168",
+    "item": "Final de objetivo/utilidad con sujeto no agentivo",
+    "pcicSection": "15.3.5",
+    "category": "Subordinación adverbial",
+    "kind": "final"
+  },
+  {
+    "id": "GRAM-A1-169",
+    "item": "Para + infinitivo como nexo final",
+    "pcicSection": "15.3.5",
+    "category": "Subordinación adverbial",
+    "kind": "conector"
+  }
+]

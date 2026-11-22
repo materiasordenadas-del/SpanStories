@@ -1,0 +1,221 @@
+[
+  {
+    "id": "A1-M01-I05",
+    "moduleId": "M01",
+    "islandOrder": 1,
+    "globalIslandOrder": 1,
+    "name": "Primeros contactos",
+    "communicativeGoal": "Abrir, sostener y reparar intercambios básicos de identificación y datos personales.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 4,
+    "checkpointStoryId": "A1-M01-I05-S4",
+    "moduleCheckpointStoryId": "A1-M01-I05-S4",
+    "hardPrerequisiteIslandId": null,
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M01-I05-S1",
+      "A1-M01-I05-S2",
+      "A1-M01-I05-S3",
+      "A1-M01-I05-S4"
+    ]
+  },
+  {
+    "id": "A1-M02-I05",
+    "moduleId": "M02",
+    "islandOrder": 1,
+    "globalIslandOrder": 2,
+    "name": "Personas y perfiles",
+    "communicativeGoal": "Identificar, relacionar y describir personas cercanas.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M02-I05-S3",
+    "moduleCheckpointStoryId": null,
+    "hardPrerequisiteIslandId": "A1-M01-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M02-I05-S1",
+      "A1-M02-I05-S2",
+      "A1-M02-I05-S3"
+    ]
+  },
+  {
+    "id": "A1-M02-I06",
+    "moduleId": "M02",
+    "islandOrder": 2,
+    "globalIslandOrder": 3,
+    "name": "Casa, estudio y trabajo",
+    "communicativeGoal": "Localizar elementos del hogar y expresar estudio, profesión o actividad como parte del perfil personal.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 2,
+    "checkpointStoryId": "A1-M02-I06-S2",
+    "moduleCheckpointStoryId": "A1-M02-I06-S2",
+    "hardPrerequisiteIslandId": "A1-M02-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M02-I06-S1",
+      "A1-M02-I06-S2"
+    ]
+  },
+  {
+    "id": "A1-M03-I05",
+    "moduleId": "M03",
+    "islandOrder": 1,
+    "globalIslandOrder": 4,
+    "name": "Tiempo y rutina",
+    "communicativeGoal": "Gestionar fecha, hora, agenda y rutinas cotidianas.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M03-I05-S3",
+    "moduleCheckpointStoryId": null,
+    "hardPrerequisiteIslandId": "A1-M02-I06",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M03-I05-S1",
+      "A1-M03-I05-S2",
+      "A1-M03-I05-S3"
+    ]
+  },
+  {
+    "id": "A1-M03-I06",
+    "moduleId": "M03",
+    "islandOrder": 2,
+    "globalIslandOrder": 5,
+    "name": "Aula y habilidades",
+    "communicativeGoal": "Comprender instrucciones de aula y expresar capacidad o habilidad elemental.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 2,
+    "checkpointStoryId": "A1-M03-I06-S2",
+    "moduleCheckpointStoryId": "A1-M03-I06-S2",
+    "hardPrerequisiteIslandId": "A1-M03-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M03-I06-S1",
+      "A1-M03-I06-S2"
+    ]
+  },
+  {
+    "id": "A1-M04-I05",
+    "moduleId": "M04",
+    "islandOrder": 1,
+    "globalIslandOrder": 6,
+    "name": "Moverse por la ciudad",
+    "communicativeGoal": "Localizar, pedir información, seguir rutas y resolver desplazamientos básicos.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 4,
+    "checkpointStoryId": "A1-M04-I05-S4",
+    "moduleCheckpointStoryId": "A1-M04-I05-S4",
+    "hardPrerequisiteIslandId": "A1-M03-I06",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M04-I05-S1",
+      "A1-M04-I05-S2",
+      "A1-M04-I05-S3",
+      "A1-M04-I05-S4"
+    ]
+  },
+  {
+    "id": "A1-M05-I05",
+    "moduleId": "M05",
+    "islandOrder": 1,
+    "globalIslandOrder": 7,
+    "name": "Comer, comprar y elegir",
+    "communicativeGoal": "Manejar comida, pedidos, precios, pago, alternativas y corrección en transacciones simples.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M05-I05-S3",
+    "moduleCheckpointStoryId": "A1-M05-I05-S3",
+    "hardPrerequisiteIslandId": "A1-M04-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M05-I05-S1",
+      "A1-M05-I05-S2",
+      "A1-M05-I05-S3"
+    ]
+  },
+  {
+    "id": "A1-M06-I05",
+    "moduleId": "M06",
+    "islandOrder": 1,
+    "globalIslandOrder": 8,
+    "name": "Un fin de semana con amigos",
+    "communicativeGoal": "Expresar gustos y ocio, invitar, aceptar/rechazar y desenvolverse en un evento social.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M06-I05-S3",
+    "moduleCheckpointStoryId": "A1-M06-I05-S3",
+    "hardPrerequisiteIslandId": "A1-M05-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M06-I05-S1",
+      "A1-M06-I05-S2",
+      "A1-M06-I05-S3"
+    ]
+  },
+  {
+    "id": "A1-M07-I05",
+    "moduleId": "M07",
+    "islandOrder": 1,
+    "globalIslandOrder": 9,
+    "name": "Preparar un viaje",
+    "communicativeGoal": "Organizar transporte, alojamiento, clima y planes próximos.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M07-I05-S3",
+    "moduleCheckpointStoryId": "A1-M07-I05-S3",
+    "hardPrerequisiteIslandId": "A1-M06-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M07-I05-S1",
+      "A1-M07-I05-S2",
+      "A1-M07-I05-S3"
+    ]
+  },
+  {
+    "id": "A1-M08-I05",
+    "moduleId": "M08",
+    "islandOrder": 1,
+    "globalIslandOrder": 10,
+    "name": "Opinar y responder",
+    "communicativeGoal": "Expresar opinión, acuerdo, desacuerdo, contraste y duda elementales.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 2,
+    "checkpointStoryId": "A1-M08-I05-S2",
+    "moduleCheckpointStoryId": null,
+    "hardPrerequisiteIslandId": "A1-M07-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M08-I05-S1",
+      "A1-M08-I05-S2"
+    ]
+  },
+  {
+    "id": "A1-M08-I06",
+    "moduleId": "M08",
+    "islandOrder": 2,
+    "globalIslandOrder": 11,
+    "name": "Información e integración A1",
+    "communicativeGoal": "Comprender información pública/cultural e integrar funciones acumuladas del nivel A1.",
+    "designRole": "CURRICULUM_SEQUENCE",
+    "declaredStoryCount": 3,
+    "checkpointStoryId": "A1-M08-I06-S3",
+    "moduleCheckpointStoryId": "A1-M08-I06-S3",
+    "hardPrerequisiteIslandId": "A1-M08-I05",
+    "recyclingPolicy": "HORIZON_ADAPTIVE_FIRST_SECOND_THIRD_RETURN",
+    "allocationStatus": "RELEASE_CANDIDATE_V1_51",
+    "storyIds": [
+      "A1-M08-I06-S1",
+      "A1-M08-I06-S2",
+      "A1-M08-I06-S3"
+    ]
+  }
+]

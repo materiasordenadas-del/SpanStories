@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller facial</title>
+<style>
+  :root { --bg:#1d1f24; --panel:#262930; --txt:#e6e6e6; --sub:#9aa0aa; --acc:#e86fa6; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--txt); font:13px system-ui, sans-serif; }
+  #vista { position:fixed; inset:0 320px 0 0; }
+  #panel { position:fixed; top:0; right:0; bottom:0; width:320px; overflow:auto; background:var(--panel); padding:10px 12px; box-sizing:border-box; }
+  h2 { font-size:13px; margin:14px 0 6px; color:var(--acc); }
+  label.f { display:grid; grid-template-columns:130px 1fr 34px; gap:6px; align-items:center; margin:2px 0; font-size:12px; }
+  label.f span:last-child { color:var(--sub); text-align:right; }
+  select, button { background:#333740; color:var(--txt); border:1px solid #444; border-radius:4px; padding:4px 6px; margin:2px 0; }
+  #info { color:var(--sub); font-size:12px; white-space:pre-line; }
+  .chk label { display:inline-block; margin-right:8px; font-size:12px }
+  #lc_gestosBtns button, #lc_reacBtns button, #ex_btns button { font-size:11px; padding:2px 5px }
+  #ex_btns button.on { background:var(--acc); color:#111 }
+  details summary { cursor:pointer; color:var(--acc); margin:8px 0 4px; }
+  @media (max-width:700px){ #vista{inset:0 0 45% 0} #panel{top:55%;width:100%} }
+</style>
+<link rel="stylesheet" href="studio-theme.css">
+</head>
+<body>
+<!-- Taller facial general: cualquier personaje con rig corporal Mixamo + shape keys FACEIT/ARKit.
+     Ningún personaje tiene código propio; sus diferencias son datos (perfiles-personaje.json). -->
+<div id="vista"></div>
+<div id="panel"></div>
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/build/three.module.js",
+  "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+<script type="module" src="./GeneralFacialEditor.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "id": "spanstories-mundo",
+  "label": "Mundo SpanStories",
+  "countries": [],
+  "characters": "Personajes/personajes.json",
+  "sharedResources": "RecursosCompartidos/recursos.json"
+}

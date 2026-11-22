@@ -1,0 +1,25 @@
+audit_id,category,control,expected,observed,status
+H-REL-001,INVENTORY,Allocation rows,985,985,PASS
+H-REL-002,INVENTORY,A1 Sense targets,602,602,PASS
+H-REL-003,INVENTORY,Grammar targets,169,169,PASS
+H-REL-004,INVENTORY,MWU targets,214,214,PASS
+H-REL-005,MODE,A2 boundary scheduled as A1,0,0,PASS
+H-REL-006,MODE,Regional receptive targets,16,16,PASS
+H-REL-007,MODE,Regional target identity/mode rewrites,0,0,PASS
+H-REL-008,TOPOLOGY,Modules,8,8,PASS
+H-REL-009,TOPOLOGY,Islands,11,11,PASS
+H-REL-010,TOPOLOGY,StoryBlueprints,32,32,PASS
+H-REL-011,LOAD,FOCUS targets,448,448,PASS
+H-REL-012,LOAD,SUPPORTED targets,537,537,PASS
+H-REL-013,LOAD,Maximum FOCUS/story,<=20,20,PASS
+H-REL-014,LOAD,Stories over 40 total intros reviewed,7,7,PASS
+H-REL-015,CAPSTONE,Capstone first introductions,0,0,PASS
+H-REL-016,GRAPH,Recycle edges,2867,2867,PASS
+H-REL-017,GRAPH,FIRST_RETURN,985,985,PASS
+H-REL-018,GRAPH,SECOND_RETURN,950,950,PASS
+H-REL-019,GRAPH,THIRD_RETURN,932,932,PASS
+H-REL-020,GRAPH,Edges claiming mastery,0,0,PASS
+H-REL-021,SCHEMA,Version-specific v1_* headers,0,0,PASS
+H-REL-022,DELE,DELE task controls,13,13,PASS
+H-REL-023,DETERMINISM,Independent generations with byte-identical internal files,8/8,8/8,PASS
+H-REL-024,READINESS,Release-candidate blockers,0,0,PASS

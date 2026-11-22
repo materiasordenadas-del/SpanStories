@@ -1,0 +1,923 @@
+{
+  "schema": "spanstories.behavior-planning-catalog",
+  "version": 1,
+  "implementation": {
+    "manifest": "manifiesto.json",
+    "recipeVersion": 2,
+    "combinedRecipes": 50,
+    "source": "ActingLibrary.mjs",
+    "note": "Las 50 se reescribieron como actuaciones de autor (rostro por actitudes + cuerpo por poses clave con contactos medidos). bodyCandidate y facialCandidate son el inventario histórico de referencias y ya no se usan. Revisión artística del usuario pendiente."
+  },
+  "inspectedAt": "2026-11-10T18:24:51.474471+00:00",
+  "summary": {
+    "runtimeClips": 370,
+    "libraries": {
+      "Generados": 14,
+      "Free 100 Animations": 202,
+      "Kimodo": 4,
+      "Kimodo guardadas": 1,
+      "Mixamo": 18,
+      "Humane": 24,
+      "Fútbol (mocap)": 21,
+      "UAL 2": 43,
+      "UAL 1": 43
+    },
+    "facialOriginals": 36,
+    "targets": 50,
+    "withBodyCandidate": 23,
+    "withExistingBodyClip": 18,
+    "withoutBodyCandidate": 27,
+    "approvedCombinedPerformances": 0
+  },
+  "behaviors": [
+    {
+      "id": "behavior-01",
+      "name": "Sonreír suavemente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.soft.01",
+        "name": "Sonrisa leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_1:idle_loop",
+        "name": "Idle Loop",
+        "library": "UAL 1",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Postura relajada y sonrisa con entrada y salida naturales.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-02",
+      "name": "Mostrar alegría",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.enthusiasm.01",
+        "name": "Entusiasmo",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:cheer_with_both_hands_1",
+        "name": "Cheer with Both Hands 1",
+        "library": "Mixamo",
+        "duration": 2.167,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Celebración moderada, manos abiertas y rostro alegre.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-03",
+      "name": "Celebrar con entusiasmo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.very-happy.01",
+        "name": "Muy feliz",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:cheer_with_both_hands_1",
+        "name": "Cheer with Both Hands 1",
+        "library": "Mixamo",
+        "duration": 2.167,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Brazos elevados, rebote corporal y sonrisa intensa.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-04",
+      "name": "Reír brevemente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.laugh.01",
+        "name": "Risa breve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Risa con respiración, mandíbula y hombros sincronizados.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-05",
+      "name": "Reír a carcajadas",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.laugh.01",
+        "name": "Risa breve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Ciclos de risa: mandíbula, tronco, cadera adelante/atrás, rodillas flexionadas, manos y pies estables.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-06",
+      "name": "Aplaudir de pie",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.enthusiasm.01",
+        "name": "Entusiasmo",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:clapping_run",
+        "name": "Clapping Run",
+        "library": "Mixamo",
+        "duration": 13.667,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Recortar aplauso estable sin desplazamiento no deseado; comprobar contacto de palmas.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-07",
+      "name": "Aplaudir sentado",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.soft.01",
+        "name": "Sonrisa leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:sitting_clap",
+        "name": "Sitting Clap",
+        "library": "Mixamo",
+        "duration": 3.333,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Ajustar silla, altura de asiento y contacto de manos.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-08",
+      "name": "Bailar alegremente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.enthusiasm.01",
+        "name": "Entusiasmo",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_1:dance_loop",
+        "name": "Dance Loop",
+        "library": "UAL 1",
+        "duration": 1,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Sincronizar rostro con ritmo y mantener apoyos de pies.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-09",
+      "name": "Mostrar alivio",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.relief.01",
+        "name": "Alivio",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Exhalación, descenso de hombros y relajación del rostro.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-10",
+      "name": "Mostrar orgullo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.pride.01",
+        "name": "Orgullo discreto",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:confident_strut",
+        "name": "Confident Strut",
+        "library": "Mixamo",
+        "duration": 2.667,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Adaptar a orgullo discreto; decidir si es quieto o caminando durante revisión.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-11",
+      "name": "Entristecerse",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.contained.01",
+        "name": "Tristeza contenida",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Cabeza baja, hombros y mirada coherentes, sin exagerar mandíbula.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-12",
+      "name": "Mostrar decepción",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.disappointment.01",
+        "name": "Decepción",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Descenso de cabeza y pecho al perder entusiasmo.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-13",
+      "name": "Llorar contenido",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.near-tears.01",
+        "name": "Al borde del llanto",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Respiración quebrada y temblor sutil; el preset no crea lágrimas.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-14",
+      "name": "Sollozar",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.near-tears.01",
+        "name": "Al borde del llanto",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Ciclos respiratorios de llanto, manos y tronco; crear curva facial específica.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-15",
+      "name": "Mostrar melancolía",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.lonely.01",
+        "name": "Melancolía",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Mirada baja y quietud corporal expresiva.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-16",
+      "name": "Mostrar preocupación",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.worry.01",
+        "name": "Preocupación",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Manos inquietas, cejas y mirada; evitar gestos aleatorios.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-17",
+      "name": "Mostrar nerviosismo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "fear.apprehension.01",
+        "name": "Temor contenido",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Cambios de apoyo, manos inquietas y mirada; curva facial candidata.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-18",
+      "name": "Mostrar temor",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "fear.apprehension.01",
+        "name": "Temor contenido",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Retroceso leve y postura protectora; sin deslizar pies.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-19",
+      "name": "Sobresaltarse",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "fear.startle.01",
+        "name": "Susto",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Reacción rápida con anticipación mínima y recuperación.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-20",
+      "name": "Asustarse intensamente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "fear.startle.01",
+        "name": "Susto",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Cuerpo retraído, manos protectoras y rostro específico más largo.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-21",
+      "name": "Mostrar sorpresa leve",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "surprise.light.01",
+        "name": "Sorpresa leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Elevación breve de cabeza y manos.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-22",
+      "name": "Mostrar asombro",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "surprise.intense.01",
+        "name": "Asombro intenso",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Apertura de rostro y cuerpo con duración coherente.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-23",
+      "name": "Mostrar curiosidad",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.curiosity.01",
+        "name": "Curiosidad",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Inclinar cabeza y torso hacia el objeto de interés.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-24",
+      "name": "Mostrar confusión",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.doubt.01",
+        "name": "Duda",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Alternar mirada y manos abiertas; crear actuación diferenciada.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-25",
+      "name": "Mostrar escepticismo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.skepticism.01",
+        "name": "Escepticismo",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_2:idle_foldarms_loop",
+        "name": "Idle FoldArms Loop",
+        "library": "UAL 2",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Brazos cruzados y ceja elevada; comprobar intersecciones con torso.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-26",
+      "name": "Pensar",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.focus.01",
+        "name": "Concentración",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "gen_pensar",
+        "name": "Pensar",
+        "library": "Generados",
+        "duration": 3,
+        "kind": "generated"
+      },
+      "actingRequirement": "Mano cerca de barbilla y mirada; base generada, preferir clip prefabricado si está disponible.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-27",
+      "name": "Concentrarse",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.focus.01",
+        "name": "Concentración",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Fijar atención con poca movilidad y manos apropiadas a la tarea.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-28",
+      "name": "Comprender de repente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.realization.01",
+        "name": "Comprensión repentina",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Cabeza se eleva y gesto de reconocimiento sincronizado.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-29",
+      "name": "Mostrar aburrimiento",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.tired.01",
+        "name": "Cansancio",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:humane:idle_bored",
+        "name": "Idle Bored",
+        "library": "Humane",
+        "duration": 3.267,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Revisar actuación corporal; el rostro de cansancio requiere adaptación a aburrimiento.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-30",
+      "name": "Mostrar cansancio",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.tired.01",
+        "name": "Cansancio",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Peso corporal bajo, hombros caídos y recuperación lenta.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-31",
+      "name": "Bostezar",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": null,
+      "bodyCandidate": null,
+      "actingRequirement": "Crear rostro y cuerpo de bostezo, mandíbula y mano cerca de boca sin penetración.",
+      "missing": [
+        "facial-animation",
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-32",
+      "name": "Mostrar molestia",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.annoyed.01",
+        "name": "Molestia",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_2:idle_foldarms_loop",
+        "name": "Idle FoldArms Loop",
+        "library": "UAL 2",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Cerrar postura sin convertir molestia en discusión intensa.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-33",
+      "name": "Mostrar frustración",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.frustration.01",
+        "name": "Frustración",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Exhalación marcada y manos tensas con recuperación.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-34",
+      "name": "Discutir con enfado",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.annoyed.01",
+        "name": "Molestia",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:free_100_animations:as_arguing",
+        "name": "AS Arguing",
+        "library": "Free 100 Animations",
+        "duration": 7.167,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Ajustar sincronía y gestos al nivel de enfado; no confundir con habla labial.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-35",
+      "name": "Mostrar determinación",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.determination.01",
+        "name": "Determinación",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:personajes:confident_strut",
+        "name": "Confident Strut",
+        "library": "Mixamo",
+        "duration": 2.667,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Crear variante de postura firme; caminar es solo referencia candidata.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-36",
+      "name": "Mostrar incredulidad",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.disbelief.01",
+        "name": "Incredulidad",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Retroceso de cabeza y gesto de manos coherente.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-37",
+      "name": "Mostrar desagrado",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "disgust.light.01",
+        "name": "Desagrado leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Retraer rostro y torso ante el objeto; manos evitan contacto.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-38",
+      "name": "Mostrar vergüenza",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.shy.01",
+        "name": "Vergüenza",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Mirada baja, hombros y manos recogidas sin encogimiento excesivo.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-39",
+      "name": "Mostrar timidez",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.shy.01",
+        "name": "Vergüenza",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Saludo contenido y pausa; debe diferenciarse de vergüenza.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-40",
+      "name": "Saludar con la mano",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.soft.01",
+        "name": "Sonrisa leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "gen_saludar",
+        "name": "Saludar",
+        "library": "Generados",
+        "duration": 2.4,
+        "kind": "generated"
+      },
+      "actingRequirement": "Base generada; buscar prefabricada antes de aprobar y revisar dedos.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-41",
+      "name": "Despedirse con la mano",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "joy.soft.01",
+        "name": "Sonrisa leve",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "gen_saludar",
+        "name": "Saludar",
+        "library": "Generados",
+        "duration": 2.4,
+        "kind": "generated"
+      },
+      "actingRequirement": "Reutilizar saludo con contexto y salida diferenciada.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-42",
+      "name": "Asentir con aprobación",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.realization.01",
+        "name": "Comprensión repentina",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_2:yes",
+        "name": "Yes",
+        "library": "UAL 2",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Sincronizar aceptación facial y movimiento de cabeza.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-43",
+      "name": "Negar con la cabeza",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "anger.annoyed.01",
+        "name": "Molestia",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_2:idle_no_loop",
+        "name": "Idle No Loop",
+        "library": "UAL 2",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Crear rechazo neutral si no debe parecer enfado.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-44",
+      "name": "Encogerse de hombros",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.doubt.01",
+        "name": "Duda",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "gen_encogerse",
+        "name": "Encogerse de hombros",
+        "library": "Generados",
+        "duration": 1.6,
+        "kind": "generated"
+      },
+      "actingRequirement": "Palmas, hombros y cara de desconocimiento; base generada.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-45",
+      "name": "Señalar algo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "thought.curiosity.01",
+        "name": "Curiosidad",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "gen_senalar",
+        "name": "Señalar",
+        "library": "Generados",
+        "duration": 2.2,
+        "kind": "generated"
+      },
+      "actingRequirement": "Objetivo espacial editable y mirada al mismo punto; base generada.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-46",
+      "name": "Escuchar atentamente",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.listening.01",
+        "name": "Escucha atenta",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_1:idle_loop",
+        "name": "Idle Loop",
+        "library": "UAL 1",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Añadir mirada a interlocutor y microasentimientos revisados.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-47",
+      "name": "Explicar con las manos",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.listening.01",
+        "name": "Escucha atenta",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:free_100_animations:as_talkingwithhands",
+        "name": "AS TalkingWithHands",
+        "library": "Free 100 Animations",
+        "duration": 6.367,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Rostro candidato; gestos explicativos con boca reservada para habla.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-48",
+      "name": "Hablar por teléfono",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "social.listening.01",
+        "name": "Escucha atenta",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_2:idle_talkingphone_loop",
+        "name": "Idle TalkingPhone Loop",
+        "library": "UAL 2",
+        "duration": 2.933,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Ajustar teléfono a mano y oreja; reservar visemas para voz.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-49",
+      "name": "Guiñar un ojo",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "micro.wink.01",
+        "name": "Guiño izquierdo",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": {
+        "id": "lib:ual_1:idle_loop",
+        "name": "Idle Loop",
+        "library": "UAL 1",
+        "duration": 2.5,
+        "kind": "existing-clip"
+      },
+      "actingRequirement": "Guiño breve con movimiento corporal mínimo y opcional.",
+      "missing": [],
+      "readyForProduction": false
+    },
+    {
+      "id": "behavior-50",
+      "name": "Pedir disculpas",
+      "reviewStatus": "unreviewed",
+      "facialCandidate": {
+        "id": "sad.worry.01",
+        "name": "Preocupación",
+        "source": "Rachel / FacialPresets.mjs"
+      },
+      "bodyCandidate": null,
+      "actingRequirement": "Crear gesto de reparación con manos abiertas y rostro preocupado adaptado.",
+      "missing": [
+        "body-animation"
+      ],
+      "readyForProduction": false
+    }
+  ]
+}

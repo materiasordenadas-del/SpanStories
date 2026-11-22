@@ -1,0 +1,35 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+
+test('disco: revisiones inmutables, recuperación, conflictos y rechazo de datos corruptos',async t=>{
+  const dir=await mkdtemp(path.join(tmpdir(),'spanstories-city-')),cwd=process.cwd();
+  process.chdir(dir);
+  const {GET,POST}=await import('../../../app/api/city-projects/route.ts');
+  process.chdir(cwd);
+  const env=process.env.NODE_ENV;Object.assign(process.env,{NODE_ENV:'development'});
+  t.after(async()=>{Object.assign(process.env,{NODE_ENV:env});await rm(dir,{recursive:true,force:true});});
+  const cityId='prueba-ciudad';
+  const object={id:'arbol',etiqueta:'Árbol',position:[1,0,2],rotation:[0,0,0],scale:[1,1,1],hidden:true};
+  const project={version:1,cityId,overrides:[object],imports:[]};
+  const post=(body:unknown)=>POST(new Request('http://localhost:3000/api/city-projects',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}));
+  const get=(query='')=>GET(new Request('http://localhost:3000/api/city-projects?city='+cityId+query));
+  assert.equal((await (await get()).json()).project,null);
+  const first=await post({project,expectedRevision:null});assert.equal(first.status,200);const a=await first.json();
+  assert.match(a.revision,/^[a-f0-9]{64}$/);
+  const changed=structuredClone(project);changed.overrides[0].position[0]=9;
+  assert.equal((await post({project:changed,expectedRevision:null})).status,409);
+  const second=await post({project:changed,expectedRevision:a.revision});assert.equal(second.status,200);const b=await second.json();
+  assert.notEqual(a.revision,b.revision);
+  assert.deepEqual((await (await get('&revision='+a.revision)).json()).project,project);
+  assert.deepEqual((await (await get()).json()).project,changed);
+  assert.equal((await post({project,recovery:true})).status,200);
+  assert.deepEqual((await (await get('&recovery=1')).json()).project,project);
+  assert.deepEqual((await (await get()).json()).project,changed);
+  const invalid=structuredClone(changed);invalid.overrides[0].scale[0]=0;
+  assert.equal((await post({project:invalid,expectedRevision:b.revision})).status,400);
+  assert.deepEqual((await (await get()).json()).project,changed);
+  assert.equal((await get('&revision=..%2factual')).status,400);
+});

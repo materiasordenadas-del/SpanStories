@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "id": "barcelona-passeig-gracia-vocabulario-piloto",
+  "zoneId": "barcelona-passeig-gracia",
+  "curriculumReleaseId": "A1-CURRICULUM-v1.51",
+  "lexiconReleaseId": "A1-LEXICON-v1.0",
+  "entries": [
+    {
+      "id": "arbol",
+      "audio": {"url":"audio/arbol.wav"},
+      "senseId": "SENSE-A1-000050",
+      "lexemeId": "LEX-A1-000050",
+      "selectors": [{ "registryKind": "tree" }],
+      "highlight": "hit",
+      "accentPolicy": "FORGIVEN_WITH_CORRECTION",
+      "speech": { "text": "árbol", "lang": "es-ES" }
+    },
+    {
+      "id": "casa",
+      "audio": {"url":"audio/casa.wav"},
+      "senseId": "SENSE-A1-000117",
+      "lexemeId": "LEX-A1-000115",
+      "selectors": [
+        { "collection": "BCN_H01_Batllo" },
+        { "collection": "BCN_H02_Amatller" },
+        { "collection": "BCN_H03_Casa_Bonet" },
+        { "collection": "BCN_H04_Casa_Mulleras" },
+        { "collection": "BCN_H05_Casa_Lleo_Morera" }
+      ],
+      "highlight": "collection",
+      "accentPolicy": "FORGIVEN_WITH_CORRECTION",
+      "speech": { "text": "casa", "lang": "es-ES" }
+    },
+    {
+      "id": "iglesia",
+      "audio": {"url":"audio/iglesia.wav"},
+      "senseId": "SENSE-A1-000302",
+      "lexemeId": "LEX-A1-000297",
+      "selectors": [{ "collection": "BCN_H08_SagradaFamilia_optimizada" }],
+      "highlight": "collection",
+      "accentPolicy": "FORGIVEN_WITH_CORRECTION",
+      "speech": { "text": "iglesia", "lang": "es-ES" }
+    },
+    {
+      "id": "calle",
+      "audio": {"url":"audio/calle.wav"},
+      "senseId": "SENSE-A1-000095",
+      "lexemeId": "LEX-A1-000093",
+      "selectors": [{ "collection": "BCN_F3_viario" }],
+      "highlight": "hit",
+      "accentPolicy": "FORGIVEN_WITH_CORRECTION",
+      "speech": { "text": "calle", "lang": "es-ES" }
+    },
+    {
+      "id": "puerta",
+      "audio": {"url":"audio/puerta.wav"},
+      "senseId": "SENSE-A1-000480",
+      "lexemeId": "LEX-A1-000471",
+      "selectors": [{ "objectIds": ["bcn-c7f2f63030fbf8bd"] }],
+      "highlight": "hit",
+      "accentPolicy": "FORGIVEN_WITH_CORRECTION",
+      "speech": { "text": "puerta", "lang": "es-ES" }
+    }
+  ]
+}

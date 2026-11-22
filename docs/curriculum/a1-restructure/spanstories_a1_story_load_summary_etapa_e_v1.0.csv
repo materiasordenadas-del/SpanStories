@@ -1,0 +1,33 @@
+new_story,title,first_intro_total,focus,supported,required_returns_per_target,hotspot_review
+B32-S01,Primer día en la escuela,33,8,25,3,—
+B32-S02,La ficha del grupo,18,18,0,3,—
+B32-S03,Conocer a un compañero,54,18,36,3,REVIEWED_PASS — coherent personal identification/data arc.
+B32-S04,No entiendo,23,12,11,3,—
+B32-S05,Una foto de familia,45,15,30,3,REVIEWED_PASS — family/relationship cluster.
+B32-S06,Así es Ana,49,17,32,3,REVIEWED_PASS — physical/basic personal description cluster.
+B32-S07,¿Quién es quién?,0,0,0,3,—
+B32-S08,Mi apartamento,49,17,32,3,REVIEWED_PASS — housing + location cluster.
+B32-S09,"Dos personas, dos actividades",24,12,12,3,—
+B32-S10,Una cita a las diez,37,19,18,3,—
+B32-S11,Un día normal,18,18,0,3,—
+B32-S12,Hoy cambia el horario,36,18,18,3,—
+B32-S13,En clase,44,15,29,3,REVIEWED_PASS — classroom instructions/resources cluster.
+B32-S14,¿Sabes hacerlo?,11,6,5,3,—
+B32-S15,En el centro,39,20,19,3,—
+B32-S16,Cómo llegar,30,15,15,3,—
+B32-S17,Necesito información,24,12,12,3,—
+B32-S18,Llegar a tiempo,29,15,14,3,—
+B32-S19,¿Qué comemos?,38,19,19,3,—
+B32-S20,En el restaurante,22,11,11,3,—
+B32-S21,La compra con problema,58,19,39,3,REVIEWED_PASS_WITH_AUTHORING_SEGMENTATION — multi-scene transaction required.
+B32-S22,¿Qué te gusta?,24,12,12,3,—
+B32-S23,Después de clase,32,16,16,3,—
+B32-S24,El cumpleaños del sábado,36,8,28,3,—
+B32-S25,Viaje en tren,27,14,13,3,—
+B32-S26,Buscar hotel,23,12,11,3,—
+B32-S27,Mañana cambia el plan,43,12,31,3,REVIEWED_PASS — weather + near-future plans cluster.
+B32-S28,¿Qué opinas?,31,16,15,3,—
+B32-S29,"Sí, pero...",35,18,17,3,—
+B32-S30,Una ficha del mundo hispano,18,18,0,2,—
+B32-S31,"Otra ciudad, otra información",35,18,17,1,—
+B32-S32,"Capstone: llegar, resolver y contar",0,0,0,0,—

@@ -1,0 +1,57 @@
+"use client";
+
+import { useEffect } from "react";
+import { useAuth } from "@/features/accounts/AuthProvider";
+import { saveProgressSnapshot, setSyncedStudent } from "@/features/accounts/progress-service";
+import { practiceItemKey, usePracticeItems } from "@/lib/adapters/practice";
+
+const SYNCED_KEY = "spanstories.progress-sync:v1:";
+const SEPARATOR = "\n";
+
+/**
+ * Copia en la cuenta del estudiante las palabras guardadas (solo las claves, para el resumen
+ * del profesor) de lo que hoy vive en este navegador. Solo actúa con una cuenta de estudiante.
+ * Las historias terminadas y la última leída ya no se escriben aquí: son de
+ * components/visual/reading-memory.ts, que las sincroniza directamente como fuente de verdad.
+ */
+export function ProgressSync() {
+  const { user, profile } = useAuth();
+  const studentId = user !== null && profile?.role === "student" ? user.uid : null;
+  useEffect(() => {
+    setSyncedStudent(studentId);
+    return () => setSyncedStudent(null);
+  }, [studentId]);
+  return studentId === null ? null : <SnapshotSync studentId={studentId} />;
+}
+
+function SnapshotSync({ studentId }: { studentId: string }) {
+  const { ready, items } = usePracticeItems();
+  const savedList = items.map(practiceItemKey).join(SEPARATOR);
+
+  useEffect(() => {
+    if (!ready) return;
+    const key = SYNCED_KEY + studentId;
+    const signature = savedList;
+    let previous: string | null = null;
+    try {
+      previous = window.localStorage.getItem(key);
+    } catch {
+      // Sin almacenamiento se vuelve a enviar en cada visita: es idempotente.
+    }
+    if (previous === signature) return;
+    const split = (list: string) => list === "" ? [] : list.split(SEPARATOR);
+    // Espera un poco para agrupar varios cambios seguidos (guardar varias palabras) en una sola escritura.
+    const timer = window.setTimeout(() => {
+      saveProgressSnapshot(studentId, { savedWords: split(savedList) }, previous !== null).then(() => {
+        try {
+          window.localStorage.setItem(key, signature);
+        } catch {
+          // Ver arriba.
+        }
+      }, () => {});
+    }, 1200);
+    return () => window.clearTimeout(timer);
+  }, [ready, savedList, studentId]);
+
+  return null;
+}

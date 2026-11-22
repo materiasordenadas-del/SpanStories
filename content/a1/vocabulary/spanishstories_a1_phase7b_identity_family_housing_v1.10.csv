@@ -1,0 +1,36 @@
+domain,item,source,status,action,notes
+IDENTIDAD,primer,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,form of primero; apocope
+IDENTIDAD,señores,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,plural of señor
+IDENTIDAD,muchos,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,quantifier inflected form
+IDENTIDAD,pocos,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,quantifier inflected form
+IDENTIDAD,años,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,plural of año
+IDENTIDAD,niña,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,explicit PCIC A1 feminine form
+IDENTIDAD,chica,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,explicit PCIC A1 feminine form
+IDENTIDAD,llaves,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,explicit plural surface form
+IDENTIDAD,gafas,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,explicit plural lexical form
+RELACIONES,padres,PCIC A1,PCIC_A1_EXPLICIT_FORM_RECOVERY,ADD_SURFACE_FORM_ONLY,explicit plural; possible collective sense
+VIVIENDA,TV,PCIC A1,PCIC_A1_EXPLICIT_ABBREVIATION,ADD_ABBREVIATION_ONLY,orthographic abbreviation of televisión
+VIVIENDA,pasillo,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,suelo,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,techo,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,pared,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,nevera,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,lavaplatos,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,microondas,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,cuadro,Pedagogical A1 page + PCIC level check,PCIC_A2_EXPLICIT,REJECT_FROM_A1_CORE,External A1 labeling does not override explicit PCIC A2 placement.
+VIVIENDA,comedor,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,lámpara,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,alfombra,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,escritorio,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,luz,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,estufa,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,horno,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,fregadero,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,almohada,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,inodoro,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,espejo,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+VIVIENDA,toalla,PED-07/PED-08,A1_PEDAGOGICAL_EXTENSION_ONLY,NO_PROMOTION,No sufficiently strong explicit A1 normative evidence verified in this audit.
+RELACIONES,hermana,PED-07 + A1 morphology,DERIVED_FEMININE_FORM_PENDING,DO_NOT_COUNT_AS_NEW_LEXEME,Derivable feminine form; PCIC family list gives corresponding masculine base form.
+RELACIONES,abuela,PED-07 + A1 morphology,DERIVED_FEMININE_FORM_PENDING,DO_NOT_COUNT_AS_NEW_LEXEME,Derivable feminine form; PCIC family list gives corresponding masculine base form.
+RELACIONES,tía,PED-07 + A1 morphology,DERIVED_FEMININE_FORM_PENDING,DO_NOT_COUNT_AS_NEW_LEXEME,Derivable feminine form; PCIC family list gives corresponding masculine base form.
+RELACIONES,prima,PED-07 + A1 morphology,DERIVED_FEMININE_FORM_PENDING,DO_NOT_COUNT_AS_NEW_LEXEME,Derivable feminine form; PCIC family list gives corresponding masculine base form.

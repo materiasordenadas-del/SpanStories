@@ -1,0 +1,18 @@
+[
+  { "cmd": "ponerPersonaje", "args": { "id": "Tripo" } },
+  { "cmd": "proyecto", "args": { "accion": "nuevo" } },
+  { "cmd": "usarClip", "args": { "id": "lib:mixamo:walk" } },
+  { "cmd": "anadirTira", "args": { "id": "lib:ual_1:idle_loop", "fundido": 8 } },
+  { "cmd": "capa", "args": { "accion": "nueva", "nombre": "Retoques" } },
+  { "cmd": "rotar", "args": { "hueso": "head", "y": 25, "f": 10 } },
+  { "cmd": "rotar", "args": { "hueso": "head", "y": -10, "f": 40 } },
+  { "cmd": "ik", "args": { "cadena": "handR", "activo": true, "objetivo": [0, 0.25, 0.15], "f": 20 } },
+  { "cmd": "ajustar", "args": { "posture": 6 } },
+  { "cmd": "objeto", "args": { "id": "farol", "mano": "L" } },
+  { "cmd": "escenario", "args": { "id": "muro" } },
+  { "cmd": "motionLab", "args": { "clip": "lib:mixamo:walk", "estilo": "cansado", "nombre": "Walk cansado (prueba)", "usar": false } },
+  { "cmd": "camara", "args": { "vista": "persp", "encuadrar": true } },
+  { "cmd": "captura", "args": { "nombre": "prueba_ia.png", "f": 20, "ancho": 960 } },
+  { "cmd": "exportar", "args": { "formato": "three", "animaciones": "actual", "nombre": "tripo_prueba" } },
+  { "cmd": "estado", "args": {} }
+]

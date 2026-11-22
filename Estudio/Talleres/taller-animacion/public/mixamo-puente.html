@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Taller ← Mixamo</title>
+<style>
+  :root { --bg: #15181d; --panel: #1d2128; --line: #2d333d; --txt: #d7dce3; --dim: #8b94a1; --acc: #ff8a4c; --ok: #6fcf8f; --mal: #ff6b6b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 14px; background: var(--bg); color: var(--txt); font: 13px/1.45 system-ui, sans-serif; }
+  h1 { font-size: 14px; letter-spacing: .08em; margin: 0 0 10px; } h1 b { color: var(--acc); }
+  .caja { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin-bottom: 10px; }
+  .fila { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+  label { display: inline-flex; gap: 5px; align-items: center; }
+  button { background: #262b33; color: var(--txt); border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; font-weight: 600; cursor: pointer; }
+  button.acc { background: var(--acc); color: #1a0d05; border-color: var(--acc); }
+  button:disabled { opacity: .45; cursor: default; }
+  select, input[type=number] { background: #11141a; color: var(--txt); border: 1px solid var(--line); border-radius: 4px; padding: 3px 5px; }
+  input[type=number] { width: 70px; }
+  .barra { height: 8px; background: #11141a; border-radius: 4px; overflow: hidden; } .barra i { display: block; height: 100%; width: 0; background: var(--acc); transition: width .3s; }
+  .dim { color: var(--dim); } .ok { color: var(--ok); } .mal { color: var(--mal); }
+  #log { height: 220px; overflow: auto; font: 11px/1.4 ui-monospace, Consolas, monospace; white-space: pre-wrap; }
+  #nums { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<h1>TALLER <b>←</b> MIXAMO</h1>
+<div class="caja">
+  <div id="msg">Esperando a mixamo.com…</div>
+  <div class="barra" style="margin:8px 0"><i id="barra"></i></div>
+  <div id="nums" class="dim"></div>
+</div>
+<div class="caja">
+  <div class="fila">
+    <label><input type="checkbox" id="enElSitio" /> En el sitio (si la animación lo admite)</label>
+  </div>
+  <div class="fila">
+    <label>FPS <select id="fps"><option>30</option><option>60</option><option>24</option></select></label>
+    <label><input type="checkbox" id="conPiel" /> Con piel</label>
+    <label>Máximo en esta tanda <input type="number" id="maximo" min="0" value="0" title="0 = todas" /></label>
+  </div>
+  <div class="fila">
+    <button class="acc" id="bIniciar" disabled>Descargar</button>
+    <button id="bFallos" disabled>Reintentar fallos</button>
+    <button id="bPausar" disabled>Pausar</button>
+  </div>
+  <div class="dim">Se guardan en <code>biblioteca/mixamo</code> y aparecen solas en la librería Mixamo. Puedes cerrar esto y seguir otro día: lo ya descargado no se repite.</div>
+</div>
+<div class="caja"><div id="log" class="dim"></div></div>
+
+<script>
+(() => {
+  const MIXAMO = ['https://www.mixamo.com', 'https://mixamo.com'];
+  const $ = (id) => document.getElementById(id);
+  const mx = window.opener;
+  let origenMx = null;
+  let corriendo = false;
+
+  // Preferencias de esta ventana
+  const PREF = 'taller-mixamo-opciones';
+  try {
+    const p = JSON.parse(localStorage.getItem(PREF) || '{}');
+    for (const k of ['enElSitio', 'conPiel']) if (k in p) $(k).checked = !!p[k];
+    if (p.fps) $('fps').value = p.fps;
+  } catch {}
+  const opciones = (extra) => {
+    const o = { enElSitio: $('enElSitio').checked, conPiel: $('conPiel').checked, fps: +$('fps').value, maximo: +$('maximo').value || 0, ...extra };
+    try { localStorage.setItem(PREF, JSON.stringify({ enElSitio: o.enElSitio, conPiel: o.conPiel, fps: o.fps })); } catch {}
+    return o;
+  };
+
+  function log(t, nivel) {
+    const d = document.createElement('div');
+    d.className = nivel === 'error' ? 'mal' : nivel === 'warn' ? '' : t.startsWith('✓') ? 'ok' : '';
+    d.textContent = `${new Date().toLocaleTimeString()}  ${t}`;
+    $('log').append(d);
+    while ($('log').childNodes.length > 400) $('log').firstChild.remove();
+    $('log').scrollTop = 1e9;
+  }
+  function pintar(e) {
+    corriendo = !!e.corriendo;
+    $('msg').textContent = e.mensaje || ({ listo: 'Listo para descargar.', terminado: 'Terminado.', pausado: 'En pausa.' }[e.fase] || e.fase);
+    $('msg').className = e.fase === 'error' ? 'mal' : '';
+    $('barra').style.width = e.total ? `${(100 * e.hechas) / e.total}%` : '0';
+    $('nums').textContent = e.total ? `${e.hechas} de ${e.total} en el Taller · ${e.nuevas} nuevas en esta tanda · ${e.fallos.length} con error` : '';
+    $('bIniciar').disabled = $('bFallos').disabled = corriendo || !origenMx;
+    $('bPausar').disabled = !corriendo;
+    document.title = corriendo && e.total ? `${Math.round((100 * e.hechas) / e.total)} % · Taller ← Mixamo` : 'Taller ← Mixamo';
+  }
+  const enviar = (msg) => mx && origenMx && mx.postMessage(msg, origenMx);
+
+  // Botones: se desactivan en el acto para que un doble clic no lance dos tandas.
+  $('bIniciar').onclick = () => { $('bIniciar').disabled = $('bFallos').disabled = true; enviar({ tipo: 'orden', orden: 'iniciar', opciones: opciones() }); };
+  $('bFallos').onclick = () => { $('bIniciar').disabled = $('bFallos').disabled = true; enviar({ tipo: 'orden', orden: 'iniciar', opciones: opciones({ soloFallos: true }) }); };
+  $('bPausar').onclick = () => { $('bPausar').disabled = true; enviar({ tipo: 'orden', orden: 'pausar' }); };
+
+  addEventListener('message', async (ev) => {
+    if (!MIXAMO.includes(ev.origin) || ev.source !== mx) return; // solo la pestaña de Mixamo que nos abrió
+    origenMx = ev.origin;
+    const d = ev.data || {};
+    if (d.tipo === 'estado') pintar(d.estado);
+    else if (d.tipo === 'log') log(d.texto, d.nivel);
+    else if (d.tipo === 'pedir') {
+      const accion = String(d.accion || '');
+      if (!/^(estado|sesion|soltar|reservar|guardar|fallo)$/.test(accion)) return;
+      let r, data, ok = false, status = 0;
+      try {
+        r = await fetch(`/api/mixamo/${accion}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d.cuerpo || {}) });
+        status = r.status;
+        data = await r.json().catch(() => ({ error: `respuesta no válida (${r.status})` }));
+        ok = r.ok;
+      } catch (e) {
+        data = { error: `El servidor del Taller no responde: ${e.message}` };
+      }
+      ev.source.postMessage({ tipo: 'resp', id: d.id, ok, status, data }, ev.origin);
+    }
+  });
+
+  if (!mx) {
+    $('msg').innerHTML = 'Abre esta ventana desde mixamo.com con el marcador <b>Taller ← Mixamo</b> (está en la librería Mixamo del Taller).';
+    return;
+  }
+  // Enviar el descargador a la pestaña de Mixamo (solo tiene efecto si es mixamo.com).
+  fetch('/mixamo-descargador.js', { cache: 'no-store' })
+    .then((r) => r.text())
+    .then((codigo) => { for (const o of MIXAMO) try { mx.postMessage({ tipo: 'codigo', codigo }, o); } catch {} })
+    .catch((e) => log(`No pude leer el descargador: ${e.message}`, 'error'));
+  fetch('/api/mixamo/estado').then((r) => r.json()).then((e) => log(`En el Taller ya hay ${e.nHechos} animaciones de Mixamo descargadas con esta herramienta.`)).catch(() => {});
+  setInterval(() => { if (mx.closed) { $('msg').textContent = 'La pestaña de Mixamo se cerró. El progreso está guardado.'; $('bIniciar').disabled = $('bFallos').disabled = $('bPausar').disabled = true; } }, 2000);
+})();
+</script>
+</body>
+</html>

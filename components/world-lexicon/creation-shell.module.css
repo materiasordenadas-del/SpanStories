@@ -1,0 +1,110 @@
+/* Barra común: Generador de mundos › Editor de escenarios › Estudio › Talleres. */
+.shell{--bar-bg:#0c1520;--line:#1f2d3c;--ink:#e6eef6;--muted:#93a7ba;--accent:#4c9bff;--pill:#15212e;--pill-hover:#1c2b3b;
+  color:var(--ink);font:13px/1.35 Inter,"Segoe UI",system-ui,sans-serif;color-scheme:dark}
+
+.bar{position:fixed;inset:0 0 auto;z-index:90;height:var(--shell-bar);box-sizing:border-box;display:flex;align-items:center;gap:14px;padding:0 14px;
+  background:linear-gradient(180deg,#111d2a,var(--bar-bg));border-bottom:1px solid var(--line);box-shadow:0 1px 0 #ffffff08 inset,0 6px 18px #0006;white-space:nowrap}
+.bar svg{width:17px;height:17px;flex:none}
+
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;padding-right:14px;border-right:1px solid var(--line);height:30px}
+.brand strong{font-size:16px;letter-spacing:-.3px;font-weight:650}
+.logo{display:grid;place-items:center;width:28px;height:30px;color:#fff;background:linear-gradient(135deg,#62b4ff,#1d65d6);clip-path:polygon(50% 0,97% 24%,97% 77%,50% 100%,3% 77%,3% 24%)}
+.logo svg{width:17px;height:17px}
+
+/* El recorrido de creación, de izquierda a derecha. */
+.flow{display:flex;align-items:center;gap:4px;flex:none}
+.arrow{color:#4a5f74;font-size:18px;line-height:1;padding:0 1px;user-select:none}
+.step{position:relative;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 13px;border:1px solid transparent;border-radius:8px;
+  background:transparent;color:var(--muted);font:inherit;font-weight:500;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.step:hover{background:var(--pill-hover);color:var(--ink)}
+.step:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.step[aria-current=page]{background:#16304d;border-color:#2c5a8c;color:#fff;box-shadow:inset 0 0 0 1px #ffffff0a}
+.step[aria-current=page]::after{content:"";position:absolute;left:12px;right:12px;bottom:-9px;height:2px;border-radius:2px;background:var(--accent)}
+.step[aria-current=page] svg{color:#8cc2ff}
+.short{display:none}
+
+.group{display:flex;align-items:center;gap:2px;padding:2px 3px 2px 10px;border:1px solid var(--line);border-radius:10px;background:#0f1a25}
+.groupLabel{color:#6f859a;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+.group .step{height:32px;padding:0 10px}
+.group .step[aria-current=page]::after{bottom:-7px}
+
+/* Acciones del espacio activo (las del Estudio llegan aquí). */
+.context{flex:1;min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.actions{display:flex;align-items:center;gap:6px}
+.actionsWrap{display:flex;min-width:0}
+.actionsWrap[hidden],.actionsToggle{display:none}
+.actions[hidden]{display:none}
+.tool{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 11px;border:1px solid var(--line);border-radius:7px;background:var(--pill);
+  color:var(--ink);font:inherit;font-size:12px;text-decoration:none;cursor:pointer}
+.tool:hover{background:var(--pill-hover);border-color:#34495f}
+.tool svg{width:15px;height:15px;color:#9fc6ef}
+
+.place{display:flex;align-items:center;gap:6px}
+.place label{display:flex;align-items:center;gap:0;height:32px;border:1px solid var(--line);border-radius:7px;background:var(--pill);overflow:hidden}
+.place label>span{padding:0 9px;height:100%;display:grid;place-items:center;color:var(--muted);font-size:11px;background:#111c28;border-right:1px solid var(--line)}
+.place select{height:32px;max-width:240px;border:1px solid var(--line);border-radius:7px;background:var(--pill);color:var(--ink);font:inherit;font-size:12px;padding:0 8px;cursor:pointer}
+.place label select{border:0;border-radius:0;background:transparent}
+.place small{color:#f0b46a;font-size:11px}
+
+.notice{position:fixed;top:calc(var(--shell-bar) + 10px);left:50%;transform:translateX(-50%);z-index:95;margin:0;padding:8px 14px;border-radius:8px;
+  background:#173a2a;border:1px solid #2f7a52;color:#dcf7e8;font-size:12px;box-shadow:0 8px 24px #0007;pointer-events:none}
+
+/* Debajo de la barra: el espacio activo ocupa el resto de la ventana. Sin posicionar (ni crear capa):
+   el motor compartido (z-index 0) debe seguir viéndose a través de los huecos transparentes. */
+.content{box-sizing:border-box;height:100dvh;padding-top:var(--shell-bar)}
+.fill{height:100%!important}
+.generator{display:block;width:100%;height:100%;border:0;background:#0b121b}
+
+@media(max-width:1500px){.flow .long{display:none}.flow .short{display:inline}.groupLabel{display:none}.group{padding-left:3px}}
+@media(max-width:1150px){.brand strong{display:none}.brand{padding-right:8px}.tool span{display:none}.tool{padding:0 8px}.step{padding:0 9px}}
+@media(max-width:860px){.flow .step:not([aria-current=page]) .short{display:none}.step{padding:0 8px}.arrow{display:none}}
+/* Ventanas estrechas: primero se acortan textos; con poco sitio, los pasos no activos quedan solo con su icono
+   (siguen visibles y con su nombre al pasar el ratón). Nunca se tapan entre sí. */
+@media(max-width:1350px){.actions button>svg+span{display:none}}
+@media(max-width:1100px){.flow .step:not([aria-current=page]) .short{display:none}.flow .step:not([aria-current=page]){padding:0 9px}.arrow{padding:0}.bar{gap:8px;padding:0 8px}}
+/* Escenario de servicio (prototipo HTML) a pantalla completa sobre el motor, solo en el Editor. */
+.service{position:fixed;left:0;right:0;bottom:0;top:var(--shell-bar);z-index:5;display:flex;flex-direction:column;background:#0b121b}
+.service iframe{flex:1;width:100%;border:0;background:#0b121b}
+.serviceNote{margin:0;padding:6px 12px;font-size:12px;color:#eef4f7;background:#173349;border-bottom:1px solid #3d5a70}
+.serviceNote a{color:#efd29a;margin-left:6px}
+
+/* Estudio · estilo claro (propuesta v1): la barra común se viste en claro mientras se trabaja en el Estudio.
+   Los mismos pasos y acciones; solo cambia el aspecto. */
+.shell[data-mode=estudio]{--bar-bg:#fff;--line:#e7e7e3;--ink:#111110;--muted:#4f4f4a;--accent:#111110;--pill:#fff;--pill-hover:#efefec;color-scheme:light}
+.shell[data-mode=estudio] .bar{background:#fff;border-bottom:1px solid #e7e7e3;box-shadow:none;height:var(--shell-bar)}
+.shell[data-mode=estudio] .logo{background:#111110}
+.shell[data-mode=estudio] .brand strong{font-weight:600;font-size:16px;letter-spacing:-.2px}
+.shell[data-mode=estudio] .arrow{color:#bdbdb6}
+.shell[data-mode=estudio] .flow{gap:2px}
+.shell[data-mode=estudio] .step{height:30px;padding:0 12px;border:0;color:#4f4f4a}
+.shell[data-mode=estudio] .step:hover{background:#efefec;color:#111110}
+.shell[data-mode=estudio] .step:focus-visible{outline-color:#111110}
+.shell[data-mode=estudio] .step[aria-current=page]{background:#fff;color:#111110;box-shadow:0 0 0 1px #e7e7e3,0 1px 2px rgba(0,0,0,.06)}
+.shell[data-mode=estudio] .step[aria-current=page]::after{display:none}
+.shell[data-mode=estudio] .step[aria-current=page] svg{color:#111110}
+.shell[data-mode=estudio] .group{padding:3px 3px 3px 10px;border:0;border-radius:10px;background:#f3f3f1}
+.shell[data-mode=estudio] .groupLabel{color:#686862}
+.shell[data-mode=estudio] .notice{background:#e2f4e8;border-color:#a3d6b4;color:#17603a;box-shadow:0 8px 24px rgba(0,0,0,.1)}
+@media(max-width:1500px){.shell[data-mode=estudio] .step{padding:0 9px}.shell[data-mode=estudio] .bar{gap:10px}}
+@media(max-width:1350px){.shell[data-mode=estudio] .step{padding:0 7px}.shell[data-mode=estudio] .brand{padding-right:8px}}
+
+/* Cuando la barra no tiene sitio, las acciones de la historia se abren debajo de ella. */
+@media(max-width:1600px){
+  .shell[data-mode=estudio] .context{flex:1 0 auto}
+  .actionsToggle{display:inline-flex;align-items:center;min-height:34px;padding:0 10px;border:1px solid var(--line);
+    border-radius:8px;background:var(--pill);color:var(--ink);font:inherit;cursor:pointer}
+  .actions{display:none;position:absolute;top:calc(100% + 6px);right:8px;box-sizing:border-box;
+    max-width:calc(100vw - 16px);padding:8px;background:var(--bar-bg);border:1px solid var(--line);
+    border-radius:10px;box-shadow:0 6px 18px #0002}
+  .actionsWrap[data-open=true] .actions{display:flex}
+  .actions>*{flex-wrap:wrap;justify-content:flex-end}
+  .actions button>svg+span{display:inline}
+}
+@media(max-width:1100px){
+  .shell[data-mode=estudio] .step:is([data-space=estudio],[data-space=body],[data-space=face]) .short{display:inline}
+}
+@media(max-width:480px){
+  .shell[data-mode=estudio] .flow{min-width:0;flex:1;overflow-x:auto;scrollbar-width:none}
+  .shell[data-mode=estudio] .step{flex:none}
+  .shell[data-mode=estudio] .context{flex:0 0 auto}
+}

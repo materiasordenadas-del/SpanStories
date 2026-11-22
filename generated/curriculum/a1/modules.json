@@ -1,0 +1,93 @@
+[
+  {
+    "id": "M01",
+    "order": 1,
+    "name": "Contacto y supervivencia comunicativa",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M01-I05-S4",
+    "declaredStoryCount": 4,
+    "islandIds": [
+      "A1-M01-I05"
+    ]
+  },
+  {
+    "id": "M02",
+    "order": 2,
+    "name": "Personas y entorno cercano",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M02-I06-S2",
+    "declaredStoryCount": 5,
+    "islandIds": [
+      "A1-M02-I05",
+      "A1-M02-I06"
+    ]
+  },
+  {
+    "id": "M03",
+    "order": 3,
+    "name": "Tiempo, rutina, estudio y trabajo",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M03-I06-S2",
+    "declaredStoryCount": 5,
+    "islandIds": [
+      "A1-M03-I05",
+      "A1-M03-I06"
+    ]
+  },
+  {
+    "id": "M04",
+    "order": 4,
+    "name": "Ciudad, servicios y desplazamientos",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M04-I05-S4",
+    "declaredStoryCount": 4,
+    "islandIds": [
+      "A1-M04-I05"
+    ]
+  },
+  {
+    "id": "M05",
+    "order": 5,
+    "name": "Comer, comprar y pedir",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M05-I05-S3",
+    "declaredStoryCount": 3,
+    "islandIds": [
+      "A1-M05-I05"
+    ]
+  },
+  {
+    "id": "M06",
+    "order": 6,
+    "name": "Ocio, gustos y vida social",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M06-I05-S3",
+    "declaredStoryCount": 3,
+    "islandIds": [
+      "A1-M06-I05"
+    ]
+  },
+  {
+    "id": "M07",
+    "order": 7,
+    "name": "Viajes, alojamiento, clima y planes",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M07-I05-S3",
+    "declaredStoryCount": 3,
+    "islandIds": [
+      "A1-M07-I05"
+    ]
+  },
+  {
+    "id": "M08",
+    "order": 8,
+    "name": "Opinión, información e integración A1",
+    "moduleGate": "coverage + transfer checkpoint; no universal pass percentage",
+    "checkpointStoryId": "A1-M08-I06-S3",
+    "declaredStoryCount": 5,
+    "islandIds": [
+      "A1-M08-I05",
+      "A1-M08-I06"
+    ]
+  }
+]
