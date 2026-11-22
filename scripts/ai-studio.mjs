@@ -56,7 +56,7 @@ const server=http.createServer((req,res)=>{
    return staticFile(req,res,path.join(root,'SpanStories-Ciudades'),decodeURIComponent(rel),origin);
   }catch{res.writeHead(400);return res.end('Modelo fuera de la biblioteca');}
  }
- if(url.pathname==='/'){res.writeHead(302,{Location:'/escenarios?modo=editor&zone=colina-don-quijote'});return res.end();}
+ if(url.pathname==='/'){res.writeHead(302,{Location:'/escenarios?modo=estudio'});return res.end();}
  if(url.searchParams.get('modo')==='generador'){url.searchParams.set('modo','editor');res.writeHead(302,{Location:url.pathname+url.search});return res.end();}
  if(url.pathname.startsWith('/motor/')){
    const rel=decodeURIComponent(url.pathname.slice('/motor'.length));

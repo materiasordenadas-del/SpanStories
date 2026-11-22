@@ -4,9 +4,9 @@ Editor, Estudio y talleres corporal/facial con la misma interfaz. Sin Generador 
 
 ## Abrir
 
-Importa la rama `codex/ai-studio-ligero` en Google AI Studio (Build → Add files → Import from GitHub). Ejecuta `npm ci` y `npm run dev`. El postinstall instala el taller. Node >=20.9. No necesita Python ni claves de Gemini para abrir el editor.
+Importa la rama `main` en Google AI Studio (Build → Add files → Import from GitHub). Ejecuta `npm ci` y `npm run dev`. El postinstall instala el taller. Node >=20.9. No necesita Python ni claves de Gemini para abrir el Estudio.
 
-La vista previa en `/` abre `/escenarios?modo=editor&zone=colina-don-quijote`. Entrada única en `0.0.0.0:3000` (o `PORT`). Motor y talleres usan rutas del mismo origen, aptas para HTTPS. Next y Vite se ejecutan internamente. El Generador no se instala ni se arranca; solo se conserva el código de render compartido necesario para el motor, en `shared-styles`.
+La vista previa en `/` abre primero el Estudio en `/escenarios?modo=estudio`, con su inicio de historias. El escenario se carga al abrir una historia. Entrada única en `0.0.0.0:3000` (o `PORT`). Motor y talleres usan rutas del mismo origen, aptas para HTTPS. Next y Vite se ejecutan internamente. El Generador no se instala ni se arranca; solo se conserva el código de render compartido necesario para el motor, en `shared-styles`.
 
 Desde el Estudio se eligen ambos personajes y se abren los talleres. Modelos guardados una sola vez en `SpanStories-Ciudades/assets/avatar`. Bibliotecas importadas vacías; herramientas y animaciones por código incluidas. Herramientas opcionales que requieren Blender u otros programas externos no vienen instaladas.
 
