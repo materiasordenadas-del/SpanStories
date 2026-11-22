@@ -41,7 +41,7 @@ function staticFile(req,res,base,relative,origin){
   res.writeHead(match?206:200,{'Content-Type':type,'Content-Length':end-start+1,'Accept-Ranges':'bytes',...(match?{'Content-Range':`bytes ${start}-${end}/${size}`}:{})});
   if(req.method==='HEAD')return res.end();fs.createReadStream(file,{start,end}).pipe(res);
 }
-const workshopRoot=/^\/(?:@vite|@id|@fs|src\/|node_modules\/|ecosystem\/|facial\/|bib\/|api\/(?:biblioteca|subir|guardar|fbx|leer|mixamo|ia|kimodo|respaldo-navegador)(?:\/|$))/;
+const workshopRoot=/^\/(?:@vite|@id|@fs|src\/|node_modules\/|ecosystem\/|facial\/|bib\/|comportamientos\/|api\/(?:biblioteca|subir|guardar|fbx|leer|mixamo|ia|kimodo|respaldo-navegador)(?:\/|$))/;
 const server=http.createServer((req,res)=>{
  const origin=originOf(req),url=new URL(req.url,origin);
  if(url.pathname.startsWith('/vida-personaje/'))return staticFile(req,res,path.join(workshop,'facial'),decodeURIComponent(url.pathname.slice('/vida-personaje'.length)),origin);
@@ -49,7 +49,8 @@ const server=http.createServer((req,res)=>{
  if(!['GET','HEAD','OPTIONS'].includes(req.method)&&req.headers.origin&&req.headers.origin!==origin){res.writeHead(403);return res.end('Origen no permitido');}
  if(['/ecosystem/model','/taller/ecosystem/model'].includes(url.pathname)){
   try{const model=new URL(url.searchParams.get('url'));let rel=model.pathname;
-   if(model.origin===origin&&rel.startsWith('/motor/'))rel=rel.slice('/motor'.length);
+   if(model.origin===origin&&/^\/taller\/ecosystem\/characters\/(don-quijote|rocinante)\.glb$/.test(rel))rel='/assets/avatar/'+path.basename(rel);
+   else if(model.origin===origin&&rel.startsWith('/motor/'))rel=rel.slice('/motor'.length);
    else if(!['http://127.0.0.1:8877','http://localhost:8877'].includes(model.origin))throw Error();
    if(model.username||model.password||!rel.endsWith('.glb'))throw Error();
    return staticFile(req,res,path.join(root,'SpanStories-Ciudades'),decodeURIComponent(rel),origin);

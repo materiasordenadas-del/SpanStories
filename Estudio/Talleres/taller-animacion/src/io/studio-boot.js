@@ -4,7 +4,7 @@
 import { setSharedViewport } from './shared-viewport.js';
 
 const CHANNEL = 'spanstories.workshop';
-const allowedHosts = new Set(['http://localhost:3000', 'http://127.0.0.1:3000']);
+const allowedHosts = new Set([location.origin]);
 const params = new URLSearchParams(location.search);
 const session = params.get('studioSession');
 const hostOrigin = params.get('studioOrigin');

@@ -12,7 +12,7 @@ import {EngineStage} from './EngineStage';
 import {CreationShell} from './CreationShell';
 import {HistoriaInicio,type HistoriaAbierta} from './HistoriaInicio';
 
-const VIEWER_URL = process.env.NODE_ENV==='development' ? "http://127.0.0.1:8877/" : (process.env.NEXT_PUBLIC_WORLD_VIEWER_URL ?? "http://127.0.0.1:8877/");
+const VIEWER_URL = typeof window==='undefined' ? "http://127.0.0.1:8877/" : window.location.origin+"/motor/";
 
 /**
  * Visor de escenarios (estudiante): página propia y ligera.
