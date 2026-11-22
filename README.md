@@ -4,7 +4,7 @@ Editor, Estudio y talleres corporal/facial con la misma interfaz. Sin Generador 
 
 ## Abrir
 
-Importa la rama `main` en Google AI Studio (Build → Add files → Import from GitHub). Ejecuta `npm ci` y `npm run dev`. El postinstall instala el taller. Node >=20.9. No necesita Python ni claves de Gemini para abrir el Estudio.
+Importa la raíz de la rama `main` en Google AI Studio (Build → Add files → Import from GitHub). La raíz contiene `package.json` y `server.js`. Ejecuta `bun install` y `bun run dev`, o `npm ci` y `npm run dev`. Toda dependencia del Estudio y los talleres se instala desde la raíz, sin postinstall ni instalaciones anidadas. Node >=20.19 (con Node 22, >=22.12). No necesita Python ni claves de Gemini para abrir el Estudio.
 
 La vista previa en `/` abre primero el Estudio en `/escenarios?modo=estudio`, con su inicio de historias. El escenario se carga al abrir una historia. Entrada única en `0.0.0.0:3000` (o `PORT`). Motor y talleres usan rutas del mismo origen, aptas para HTTPS. Next y Vite se ejecutan internamente. El Generador no se instala ni se arranca; solo se conserva el código de render compartido necesario para el motor, en `shared-styles`.
 

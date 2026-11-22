@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
-    "dev": "node scripts/ai-studio.mjs",
-    "dev:visor": "node scripts/ai-studio.mjs",
+    "dev": "node server.js",
+    "dev:visor": "node server.js",
     "worlds:serve": "python scripts/worlds/serve.py",
     "worlds:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/worlds/check.ts",
     "worlds:test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/worlds/__tests__/*.test.ts",
     "build": "next build",
     "build:studio-check": "node scripts/story-studio/build-check.mjs",
-    "start": "node scripts/ai-studio.mjs",
+    "start": "node server.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:rules": "npx -y firebase-tools@latest emulators:exec --only firestore --project spanstories-test \"node --test tests/firestore.rules.test.mjs\"",
@@ -24,8 +24,7 @@
     "lexical-media:find-candidates": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/lexical-media/find-candidates.ts",
     "db:setup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db/migrate-and-seed.ts",
     "db:test:server": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test features/persistence/__tests__/server-parity.test.ts",
-    "sync:proyecto": "node scripts/sync-proyecto.mjs",
-    "postinstall": "npm --prefix Estudio/Talleres/taller-animacion ci"
+    "sync:proyecto": "node scripts/sync-proyecto.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -35,7 +34,9 @@
     "next": "16.2.11",
     "pg": "^8.23.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "three": "0.180.0",
+    "vite": "7.3.7"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^5.0.2",

@@ -4,10 +4,10 @@ import path from 'node:path';
 import {spawn} from 'node:child_process';
 import {createRequire} from 'node:module';
 import net from 'node:net';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL,fileURLToPath} from 'node:url';
 import {Transform} from 'node:stream';
 import {StringDecoder} from 'node:string_decoder';
-const root=process.cwd(), require=createRequire(path.join(root,'package.json'));
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'), require=createRequire(path.join(root,'package.json'));
 const port=Number(process.env.PORT||3000), nextPort=Number(process.env.AI_NEXT_PORT||3100), workshopPort=Number(process.env.AI_WORKSHOP_PORT||5189);
 const children=[];
 const {mergeStyleState}=await import(pathToFileURL(path.join(root,'shared-styles/style-pool.js')).href);
@@ -22,10 +22,11 @@ async function styles(req,res){
   res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(styleState));
  }catch{res.writeHead(400);res.end('Ajustes inválidos');}
 }
-function launch(args,cwd=root){const child=spawn(process.execPath,args,{cwd,stdio:'inherit',env:{...process.env,NODE_ENV:'development',SPANSTORIES_NO_DEV_DISK_CACHE:'1'},windowsHide:true});children.push(child);child.on('exit',code=>{if(code)console.error('Subproceso terminado:',code);});return child;}
+function launch(args,cwd=root){const child=spawn(process.execPath,args,{cwd,stdio:'inherit',env:{...process.env,NODE_ENV:'development',SPANSTORIES_NO_DEV_DISK_CACHE:'1'},windowsHide:true});children.push(child);child.on('error',error=>{console.error('[SpanStories] Error al iniciar un servicio:',error);stop(1);});child.on('exit',code=>{if(code){console.error('[SpanStories] Un servicio terminó con código',code);stop(1);}});return child;}
 launch([require.resolve('next/dist/bin/next'),'dev','--hostname','127.0.0.1','--port',String(nextPort)]);
 const workshop=path.join(root,'Estudio/Talleres/taller-animacion');
-launch([path.join(workshop,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port',String(workshopPort),'--strictPort'],workshop);
+const viteBin=path.join(path.dirname(require.resolve('vite/package.json')),'bin/vite.js');
+launch([viteBin,'--host','127.0.0.1','--port',String(workshopPort),'--strictPort'],workshop);
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.glb':'model/gltf-binary','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml'};
 function originOf(req){const proto=String(req.headers['x-forwarded-proto']||'http').split(',')[0].trim();const host=String(req.headers['x-forwarded-host']||req.headers.host).split(',')[0].trim();return `${proto==='https'?'https':'http'}://${host}`;}
 function transform(text,origin){return text.replace(/http:\/\/(?:127\.0\.0\.1|localhost):8877/g,origin+'/motor').replace(/http:\/\/(?:127\.0\.0\.1|localhost):5189/g,origin+'/taller').replace(/http:\/\/(?:127\.0\.0\.1|localhost):3000/g,origin);}
@@ -94,5 +95,6 @@ server.on('upgrade',(req,socket,head)=>{
  });upstream.on('error',()=>socket.destroy());socket.on('error',()=>upstream.destroy());
 });
 server.listen(port,'0.0.0.0',()=>console.log(`SpanStories ligero: puerto ${port}. Editor, Estudio y talleres; sin Generador.`));
-function stop(){for(const child of children)child.kill();server.close(()=>process.exit());}
-process.on('SIGINT',stop);process.on('SIGTERM',stop);
+let stopping=false;
+function stop(code=0){if(stopping)return;stopping=true;for(const child of children)child.kill();server.close(()=>process.exit(code));}
+process.on('SIGINT',()=>stop());process.on('SIGTERM',()=>stop());

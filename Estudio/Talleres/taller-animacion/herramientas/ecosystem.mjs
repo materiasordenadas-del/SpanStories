@@ -3,9 +3,11 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { get } from 'node:http';
 import { pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
 
 const localOrigins = new Set(['http://localhost:3000','http://127.0.0.1:3000','http://127.0.0.1:8877','http://localhost:8877']);
 export function ecosystemMiddleware(root) {
+  const threeRoot=path.dirname(path.dirname(createRequire(path.join(root,'package.json')).resolve('three')));
   const facial = path.resolve(root, 'facial');
   const library = path.join(root, 'biblioteca/comportamientos');
   // Revisiones anteriores de una actuación reemplazada en su sitio: inmutables (`<id>.r<N>.json`). Fuera del regex de
@@ -124,7 +126,7 @@ export function ecosystemMiddleware(root) {
         const name=url.pathname.slice('/ecosystem/vendor/'.length);
         if(!['loaders/FBXLoader.js','libs/fflate.module.js','curves/NURBSCurve.js','curves/NURBSUtils.js'].includes(name))return reply(res,{error:'Módulo de terceros desconocido'},404);
         res.setHeader('Content-Type','application/javascript; charset=utf-8');
-        const fuente=fs.readFileSync(path.join(root,'node_modules/three/examples/jsm',name),'utf8');
+        const fuente=fs.readFileSync(path.join(threeRoot,'examples/jsm',name),'utf8');
         // Los FBX de «Conversations Michael 8» (Daz) traen curvas de animación sin padre de modelo y el FBXLoader original se cae
         // al leerlas (`[0].ID` de undefined). Con `?.` esas curvas sueltas se ignoran (ya hay un aviso «unused curve») y las de los huesos se leen igual.
         return res.end(name==='loaders/FBXLoader.js'?fuente.replaceAll(')[ 0 ].ID;',')[ 0 ]?.ID;'):fuente);
